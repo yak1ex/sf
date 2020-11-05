@@ -1,8 +1,14 @@
+*.aux
 *.d
 *.glob
 *.ml
 *.mli
+*.rej
 *.toc
 *.vo
-src/all.pdf
-src/html
+*.vos
+*.vok
+.lia.cache
+Makefile.conf
+Makefile.coq
+Makefile.coq.conf
