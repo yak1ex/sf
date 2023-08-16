@@ -5,7 +5,7 @@ Require Import VST.floyd.VSU.
 Require Import VC.stdlib.
 Require Import VC.Spec_stdlib.
 
-Instance CompSpecs : compspecs. make_compspecs prog. Defined.
+#[export] Instance CompSpecs : compspecs. make_compspecs prog. Defined.
 
 (** The VSU for external axiomatized functions is much like any
  other VSU, except that we use [Axiom]s instead of [Definition]s
@@ -130,4 +130,4 @@ Qed.
 (* ================================================================= *)
 (** ** Next Chapter: [VSU_main] *)
 
-(* 2021-08-11 15:21 *)
+(* 2023-03-23 21:13 *)
