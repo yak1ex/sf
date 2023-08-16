@@ -1295,7 +1295,7 @@ End PreservationProgressReferences.
 
 From PLF Require Sub.
 Module SubtypingInversion.
-Import Sub.
+Import Sub.STLCSub.
 
 (** Consider the inversion lemma for typing judgment
     of abstractions in a type system with subtyping. *)
@@ -1938,4 +1938,4 @@ Proof. congruence. Qed.
     some investment, however this investment will pay off very quickly.
 *)
 
-(* 2022-08-01 17:50 *)
+(* 2022-08-08 17:31 *)
