@@ -51,9 +51,22 @@ idtac " ".
 idtac "-------------------  cyclic_store  --------------------".
 idtac " ".
 
-idtac "#> Manually graded: STLCRef.cyclic_store".
-idtac "Possible points: 2".
-print_manual_grade STLCRef.manual_grade_for_cyclic_store.
+idtac "#> STLCRef.cyclic_store".
+idtac "Possible points: 3".
+check_type @STLCRef.cyclic_store (
+(exists t : STLCRef.tm,
+   STLCRef.multistep (t, @nil STLCRef.tm)
+     (STLCRef.tm_unit,
+     (STLCRef.tm_abs STLCRef.x STLCRef.Ty_Nat
+        (STLCRef.tm_app (STLCRef.tm_deref (STLCRef.tm_loc 1))
+           (STLCRef.tm_var STLCRef.x))
+      :: STLCRef.tm_abs STLCRef.x STLCRef.Ty_Nat
+           (STLCRef.tm_app (STLCRef.tm_deref (STLCRef.tm_loc 0))
+              (STLCRef.tm_var STLCRef.x)) :: @nil STLCRef.tm)%list))).
+idtac "Assumptions:".
+Abort.
+Print Assumptions STLCRef.cyclic_store.
+Goal True.
 idtac " ".
 
 idtac "-------------------  store_not_unique  --------------------".
@@ -98,12 +111,15 @@ idtac " ".
 
 idtac " ".
 
-idtac "Max points - standard: 17".
-idtac "Max points - advanced: 17".
+idtac "Max points - standard: 18".
+idtac "Max points - advanced: 18".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
 idtac "FunctionalExtensionality.functional_extensionality_dep".
+idtac "CSeq_congruence".
+idtac "fold_constants_bexp_sound".
+idtac "succ_hastype_nat__hastype_nat".
 idtac "".
 idtac "".
 idtac "********** Summary **********".
@@ -121,8 +137,8 @@ idtac "---------- compact_update ---------".
 idtac "MANUAL".
 idtac "---------- type_safety_violation ---------".
 idtac "MANUAL".
-idtac "---------- cyclic_store ---------".
-idtac "MANUAL".
+idtac "---------- STLCRef.cyclic_store ---------".
+Print Assumptions STLCRef.cyclic_store.
 idtac "---------- store_not_unique ---------".
 idtac "MANUAL".
 idtac "---------- preservation_informal ---------".
@@ -135,6 +151,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2021-05-26 09:58 *)
+(* 2022-08-01 17:50 *)
 
-(* 2021-05-26 09:58 *)
+(* 2022-08-01 17:50 *)

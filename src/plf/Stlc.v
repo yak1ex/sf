@@ -17,6 +17,8 @@ From Coq Require Import Strings.String.
 From PLF Require Import Maps.
 From PLF Require Import Smallstep.
 
+Hint Resolve update_eq : core.
+
 (* ################################################################# *)
 (** * Overview *)
 
@@ -124,7 +126,8 @@ From PLF Require Import Smallstep.
 
       T ::= Bool
           | T -> T
-
+*)
+(**
     For example:
 
       - [\x:Bool, false] has type [Bool->Bool]
@@ -206,7 +209,7 @@ Hint Unfold z : core.
     which use type inference to fill in missing annotations.  We're
     not considering type inference here. *)
 
-(** Some examples... *)
+(** Examples... *)
 
 Notation idB :=
   <{\x:Bool, x}>.
@@ -368,9 +371,9 @@ Reserved Notation "'[' x ':=' s ']' t" (in custom stlc at level 20, x constr).
 Fixpoint subst (x : string) (s : tm) (t : tm) : tm :=
   match t with
   | tm_var y =>
-      if eqb_string x y then s else t
+      if String.eqb x y then s else t
   | <{\y:T, t1}> =>
-      if eqb_string x y then t else <{\y:T, [x:=s] t1}>
+      if String.eqb x y then t else <{\y:T, [x:=s] t1}>
   | <{t1 t2}> =>
       <{([x:=s] t1) ([x:=s] t2)}>
   | <{true}> =>
@@ -383,9 +386,9 @@ Fixpoint subst (x : string) (s : tm) (t : tm) : tm :=
 
 where "'[' x ':=' s ']' t" := (subst x s t) (in custom stlc).
 
-(** Note on notations: You might be wondering why we need curly braces
+(** Note on notations: You might be wondering why we need parentheses
     around the substitution notation in the above definition, and why
-    do we need to redefine the substition notation in the [stlc]
+    do we need to redefine the substitution notation in the [stlc]
     custom grammar. The reason is that reserved notations in
     definitions have to be defined in the general Coq grammar (and not
     a custom one like [stlc]). This restriction only applies to the
@@ -398,26 +401,47 @@ Check <{[x:=true] x}>.
 
 (** _Technical note_: Substitution becomes trickier to define if we
     consider the case where [s], the term being substituted for a
-    variable in some other term, may itself contain free variables. 
-    Since we are only interested here in defining the [step] relation
-    on _closed_ terms (i.e., terms like [\x:Bool, x] that include
-    binders for all of the variables they mention), we can sidestep this
-    extra complexity, but it must be dealt with when formalizing
-    richer languages. *)
+    variable in some other term, may itself contain free variables.
+
+    Fortunately, since we are only interested here in defining the
+    [step] relation on _closed_ terms (i.e., terms like [\x:Bool, x]
+    that include binders for all of the variables they mention), we
+    can sidestep this extra complexity, but it must be dealt with when
+    formalizing richer languages. *)
 
 (** For example, using the definition of substitution above to
-    substitute the _open_ term [s = \x:Bool, r], where [r] is a _free_
-    reference to some global resource, for the variable [z] in the
-    term [t = \r:Bool, z], where [r] is a bound variable, we would get
-    [\r:Bool, \x:Bool, r], where the free reference to [r] in [s] has
-    been "captured" by the binder at the beginning of [t].
+    substitute the _open_ term
+
+      s = \x:Bool, r
+
+    where [r] is a _free_ reference to some global resource, for
+    the variable [z] in the term
+
+      t = \r:Bool, z
+
+    where [r] is a bound variable, we would get
+
+      \r:Bool, \x:Bool, r
+[]
+    where the free reference to [r] in [s] has been "captured" by
+    the binder at the beginning of [t].
 
     Why would this be bad?  Because it violates the principle that the
     names of bound variables do not matter.  For example, if we rename
-    the bound variable in [t], e.g., let [t' = \w:Bool, z], then
-    [[x:=s]t'] is [\w:Bool, \x:Bool, r], which does not behave the
-    same as [[x:=s]t = \r:Bool, \x:Bool, r].  That is, renaming a
-    bound variable changes how [t] behaves under substitution. *)
+    the bound variable in [t], e.g., let
+
+      t' = \w:Bool, z
+
+    then [[x:=s]t'] is
+
+      \w:Bool, \x:Bool, r
+
+    which does not behave the same as this:
+
+      [x:=s]t = \r:Bool, \x:Bool, r
+
+    That is, renaming a bound variable in [t] changes how [t] behaves
+    under substitution. *)
 
 (** See, for example, [Aydemir 2008] (in Bib.v) for further discussion
     of this issue. *)
@@ -735,8 +759,7 @@ Hint Constructors has_type : core.
 
 Example typing_example_1 :
   empty |- \x:Bool, x \in (Bool -> Bool).
-Proof.
-  apply T_Abs. apply T_Var. reflexivity.  Qed.
+Proof. eauto. Qed.
 
 (** Note that, since we added the [has_type] constructors to the hints
     database, [auto] can actually solve this one immediately. *)
@@ -757,13 +780,7 @@ Example typing_example_2 :
        \y:Bool->Bool,
           (y (y x)) \in
     (Bool -> (Bool -> Bool) -> Bool).
-Proof.
-  apply T_Abs.
-  apply T_Abs.
-  eapply T_App. apply T_Var. apply update_eq.
-  eapply T_App. apply T_Var. apply update_eq.
-  apply T_Var. apply update_neq. intros Contra. discriminate.
-Qed.
+Proof. eauto 20. Qed.
 
 (** **** Exercise: 2 stars, standard, optional (typing_example_2_full)
 
@@ -846,4 +863,4 @@ Proof.
 
 End STLC.
 
-(* 2021-05-26 09:57 *)
+(* 2022-08-01 17:50 *)
