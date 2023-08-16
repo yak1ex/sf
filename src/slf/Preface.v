@@ -270,6 +270,28 @@
 (** * Practicalities *)
 
 (* ================================================================= *)
+(** ** System Requirements *)
+
+(** The [Preface] of Software Foundations Volume 1 (_Logical
+    Foundations_) describes how to install Coq. The files you are
+    reading have been tested with Coq version 8.13. *)
+
+(** If you use Coq version 8.12, you will first need to patch the sources by
+    executing the following command:
+
+   sed 's/name,/ident,/g' -i LibSepReference.v
+*)
+
+(* ================================================================= *)
+(** ** Note for CoqIDE Users *)
+
+(** CoqIDE typically works better with its _asynchronous_ proof mode disabled.
+    To load all the course files in CoqIDE, use the following command line.
+
+   coqide -async-proofs off -async-proofs-command-error-resilience off Basic.v &
+*)
+
+(* ================================================================= *)
 (** ** Feedback Welcome *)
 
 (** If you intend to use this course either in class of for self-study,
@@ -300,36 +322,21 @@
     volume, please contact the author. *)
 
 (* ================================================================= *)
-(** ** System Requirements *)
-
-(** The [Preface] of Software Foundations Volume 1 (_Logical
-    Foundations_) describes how to install Coq. The files you are
-    reading have been tested with Coq 8.12 or later. *)
-
-(* ================================================================= *)
-(** ** Note for CoqIDE Users *)
-
-(** CoqIDE typically works better with its _asynchronous_ proof mode disabled.
-    To load all the course files in CoqIDE, use the following command line.
-
-coqide -async-proofs off -async-proofs-command-error-resilience off -Q . SLF Basic.v&
-*)
-
-(* ================================================================= *)
 (** ** Recommended Citation Format *)
 
 (** If you want to refer to this volume in your own writing, please
     do so as follows:
 
-   @book            {Charguéraud:SF6,
-   author       =   {Arthur Charguéraud},
-   title        =   "$VOLUMENAME",
-   series       =   "Software Foundations",
-   volume       =   "6",
-   year         =   "2021",
-   publisher    =   "Electronic textbook",
-   note         =   {Version 1.0, \URLhttp://softwarefoundations.cis.upenn.edu },
-   }
+    @book            {Chargueraud:SF6,
+    author       =   {Arthur Charguéraud},
+    editor       =   {Benjamin C. Pierce},
+    title        =   "Separation Logic Foundations",
+    series       =   "Software Foundations",
+    volume       =   "6",
+    year         =   "2021",
+    publisher    =   "Electronic textbook",
+    note         =   {Version 1.1, \URL{http://softwarefoundations.cis.upenn.edu} },
+    }
 *)
 
 (* ################################################################# *)
@@ -340,4 +347,4 @@ coqide -async-proofs off -async-proofs-command-error-resilience off -Q . SLF Bas
     Foundation under the NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2021-05-26 09:48 *)
+(* 2021-08-11 15:24 *)

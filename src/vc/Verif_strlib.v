@@ -152,7 +152,7 @@ Print cstringn. (* =
  !! (~ In Byte.zero s) &&
  data_at sh (tarray tschar n)
   (map Vbyte (s ++ [Byte.zero]) ++
-   list_repeat (Z.to_nat (n - (Zlength s + 1))) Vundef) p *)
+   Zrepeat Vundef (n - (Zlength s + 1))) p *)
 
 Check (cstringn Tsh Hello' 10 p). (* : mpred *)
 
@@ -224,10 +224,50 @@ Definition strlen_spec :=
     PROP (readable_share sh)
     PARAMS (str)
     SEP (cstring sh s str)
-  POST [ tuint ]
+  POST [ size_t ]
     PROP ()
     RETURN (Vptrofs (Ptrofs.repr (Zlength s)))
     SEP (cstring sh s str).
+
+(* ================================================================= *)
+(** ** A digression about size_t
+
+    Vptrofs?  Ptrofs.repr?  What's that?
+
+  Programmers use [size_t] when writing C programs that are 
+  portable to 64-bit and 32-bit installations; this typedef stands for
+  whatever size of unsigned (long) integer is the same size as a pointer.
+  In Verifiable C, size_t is the corresponding C unsigned type: *)
+Print size_t.
+(*   = if Archi.ptr64 
+         then Tlong Unsigned noattr 
+         else Tint I32 Unsigned noattr
+
+    Then, in the RETURN clause, instead of returning the value
+    [Vlong (Int64.repr (Zlength s))] or  [Vint (Int.repr (Zlength s))],
+   which would not be portable, we use Vptrofs, which stands
+   for either Vlong or Vint, depending: *)
+Print Vptrofs.
+(*  =  fun n : ptrofs =>
+          if Archi.ptr64
+          then Vlong (Ptrofs.to_int64 n)
+          else Vint (Ptrofs.to_int n)
+
+    The unpronounceable "ptrofs" stands for "pointer offset".  
+    It's a CompCert thing.  Don't ask.  
+    The argument of Vptrofs is a [ptrofs], that is [Ptrofs.int].
+    The module Ptrofs is isomorphic to Int64 in a 64-bit configuration,
+    and isomorphic to Int in a 32-bit configuration.  Isomorphic,
+    but not identical; there are lemmas relating them: *)
+Search Ptrofs.int Int64.int.
+Search Ptrofs.int Int.int.
+(**  VST-Floyd has proof automation tactics that try to help you
+      by applying these lemmas where appropriate.  For example,
+      in the proofs in this chapter, you don't have to do much
+      special to deal with the Vptrofs.  *)
+
+(* ----------------------------------------------------------------- *)
+(** *** End of digression about size_t *)
 
 (** [strcpy(dest,src)] copies the string [src] to the array [dest]. *)
 Definition strcpy_spec :=
@@ -375,18 +415,18 @@ Lemma strcpy_then_clause:
   ~ In Byte.zero s ->
     data_at wsh (tarray tschar n)
       (map Vbyte (sublist 0 (Zlength s) s) ++
-       upd_Znth 0 (list_repeat (Z.to_nat (n - Zlength s)) Vundef)
+       upd_Znth 0 (Zrepeat Vundef (n - Zlength s))
          (Vint (Int.repr (Byte.signed (Znth (Zlength s) (s ++ [Byte.zero]))))))
       dest
   |-- data_at wsh (tarray tschar n)
         (map Vbyte (s ++ [Byte.zero]) ++
-             list_repeat (Z.to_nat (n - (Zlength s + 1))) Vundef)
+             Zrepeat Vundef (n - (Zlength s + 1)))
         dest.
 Proof.
 intros.
 apply derives_refl'.
 f_equal.
-Check list_repeat_app'.  (* Hint: this lemma will be useful. *)
+Check Zrepeat_app.  (* Hint: this lemma will be useful. *)
 Check upd_Znth_app1.     (* Hint: this lemma will be useful. *)
 Check app_Znth2.         (* Hint: this lemma will be useful. *)
 Check Znth_0_cons.       (* Hint: this lemma will be useful. *)
@@ -402,17 +442,17 @@ Lemma strcpy_else_clause: forall wsh dest n s i,
   Znth i (s ++ [Byte.zero]) <> Byte.zero ->
      data_at wsh (tarray tschar n)
       (upd_Znth i (map Vbyte (sublist 0 i s)
-                       ++ list_repeat (Z.to_nat (n - i)) Vundef)
+                       ++ Zrepeat Vundef (n - i))
              (Vint (Int.repr (Byte.signed (Znth i (s ++ [Byte.zero])))))) dest
   |-- data_at wsh (tarray tschar n)
       (map Vbyte (sublist 0 (i + 1) s)
-           ++ list_repeat (Z.to_nat (n - (i + 1))) Vundef) dest.
+           ++ Zrepeat Vundef (n - (i + 1))) dest.
 Proof.
 intros.
 apply derives_refl'.
 f_equal.
 (** Useful lemmas here will be: upd_Znth_app2, sublist_split,
-list_repeat_app', app_Znth1, map_app, app_ass, sublist_len_1. *)
+repeat_app', app_Znth1, map_app, app_ass, sublist_len_1. *)
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
@@ -425,12 +465,12 @@ Lemma data_at_Vundef_example:
   forall i n sh p,
     0 <= i < n ->
   data_at sh (tarray tschar n)
-          (list_repeat (Z.to_nat (i+1)) (Vbyte Byte.zero)
-             ++ list_repeat (Z.to_nat (n-(i+1))) Vundef) p
+          (Zrepeat (Vbyte Byte.zero) (i+1)
+             ++ Zrepeat Vundef (n-(i+1))) p
  |--           
   data_at sh (tarray tschar n)
-          (list_repeat (Z.to_nat i) (Vbyte Byte.zero)
-             ++ list_repeat (Z.to_nat (n-i)) Vundef) p.
+          (Zrepeat (Vbyte Byte.zero) i
+             ++ Zrepeat Vundef (n-i)) p.
 Proof.
 intros.
 
@@ -442,9 +482,9 @@ intros.
    [strcpy_then_clause]: *)
 apply derives_refl'.
 f_equal.
-rewrite <- list_repeat_app' by lia.
+rewrite <- Zrepeat_app by lia.
 replace (n-i) with (1 + (n-(i+1))) by lia.
-rewrite <- list_repeat_app' by lia.
+rewrite <- Zrepeat_app by lia.
 rewrite !app_ass.
 f_equal.
 f_equal.
@@ -456,17 +496,17 @@ Lemma data_at_Vundef_example:
   forall i n sh p,
     0 <= i < n ->
   data_at sh (tarray tschar n)
-          (list_repeat (Z.to_nat (i+1)) (Vbyte Byte.zero)
-             ++ list_repeat (Z.to_nat (n-(i+1))) Vundef) p
+          (Zrepeat (Vbyte Byte.zero) (i+1)
+             ++ Zrepeat Vundef (n-(i+1))) p
  |--           
   data_at sh (tarray tschar n)
-          (list_repeat (Z.to_nat i) (Vbyte Byte.zero)
-             ++ list_repeat (Z.to_nat (n-i)) Vundef) p.
+          (Zrepeat (Vbyte Byte.zero) i
+             ++ Zrepeat Vundef (n-i) ) p.
 Proof.
 intros.
-rewrite <- list_repeat_app' by lia.
+rewrite <- Zrepeat_app by lia.
 replace (n-i) with (1 + (n-(i+1))) by lia.
-rewrite <- list_repeat_app' by lia.
+rewrite <- Zrepeat_app by lia.
 rewrite !app_ass.
 Check split2_data_at_Tarray_app.
 (*  forall (cs : compspecs) (mid n : Z) (sh : Share.t) 
@@ -529,9 +569,9 @@ forward.
 Intros.
 forward_loop (EX i : Z,
   PROP (0 <= i < Zlength s + 1)
-  LOCAL (temp _i (Vint (Int.repr i)); temp _dest dest; temp _src src)
+  LOCAL (temp _i (Vptrofs (Ptrofs.repr i)); temp _dest dest; temp _src src)
   SEP (data_at wsh (tarray tschar n)
-        (map Vbyte (sublist 0 i s) ++ list_repeat (Z.to_nat (n - i)) Vundef) dest;
+        (map Vbyte (sublist 0 i s) ++ Zrepeat Vundef (n - i)) dest;
        data_at rsh (tarray tschar (Zlength s + 1)) (map Vbyte (s ++ [Byte.zero])) src)).
 + (* Prove the precondition implies the loop invariant *)
 (* FILL IN HERE *) admit.
@@ -588,4 +628,4 @@ Lemma body_strcmp: semax_body Vprog Gprog f_strcmp strcmp_spec.
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(* 2020-09-18 15:39 *)
+(* 2021-08-11 15:21 *)

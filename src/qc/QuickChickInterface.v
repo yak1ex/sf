@@ -545,10 +545,10 @@ Declare Instance Dec_string (m n : string) : Dec (m = n).
 
     - A paper on deriving QuickChick generators for a large class of
       inductive relations.
-      https://lemonidas.github.io/pdf/GeneratingGoodGenerators.pdf
+      {https://lemonidas.github.io/pdf/GeneratingGoodGenerators.pdf}
 
     - Leo's PhD dissertation.
-      https://lemonidas.github.io/pdf/Leo-PhD-Thesis.pdf
+      {https://lemonidas.github.io/pdf/Leo-PhD-Thesis.pdf}
 
     - examples/DependentTest.v
 
@@ -713,4 +713,4 @@ End QcDoNotation.
 
 End QuickChickSig.
 
-(* 2021-05-26 10:04 *)
+(* 2021-08-11 15:19 *)

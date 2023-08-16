@@ -208,14 +208,14 @@ split; intros. subst.
 eapply field_compatible_nullval; eauto.
 inversion H3.
 Qed.
-Hint Resolve listrep_local_prop : saturate_local.
+#[export] Hint Resolve listrep_local_prop : saturate_local.
 
 Lemma listrep_valid_pointer:
   forall il p,
    listrep il p |-- valid_pointer p.
 Proof.
 (* FILL IN HERE *) Admitted.
-Hint Resolve listrep_valid_pointer : valid_pointer.
+#[export] Hint Resolve listrep_valid_pointer : valid_pointer.
 
 (** Specification of stack data structure *)
 
@@ -227,14 +227,14 @@ Definition stack (il: list Z) (p: val) :=
 Lemma stack_local_prop: forall il p, stack il p |--  !! (isptr p).
 Proof.
 (* FILL IN HERE *) Admitted.
-Hint Resolve stack_local_prop : saturate_local.
+#[export] Hint Resolve stack_local_prop : saturate_local.
 
 Lemma stack_valid_pointer:
   forall il p,
    stack il p |-- valid_pointer p.
 Proof.
 (* FILL IN HERE *) Admitted.
-Hint Resolve stack_valid_pointer : valid_pointer.
+#[export] Hint Resolve stack_valid_pointer : valid_pointer.
 
 Definition newstack_spec : ident * funspec :=
  DECLARE _newstack
@@ -482,4 +482,4 @@ sep_apply (create_mem_mgr gv).
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(* 2020-09-18 15:39 *)
+(* 2021-08-11 15:21 *)

@@ -493,7 +493,36 @@
 </div>
 
 <div class="doc">
-<a id="lab8"></a><h2 class="section">Feedback Welcome</h2>
+<a id="lab8"></a><h2 class="section">System Requirements</h2>
+
+<div class="paragraph"> </div>
+
+ The <a href="https://softwarefoundations.cis.upenn.edu/lf-current/Preface.html"><span class="inlineref">Preface</span></a> of Software Foundations Volume 1 (<i>Logical
+    Foundations</i>) describes how to install Coq. The files you are
+    reading have been tested with Coq version 8.13. 
+<div class="paragraph"> </div>
+
+ If you use Coq version 8.12, you will first need to patch the sources by
+    executing the following command:
+<br/>
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;<span class="id" title="var">sed</span> '<span class="id" title="var">s</span>/<span class="id" title="var">name</span>,/<span class="id" title="var">ident</span>,/<span class="id" title="var">g'</span> -<span class="id" title="var">i</span> <span class="id" title="var">LibSepReference.v</span>
+</span>
+</div>
+
+<div class="doc">
+<a id="lab9"></a><h2 class="section">Note for CoqIDE Users</h2>
+
+<div class="paragraph"> </div>
+
+ CoqIDE typically works better with its <i>asynchronous</i> proof mode disabled.
+    To load all the course files in CoqIDE, use the following command line.
+<br/>
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqide</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span> <span class="id" title="var">off</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span>-<span class="id" title="var">command</span>-<span class="id" title="var">error</span>-<span class="id" title="var">resilience</span> <span class="id" title="var">off</span> <span class="id" title="var">Basic.v</span> &amp;
+</span>
+</div>
+
+<div class="doc">
+<a id="lab10"></a><h2 class="section">Feedback Welcome</h2>
 
 <div class="paragraph"> </div>
 
@@ -516,7 +545,7 @@
 </div>
 
 <div class="doc">
-<a id="lab9"></a><h2 class="section">Exercises</h2>
+<a id="lab11"></a><h2 class="section">Exercises</h2>
 
 <div class="paragraph"> </div>
 
@@ -537,28 +566,6 @@
 </div>
 
 <div class="doc">
-<a id="lab10"></a><h2 class="section">System Requirements</h2>
-
-<div class="paragraph"> </div>
-
- The <a href="https://softwarefoundations.cis.upenn.edu/lf-current/Preface.html"><span class="inlineref">Preface</span></a> of Software Foundations Volume 1 (<i>Logical
-    Foundations</i>) describes how to install Coq. The files you are
-    reading have been tested with Coq 8.12 or later. 
-</div>
-
-<div class="doc">
-<a id="lab11"></a><h2 class="section">Note for CoqIDE Users</h2>
-
-<div class="paragraph"> </div>
-
- CoqIDE typically works better with its <i>asynchronous</i> proof mode disabled.
-    To load all the course files in CoqIDE, use the following command line.
-<br/>
-<span class="inlinecode"><span class="id" title="var">coqide</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span> <span class="id" title="var">off</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span>-<span class="id" title="var">command</span>-<span class="id" title="var">error</span>-<span class="id" title="var">resilience</span> <span class="id" title="var">off</span> -<span class="id" title="var">Q</span> . <span class="id" title="var">SLF</span> <span class="id" title="var">Basic.v</span>&amp;
-</span>
-</div>
-
-<div class="doc">
 <a id="lab12"></a><h2 class="section">Recommended Citation Format</h2>
 
 <div class="paragraph"> </div>
@@ -566,15 +573,16 @@
  If you want to refer to this volume in your own writing, please
     do so as follows:
 <br/>
-<span class="inlinecode">&nbsp;&nbsp;&nbsp;@<span class="id" title="var">book</span>            {<span class="id" title="var">Charguéraud</span>:<span class="id" title="var">SF<sub>6</sub></span>,<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" title="var">author</span>       =   {<span class="id" title="var">Arthur</span> <span class="id" title="var">Charguéraud</span>},<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" title="var">title</span>        =   "Separation Logic Foundations",<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" title="var">series</span>       =   "Software Foundations",<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" title="var">volume</span>       =   "6",<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" title="var">year</span>         =   "2021",<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" title="var">publisher</span>    =   "Electronic textbook",<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 1.0, \<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span>} },<br/>
-&nbsp;&nbsp;&nbsp;}
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;@<span class="id" title="var">book</span>            {<span class="id" title="var">Chargueraud</span>:<span class="id" title="var">SF<sub>6</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">author</span>       =   {<span class="id" title="var">Arthur</span> <span class="id" title="var">Charguéraud</span>},<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">editor</span>       =   {<span class="id" title="var">Benjamin</span> <span class="id" title="var">C</span>. <span class="id" title="var">Pierce</span>},<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">title</span>        =   "Separation Logic Foundations",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">series</span>       =   "Software Foundations",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">volume</span>       =   "6",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">year</span>         =   "2021",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">publisher</span>    =   "Electronic textbook",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 1.1, \<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span>} },<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}
 </span>
 </div>
 
@@ -590,7 +598,7 @@
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2021-05-26&nbsp;09:48&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2021-08-11&nbsp;15:24&nbsp;*)</span><br/>
 </div>
 </div>
 

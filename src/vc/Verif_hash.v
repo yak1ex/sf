@@ -123,12 +123,12 @@ Definition list_cell (key: list byte) (count: Z) (next: val) (p: val): mpred :=
 Definition list_cell_local_facts: 
   forall key count next p, list_cell key count next p |-- !! isptr p.
 Proof. intros. unfold list_cell. Intros kp. entailer!. Qed.
-Hint Resolve list_cell_local_facts: saturate_local.
+#[export] Hint Resolve list_cell_local_facts: saturate_local.
 
 Definition list_cell_valid_pointer:
   forall key count next p, list_cell key count next p |-- valid_pointer p.
 Proof. intros. unfold list_cell. Intros kp. entailer!. Qed.
-Hint Resolve list_cell_valid_pointer: valid_pointer.
+#[export] Hint Resolve list_cell_valid_pointer: valid_pointer.
 
 (** **** Exercise: 1 star, standard (listcell_fold) *)
 Lemma listcell_fold: forall key kp count p' p,
@@ -153,14 +153,14 @@ Lemma listrep_local_prop: forall sigma p, listrep sigma p |--
         !! (is_pointer_or_null p  /\ (p=nullval <-> sigma=nil)).
 Proof.
 (* FILL IN HERE *) Admitted.
-Hint Resolve listrep_local_prop : saturate_local.
+#[export] Hint Resolve listrep_local_prop : saturate_local.
 
 Lemma listrep_valid_pointer:
   forall sigma p,
    listrep sigma p |-- valid_pointer p.
 Proof.
 (* FILL IN HERE *) Admitted.
-Hint Resolve listrep_valid_pointer : valid_pointer.
+#[export] Hint Resolve listrep_valid_pointer : valid_pointer.
 (** [] *)
 
 Lemma listrep_fold: forall key count p' p al, 
@@ -178,19 +178,19 @@ Definition hashtable_rep (contents: hashtable_contents) (p: val) : mpred :=
   EX bl: list (list (list byte * Z) * val),
     !! (contents = map fst bl) &&
     malloc_token Ews thashtable p * 
-    field_at Ews thashtable [StructField _buckets] (map snd bl) p 
+    data_at Ews thashtable (map snd bl) p 
     * iter_sepcon (uncurry listrep) bl.
 
 (** **** Exercise: 2 stars, standard (hashtable_rep_hints) *)
 Lemma hashtable_rep_local_facts: forall contents p,
  hashtable_rep contents p |-- !! (isptr p /\ Zlength contents = N).
 (* FILL IN HERE *) Admitted.
-Hint Resolve hashtable_rep_local_facts : saturate_local.
+#[export] Hint Resolve hashtable_rep_local_facts : saturate_local.
 
 Lemma hashtable_rep_valid_pointer: forall contents p,
  hashtable_rep contents p |-- valid_pointer p.
 (* FILL IN HERE *) Admitted.
-Hint Resolve hashtable_rep_valid_pointer : valid_pointer.
+#[export] Hint Resolve hashtable_rep_valid_pointer : valid_pointer.
 (** [] *)
 
 (* ----------------------------------------------------------------- *)
@@ -327,7 +327,7 @@ Proof.
 (* Hint: use [induction] and [sep_apply]. *)
 (* FILL IN HERE *) Admitted.
 
-Hint Resolve iter_sepcon_listrep_local_facts : saturate_local.
+#[export] Hint Resolve iter_sepcon_listrep_local_facts : saturate_local.
 (** [] *)
 
 (** **** Exercise: 2 stars, standard (iter_sepcon_split3) *)
@@ -348,17 +348,12 @@ rewrite <- (sublist_same 0 (Zlength al) al) at 1 by auto.
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(** **** Exercise: 3 stars, standard (body_new_table) *)
+(** **** Exercise: 2 stars, standard (body_new_table) *)
 Lemma body_new_table_helper: 
  (* This lemma is useful as the very last thing to do in body_new_table *)
- forall p, 
-  data_at Ews thashtable (list_repeat (Z.to_nat N) nullval) p
-  |-- field_at Ews thashtable [StructField _buckets]
-       (list_repeat (Z.to_nat N) nullval) p *
-         iter_sepcon (uncurry listrep) (list_repeat (Z.to_nat N) ([], nullval)).
-Proof.
-intros.
-unfold_data_at (data_at _ _ _ p).
+ forall n, 
+  emp
+  |-- iter_sepcon (uncurry listrep) (repeat ([], nullval) n).
 (* FILL IN HERE *) Admitted.
 
 Lemma body_new_table: semax_body Vprog Gprog f_new_table new_table_spec.
@@ -367,24 +362,22 @@ Proof.
   initialized array. The best way to do that is with something like,
 
   data_at Ews thashtable 
-      (list_repeat (Z.to_nat i) nullval ++ 
-       list_repeat (Z.to_nat (N-i)) Vundef)   p.
+      (Zrepeat nullval i ++ Zrepeat Vundef (N-i))   p.
 
   Then at some point you'll have to prove something about,
 
    data_at Ews thashtable
-      (list_repeat (Z.to_nat (i + 1)) nullval ++ 
-       list_repeat (Z.to_nat (N - (i + 1))) Vundef)   p
+      (Zrepeat nullval (i + 1) ++ repeat Vundef (N - (i + 1)))   p
 
   In particular, you'll have to split up 
 
-   list_repeat (Z.to_nat (i + 1)) nullval
+   Zrepeat nullval (i + 1)
 
    into 
 
-   list_repeat (Z.to_nat i) nullval ++ list_repeat (Z.to_nat 1) nullval.
+   Zrepeat nullval i ++ Zrepeat nullval 1.
 
-  The best way to do that is [rewrite <- list_repeat_app']. *)
+  The best way to do that is [rewrite <- Zrepeat_app]. *)
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
@@ -484,7 +477,7 @@ apply seq_assoc1; assert_after 1
   LOCAL (temp _h (Vint (Int.repr (hashfun sigma)));
          temp _table table;  temp _s s) 
   SEP (cstring Ews sigma s; malloc_token Ews thashtable table; 
-       field_at Ews thashtable [StructField _buckets] (map snd cts) table; 
+       data_at Ews thashtable (map snd cts) table; 
        iter_sepcon (uncurry listrep) cts))%assert.
 {
  (* FILL IN HERE *) admit.
@@ -532,7 +525,7 @@ set (h := hashfun sigma mod N) in *.
 eapply semax_pre; [ instantiate (1:=
   PROP ( )   LOCAL (temp _p (snd (Znth h cts)); temp _s s)  
   SEP (cstring Ews sigma s; malloc_token Ews thashtable table; 
-       field_at Ews thashtable [StructField _buckets] (map snd cts) table; 
+       data_at Ews thashtable (map snd cts) table; 
        iter_sepcon (uncurry listrep) (sublist 0 h cts);
         listrep (fst (Znth h cts)) (snd (Znth h cts)); 
        iter_sepcon (uncurry listrep) (sublist (h + 1) (Zlength cts) cts))) | ].
@@ -554,7 +547,7 @@ simpl.
 (** Several of our SEP conjuncts will not be needed until after the
     loop is done.  We can hide them away in a single SEP-conjunct
     [FRZL FR1] by doing this command: *)
-freeze FR1 := (malloc_token _ _ table) (field_at _ _ _ _ table)
+freeze FR1 := (malloc_token _ _ table) (data_at _ _ _ table)
        (iter_sepcon _ _) (iter_sepcon _ _).
 (** The [freeze] tactic "frames out" several conjuncts for a while, 
   until later we [thaw FR1]. *)
@@ -662,18 +655,25 @@ void incr_list (struct cell **r0, char *s) {
 
   data_at Ews tcell (x,y,q) p
 
-  into three separate conjuncts:
+  into four separate conjuncts:
 
   field_at Ews tcell [StructField _key] x p *
   field_at Ews tcell [StructField _count] y p *
+  spacer Ews (nested_field_offset tcell [StructField _count] + sizeof tuint)
+                       (nested_field_offset tcell [StructField _next]) p *
   field_at Ews tcell [StructField _next] q p
 
-  and then we must rewrite the third conjunct into
+  and then we must rewrite the last conjunct into
 
   data_at Ews (tptr tcell) q (field_address tcell [StructField _next] p)
 
   where the [(field_address _ _ _)] is an "address arithmetic" expression
   that describes the offset, in bytes, from [p] to [&(p->next)].
+
+  The "spacer" accounts for the padding between fields.  This particular
+  one, on a 32-bit-integer, 32-bit pointer configuration, simplifies
+   down to [emp].  But on a 32-bit-integer, 64-bit pointer configuration,
+   the spacer amounts to 4 bytes of Vundef-padding.
 
   The [listboxrep_traverse] lemma illustrates the situation at
   the end of the loop body.  Look at the left-hand side of the [|--]
@@ -698,6 +698,8 @@ Lemma listboxrep_traverse:
      malloc_token Ews (tarray tschar (Zlength key + 1)) kp *
      field_at Ews tcell [StructField _key] kp p *
      field_at Ews tcell [StructField _count] (Vint (Int.repr count)) p *
+     spacer Ews (nested_field_offset tcell [StructField _count] + sizeof tuint)
+                       (nested_field_offset tcell [StructField _next]) p *
      malloc_token Ews tcell p *
      data_at Ews (tptr tcell) p r 
    |-- 
@@ -706,6 +708,7 @@ Lemma listboxrep_traverse:
        -* listboxrep ((key, count) :: dl) r.
 Proof.
   intros.
+  simpl spacer.
  apply allp_right; intro dl.
  apply -> wand_sepcon_adjoint.
    (** Sometime during the proof below, you will have
@@ -733,6 +736,29 @@ Eval simpl in (nested_field_type tcell [StructField _next]).
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
+(**  In a 32-bit configuration, where the spacer is equivalent to emp,
+    this specialized version of listboxrep_traverse is useful. *)
+Lemma listboxrep_traverse32:
+  forall p kp key count r, 
+     Archi.ptr64 = false ->
+     cstring Ews key kp * 
+     malloc_token Ews (tarray tschar (Zlength key + 1)) kp *
+     field_at Ews tcell [StructField _key] kp p *
+     field_at Ews tcell [StructField _count] (Vint (Int.repr count)) p *
+     malloc_token Ews tcell p *
+     data_at Ews (tptr tcell) p r 
+   |-- 
+     ALL dl: list (list byte * Z), 
+       listboxrep dl (field_address tcell [StructField _next] p)
+       -* listboxrep ((key, count) :: dl) r.
+Proof.
+intros.
+inv H;  (* Solve the goal if we are in 64-bit mode *)
+(* otherwise we are in 32-bit mode *)
+(eapply derives_trans; [ | apply (listboxrep_traverse p kp key count r)];
+ unfold spacer; simpl; cancel).
+Qed.
+
 (** **** Exercise: 4 stars, standard (body_incr_list) *)
 Lemma body_incr_list: semax_body Vprog Gprog f_incr_list incr_list_spec.
 Proof.
@@ -746,7 +772,8 @@ Proof.
 
   The key lemmas to use are, [wand_refl_cancel_right],
    [wand_frame_elim'], and [wand_frame_ver].  When using
-   [wand_frame_ver], you will find [listboxrep_traverse] to be useful. *)
+   [wand_frame_ver], you will find [listboxrep_traverse] 
+  or [listboxrep_traverse32] to be useful. *)
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
@@ -764,11 +791,14 @@ Lemma example_split_struct:
       data_at Ews tcell (x,(y,z)) p
    =   (field_at Ews tcell [StructField _key] x p
      * field_at Ews tcell [StructField _count] y p
-     * field_at Ews tcell [StructField _next] z p)%logic.
+     * spacer Ews (nested_field_offset tcell [StructField _count] + sizeof tuint)
+                       (nested_field_offset tcell [StructField _next]) p
+      * field_at Ews tcell [StructField _next] z p)%logic.
 Proof.
 intros.
 unfold_data_at (data_at _ _ _ p).
-rewrite sepcon_assoc.
+unfold spacer; simpl; rewrite ?sepcon_emp. (* This line needed in 32-bit mode, harmless in 64-bit mode *)
+rewrite !sepcon_assoc.
 reflexivity.
 Qed.
 
@@ -798,7 +828,7 @@ Lemma example_field_at_data_at':
  forall p (z: val),
    field_at Ews tcell [StructField _next] z p |--
    data_at Ews (tptr tcell) z 
-    (offset_val (2 * sizeof tint) p).
+    (offset_val (2 * sizeof size_t) p).
 Proof.
 intros.
  rewrite field_at_data_at.
@@ -814,7 +844,7 @@ Qed.
 Lemma example_field_at_data_at'':
  forall p (z: val),
    data_at Ews (tptr tcell) z 
-    (offset_val (2 * sizeof tint) p)
+    (offset_val (2 * sizeof size_t) p)
  |-- field_at Ews tcell [StructField _next] z p.
 Proof.
  intros.
@@ -832,7 +862,7 @@ Lemma example_field_at_data_at''':
  forall p (z: val),
   field_compatible tcell [StructField _next] p ->
    data_at Ews (tptr tcell) z 
-    (offset_val (2 * sizeof tint) p)
+    (offset_val (2 * sizeof size_t) p)
  |-- field_at Ews tcell [StructField _next] z p.
 Proof.
  intros.
@@ -1062,6 +1092,21 @@ Proof.
   autorewrite with norm. auto.
 Qed.
 
+(** Hint:  Examine this lemma, and how it's proved, and think
+     about what it means. *)
+Lemma data_at_thashtable_tarray:
+ forall al table,
+    data_at Ews thashtable al table
+    |-- data_at Ews (tarray (tptr tcell) N) al
+           (field_address thashtable [StructField _buckets] table).
+Proof.
+intros.
+unfold_data_at (data_at _ _ _ table).
+rewrite field_at_data_at.
+simpl.
+apply derives_refl.
+Qed.
+
 (** **** Exercise: 4 stars, standard (body_incr) *)
 Lemma body_incr: semax_body Vprog Gprog f_incr incr_spec.
 Proof.
@@ -1095,4 +1140,4 @@ erewrite (wand_slice_array h (h+1) N _ (tptr tcell))
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(* 2020-09-18 15:39 *)
+(* 2021-08-11 15:21 *)

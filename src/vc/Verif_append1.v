@@ -200,14 +200,14 @@ Lemma listrep_local_facts:
    !! (is_pointer_or_null p /\ (p=nullval <-> sigma=nil)).
 Proof.
 (* FILL IN HERE *) Admitted.
-Hint Resolve listrep_local_facts : saturate_local.
+#[export] Hint Resolve listrep_local_facts : saturate_local.
 
 Lemma listrep_valid_pointer:
   forall sigma p,
    listrep sigma p |-- valid_pointer p.
 Proof.
 (* FILL IN HERE *) Admitted.
-Hint Resolve listrep_valid_pointer : valid_pointer.
+#[export] Hint Resolve listrep_valid_pointer : valid_pointer.
 
 (** (End of the material repeated from Verif_reverse.v) *)
 
@@ -491,4 +491,4 @@ forward_if. (* if (x == NULL) *)
 (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(* 2020-09-18 15:39 *)
+(* 2021-08-11 15:21 *)

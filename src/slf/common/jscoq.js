@@ -7,7 +7,6 @@
 function jsCoqInject() {
     $(document.body).attr('id', 'ide-wrapper').addClass('toggled')
         .addClass(isTerse() ? 'terse' : 'full')
-        .append($('<link href="common/css/jscoq.css" rel="stylesheet" type="text/css"/>'))
         .append($('<div id="jscoq-plug">').on('click', jsCoqStart));
 }
 
@@ -20,7 +19,6 @@ var jscoq_opts = {
     show:      jsCoqShow,
     focus:     false,
     replace:   true,
-    base_path: '../../node_modules/wacoq/',
     editor:    { mode: { 'company-coq': true }, className: 'jscoq code-tight' },
     init_pkgs: ['init'],
     all_pkgs:  { '+': ['coq'], '../../coq-pkgs': ['software-foundations'] },
@@ -50,15 +48,15 @@ async function jsCoqLoad() {
     await JsCoq.load(jscoq_opts.base_path);
 
     Deprettify.REPLACES.push(   // LF,PLF define their own versions (for Imp)
-        [/∨/g, '\\/'], [/∧/g, '/\\'], [/↔/g, '<->'], [/≤/g, '<='], [/≠/g, '<>'],
-        [/∈/g, '\\in']);
+        [/∨/g, '\\/'], [/∧/g, '/\\'], [/↔/g, '<->'],
+        [/≤/g, '<='], [/≥/g, '>='], [/≠/g, '<>'], [/∈/g, '\\in']);
 
     var coq = await JsCoq.start(jscoq_ids, jscoq_opts);
     window.coq = coq;
     window.addEventListener('beforeunload', () => { localStorage.jsCoqShow = coq.layout.isVisible(); })
 
     // - close button (replaces jsCoq's bulky power button)
-    $('#panel-wrapper #toolbar').prepend($('<button>').addClass('close').text('×')
+    $('#panel-wrapper #toolbar').append($('<button>').addClass('close').text('×')
         .on('click', () => coq.layout.hide()));
 }
 
@@ -71,6 +69,8 @@ function isTerse() {
 }
 
 if (location.search !== '?jscoq=no') {
-    jsCoqInject();
-    window.addEventListener('DOMContentLoaded', jsCoqLoad);
+    window.addEventListener('DOMContentLoaded', () => {
+        jsCoqInject();
+        jsCoqLoad();
+    });
 }

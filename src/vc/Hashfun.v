@@ -1,7 +1,7 @@
 (** * Hashfun: Functional model of hash tables *)
 
 (** This C program, [hash.c], implements a hash table with
-   external chaining.  See https://www.cs.princeton.edu/~appel/HashTables.pdf
+   external chaining.  See {https://www.cs.princeton.edu/~appel/HashTables.pdf}
    for an introduction to hash tables.
 
     /* First, access a few standard-library functions */
@@ -140,7 +140,7 @@ Hint Rewrite N_eq : rep_lia.
 Global Opaque N.
 
 Definition empty_table : hashtable_contents :=
-  list_repeat (Z.to_nat N) nil.
+  Zrepeat nil N.
 
 Fixpoint list_get (s: list byte) (al: list (list byte * Z)) : Z :=
   match al with
@@ -328,4 +328,4 @@ Proof.
 
 End IntHashTable.
 
-(* 2020-09-18 15:39 *)
+(* 2021-08-11 15:21 *)
