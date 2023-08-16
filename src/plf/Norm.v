@@ -1,6 +1,6 @@
 (** * Norm: Normalization of STLC *)
 
-Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 From Coq Require Import Lists.List.
 From Coq Require Import Strings.String.
 From PLF Require Import Maps.
@@ -49,7 +49,7 @@ Hint Constructors multi : core.
     entirely trivial to prove, since each reduction of a term can
     duplicate redexes in subterms. *)
 
-(** **** Exercise: 2 stars, standard (norm_fail) 
+(** **** Exercise: 2 stars, standard (norm_fail)
 
     Where do we fail if we attempt to prove normalization by a
     straightforward induction on the size of a well-typed term? *)
@@ -60,7 +60,7 @@ Hint Constructors multi : core.
 Definition manual_grade_for_norm_fail : option (nat*string) := None.
 (** [] *)
 
-(** **** Exercise: 5 stars, standard, especially useful (norm) 
+(** **** Exercise: 5 stars, standard, especially useful (norm)
 
     The best ways to understand an intricate proof like this is
     are (1) to help fill it in and (2) to extend it.  We've left out some
@@ -103,7 +103,7 @@ Inductive tm : Type :=
   | tm_pair : tm -> tm -> tm
   | tm_fst : tm -> tm
   | tm_snd : tm -> tm.
- 
+
 Declare Custom Entry stlc.
 
 Notation "<{ e }>" := e (e custom stlc at level 99).
@@ -927,7 +927,7 @@ Fixpoint closed_env (env:env) :=
 
 (** Next come a series of lemmas charcterizing how [msubst] of closed terms
     distributes over [subst] and over each term form *)
-    
+
 Lemma subst_msubst: forall env x v t, closed v -> closed_env env ->
     msubst env <{ [x:=v]t }> = <{ [x:=v]  { msubst (drop x env) t }  }> .
 Proof.
@@ -963,7 +963,7 @@ Proof.
       simpl. destruct (eqb_string s x); simpl; auto.
 Qed.
 
-Lemma msubst_app : forall ss t1 t2, 
+Lemma msubst_app : forall ss t1 t2,
     msubst ss <{ t1 t2 }> = <{ {msubst ss t1} ({msubst ss t2}) }>.
 Proof.
  induction ss; intros.
@@ -1170,4 +1170,4 @@ Proof.
   eapply V_nil.
 Qed.
 
-(* 2020-09-09 21:08 *)
+(* 2021-05-26 09:57 *)

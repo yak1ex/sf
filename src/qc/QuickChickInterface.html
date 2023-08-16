@@ -30,12 +30,9 @@
 
 <h1 class="libtitle">QuickChickInterface<span class="subtitle">QuickChick Reference Manual</span></h1>
 
-<div class="code">
-</div>
 
 <div class="code">
 
-<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">QuickChick</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">QuickChick</span>.<br/>
 <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/library//Coq.ZArith.ZArith.html#"><span class="id" title="library">ZArith</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.Ascii.html#"><span class="id" title="library">Strings.Ascii</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#"><span class="id" title="library">Strings.String</span></a>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">ExtLib.Structures</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">Functor</span> <span class="id" title="library">Applicative</span>.<br/>
@@ -49,7 +46,6 @@ QuickChick provides a large collection of combinators and
 </div>
 <div class="code">
 
-<br/>
 <span class="id" title="keyword">Module</span> <span class="id" title="keyword">Type</span> <a id="QuickChickSig" class="idref" href="#QuickChickSig"><span class="id" title="module">QuickChickSig</span></a>.<br/>
 </div>
 
@@ -63,8 +59,6 @@ QuickChick provides a large collection of combinators and
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">show</span> : <span class="id" title="var">A</span> → <span class="id" title="var">string</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -145,7 +139,6 @@ The semantics of a generator is its set of possible outcomes.
 </div>
 <div class="code">
 
-<br/>
 <span class="id" title="keyword">Declare Instance</span> <a id="QuickChickSig.Monad_G" class="idref" href="#QuickChickSig.Monad_G"><span class="id" title="instance">Monad_G</span></a> : <span class="id" title="class">Monad</span> <a class="idref" href="QuickChickInterface.html#QuickChickSig.G"><span class="id" title="axiom">G</span></a>.<br/>
 <span class="id" title="keyword">Declare Instance</span> <a id="QuickChickSig.Functor_G" class="idref" href="#QuickChickSig.Functor_G"><span class="id" title="instance">Functor_G</span></a> : <span class="id" title="class">Functor</span> <a class="idref" href="QuickChickInterface.html#QuickChickSig.G"><span class="id" title="axiom">G</span></a>.<br/>
 <span class="id" title="keyword">Declare Instance</span> <a id="QuickChickSig.Applicative_G" class="idref" href="#QuickChickSig.Applicative_G"><span class="id" title="instance">Applicative_G</span></a> : <span class="id" title="class">Applicative</span> <a class="idref" href="QuickChickInterface.html#QuickChickSig.G"><span class="id" title="axiom">G</span></a>.<br/>
@@ -255,7 +248,6 @@ The <span class="inlinecode"><span class="id" title="var">elems_</span></span>, 
 </div>
 <div class="code">
 
-<br/>
 <span class="id" title="keyword">Module</span> <a id="QuickChickSig.QcDefaultNotation" class="idref" href="#QuickChickSig.QcDefaultNotation"><span class="id" title="module">QcDefaultNotation</span></a>.<br/>
 </div>
 
@@ -328,7 +320,6 @@ The original version of QuickChick used <span class="inlinecode"><span class="id
 </div>
 <div class="code">
 
-<br/>
 <span class="id" title="var">Existing</span> <span class="id" title="keyword">Class</span> <span class="id" title="var">OrdType</span>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Declare Instance</span> <a id="QuickChickSig.OrdBool" class="idref" href="#QuickChickSig.OrdBool"><span class="id" title="instance">OrdBool</span></a> : <span class="id" title="class">OrdType</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a>.<br/>
 <span class="id" title="keyword">Declare Instance</span> <a id="QuickChickSig.OrdNat" class="idref" href="#QuickChickSig.OrdNat"><span class="id" title="instance">OrdNat</span></a>  : <span class="id" title="class">OrdType</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>.<br/>
@@ -341,7 +332,6 @@ We also expect the random function to be able to pick every element in any
 </div>
 <div class="code">
 
-<br/>
 <span class="id" title="var">Existing</span> <span class="id" title="keyword">Class</span> <span class="id" title="var">ChoosableFromInterval</span>.<br/>
 </div>
 
@@ -374,8 +364,6 @@ QuickChick has provided some instances for ordered data types that are
     natural number that indicate the size of output.  <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Class</span> <span class="id" title="var">GenSized</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) := { <span class="id" title="var">arbitrarySized</span> : <span class="id" title="var">nat</span> → <span class="id" title="var">G</span> <span class="id" title="var">A</span> }.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Class</span> <span class="id" title="var">Gen</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) := { <span class="id" title="var">arbitrary</span> : <span class="id" title="var">G</span> <span class="id" title="var">A</span> }.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -424,8 +412,6 @@ Here are some basic instances for generators:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">arbitraryST</span> : <span class="id" title="var">G</span> (<span class="id" title="var">option</span> <span class="id" title="var">A</span>)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.
-<div class="paragraph"> </div>
-
 </span> 
 <div class="paragraph"> </div>
 
@@ -441,8 +427,6 @@ Here are some basic instances for generators:
     making an explicit application to <span class="inlinecode">@<span class="id" title="var">arbitraryST</span></span> as follows:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;@<span class="id" title="var">arbitraryST</span> <span class="id" title="var">_</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">e</span> ⇒ <span class="id" title="var">has_type</span> <span class="id" title="var">e</span> <span class="id" title="var">T</span>) <span class="id" title="var">_</span>
-<div class="paragraph"> </div>
-
 </span>    where the first placeholder is the type of expressions <span class="inlinecode"><span class="id" title="var">exp</span></span> 
     and the second placeholder is the actual instance to be inferred.
 
@@ -454,7 +438,6 @@ Here are some basic instances for generators:
 </div>
 <div class="code">
 
-<br/>
 <span class="id" title="keyword">Notation</span> <a id="QuickChickSig.:::'genST'_x" class="idref" href="#QuickChickSig.:::'genST'_x"><span class="id" title="notation">&quot;</span></a>'genST' x" := (@<span class="id" title="method">arbitraryST</span> <span class="id" title="var">_</span> <span class="id" title="var">x</span> <span class="id" title="var">_</span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 70).<br/>
 </div>
 
@@ -474,8 +457,6 @@ Here are some basic instances for generators:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">shrink</span> : <span class="id" title="var">A</span> → <span class="id" title="var">list</span> <span class="id" title="var">A</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -497,8 +478,6 @@ Here are some basic instances for generators:
 
  The <span class="inlinecode"><span class="id" title="var">Arbitrary</span></span> typeclass combines generation and shrinking.  <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Class</span> <span class="id" title="var">Arbitrary</span> (<span class="id" title="var">A</span> : <span class="id" title="keyword">Type</span>) `{<span class="id" title="var">Gen</span> <span class="id" title="var">A</span>} `{<span class="id" title="var">Shrink</span> <span class="id" title="var">A</span>}.
-<div class="paragraph"> </div>
-
 </span>
 </div>
 
@@ -515,8 +494,6 @@ Here are some basic instances for generators:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\    /<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\  /<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Arbitrary</span>
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -549,8 +526,6 @@ The <span class="inlinecode"><span class="id" title="var">Checkable</span></span
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">checker</span> : <span class="id" title="var">A</span> → <span class="id" title="var">Checker</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -712,8 +687,6 @@ Notation for implication. Clashes with many other notations in
 <a id="lab126"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="var">Dec</span></span> Typeclass</h2>
  Decidability typeclass using ssreflect's 'decidable'.  <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Class</span> <span class="id" title="var">Dec</span> (<span class="id" title="var">P</span> : <span class="id" title="keyword">Prop</span>) : <span class="id" title="keyword">Type</span> := { <span class="id" title="var">dec</span> : <span class="id" title="var">decidable</span> <span class="id" title="var">P</span> }.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -752,8 +725,6 @@ A convenient notation for coercing a decidable proposition to a <span class="inl
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">dec_eq</span> : <span class="id" title="keyword">∀</span> (<span class="id" title="var">x</span> <span class="id" title="var">y</span> : <span class="id" title="var">A</span>), <span class="id" title="var">decidable</span> (<span class="id" title="var">x</span> = <span class="id" title="var">y</span>)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -769,8 +740,6 @@ Since deciding equalities is a very common requirement in testing,
     <span class="inlinecode"><span class="id" title="var">Dec</span></span> <span class="inlinecode">(<span class="id" title="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">y</span>)</span>. 
  <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Ltac</span> <span class="id" title="var">dec_eq</span>.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -800,8 +769,6 @@ Since deciding equalities is a very common requirement in testing,
     for simple types:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Derive</span> &lt;<span class="id" title="var">class</span>&gt; <span class="id" title="keyword">for</span> <span class="id" title="var">T</span>.
-<div class="paragraph"> </div>
-
 </span>    Here <span class="inlinecode">&lt;<span class="id" title="var">class</span>&gt;</span> must be one of <span class="inlinecode"><span class="id" title="var">GenSized</span></span>, <span class="inlinecode"><span class="id" title="var">Shrink</span></span>, <span class="inlinecode"><span class="id" title="var">Arbitrary</span></span>,
     or <span class="inlinecode"><span class="id" title="keyword">Show</span></span>, and <span class="inlinecode"><span class="id" title="var">T</span></span> must be an inductive defined datatype (think
     Haskell/OCaml).
@@ -811,8 +778,6 @@ Since deciding equalities is a very common requirement in testing,
     To derive multiple classes at once, write:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Derive</span> (&lt;<span class="id" title="var">class</span>&gt;,...,&lt;<span class="id" title="var">class</span>&gt;) <span class="id" title="keyword">for</span> <span class="id" title="var">T</span>.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -840,14 +805,14 @@ Since deciding equalities is a very common requirement in testing,
 <ul class="doclist">
 <li> A paper on deriving QuickChick generators for a large class of
       inductive relations.
-      <a href="https://lemonidas.github.io/pdf/GeneratingGoodGenerators.pdf"><span class="inlineref">https://lemonidas.github.io/pdf/GeneratingGoodGenerators.pdf</span></a>
+      <a href="https://lemonidas.github.io/pdf/GeneratingGoodGenerators.pdf"><span class="inlineref" <a href='https://lemonidas.github.io/pdf/GeneratingGoodGenerators.pdf</span></a>'>https://lemonidas.github.io/pdf/GeneratingGoodGenerators.pdf</span></a></a>
 
 <div class="paragraph"> </div>
 
 
 </li>
 <li> Leo's PhD dissertation.
-      <a href="https://lemonidas.github.io/pdf/Leo-PhD-Thesis.pdf"><span class="inlineref">https://lemonidas.github.io/pdf/Leo-PhD-Thesis.pdf</span></a>
+      <a href="https://lemonidas.github.io/pdf/Leo-PhD-Thesis.pdf"><span class="inlineref" <a href='https://lemonidas.github.io/pdf/Leo-PhD-Thesis.pdf</span></a>'>https://lemonidas.github.io/pdf/Leo-PhD-Thesis.pdf</span></a></a>
 
 <div class="paragraph"> </div>
 
@@ -876,16 +841,12 @@ Since deciding equalities is a very common requirement in testing,
  The <span class="inlinecode"><span class="id" title="var">Sample</span></span> command samples a generator. The argument <span class="inlinecode"><span class="id" title="var">g</span></span> needs
     to have type <span class="inlinecode"><span class="id" title="var">G</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> for some showable type <span class="inlinecode"><span class="id" title="var">A</span></span>.  <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Sample</span> <span class="id" title="var">g</span>.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
  The main testing command, <span class="inlinecode"><span class="id" title="var">QuickChick</span></span>, runs a test. The argument
     <span class="inlinecode"><span class="id" title="var">prop</span></span> must belong to a type that is an instance of <span class="inlinecode"><span class="id" title="var">Checkable</span></span>.  <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">QuickChick</span> <span class="id" title="var">prop</span>.
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -922,8 +883,6 @@ Instead of record updates, you should overwrite extraction constants.  <br/>
 &nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Extract</span> <span class="id" title="var">Constant</span> <span class="id" title="var">defNumDiscards</span> ⇒ "(2 * defNumTests)".<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Extract</span> <span class="id" title="var">Constant</span> <span class="id" title="var">defNumShrinks</span>  ⇒ "1000".<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Extract</span> <span class="id" title="var">Constant</span> <span class="id" title="var">defSize</span>        ⇒ "7".
-<div class="paragraph"> </div>
-
 </span>
 </div>
 
@@ -961,8 +920,6 @@ Instead of record updates, you should overwrite extraction constants.  <br/>
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*!&nbsp;QuickChick&nbsp;prop.&nbsp;*)</span><br/>
 
-<div class="paragraph"> </div>
-
 </span>   Only tests that are annotated this way will be processed. Only property
    names are allowed. 
 <div class="paragraph"> </div>
@@ -988,8 +945,6 @@ Instead of record updates, you should overwrite extraction constants.  <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*!&nbsp;mutant&nbsp;1&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*!&nbsp;mutant&nbsp;2&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;... <span class="id" title="var">etc</span> ...
-<div class="paragraph"> </div>
-
 </span>
 <div class="paragraph"> </div>
 
@@ -1004,13 +959,9 @@ Instead of record updates, you should overwrite extraction constants.  <br/>
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*!&nbsp;Section&nbsp;section-name&nbsp;*)</span><br/>
 
-<div class="paragraph"> </div>
-
 </span>    Optionally, one can include an extends clause
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*!&nbsp;Section&nbsp;section-name&nbsp;*)</span><span class="comment">(*!&nbsp;extends&nbsp;other-section-name&nbsp;*)</span><br/>
-
-<div class="paragraph"> </div>
 
 </span>   This signifies that the section being defined also 
    contains all tests and mutants from <span class="inlinecode"><span class="id" title="var">other</span>-<span class="id" title="var">section</span>-<span class="id" title="var">name</span></span>.
@@ -1092,7 +1043,7 @@ Instead of record updates, you should overwrite extraction constants.  <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 200, <span class="id" title="var">X</span> <span class="id" title="var">ident</span>, <span class="id" title="var">A</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 100, <span class="id" title="var">B</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 200).<br/>
 <span class="id" title="keyword">End</span> <a class="idref" href="QuickChickInterface.html#QuickChickSig.QcDoNotation"><span class="id" title="module">QcDoNotation</span></a>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">End</span> <a class="idref" href="QuickChickInterface.html#QuickChickSig"><span class="id" title="module">QuickChickSig</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2020-10-14&nbsp;10:23&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2021-05-26&nbsp;10:04&nbsp;*)</span><br/>
 </div>
 </div>
 

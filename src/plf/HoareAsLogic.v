@@ -18,10 +18,10 @@
     the [ProofObjects] chapter in _Logical
     Foundations_ (_Software Foundations_, volume 1). *)
 
+Set Warnings "-deprecated-hint-without-locality,-deprecated-hint-without-locality".
 From PLF Require Import Maps.
-From PLF Require Import Imp.
-Hint Constructors ceval : core.
 From PLF Require Import Hoare.
+Hint Constructors ceval : core.
 
 (* ################################################################# *)
 (** * Hoare Logic and Model Theory *)
@@ -136,10 +136,10 @@ Definition valid (P : Assertion) (c : com) (Q : Assertion) : Prop :=
 
 (**
 
-                 ---------------------------  (hoare_asgn)
-X=0 ->> X+1=1    {{X+1=1}} X ::= X+1 {{X=1}}
-----------------------------------------------------------  (hoare_consequence)
-                  {{X=0}} X ::= X+1 {{X=1}}
+                    ---------------------------  (hoare_asgn)
+   X=0 ->> X+1=1    {{X+1=1}} X ::= X+1 {{X=1}}
+   -------------------------------------------------------  (hoare_consequence)
+                     {{X=0}} X ::= X+1 {{X=1}}
 *)
 
 (** At each step we have either used one of the rules, or we
@@ -230,7 +230,7 @@ Qed.
     of the proof tree: at the root there is a use of the sequence rule; and
     at the leaves, the assignment rule. *)
 
-(** **** Exercise: 3 stars, standard (provable_true_post)  *)
+(** **** Exercise: 3 stars, standard (provable_true_post) *)
 
 (** Show that any Hoare triple whose postcondition is [True] is derivable. Proceed
     by induction on [c]. *)
@@ -242,7 +242,7 @@ Proof.
 
 (** [] *)
 
-(** **** Exercise: 3 stars, standard (provable_false_pre)  *)
+(** **** Exercise: 3 stars, standard (provable_false_pre) *)
 
 (** Show that any Hoare triple whose precondition is [False] is derivable. Again,
     proceed by induction on [c]. *)
@@ -278,7 +278,7 @@ Proof.
 
 *)
 
-(** **** Exercise: 3 stars, standard (hoare_sound)  *)
+(** **** Exercise: 3 stars, standard (hoare_sound) *)
 
 (** Prove that if a Hoare triple is derivable, then it is valid.
     Nearly all the work for this was already done in [Hoare] as
@@ -324,7 +324,7 @@ Proof. eauto. Qed.
     identify assertions that otherwise would require clever thinking.
     The next two lemmas show that in action. *)
 
-(** **** Exercise: 1 star, standard (wp_seq)  *)
+(** **** Exercise: 1 star, standard (wp_seq) *)
 
 (** What if we have a sequence [c1;; c2], but not an intermediate assertion for
     what should hold in between [c1] and [c2]?  No problem.  Prove that [wp c2 Q]
@@ -337,7 +337,7 @@ Proof.
 
 (** [] *)
 
-(** **** Exercise: 2 stars, standard (wp_invariant)  *)
+(** **** Exercise: 2 stars, standard (wp_invariant) *)
 
 (** What if we have a while loop, but not an invariant for it?  No
     problem.  Prove that for any [Q], assertion [wp (while b do c end)
@@ -350,7 +350,7 @@ Proof.
 
 (** [] *)
 
-(** **** Exercise: 4 stars, standard (hoare_complete)  *)
+(** **** Exercise: 4 stars, standard (hoare_complete) *)
 
 (** Now we are ready to prove the completeness of Hoare logic.  Finish
     the proof of the theorem below.
@@ -377,18 +377,18 @@ Proof.
 (** * Postscript: Decidability *)
 
 (** We might hope that Hoare logic would be _decidable_; that is, that
-    there is an (terminating) algorithm (a _decision procedure_) that
-    can determine whether or not a given Hoare triple is valid or
-    derivable.  But such a decision procedure cannot exist.
+    there would be an (terminating) algorithm (a _decision procedure_)
+    that can determine whether or not a given Hoare triple is valid or
+    derivable.  Sadly, such a decision procedure cannot exist.
 
-    Consider the triple [{{True}} c {{False}}]. This triple is valid if and
-    only if [c] is non-terminating.  So any algorithm that could
-    determine validity of arbitrary triples could solve the Halting
-    Problem.
+    Consider the triple [{{True}} c {{False}}]. This triple is valid
+    if and only if [c] is non-terminating.  So any algorithm that
+    could determine validity of arbitrary triples could solve the
+    Halting Problem.
 
-    Similarly, the triple [{{True}} skip {{P}}] is valid if and only if
-    [forall s, P s] is valid, where [P] is an arbitrary assertion of Coq's
-    logic. But it is known that there can be no decision procedure for
-    this logic. *)
+    Similarly, the triple [{{True}} skip {{P}}] is valid if and only
+    if [forall s, P s] is valid, where [P] is an arbitrary assertion
+    of Coq's logic. But this logic is far too powerful to be
+    decidable. *)
 
-(* 2020-09-09 21:08 *)
+(* 2021-05-25 14:19 *)

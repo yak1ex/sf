@@ -1087,7 +1087,7 @@ Definition expression_soundness_exec' :=
 
 Inductive com : Type :=
   | CSkip  : com
-  | CAss   : id  -> exp -> com
+  | CAsgn   : id  -> exp -> com
   | CSeq   : com -> com -> com
   | CIf    : exp -> com -> com -> com
   | CWhile : exp -> com -> com.
@@ -1095,7 +1095,7 @@ Inductive com : Type :=
 Notation "'SKIP'" :=
   CSkip.
 Notation "x '::=' a" :=
-  (CAss x a) (at level 60).
+  (CAsgn x a) (at level 60).
 Notation "c1 ;;; c2" :=
   (CSeq c1 c2) (at level 80, right associativity).
 Notation "'WHILE' b 'DO' c 'END'" :=
@@ -1109,7 +1109,7 @@ Derive Show for com.
     notations!) *)
 
 (** We can now define what it means for a command to be well typed
-    for a given context. The interesting cases are [TAss] and [TIf]/[TWhile]. 
+    for a given context. The interesting cases are [TAsgn] and [TIf]/[TWhile]. 
     The first one, ensures that the type of the variable we are 
     assigning to is the same as that of the expression. The latter,
     requires that the conditional is indeed a boolean expression.
@@ -1117,10 +1117,10 @@ Derive Show for com.
 
 Inductive well_typed_com : context -> com -> Prop :=
   | TSkip : forall Gamma, well_typed_com Gamma CSkip
-  | TAss  : forall Gamma x e T, 
+  | TAsgn  : forall Gamma x e T, 
       bound_to Gamma x T -> 
       Gamma ||- e \IN T ->
-      well_typed_com Gamma (CAss x e)
+      well_typed_com Gamma (CAsgn x e)
   | TSeq  : forall Gamma c1 c2, 
       well_typed_com Gamma c1 -> well_typed_com Gamma c2 ->
       well_typed_com Gamma (CSeq c1 c2)
@@ -1415,4 +1415,4 @@ Conjecture conditional_prop_example :
 (** The first version of this material was developed in collaboration
     with Nicolas Koh. *)
 
-(* 2020-10-14 10:23 *)
+(* 2021-05-26 10:04 *)

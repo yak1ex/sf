@@ -1,6 +1,6 @@
 (** * Records: Adding Records to STLC *)
 
-Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 From Coq Require Import Strings.String.
 From PLF Require Import Maps.
 From PLF Require Import Smallstep.
@@ -401,7 +401,7 @@ Hint Constructors has_type : core.
 (* ================================================================= *)
 (** ** Examples *)
 
-(** **** Exercise: 2 stars, standard (examples) 
+(** **** Exercise: 2 stars, standard (examples)
 
     Finish the proofs below.  Feel free to use Coq's automation
     features in this proof.  However, if you are not confident about
@@ -654,11 +654,11 @@ Qed.
 (* ----------------------------------------------------------------- *)
 (** *** Preservation *)
 
-  (* As before, we prove the substitution lemma by induction
-     on the term t. The only new case (compared to the proof in
-     StlcProp.v) is the case of rcons. For this case, we must do a little
-     extra work to show that substituting into a term doesn't change
-     whetherit is a record term. *)
+(** As before, we prove the substitution lemma by induction
+    on the term t. The only new case (compared to the proof in
+    StlcProp.v) is the case of rcons. For this case, we must do a little
+    extra work to show that substituting into a term doesn't change
+    whetherit is a record term. *)
 
 Lemma substitution_preserves_typing : forall Gamma x U t v T,
   (x |-> U ; Gamma) |- t \in T ->
@@ -735,4 +735,4 @@ Qed.
 
 End STLCExtendedRecords.
 
-(* 2020-09-09 21:08 *)
+(* 2021-05-26 09:57 *)

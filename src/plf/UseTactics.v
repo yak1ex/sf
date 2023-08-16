@@ -10,7 +10,7 @@
     various reasons, are not yet available by default in Coq.  These
     tactics are defined in the [LibTactics.v] file. *)
 
-Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 
 From Coq Require Import Arith.Arith.
 
@@ -189,7 +189,7 @@ Proof.
   induction E1; intros st2 E2;
     inverts E2 as.
   - (* E_Skip *) reflexivity.
-  - (* E_Ass *)
+  - (* E_Asgn *)
     (* Observe that the variable [n] is not automatically
        substituted because, contrary to [inversion E2; subst],
        the tactic [inverts E2] does not substitute the equalities
@@ -374,7 +374,7 @@ Proof.
   intros n m.
   asserts_rewrite (0 + n = n).
     reflexivity. (* subgoal [0+n = n] *)
-    reflexivity. (* subgoal [n*m = m*n] *)
+    reflexivity. (* subgoal [n*m = n*m] *)
 Qed.
 
 (** Remark: the syntax [asserts_rewrite (E1 = E2) in H] allows
@@ -451,13 +451,8 @@ Abort.
     prove [y] to be equal to [z]. So, we could call the tactic
     [assert_rewrite (y = z)] and change the goal to [P x z], but
     this would require copy-pasting the values of [y] and [z].
-    With the tactic [applys_eq], we can call [applys_eq H 1], which
-    proves the goal and leaves only the subgoal [y = z]. The value [1]
-    given as argument to [applys_eq] indicates that we want an equality
-    to be introduced for the first argument of [P x y] counting from
-    the right. The three following examples illustrate the behavior
-    of a call to [applys_eq H 1], a call to [applys_eq H 2], and a
-    call to [applys_eq H 1 2]. *)
+    With the tactic [applys_eq], we can call [applys_eq H], which
+    proves the goal and leaves only the subgoal [y = z]. *)
 
 Axiom big_expression_using : nat->nat. (* Used in the example *)
 
@@ -473,31 +468,20 @@ Proof.
   rewrite Eq. apply H.
 
   (* The new proof: *)
-  applys_eq H 1.
+  applys_eq H.
     admit. (* Assume we can prove this equality somehow. *)
 Abort.
 
-(** If the mismatch was on the first argument of [P] instead of
-    the second, we would have written [applys_eq H 2]. Recall
-    that the occurences are counted from the right. *)
-
-Lemma demo_applys_eq_2 : forall (P:nat->nat->Prop) x y z,
-  P (big_expression_using z) x ->
-  P (big_expression_using y) x.
-Proof.
-  introv H. applys_eq H 2.
-Abort.
-
 (** When we have a mismatch on two arguments, we want to produce
-    two equalities. To achieve this, we may call [applys_eq H 1 2].
+    two equalities. To achieve this, we may call [applys_eq H].
     More generally, the tactic [applys_eq] expects a lemma and a
     sequence of natural numbers as arguments. *)
 
-Lemma demo_applys_eq_3 : forall (P:nat->nat->Prop) x1 x2 y1 y2,
+Lemma demo_applys_eq_2 : forall (P:nat->nat->Prop) x1 x2 y1 y2,
   P (big_expression_using x2) (big_expression_using y2) ->
   P (big_expression_using x1) (big_expression_using y1).
 Proof.
-  introv H. applys_eq H 1 2.
+  introv H. applys_eq H.
   (* produces two subgoals:
      [big_expression_using x1 = big_expression_using x2]
      [big_expression_using y1 = big_expression_using y2] *)
@@ -512,12 +496,12 @@ End EqualityExamples.
     that help make proof scripts shorter and more readable:
     - [unfolds] (without argument) for unfolding the head definition,
     - [false] for replacing the goal with [False],
-    - [gen] as a shorthand for [dependent generalize],
-    - [admits] for naming an addmited fact,
+    - [gen] as a shorthand for [generalize dependent],
+    - [admits] for naming an admitted fact,
     - [admit_rewrite] for rewriting using an admitted equality,
     - [admit_goal] to set up a proof by induction by skipping the
       justification that some order decreases,
-    - [sort] for re-ordering the proof context by moving moving all
+    - [sort] for re-ordering the proof context by moving all
       propositions at the bottom. *)
 
 (* ================================================================= *)
@@ -693,7 +677,7 @@ Proof.
   introv E1 E2. gen st2.
   induction E1; introv E2; inverts E2 as.
   - (* E_Skip *) reflexivity.
-  - (* E_Ass *)
+  - (* E_Asgn *)
     subst n.
     reflexivity.
   - (* E_Seq *)
@@ -703,7 +687,7 @@ Proof.
       (* was: [apply IHE1_1; assumption.] *)
       (* new: *) eapply IH. eapply E1_1. eapply Red1. }
     subst st3.
-    (* was: apply IHE1_2. assumption.] *)
+    (* was: [apply IHE1_2. assumption.] *)
     (* new: *) eapply IH. eapply E1_2. eapply Red2.
   (* The other cases are similiar. *)
 Abort.
@@ -738,7 +722,7 @@ End SortExamples.
 (** * Tactics for Advanced Lemma Instantiation *)
 
 (** This last section describes a mechanism for instantiating a lemma
-    by providing some of its arguments and leaving other implicit.
+    by providing some of its arguments and leaving others implicit.
     Variables whose instantiation is not provided are turned into
     existentential variables, and facts whose instantiation is not
     provided are turned into subgoals.
@@ -752,7 +736,7 @@ End SortExamples.
 (** In this section, we'll use a useful feature of Coq for decomposing
     conjunctions and existentials. In short, a tactic like [intros] or
     [destruct] can be provided with a pattern [(H1 & H2 & H3 & H4 & H5)],
-    which is a shorthand for [[H1 [H2 [H3 [H4 H5]]]]]]. For example,
+    which is a shorthand for [ [H1 [H2 [H3 [H4 H5] ] ] ] ]. For example,
     [destruct (H _ _ _ Htypt) as [T [Hctx Hsub]].] can be rewritten in
     the form [destruct (H _ _ _ Htypt) as (T & Hctx & Hsub).] *)
 
@@ -942,7 +926,7 @@ End ExamplesLets.
       of very conveniently instantiating lemmas.
 
     - [applys_eq] can save the need to perform manual rewriting steps
-      before being able to apply lemma.
+      before being able to apply a lemma.
 
     - [admits], [admit_rewrite] and [admit_goal] give the flexibility to
       choose which subgoals to try and discharge first.
@@ -955,4 +939,4 @@ End ExamplesLets.
 
 *)
 
-(* 2020-09-09 21:08 *)
+(* 2021-05-26 09:57 *)

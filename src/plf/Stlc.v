@@ -12,7 +12,7 @@
     _variable binding_ and _substitution_.  It will take some work to
     deal with these. *)
 
-Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 From Coq Require Import Strings.String.
 From PLF Require Import Maps.
 From PLF Require Import Smallstep.
@@ -47,18 +47,17 @@ From PLF Require Import Smallstep.
            | false                     (constant false)
            | if t then t else t        (conditional)
 *)
-
-(** The [\] symbol in a function abstraction [\x:T,t] is generally
+(** The [\] symbol in a function abstraction [\x:T,t] is usually
     written as a Greek letter "lambda" (hence the name of the
     calculus).  The variable [x] is called the _parameter_ to the
     function; the term [t] is its _body_.  The annotation [:T]
     specifies the type of arguments that the function can be applied
     to. *)
 
-(** If you've seen lambda-calculus notation before, you might be
+(** If you've seen lambda-calculus notation elsewhere, you might be
     wondering why abstraction is written here as [\x:T,t] instead of
     the usual "[\x:T.t]". The reason is that some front ends for
-    interacting with Coq use period to separate a file into
+    interacting with Coq use periods to separate a file into
     "sentences" to be passed separately to the Coq top level. *)
 
 (** Some examples:
@@ -78,7 +77,9 @@ From PLF Require Import Smallstep.
       - [\x:Bool, true]
 
         The constant function that takes every (boolean) argument to
-        [true].
+        [true]. *)
+
+(**
       - [\x:Bool, \y:Bool, x]
 
         A two-argument function that takes two booleans and returns
@@ -189,8 +190,8 @@ Notation "'true'"  := tm_true (in custom stlc at level 0).
 Notation "'false'"  := false (at level 1).
 Notation "'false'"  := tm_false (in custom stlc at level 0).
 
-(** Some more notation magic to set up the concrete syntax, as we did
-    in the [Imp] chapter... *)
+(** Now we need some notation magic to set up the concrete syntax, as
+    we did in the [Imp] chapter... *)
 
 Definition x : string := "x".
 Definition y : string := "y".
@@ -421,13 +422,13 @@ Check <{[x:=true] x}>.
 (** See, for example, [Aydemir 2008] (in Bib.v) for further discussion
     of this issue. *)
 
-(** **** Exercise: 3 stars, standard (substi_correct) 
+(** **** Exercise: 3 stars, standard (substi_correct)
 
     The definition that we gave above uses Coq's [Fixpoint] facility
     to define substitution as a _function_.  Suppose, instead, we
     wanted to define substitution as an inductive _relation_ [substi].
     We've begun the definition by providing the [Inductive] header and
-    one of the construectors; your job is to fill in the rest of the
+    one of the constructors; your job is to fill in the rest of the
     constructors and prove that the relation you've defined coincides
     with the function given above. *)
 
@@ -627,7 +628,7 @@ Lemma step_example4' :
   <{idBB (notB true)}> -->* <{false}>.
 Proof. normalize.  Qed.
 
-(** **** Exercise: 2 stars, standard (step_example5) 
+(** **** Exercise: 2 stars, standard (step_example5)
 
     Try to do this one both with and without [normalize]. *)
 
@@ -700,8 +701,9 @@ Definition context := partial_map ty.
     We can read the three-place relation [Gamma |- t \in T] as:
     "under the assumptions in Gamma, the term [t] has the type [T]." *)
 
-Reserved Notation "Gamma '|-' t '\in' T" (at level 101,
-                                          t custom stlc, T custom stlc at level 0).
+Reserved Notation "Gamma '|-' t '\in' T"
+            (at level 101,
+             t custom stlc, T custom stlc at level 0).
 
 Inductive has_type : context -> tm -> ty -> Prop :=
   | T_Var : forall Gamma x T1,
@@ -763,7 +765,7 @@ Proof.
   apply T_Var. apply update_neq. intros Contra. discriminate.
 Qed.
 
-(** **** Exercise: 2 stars, standard, optional (typing_example_2_full) 
+(** **** Exercise: 2 stars, standard, optional (typing_example_2_full)
 
     Prove the same result without using [auto], [eauto], or
     [eapply] (or [...]). *)
@@ -778,7 +780,7 @@ Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(** **** Exercise: 2 stars, standard (typing_example_3) 
+(** **** Exercise: 2 stars, standard (typing_example_3)
 
     Formally prove the following typing derivation holds:
 
@@ -826,7 +828,7 @@ Proof.
   discriminate H1.
 Qed.
 
-(** **** Exercise: 3 stars, standard, optional (typing_nonexample_3) 
+(** **** Exercise: 3 stars, standard, optional (typing_nonexample_3)
 
     Another nonexample:
 
@@ -844,4 +846,4 @@ Proof.
 
 End STLC.
 
-(* 2020-09-09 21:08 *)
+(* 2021-05-26 09:57 *)

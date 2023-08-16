@@ -1,6 +1,6 @@
 (** * StlcProp: Properties of STLC *)
 
-Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 From PLF Require Import Maps.
 From PLF Require Import Types.
 From PLF Require Import Stlc.
@@ -18,9 +18,13 @@ Import STLC.
 (** As we saw for the very simple language in the [Types]
     chapter, the first step in establishing basic properties of
     reduction and types is to identify the possible _canonical
-    forms_ (i.e., well-typed closed values) belonging to each type.
-    For [Bool], these are again the boolean values [true] and [false];
-    for arrow types, they are lambda-abstractions.  *)
+    forms_ (i.e., well-typed values) belonging to each type.  For
+    [Bool], these are again the boolean values [true] and [false]; for
+    arrow types, they are lambda-abstractions.
+
+    Formally, we will need these lemmas only for terms that are not
+    only well typed but _closed_ -- well typed in the empty
+    context. *)
 
 Lemma canonical_forms_bool : forall t,
   empty |- t \in Bool ->
@@ -130,7 +134,7 @@ Proof with eauto.
       destruct H as [t1' Hstp]. exists <{if t1' then t2 else t3}>...
 Qed.
 
-(** **** Exercise: 3 stars, advanced (progress_from_term_ind) 
+(** **** Exercise: 3 stars, advanced (progress_from_term_ind)
 
     Show that progress can also be proved by induction on terms
     instead of induction on typing derivations. *)
@@ -162,20 +166,20 @@ Proof.
         operation.  To see that this step preserves typing, we need to
         know that the substitution itself does.  So we prove a...
 
-      - _substitution lemma_, stating that substituting a (closed)
-        term [s] for a variable [x] in a term [t] preserves the type
-        of [t].  The proof goes by induction on the form of [t] and
-        requires looking at all the different cases in the definition
-        of substitition.  This time, for the variables case, we
-        discover that we need to deduce from the fact that a term
-        [s] has type S in the empty context the fact that [s] has
+      - _substitution lemma_, stating that substituting a (closed,
+        well-typed) term [s] for a variable [x] in a term [t]
+        preserves the type of [t].  The proof goes by induction on the
+        form of [t] and requires looking at all the different cases in
+        the definition of substitition.  This time, for the variables
+        case, we discover that we need to deduce from the fact that a
+        term [s] has type S in the empty context the fact that [s] has
         type S in every context. For this we prove a...
 
       - _weakening_ lemma, showing that typing is preserved under
         "extensions" to the context [Gamma].
 
    To make Coq happy, of course, we need to formalize the story in the
-   opposite order... *)
+   opposite order, starting with weakening... *)
 
 (* ================================================================= *)
 (** ** The Weakening Lemma *)
@@ -188,12 +192,12 @@ Lemma weakening : forall Gamma Gamma' t T,
      Gamma  |- t \in T  ->
      Gamma' |- t \in T.
 Proof.
-  intros Gamma Gamma' t T H Ht. 
+  intros Gamma Gamma' t T H Ht.
   generalize dependent Gamma'.
   induction Ht; eauto using inclusion_update.
 Qed.
 
-(** The following simple corollary is useful below. *)
+(** The following simple corollary is what we actually need below. *)
 
 Lemma weakening_empty : forall Gamma t T,
      empty |- t \in T  ->
@@ -314,7 +318,7 @@ Qed.
     Fortunately, closed terms are all we need!)
  *)
 
-(** **** Exercise: 3 stars, advanced (substitution_preserves_typing_from_typing_ind) 
+(** **** Exercise: 3 stars, advanced (substitution_preserves_typing_from_typing_ind)
 
     Show that substitution_preserves_typing can also be
     proved by induction on typing derivations instead
@@ -335,9 +339,9 @@ Proof.
 (** ** Main Theorem *)
 
 (** We now have the ingredients we need to prove preservation: if a
-    closed term [t] has type [T] and takes a step to [t'], then [t']
-    is also a closed term with type [T].  In other words, the
-    small-step reduction relation preserves types. *)
+    closed, well-typed term [t] has type [T] and takes a step to [t'],
+    then [t'] is also a closed term with type [T].  In other words,
+    the small-step reduction relation preserves types. *)
 
 Theorem preservation : forall t t' T,
   empty |- t \in T  ->
@@ -401,13 +405,13 @@ Proof with eauto.
       inversion HT1...
 Qed.
 
-(** **** Exercise: 2 stars, standard, especially useful (subject_expansion_stlc) 
+(** **** Exercise: 2 stars, standard, especially useful (subject_expansion_stlc)
 
     An exercise in the [Types] chapter asked about the _subject
     expansion_ property for the simple language of arithmetic and
     boolean expressions.  This property did not hold for that language,
     and it also fails for STLC.  That is, it is not always the case that,
-    if [t --> t'] and [has_type t' T], then [empty |- t \in T].
+    if [t --> t'] and [empty |- t' \in T], then [empty |- t \in T].
     Show this by giving a counter-example that does _not involve
     conditionals_.
 
@@ -423,7 +427,7 @@ Definition manual_grade_for_subject_expansion_stlc : option (nat*string) := None
 (* ################################################################# *)
 (** * Type Soundness *)
 
-(** **** Exercise: 2 stars, standard, optional (type_soundness) 
+(** **** Exercise: 2 stars, standard, optional (type_soundness)
 
     Put progress and preservation together and show that a well-typed
     term can _never_ reach a stuck state.  *)
@@ -431,7 +435,7 @@ Definition manual_grade_for_subject_expansion_stlc : option (nat*string) := None
 Definition stuck (t:tm) : Prop :=
   (normal_form step) t /\ ~ value t.
 
-Corollary soundness : forall t t' T,
+Corollary type_soundness : forall t t' T,
   empty |- t \in T ->
   t -->* t' ->
   ~(stuck t').
@@ -445,7 +449,7 @@ Proof.
 (* ################################################################# *)
 (** * Uniqueness of Types *)
 
-(** **** Exercise: 3 stars, standard (unique_types) 
+(** **** Exercise: 3 stars, standard (unique_types)
 
     Another nice property of the STLC is that types are unique: a
     given term (in a given context) has at most one type. *)
@@ -459,28 +463,28 @@ Proof.
 (** [] *)
 
 (* ################################################################# *)
-(** * Context Invariance *)
+(** * Context Invariance (Optional) *)
 
-(** A standard technical lemma of a type system is
-  _context invariance_. It states that typing is preserved
-under "inessential changes" to the context [Gamma] -- in
-particular, changes that do not affect any of the free
-variables of the term. Next, we establish this property
-for our system.  *)
+(** Another standard technical lemma associated with typed languages
+    is _context invariance_. It states that typing is preserved under
+    "inessential changes" to the context [Gamma] -- in particular,
+    changes that do not affect any of the free variables of the
+    term. In this section, we establish this property for our system,
+    introducing some other standard terminology on the way.  *)
 
-(** First, we need to define the _free variables_ in a term --
-i.e., variables that are used in the term in positions
-that are _not_ in the scope of an enclosing function
-abstraction binding a variable of the same name.
+(** First, we need to define the _free variables_ in a term -- i.e.,
+    variables that are used in the term in positions that are _not_ in
+    the scope of an enclosing function abstraction binding a variable
+    of the same name.
 
-More technically, a variable [x] _appears free in_ a term _t_
-if [t] contains some occurrence of [x] that is not under
-an abstraction labeled [x]. For example:
-  - [y] appears free, but [x] does not, in [\x:T->U, x y]
-  - both [x] and [y] appear free in [(\x:T->U, x y) x]
-  - no variables appear free in [\x:T->U, \y:T, x y]
+    More technically, a variable [x] _appears free in_ a term _t_ if
+    [t] contains some occurrence of [x] that is not under an
+    abstraction labeled [x]. For example:
+      - [y] appears free, but [x] does not, in [\x:T->U, x y]
+      - both [x] and [y] appear free in [(\x:T->U, x y) x]
+      - no variables appear free in [\x:T->U, \y:T, x y]
 
-  Formally: *)
+      Formally: *)
 
 Inductive appears_free_in (x : string) : tm -> Prop :=
   | afi_var : appears_free_in x <{x}>
@@ -507,17 +511,20 @@ Inductive appears_free_in (x : string) : tm -> Prop :=
 Hint Constructors appears_free_in : core.
 
 (** The _free variables_ of a term are just the variables that appear
-    free in it.  A term with no free variables is said to be
-    _closed_. *)
+    free in it.  This gives us another way to define _closed_ terms --
+    arguably a better one, since it applies even to ill-typed
+    terms.  Indeed, this is the standard definition of the term
+    "closed." *)
 
 Definition closed (t:tm) :=
   forall x, ~ appears_free_in x t.
 
-(** An _open_ term is one that may contain free variables.  (I.e., every
-    term is an open term; the closed terms are a subset of the open ones.
-    "Open" precisely means "possibly containing free variables.") *)
+(** Conversely, an _open_ term is one that may contain free
+    variables.  (I.e., every term is an open term; the closed terms
+    are a subset of the open ones.  "Open" precisely means "possibly
+    containing free variables.") *)
 
-(** **** Exercise: 1 star, standard (afi) 
+(** **** Exercise: 1 star, standard (afi)
 
     In the space below, write out the rules of the [appears_free_in]
     relation in informal inference-rule notation.  (Use whatever
@@ -571,7 +578,7 @@ Lemma free_in_context : forall x t T Gamma,
       type to [x], we appeal to lemma [update_neq], noting that [x]
       and [y] are different variables. *)
 
-(** **** Exercise: 2 stars, standard (free_in_context) 
+(** **** Exercise: 2 stars, standard (free_in_context)
 
     Complete the following proof. *)
 
@@ -587,7 +594,7 @@ Proof.
     term [t] that is well typed in the empty context is closed (it has
     no free variables). *)
 
-(** **** Exercise: 2 stars, standard, optional (typable_empty__closed)  *)
+(** **** Exercise: 2 stars, standard, optional (typable_empty__closed) *)
 Corollary typable_empty__closed : forall t T,
     empty |- t \in T  ->
     closed t.
@@ -595,13 +602,13 @@ Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(** Next, we establish _context_invariance_.
-    It is useful in cases when we have a proof of some typing relation
-    [Gamma |- t \in T], and we need to replace [Gamma] by a different
-    context [Gamma'].  When is it safe to do this?  Intuitively, it
-    must at least be the case that [Gamma'] assigns the same types as
-    [Gamma] to all the variables that appear free in [t]. In fact,
-    this is the only condition that is needed. *)
+(** Finally, we establish _context_invariance_.  It is useful in cases
+    when we have a proof of some typing relation [Gamma |- t \in T],
+    and we need to replace [Gamma] by a different context [Gamma'].
+    When is it safe to do this?  Intuitively, it must at least be the
+    case that [Gamma'] assigns the same types as [Gamma] to all the
+    variables that appear free in [t]. In fact, this is the only
+    condition that is needed. *)
 
 Lemma context_invariance : forall Gamma Gamma' t T,
      Gamma |- t \in T  ->
@@ -647,7 +654,7 @@ Lemma context_invariance : forall Gamma Gamma' t T,
       [t1 t2], and similarly for [t2]; hence the desired result
       follows from the induction hypotheses. *)
 
-(** **** Exercise: 3 stars, standard, optional (context_invariance) 
+(** **** Exercise: 3 stars, standard, optional (context_invariance)
 
     Complete the following proof. *)
 Proof.
@@ -657,10 +664,14 @@ Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
 
+(** The context invariance lemma can actually be used in place of the
+    weakening lemma to prove the crucial substitution lemma stated
+    earlier. *)
+
 (* ################################################################# *)
 (** * Additional Exercises *)
 
-(** **** Exercise: 1 star, standard (progress_preservation_statement) 
+(** **** Exercise: 1 star, standard (progress_preservation_statement)
 
     Without peeking at their statements above, write down the progress
     and preservation theorems for the simply typed lambda-calculus (as
@@ -673,7 +684,7 @@ Proof.
 Definition manual_grade_for_progress_preservation_statement : option (nat*string) := None.
 (** [] *)
 
-(** **** Exercise: 2 stars, standard (stlc_variation1) 
+(** **** Exercise: 2 stars, standard (stlc_variation1)
 
     Suppose we add a new term [zap] with the following reduction rule
 
@@ -702,7 +713,7 @@ and the following typing rule:
 Definition manual_grade_for_stlc_variation1 : option (nat*string) := None.
 (** [] *)
 
-(** **** Exercise: 2 stars, standard (stlc_variation2) 
+(** **** Exercise: 2 stars, standard (stlc_variation2)
 
     Suppose instead that we add a new term [foo] with the following
     reduction rules:
@@ -730,7 +741,7 @@ Definition manual_grade_for_stlc_variation1 : option (nat*string) := None.
 Definition manual_grade_for_stlc_variation2 : option (nat*string) := None.
 (** [] *)
 
-(** **** Exercise: 2 stars, standard (stlc_variation3) 
+(** **** Exercise: 2 stars, standard (stlc_variation3)
 
     Suppose instead that we remove the rule [ST_App1] from the [step]
     relation. Which of the following properties of the STLC remain
@@ -750,7 +761,7 @@ Definition manual_grade_for_stlc_variation2 : option (nat*string) := None.
 Definition manual_grade_for_stlc_variation3 : option (nat*string) := None.
 (** [] *)
 
-(** **** Exercise: 2 stars, standard, optional (stlc_variation4) 
+(** **** Exercise: 2 stars, standard, optional (stlc_variation4)
 
     Suppose instead that we add the following new rule to the
     reduction relation:
@@ -772,7 +783,7 @@ Definition manual_grade_for_stlc_variation3 : option (nat*string) := None.
 *)
 (** [] *)
 
-(** **** Exercise: 2 stars, standard, optional (stlc_variation5) 
+(** **** Exercise: 2 stars, standard, optional (stlc_variation5)
 
     Suppose instead that we add the following new rule to the typing
     relation:
@@ -796,7 +807,7 @@ Definition manual_grade_for_stlc_variation3 : option (nat*string) := None.
 *)
 (** [] *)
 
-(** **** Exercise: 2 stars, standard, optional (stlc_variation6) 
+(** **** Exercise: 2 stars, standard, optional (stlc_variation6)
 
     Suppose instead that we add the following new rule to the typing
     relation:
@@ -820,7 +831,7 @@ Definition manual_grade_for_stlc_variation3 : option (nat*string) := None.
 *)
 (** [] *)
 
-(** **** Exercise: 2 stars, standard, optional (stlc_variation7) 
+(** **** Exercise: 2 stars, standard, optional (stlc_variation7)
 
     Suppose we add the following new rule to the typing relation
     of the STLC:
@@ -875,8 +886,6 @@ Inductive tm : Type :=
   | tm_mult : tm -> tm -> tm
   | tm_if0 : tm -> tm -> tm -> tm.
 
-
-
 Notation "{ x }" := x (in custom stlc at level 1, x constr).
 
 Notation "<{ e }>" := e (e custom stlc at level 99).
@@ -906,7 +915,7 @@ Notation "'if0' x 'then' y 'else' z" :=
                     left associativity).
 Coercion tm_const : nat >-> tm.
 
-(** **** Exercise: 5 stars, standard (stlc_arith) 
+(** **** Exercise: 5 stars, standard (stlc_arith)
 
     Finish formalizing the definition and properties of the STLC
     extended with arithmetic. This is a longer exercise. Specifically:
@@ -919,7 +928,7 @@ Coercion tm_const : nat >-> tm.
         autograder.)
 
         You should copy over five definitions:
-          - Fixpoint susbt
+          - Fixpoint subst
           - Inductive value
           - Inductive step
           - Inductive has_type
@@ -951,4 +960,4 @@ Definition manual_grade_for_stlc_arith : option (nat*string) := None.
 
 End STLCArith.
 
-(* 2020-09-09 21:08 *)
+(* 2021-05-26 09:57 *)

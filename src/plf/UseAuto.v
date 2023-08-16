@@ -594,7 +594,7 @@ Proof. intros P H1 H3 H2. (* debug *) eauto. Qed.
 Lemma nat_le_refl : forall (x:nat), x <= x.
 Proof. apply le_n. Qed.
 
-Hint Resolve nat_le_refl : core.
+Local Hint Resolve nat_le_refl : core.
 
 (** A convenient shorthand for adding all the constructors of an
     inductive datatype as hints is the command [Hint Constructors
@@ -689,7 +689,7 @@ Proof.
   generalize dependent st2.
   induction E1; intros st2 E2; inversion E2; subst.
   - (* E_Skip *) reflexivity.
-  - (* E_Ass *) reflexivity.
+  - (* E_Asgn *) reflexivity.
   - (* E_Seq *)
     assert (st' = st'0) as EQ1.
     { (* Proof of assertion *) apply IHE1_1; assumption. }
@@ -828,7 +828,7 @@ End DeterministicImp.
 (** To investigate how to automate the proof of the lemma [preservation],
     let us first import the definitions required to state that lemma. *)
 
-Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 From PLF Require StlcProp.
 Module PreservationProgressStlc.
 Import Stlc.
@@ -1106,7 +1106,7 @@ Proof.
         { replace <{ Ref T1 }>
             with <{ Ref {store_Tlookup (length st) (ST ++ T1::nil)} }>.
           { apply T_Loc.
-            rewrite <- H. rewrite app_length, plus_comm. simpl. lia. }
+            rewrite <- H. rewrite app_length, add_comm. simpl. lia. }
           unfold store_Tlookup. rewrite <- H. rewrite nth_eq_last.
           reflexivity. }
         apply store_well_typed_app; assumption. *)
@@ -1118,21 +1118,20 @@ Proof.
       apply extends_app.
     (* For the second subgoal, we use the tactic [applys_eq] to avoid
        a manual [replace] before [T_loc] can be applied. *)
-      applys_eq T_Loc 1.
+      applys_eq T_Loc.
+    (* The next proof case is hard to polish because it relies on the
+       lemma [app_nth2] whose statement is not automation-friendly.
+       We'll come back to this proof case further on. *)
+        unfold store_Tlookup. rewrite <- H. rewrite* app_nth2.
+    (* Last, we replace [apply ..; assumption] with [apply* ..] *)
+        rewrite minus_diag. simpl. reflexivity.
     (* To justify the inequality, there is no need to call [rewrite <- H],
        because the tactic [lia] is able to exploit [H] on its own.
        So, only the rewriting of [app_length] and the call to the
        tactic [lia] remain, with a call to [simpl] to unfold the
        definition of [app]. *)
         rewrite app_length. simpl. lia.
-    (* The next proof case is hard to polish because it relies on the
-       lemma [app_nth1] whose statement is not automation-friendly.
-       We'll come back to this proof case further on. *)
-      unfold store_Tlookup. rewrite <- H. rewrite* app_nth2.
-    (* Last, we replace [apply ..; assumption] with [apply* ..] *)
-    rewrite minus_diag. simpl. reflexivity.
-    apply* store_well_typed_app.
-
+      apply* store_well_typed_app.
   - forwards*: IHHt.
 
   - (* T_Deref *)
@@ -1149,7 +1148,7 @@ Proof.
   lets [_ Hsty]: HST.
   (* new: then we use the tactic [applys_eq] to avoid the need to
      perform a manual [replace] before applying [Hsty]. *)
-  applys_eq* Hsty 1.
+  applys_eq* Hsty.
   (* new: we then can call [inverts] in place of [inversion;subst] *)
   inverts* Ht.
 
@@ -1225,13 +1224,13 @@ Proof.
   - forwards*: IHHt1.
   - exists (ST ++ T1::nil). inverts keep HST. splits.
     apply extends_app.
-    applys_eq T_Loc 1.
-      rewrite app_length. simpl. lia.
+    applys_eq T_Loc.
       unfold store_Tlookup. rewrite* nth_eq_last'.
+      rewrite app_length. simpl. lia.
     apply* store_well_typed_app.
   - forwards*: IHHt.
   - exists ST. splits*. lets [_ Hsty]: HST.
-    applys_eq* Hsty 1. inverts* Ht.
+    applys_eq* Hsty. inverts* Ht.
   - forwards*: IHHt.
   - exists ST. splits*. applys* assign_pres_store_typing. inverts* Ht1.
   - forwards*: IHHt1.
@@ -1922,4 +1921,4 @@ Proof. congruence. Qed.
     some investment, however this investment will pay off very quickly.
 *)
 
-(* 2020-09-09 21:08 *)
+(* 2021-05-26 09:58 *)
