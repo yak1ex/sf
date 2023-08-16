@@ -328,9 +328,9 @@
     title        =   "Separation Logic Foundations",
     series       =   "Software Foundations",
     volume       =   "6",
-    year         =   "2022",
+    year         =   "2023",
     publisher    =   "Electronic textbook",
-    note         =   {Version 1.3, \URL{http://softwarefoundations.cis.upenn.edu} },
+    note         =   {Version 1.4, \URL{http://softwarefoundations.cis.upenn.edu} },
     }
 *)
 
@@ -342,4 +342,4 @@
     Foundation under the NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2022-08-08 17:28 *)
+(* 2023-03-25 11:36 *)

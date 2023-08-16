@@ -643,7 +643,7 @@ Ltac fseq_inv_core H :=
   let go L :=
      false L; [ apply H
               | try apply notin_empty
-              | instantiate; try in_union_meta ] in
+              | try in_union_meta ] in
   match type of H with
   | \{} = _ => go empty_eq_single_inv_1
   | _ = \{} => go empty_eq_single_inv_2
@@ -730,4 +730,4 @@ Tactic Notation "multiset_empty" :=
 Tactic Notation "multiset_empty" constr(E) :=
   let H := fresh "M" in lets H:E; multiset_empty in H.
 
-(* 2022-08-08 17:28 *)
+(* 2023-03-25 11:36 *)

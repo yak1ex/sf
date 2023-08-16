@@ -1534,7 +1534,7 @@ Ltac equates_several E cont :=
   let rec go pos :=
      match pos with
      | nil => cont tt
-     | (boxer ?n)::?pos' => equates_one n; [ instantiate; go pos' | ]
+     | (boxer ?n)::?pos' => equates_one n; [ go pos' | ]
      end in
   go all_pos.
 
@@ -1643,7 +1643,7 @@ Tactic Notation "tryfalse" :=
 
 Ltac false_then E cont :=
   false_goal; first
-  [ applys E; instantiate
+  [ applys E
   | forwards_then E ltac:(fun M =>
       pose M; jauto_set_hyps; intros; false) ];
   cont tt.
@@ -5208,4 +5208,4 @@ Ltac autorewrite_in_star_patch cont :=
 
 (* End of experimental features *)
 
-(* 2022-08-08 17:28 *)
+(* 2023-03-25 11:36 *)

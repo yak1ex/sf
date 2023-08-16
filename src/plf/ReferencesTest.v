@@ -57,12 +57,12 @@ check_type @STLCRef.cyclic_store (
 (exists t : STLCRef.tm,
    STLCRef.multistep (t, @nil STLCRef.tm)
      (STLCRef.tm_unit,
-     (STLCRef.tm_abs STLCRef.x STLCRef.Ty_Nat
-        (STLCRef.tm_app (STLCRef.tm_deref (STLCRef.tm_loc 1))
-           (STLCRef.tm_var STLCRef.x))
-      :: STLCRef.tm_abs STLCRef.x STLCRef.Ty_Nat
-           (STLCRef.tm_app (STLCRef.tm_deref (STLCRef.tm_loc 0))
-              (STLCRef.tm_var STLCRef.x)) :: @nil STLCRef.tm)%list))).
+      (STLCRef.tm_abs STLCRef.x STLCRef.Ty_Nat
+         (STLCRef.tm_app (STLCRef.tm_deref (STLCRef.tm_loc 1))
+            (STLCRef.tm_var STLCRef.x))
+       :: STLCRef.tm_abs STLCRef.x STLCRef.Ty_Nat
+            (STLCRef.tm_app (STLCRef.tm_deref (STLCRef.tm_loc 0))
+               (STLCRef.tm_var STLCRef.x)) :: @nil STLCRef.tm)%list))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions STLCRef.cyclic_store.
@@ -158,6 +158,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2022-08-08 17:32 *)
+(* 2023-03-25 11:15 *)
 
-(* 2022-08-08 17:32 *)
+(* 2023-03-25 11:16 *)
