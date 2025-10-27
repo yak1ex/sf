@@ -146,6 +146,8 @@ def process_toml(toml_path, prefix='src', tgz_dir='.'):
 
 
 if __name__ == "__main__":
-    # updates = process_toml(sys.argv[1])
-    # update_readme(updates)
-    pass
+    if len(sys.argv) != 2:
+        print("Usage: python update.py <path_to_toml>")
+        sys.exit(1)
+    updates = process_toml(sys.argv[1])
+    update_readme(updates)
