@@ -61,6 +61,9 @@ def update_readme(updates_all, readme_path="README.md"):
     Args:
         updates (dict): A dictionary containing update information
     """
+    dates = list(updates_all.keys())
+    dates.reverse()
+
     with open(readme_path, "r", encoding="utf-8") as f:
         lines = f.readlines()
 
@@ -72,14 +75,14 @@ def update_readme(updates_all, readme_path="README.md"):
                 if row == 1:
                     # If the first row, dates are prepended
                     new_line = '|'
-                    for date in updates_all.keys():
+                    for date in dates:
                         new_line += f"|{date}"
                     new_line += line[1:]
                     f.write(new_line)
                 elif row == 2:
                     # If the second row, separator is prepended
                     new_line = '|-'
-                    for _ in updates_all.keys():
+                    for _ in dates:
                         new_line += "|-"
                     new_line += line[2:]
                     f.write(new_line)
@@ -89,7 +92,7 @@ def update_readme(updates_all, readme_path="README.md"):
                     match = re.search(r'\(([a-z]+)\)', parts[1])
                     volume = match.group(1)
                     new_line = f"|{parts[1]}"
-                    for date in updates_all.keys():
+                    for date in dates:
                         if volume in updates_all[date]:
                             meta = updates_all[date][volume]
                             new_line += f"|[{meta['version']}]({BASE_URL}{volume}-{meta['version']}/index.html)<br>" \

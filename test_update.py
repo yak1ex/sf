@@ -137,15 +137,18 @@ def test_update_readme():
             '2024/06/01': {
                 'lf': {'version': '6.3', 'datetime': '2024/06/01 12:00', 'coq_version': 'Coq 8.16 or later'},
                 'plf': {'version': '6.3', 'datetime': '2024/06/01 12:00', 'coq_version': 'Coq 8.16 or later'},
-            }
+            },
+            '2024/10/01': {
+                'plf': {'version': '6.4', 'datetime': '2024/10/01 12:00', 'coq_version': 'Coq 8.16 or later'},
+            },
         }
         update_readme(updates_all, readme_path=readme_path)
         with open(readme_path, "r") as f:
             lines = f.readlines()
-            assert "||2024/06/01|2023/7/6|\n" == lines[0]
-            assert "|-|-|-|\n" == lines[1]
-            assert "|1.Logical Foundations (lf)|[6.3](https://softwarefoundations.cis.upenn.edu/lf-6.3/index.html)<br>2024/06/01 12:00<br>Coq 8.16 or later||\n" == lines[2]
-            assert "|2.Programming Language Foundations (plf)|[6.3](https://softwarefoundations.cis.upenn.edu/plf-6.3/index.html)<br>2024/06/01 12:00<br>Coq 8.16 or later|[6.2](https://softwarefoundations.cis.upenn.edu/plf-6.2/index.html)<br>2023/07/06 15:52<br>Coq 8.15 or later|\n" == lines[3]
+            assert "||2024/10/01|2024/06/01|2023/7/6|\n" == lines[0]
+            assert "|-|-|-|-|\n" == lines[1]
+            assert "|1.Logical Foundations (lf)||[6.3](https://softwarefoundations.cis.upenn.edu/lf-6.3/index.html)<br>2024/06/01 12:00<br>Coq 8.16 or later||\n" == lines[2]
+            assert "|2.Programming Language Foundations (plf)|[6.4](https://softwarefoundations.cis.upenn.edu/plf-6.4/index.html)<br>2024/10/01 12:00<br>Coq 8.16 or later|[6.3](https://softwarefoundations.cis.upenn.edu/plf-6.3/index.html)<br>2024/06/01 12:00<br>Coq 8.16 or later|[6.2](https://softwarefoundations.cis.upenn.edu/plf-6.2/index.html)<br>2023/07/06 15:52<br>Coq 8.15 or later|\n" == lines[3]
 
 @pytest.mark.parametrize(
     ["updates", "expected"],
