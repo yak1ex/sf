@@ -4,8 +4,18 @@ import subprocess
 import shutil
 import sys
 import tarfile
-import tomllib
-
+if sys.version_info >= (3, 12):
+    import tomllib
+    TOML_MODE='rb'
+    EXTRACT_ALL_KWARGS = {'filter': 'data'}
+elif sys.version_info >= (3, 11):
+    import tomllib
+    TOML_MODE='rb'
+    EXTRACT_ALL_KWARGS = {}
+else:
+    import toml as tomllib
+    TOML_MODE='r'
+    EXTRACT_ALL_KWARGS = {}
 
 """
 Toml data example:
@@ -35,7 +45,7 @@ def replace_folder(tar_path, folder_path):
     shutil.rmtree(folder_path)
     os.makedirs(folder_path, exist_ok=True)
     with tarfile.open(tar_path, "r:*") as tar:
-        tar.extractall(path=os.path.join(folder_path, ".."), filter='data')
+        tar.extractall(path=os.path.join(folder_path, ".."), **EXTRACT_ALL_KWARGS)
 
 
 def extract_metadata(folder_path):
@@ -125,7 +135,7 @@ def create_commit_message(updates):
 
 
 def process_toml(toml_path, prefix='src', tgz_dir='.'):
-    with open(toml_path, "rb") as f:
+    with open(toml_path, TOML_MODE) as f:
         data = tomllib.load(f)
 
     updates = {}
