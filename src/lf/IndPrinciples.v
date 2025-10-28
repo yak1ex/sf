@@ -161,7 +161,7 @@ Inductive natlist' : Type :=
   | nnil'
   | nsnoc (l : natlist') (n : nat).
 
-(** Now the induction principle case for [nsnoc1] is a bit different
+(** Now the induction principle case for [nsnoc] is a bit different
     than the earlier case for [ncons]: *)
 
 Check natlist'_ind :
@@ -963,4 +963,4 @@ Proof. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(* 2023-03-25 11:11 *)
+(* 2023-08-28 16:15 *)
