@@ -1030,4 +1030,4 @@ Proof with eauto. (* FILL IN HERE *) Admitted.
 
 End STLCArith.
 
-(* 2023-07-06 15:50 *)
+(* 2023-08-23 11:31 *)
