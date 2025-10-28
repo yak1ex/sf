@@ -1155,7 +1155,7 @@ where "'[' x ':=' s ']' t" := (subst x s t) (in custom stlc).
 Example substeg1 :
   <{ [z:=0] (let w = z in z) }> = <{ let w = 0 in 0 }>.
 Proof.
-(* 
+(*
   reflexivity.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1163,7 +1163,7 @@ Proof.
 Example substeg2 :
   <{ [z:=0] (let w = z in w) }> = <{ let w = 0 in w }>.
 Proof.
-(* 
+(*
   reflexivity.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1171,7 +1171,7 @@ Proof.
 Example substeg3 :
   <{ [z:=0] (let y = succ 0 in z) }> = <{ let y = succ 0 in 0 }>.
 Proof.
-(* 
+(*
   reflexivity.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1488,7 +1488,7 @@ Proof.
 Example reduces :
   tm_test -->* 5.
 Proof.
-(* 
+(*
   unfold tm_test. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1510,7 +1510,7 @@ Proof. unfold tm_test. eauto. (* FILL IN HERE *) Admitted.
 Example reduces :
   tm_test -->* 6.
 Proof.
-(* 
+(*
   unfold tm_test. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1534,7 +1534,7 @@ Proof. unfold tm_test. eauto.
 Example reduces :
   tm_test -->* 6.
 Proof.
-(* 
+(*
   unfold tm_test. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1555,7 +1555,7 @@ Proof. unfold tm_test. eauto.
 Example reduces :
   tm_test -->* 6.
 Proof.
-(* 
+(*
   unfold tm_test. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1579,7 +1579,7 @@ Proof. unfold tm_test. eauto. (* FILL IN HERE *) Admitted.
 Example reduces :
   tm_test -->* 5.
 Proof.
-(* 
+(*
   unfold tm_test. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1610,7 +1610,7 @@ Proof. unfold tm_test. eauto 10. (* FILL IN HERE *) Admitted.
 Example reduces :
   tm_test -->* <{(5, 0)}>.
 Proof.
-(* 
+(*
   unfold tm_test. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1640,7 +1640,7 @@ Proof. unfold tm_test. eauto. (* FILL IN HERE *) Admitted.
 Example reduces :
   tm_test -->* 25.
 Proof.
-(* 
+(*
   unfold tm_test. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1668,7 +1668,7 @@ Proof. unfold fact. auto 10. (* FILL IN HERE *) Admitted.
 Example reduces :
   <{fact 4}> -->* 24.
 Proof.
-(* 
+(*
   unfold fact. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1695,7 +1695,7 @@ Example reduces :
   <{map (\a:Nat, succ a) (1 :: 2 :: (nil Nat))}>
   -->* <{2 :: 3 :: (nil Nat)}>.
 Proof.
-(* 
+(*
   unfold map. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1720,7 +1720,7 @@ Proof. unfold equal. auto 10. (* FILL IN HERE *) Admitted.
 Example reduces :
   <{equal 4 4}> -->* 1.
 Proof.
-(* 
+(*
   unfold equal. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1729,7 +1729,7 @@ Proof.
 Example reduces2 :
   <{equal 4 5}> -->* 0.
 Proof.
-(* 
+(*
   unfold equal. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -1756,7 +1756,7 @@ Proof. unfold eotest. eauto 30. (* FILL IN HERE *) Admitted.
 Example reduces :
   eotest -->* <{(0, 1)}>.
 Proof.
-(* 
+(*
   unfold eotest. eauto 10. normalize.
 *)
 (* FILL IN HERE *) Admitted.
@@ -2101,4 +2101,4 @@ Proof with eauto.
 
 End STLCExtended.
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:25 *)

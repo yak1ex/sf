@@ -63,7 +63,7 @@ Definition vars : Type := list var.
 
 (** [var_fresh y xs] asserts that [y] does not belong to the list [xs] *)
 
-Definition var_fresh (y:var) (xs:vars) : Prop := 
+Definition var_fresh (y:var) (xs:vars) : Prop :=
   ~ mem y xs.
 
 (** The following lemma asserts that if [x] is a variable in the list [xs],
@@ -437,4 +437,4 @@ Ltac var_neq :=
 #[global]
 Hint Extern 1 (?x <> ?y) => var_neq.
 
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 08:34 *)

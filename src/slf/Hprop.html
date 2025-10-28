@@ -40,7 +40,7 @@
 </div>
 
 <div class="doc">
-<a id="lab90"></a><h1 class="section">First Pass</h1>
+<a id="lab96"></a><h1 class="section">First Pass</h1>
 
 <div class="paragraph"> </div>
 
@@ -48,13 +48,11 @@
     using Separation Logic. The purpose of the coming chapters is to explain how
     to formally assign meaning to the tokens used in the statement of
     specifications (e.g., the star operator), formally define the notion of
-    Separation Triples, and prove the reasoning rules of Separation Logic.
-    These rules are exploited by the "x-tactics" used in the first two
-    chapters.
-
+    Separation Triples, and prove the reasoning rules of Separation Logic. These
+    rules are exploited by the "x-tactics" used in the first two chapters. 
 <div class="paragraph"> </div>
 
-    This chapter presents the formal definitions of the key heap predicate
+ This chapter presents the formal definitions of the key heap predicate
     operators from Separation Logic:
 
 <div class="paragraph"> </div>
@@ -76,16 +74,14 @@
                   postcondition and a heap predicate,
 
 </li>
-<li> <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">H</span></span> denotes an existential quantifier.
-
+<li> <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">H</span></span> denotes an existential quantifier. 
 </li>
 </ul>
 
 <div class="paragraph"> </div>
 
-    To begin with, we define the type <span class="inlinecode"><span class="id" title="var">state</span></span>, for describing a full memory
-    state. We then introduce the type <span class="inlinecode"><span class="id" title="var">heap</span></span>, an alias for <span class="inlinecode"><span class="id" title="var">state</span></span>, intended to
-    describe pieces of state.
+ To begin with, we define the types <span class="inlinecode"><span class="id" title="var">heap</span></span>, used to represent a memory state,
+    or a piece of a memory state.
 
 <div class="paragraph"> </div>
 
@@ -112,44 +108,36 @@
 </div>
 
 <div class="doc">
-<a id="lab91"></a><h2 class="section">Description of Memory States</h2>
+<a id="lab97"></a><h2 class="section">Description of Memory States</h2>
 
 <div class="paragraph"> </div>
 
  To reason about imperative programs, Separation Logic relies on heap
     predicates for describing memory states. As the name suggests, a "heap
     predicate" is a predicate over heaps, i.e., over memory states. Heap
-    predicates such as <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">n</span></span>, or <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> admit the type <span class="inlinecode"><span class="id" title="var">state</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>,
-    where the type <span class="inlinecode"><span class="id" title="var">state</span></span> corresponds to a finite map used to describe the
-    contents of the memory. In what follows, we give the formal definition of
-    <span class="inlinecode"><span class="id" title="var">state</span></span> and of the type of heap predicates. 
+    predicates such as <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">n</span></span>, or <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> admit the type <span class="inlinecode"><span class="id" title="var">heap</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>,
+    where the type <span class="inlinecode"><span class="id" title="var">heap</span></span> corresponds to a finite map used to describe the
+    contents of a piece of the memory. In what follows, we give the formal
+    definition of <span class="inlinecode"><span class="id" title="var">heap</span></span> and of the type of heap predicates. 
 <div class="paragraph"> </div>
 
  In the previous chapters, we have assumed a type <span class="inlinecode"><span class="id" title="var">val</span></span> to range over program
     values and a type <span class="inlinecode"><span class="id" title="var">loc</span></span> to denote memory locations. Concrete definitions
     will be provided later on, in chapter <a href="Rules.html"><span class="inlineref">Rules</span></a>. At this point, we are
-    interested in the definition of the type <span class="inlinecode"><span class="id" title="var">state</span></span>, used to describe the
+    interested in the definition of the type <span class="inlinecode"><span class="id" title="var">heap</span></span>, used to describe the
     contents of the memory during the execution of a program. 
 <div class="paragraph"> </div>
 
- A state is a finite map from locations to values. The file <span class="inlinecode"><span class="id" title="var">LibSepFmap.v</span></span>
+ A <span class="inlinecode"><span class="id" title="var">heap</span></span> is a finite map from locations to values. The file <span class="inlinecode"><span class="id" title="var">LibSepFmap.v</span></span>
     provides a self-contained formalization of finite maps. An object of type
     <span class="inlinecode"><span class="id" title="var">fmap</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode"><span class="id" title="var">B</span></span> represents a finite map binding keys of type <span class="inlinecode"><span class="id" title="var">A</span></span> to values of
-    type <span class="inlinecode"><span class="id" title="var">B</span></span>. We define the type <span class="inlinecode"><span class="id" title="var">state</span></span> as a map from locations, of type <span class="inlinecode"><span class="id" title="var">loc</span></span>,
-    to program values, of type <span class="inlinecode"><span class="id" title="var">val</span></span>. 
+    type <span class="inlinecode"><span class="id" title="var">B</span></span>. We define the type <span class="inlinecode"><span class="id" title="var">heap</span></span> as a map from locations, of type <span class="inlinecode"><span class="id" title="var">loc</span></span>,
+    to program values, of type <span class="inlinecode"><span class="id" title="var">val</span></span>. Internally, <span class="inlinecode"><span class="id" title="var">fmap</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode"><span class="id" title="var">B</span></span> is implemented as a
+    function of type <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">option</span></span> <span class="inlinecode"><span class="id" title="var">B</span></span>, like in <span class="inlinecode"><span class="id" title="var">Maps.v</span></span> from the LF volume. 
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Definition</span> <a id="state" class="idref" href="#state"><span class="id" title="definition">state</span></a> : <span class="id" title="keyword">Type</span> := <a class="idref" href="LibSepFmap.html#fmap"><span class="id" title="record">fmap</span></a> <a class="idref" href="LibSepReference.html#loc"><span class="id" title="definition">loc</span></a> <a class="idref" href="LibSepReference.html#val"><span class="id" title="inductive">val</span></a>.<br/>
-</div>
-
-<div class="doc">
-By convention, we use the type <span class="inlinecode"><span class="id" title="var">state</span></span> to describe a "full" memory state,
-    and we use an alias, the type <span class="inlinecode"><span class="id" title="var">heap</span></span>, to describe a "piece of" state. 
-</div>
-<div class="code">
-
-<span class="id" title="keyword">Definition</span> <a id="heap" class="idref" href="#heap"><span class="id" title="definition">heap</span></a> : <span class="id" title="keyword">Type</span> := <a class="idref" href="Hprop.html#state"><span class="id" title="definition">state</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="heap" class="idref" href="#heap"><span class="id" title="definition">heap</span></a> : <span class="id" title="keyword">Type</span> := <a class="idref" href="LibSepFmap.html#fmap"><span class="id" title="record">fmap</span></a> <a class="idref" href="LibSepReference.html#loc"><span class="id" title="definition">loc</span></a> <a class="idref" href="LibSepReference.html#val"><span class="id" title="inductive">val</span></a>.<br/>
 </div>
 
 <div class="doc">
@@ -176,19 +164,27 @@ The file <span class="inlinecode"><span class="id" title="var">LibSepReference</
 
 <div class="paragraph"> </div>
 
-    Note that the union operation is commutative only when its arguments
-    have disjoint domains. Throughout the course, we only consider disjoint
-    unions, for which commutativity holds. 
-</div>
-
-<div class="doc">
-<a id="lab92"></a><h2 class="section">Heap Predicates</h2>
+    Note that the union operation is commutative only when its arguments have
+    disjoint domains. Throughout the course, we only consider disjoint unions,
+    for which commutativity holds.
 
 <div class="paragraph"> </div>
 
- In Separation Logic, the state is described using "heap predicates". A heap
-    predicate is a predicate "over a piece of state", as opposed to "over a full
-    state". Let <span class="inlinecode"><span class="id" title="var">hprop</span></span> denote the type of heap predicates. 
+    Hereafter, to improve readability of statements in proofs, we introduce the
+    notation <span class="inlinecode"><span class="id" title="var">h<sub>1</sub></span></span> <span class="inlinecode">\<span class="id" title="var">u</span></span> <span class="inlinecode"><span class="id" title="var">h<sub>2</sub></span></span> for heap union. 
+</div>
+<div class="code">
+
+<span class="id" title="keyword">Notation</span> <a id="11dbc5cc324072f557c3f348a31ba1a<sub>0</sub>" class="idref" href="#11dbc5cc324072f557c3f348a31ba1a<sub>0</sub>"><span class="id" title="notation">&quot;</span></a>h<sub>1</sub> \u h<sub>2</sub>" := (<a class="idref" href="LibSepReference.html#Fmap.union"><span class="id" title="definition">Fmap.union</span></a> <span class="id" title="var">h<sub>1</sub></span> <span class="id" title="var">h<sub>2</sub></span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 37, <span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>).<br/>
+</div>
+
+<div class="doc">
+<a id="lab98"></a><h2 class="section">Heap Predicates</h2>
+
+<div class="paragraph"> </div>
+
+ In Separation Logic, the state is described using "heap predicates", of type
+    <span class="inlinecode"><span class="id" title="var">hprop</span></span>. 
 </div>
 <div class="code">
 
@@ -210,12 +206,12 @@ An essential aspect of Separation Logic is that all heap predicates defined
     never define a custom heap predicate directly as a function of the state. 
 <div class="paragraph"> </div>
 
- We next describe the most important combinators, which were pervasively used
+ We next describe the most important combinators, which were used pervasively
     throughout the first two chapters. 
 <div class="paragraph"> </div>
 
- The <span class="inlinecode"><span class="id" title="var">hempty</span></span> predicate, usually written <span class="inlinecode"><span class='gray-font'>\</span>[]</span>, characterizes an empty
-    state. 
+ The <span class="inlinecode"><span class="id" title="var">hempty</span></span> predicate, usually written <span class="inlinecode"><span class='gray-font'>\</span>[]</span>, characterizes an empty heap.
+    
 </div>
 <div class="code">
 
@@ -248,9 +244,8 @@ The singleton heap predicate, written <span class="inlinecode"><span class="id" 
 
 <div class="doc">
 The "separating conjunction", written <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span>, characterizes a state that
-    can be decomposed in two disjoint parts, one that satisfies <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> and
-    another that satisfies <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span>. In the definition below, the two parts are
-    named <span class="inlinecode"><span class="id" title="var">h<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" title="var">h<sub>2</sub></span></span>. 
+    can be decomposed in two disjoint parts, one that satisfies <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> and another
+    that satisfies <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span>. 
 </div>
 <div class="code">
 
@@ -258,18 +253,17 @@ The "separating conjunction", written <span class="inlinecode"><span class="id" 
 &nbsp;&nbsp;<span class="id" title="keyword">fun</span> (<a id="h:9" class="idref" href="#h:9"><span class="id" title="binder">h</span></a>:<a class="idref" href="Hprop.html#heap"><span class="id" title="definition">heap</span></a>) ⇒ <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="h<sub>1</sub>:10" class="idref" href="#h<sub>1</sub>:10"><span class="id" title="binder">h<sub>1</sub></span></a> <a id="h<sub>2</sub>:11" class="idref" href="#h<sub>2</sub>:11"><span class="id" title="binder">h<sub>2</sub></span></a><a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="Hprop.html#H<sub>1</sub>:7"><span class="id" title="variable">H<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:8"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="LibSepReference.html#Fmap.disjoint"><span class="id" title="definition">Fmap.disjoint</span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="Hprop.html#h:9"><span class="id" title="variable">h</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="LibSepReference.html#Fmap.union"><span class="id" title="definition">Fmap.union</span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a>.<br/><hr class='doublespaceincode'/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="Hprop.html#h:9"><span class="id" title="variable">h</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a> <a class="idref" href="Hprop.html#11dbc5cc324072f557c3f348a31ba1a<sub>0</sub>"><span class="id" title="notation">\</span></a><a class="idref" href="Hprop.html#11dbc5cc324072f557c3f348a31ba1a<sub>0</sub>"><span class="id" title="notation">u</span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Notation</span> <a id="1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>" class="idref" href="#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation">&quot;</span></a>H<sub>1</sub> '<span class='gray-font'>\</span>*' H<sub>2</sub>" := (<a class="idref" href="Hprop.html#hstar"><span class="id" title="definition">hstar</span></a> <span class="id" title="var">H<sub>1</sub></span> <span class="id" title="var">H<sub>2</sub></span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 41, <span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>).<br/>
 </div>
 
 <div class="doc">
 The existential quantifier for heap predicates, written <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">H</span></span>
     characterizes a heap that satisfies <span class="inlinecode"><span class="id" title="var">H</span></span> for some <span class="inlinecode"><span class="id" title="var">x</span></span>. The variable <span class="inlinecode"><span class="id" title="var">x</span></span> has
-    type <span class="inlinecode"><span class="id" title="var">A</span></span>, for some arbitrary <span class="inlinecode"><span class="id" title="var">A</span></span>.
-
+    type <span class="inlinecode"><span class="id" title="var">A</span></span>, for some arbitrary <span class="inlinecode"><span class="id" title="var">A</span></span>. 
 <div class="paragraph"> </div>
 
-    The notation <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">H</span></span> stands for <span class="inlinecode"><span class="id" title="var">hexists</span></span> <span class="inlinecode">(<span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><span class="id" title="var">H</span>)</span>. The
+ The notation <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">H</span></span> stands for <span class="inlinecode"><span class="id" title="var">hexists</span></span> <span class="inlinecode">(<span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><span class="id" title="var">H</span>)</span>. The
     generalized notation <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x<sub>1</sub></span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" title="var">xn</span>,</span> <span class="inlinecode"><span class="id" title="var">H</span></span> is also available.
 
 <div class="paragraph"> </div>
@@ -289,9 +283,9 @@ The existential quantifier for heap predicates, written <span class="inlinecode"
 </div>
 
 <div class="doc">
-Universal quantification in <span class="inlinecode"><span class="id" title="var">hprop</span></span> is also possible, but it is only
-    useful for more advanced features of Separation Logic. We postpone its
-    introduction to chapter <a href="Wand.html"><span class="inlineref">Wand</span></a>. 
+Universal quantification in <span class="inlinecode"><span class="id" title="var">hprop</span></span> is also possible, but it is only useful
+    for more advanced features of Separation Logic. We postpone its introduction
+    to chapter <a href="Wand.html"><span class="inlineref">Wand</span></a>. 
 <div class="paragraph"> </div>
 
  All the definitions above will eventually be made <span class="inlinecode"><span class="id" title="keyword">Opaque</span></span>, after the
@@ -302,7 +296,7 @@ Universal quantification in <span class="inlinecode"><span class="id" title="var
 </div>
 
 <div class="doc">
-<a id="lab93"></a><h2 class="section">Extensionality for Heap Predicates</h2>
+<a id="lab99"></a><h2 class="section">Extensionality for Heap Predicates</h2>
 
 <div class="paragraph"> </div>
 
@@ -353,12 +347,12 @@ More information about extensionality axioms may be found near the end of
 </div>
 
 <div class="doc">
-<a id="lab94"></a><h2 class="section">Statement of Fundamental Properties</h2>
+<a id="lab100"></a><h2 class="section">Fundamental Properties of Operators</h2>
 
 <div class="paragraph"> </div>
 
  By exploiting extensionality, the following properties of Separation Logic
-    operators can be established. 
+    operators can be established (they are proved further on in the chapter). 
 <div class="paragraph"> </div>
 
  (1) The star operator is associative. 
@@ -379,10 +373,13 @@ More information about extensionality axioms may be found near the end of
 </div>
 
 <div class="doc">
-(3) The empty heap predicate is a neutral element for the star. Because star
-    is commutative, it is equivalent to state that <span class="inlinecode"><span class="id" title="var">hempty</span></span> is a left or a right
-    neutral element for <span class="inlinecode"><span class="id" title="var">hstar</span></span>. We choose, arbitrarily, to state the
-    left-neutrality property. 
+(3) The empty heap predicate is a neutral element for the star.
+
+<div class="paragraph"> </div>
+
+    Because star is commutative, it is equivalent to state that <span class="inlinecode"><span class="id" title="var">hempty</span></span> is a
+    left or a right neutral element for <span class="inlinecode"><span class="id" title="var">hstar</span></span>. We choose, arbitrarily, to
+    state the left-neutrality property. 
 </div>
 <div class="code">
 
@@ -401,7 +398,7 @@ More information about extensionality axioms may be found near the end of
 </div>
 
 <div class="doc">
-(5) Pure facts can be extruded out stars. 
+(5) Pure facts can be extruded out of stars. 
 </div>
 <div class="code">
 
@@ -410,19 +407,22 @@ More information about extensionality axioms may be found near the end of
 </div>
 
 <div class="doc">
-<a id="lab95"></a><h2 class="section">Postconditions: Type, Syntax, and Extensionality</h2>
+<a id="lab101"></a><h2 class="section">Postconditions: Type, Syntax, and Extensionality</h2>
 
 <div class="paragraph"> </div>
 
  A specification takes the form <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span>, where <span class="inlinecode"><span class="id" title="var">t</span></span> is a term, <span class="inlinecode"><span class="id" title="var">H</span></span> is a
-    precondition of type <span class="inlinecode"><span class="id" title="var">hprop</span></span>, and <span class="inlinecode"><span class="id" title="var">Q</span></span> is a postcondition. For example, a
-    read at location <span class="inlinecode"><span class="id" title="var">p</span></span>, written <span class="inlinecode">!<span class="id" title="var">p</span></span> in OCaml, is specified as:
+    precondition of type <span class="inlinecode"><span class="id" title="var">hprop</span></span>, and <span class="inlinecode"><span class="id" title="var">Q</span></span> is a postcondition.
+
+<div class="paragraph"> </div>
+
+    For example, a read at location <span class="inlinecode"><span class="id" title="var">p</span></span>, written <span class="inlinecode">!<span class="id" title="var">p</span></span> in OCaml, is specified as:
     <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode">&lt;{</span> <span class="inlinecode">!<span class="id" title="var">p</span></span> <span class="inlinecode">}&gt;</span> <span class="inlinecode">(<span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">v</span>)</span> <span class="inlinecode">(<span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">r</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode">(<span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">v</span>)</span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class='gray-font'>\</span>[<span class="id" title="var">r</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">v</span>])</span>.
 
 <div class="paragraph"> </div>
 
     In general, a postcondition has type <span class="inlinecode"><span class="id" title="var">val</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">hprop</span></span>, which is equivalent to
-    <span class="inlinecode"><span class="id" title="var">val</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">state</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>. The postcondition thereby capture the properties of
+    <span class="inlinecode"><span class="id" title="var">val</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">heap</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>. The postcondition thereby capture the properties of
     both the output value and the output state. 
 </div>
 <div class="code">
@@ -432,7 +432,7 @@ More information about extensionality axioms may be found near the end of
 
 <div class="doc">
 One common operation is augmenting a postcondition with a description of
-    another piece of state.  This operation is written as <span class="inlinecode"><span class="id" title="var">Q</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*+</span> <span class="inlinecode"><span class="id" title="var">H</span></span>, which is
+    another piece of state. This operation is written as <span class="inlinecode"><span class="id" title="var">Q</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*+</span> <span class="inlinecode"><span class="id" title="var">H</span></span>, which is
     just a convenient notation for <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode">(<span class="id" title="var">Q</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H</span>)</span>. We will use this
     operator in particular in the statement of the frame rule in the next
     chapter. 
@@ -472,7 +472,7 @@ The desired equality property for postconditions follows directly from this
 </div>
 
 <div class="doc">
-<a id="lab96"></a><h2 class="section">Introduction and Inversion Lemmas for Basic Operators</h2>
+<a id="lab102"></a><h2 class="section">Introduction and Inversion Lemmas for Basic Operators</h2>
 
 <div class="paragraph"> </div>
 
@@ -480,16 +480,11 @@ The desired equality property for postconditions follows directly from this
     definitions of heap predicates. They include "introduction lemmas" for
     proving goals of the form <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">h</span></span>, and "inversion lemmas" for extracting
     information from hypotheses of the form <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">h</span></span>. These lemmas will be
-    pervasively exploited in the next chapters for establishing reasoning
-    rules. 
-<div class="paragraph"> </div>
-
- Hereafter, to improve readability of statements in proofs, we introduce the
-    following notation for heap union. 
+    exploited pervasively in the next chapters for establishing reasoning rules.
+    
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Notation</span> <a id="11dbc5cc324072f557c3f348a31ba1a<sub>0</sub>" class="idref" href="#11dbc5cc324072f557c3f348a31ba1a<sub>0</sub>"><span class="id" title="notation">&quot;</span></a>h<sub>1</sub> \u h<sub>2</sub>" := (<a class="idref" href="LibSepReference.html#Fmap.union"><span class="id" title="definition">Fmap.union</span></a> <span class="id" title="var">h<sub>1</sub></span> <span class="id" title="var">h<sub>2</sub></span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 37, <span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>).<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Implicit</span> <span class="id" title="keyword">Types</span> <span class="id" title="var">P</span> : <span class="id" title="keyword">Prop</span>.<br/>
 <span class="id" title="keyword">Implicit</span> <span class="id" title="keyword">Types</span> <span class="id" title="var">v</span> : <a class="idref" href="LibSepReference.html#val"><span class="id" title="inductive">val</span></a>.<br/>
 </div>
@@ -559,13 +554,13 @@ The inversion lemmas show how to extract information from hypotheses of the
 </div>
 
 <div class="doc">
-<a id="lab97"></a><h1 class="section">More Details</h1>
+<a id="lab103"></a><h2 class="section">Proofs of Fundamental Properties</h2>
 
-</div>
+<div class="paragraph"> </div>
 
-<div class="doc">
-<a id="lab98"></a><h2 class="section">Proofs of Fundamental Properties</h2>
-
+ The fundamental properties of Separation Logic operators were stated earlier
+    in this chapter. This section presents their proofs. To avoid name
+    conflicts, we wrap the new statements in a module. 
 </div>
 <div class="code">
 
@@ -573,14 +568,18 @@ The inversion lemmas show how to extract information from hypotheses of the
 </div>
 
 <div class="doc">
-<a id="lab99"></a><h2 class="section">Extraction of Existentials</h2>
+<a id="lab104"></a><h3 class="section">Extraction of Existential Quantifiers</h3>
 
 <div class="paragraph"> </div>
 
  Let us prove that <span class="inlinecode">(<span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">J</span></span> <span class="inlinecode"><span class="id" title="var">x</span>)</span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H</span></span> is equivalent to
-    <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode">(<span class="id" title="var">J</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H</span>)</span>. Note that, somewhat confusingly, Coq displays none
-    of the parentheses. You may want to use <span class="inlinecode"><span class="id" title="keyword">Set</span></span> <span class="inlinecode"><span class="id" title="keyword">Printing</span></span> <span class="inlinecode"><span class="id" title="var">Parentheses</span></span> to more
-    easily follow through the proof. 
+    <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode">(<span class="id" title="var">J</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H</span>)</span>.
+
+<div class="paragraph"> </div>
+
+    Note that, somewhat confusingly, Coq displays none of the parentheses. You
+    may want to use <span class="inlinecode"><span class="id" title="keyword">Set</span></span> <span class="inlinecode"><span class="id" title="keyword">Printing</span></span> <span class="inlinecode"><span class="id" title="var">Parentheses</span></span> to more easily follow through the
+    proof. 
 </div>
 <div class="code">
 
@@ -593,7 +592,7 @@ The inversion lemmas show how to extract information from hypotheses of the
 First, we exploit extensionality, using <span class="inlinecode"><span class="id" title="var">hprop_eq</span></span> or <span class="inlinecode"><span class="id" title="var">himpl_antisym</span></span>. 
 </div>
 <div class="code">
-&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="var">applys</span> <a class="idref" href="Hprop.html#hprop_eq"><span class="id" title="lemma">hprop_eq</span></a>. <span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="Hprop.html#hprop_eq"><span class="id" title="lemma">hprop_eq</span></a>. <span class="id" title="tactic">split</span>.<br/>
 </div>
 
 <div class="doc">
@@ -607,11 +606,11 @@ Then we reveal the definitions of <span class="inlinecode">==&gt;</span>, <span 
 </div>
 
 <div class="doc">
-<a id="lab100"></a><h2 class="section">Neutral of Separating Conjunction</h2>
+<a id="lab105"></a><h3 class="section">Neutral of Separating Conjunction</h3>
 
 <div class="paragraph"> </div>
 
-<a id="lab101"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (hstar_hempty_l)</h4>
+<a id="lab106"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (hstar_hempty_l)</h4>
  Prove that the empty heap predicate is a neutral element for the star. You
     will need to exploit the fact that the union with an empty map is the
     identity, as captured by lemma <span class="inlinecode"><span class="id" title="var">Fmap.union_empty_l</span></span>.
@@ -630,13 +629,13 @@ Then we reveal the definitions of <span class="inlinecode">==&gt;</span>, <span 
 
 
 <div class="doc">
-<a id="lab102"></a><h2 class="section">Commutativity of Separating Conjunction</h2>
+<a id="lab107"></a><h3 class="section">Commutativity of Separating Conjunction</h3>
 
 <div class="paragraph"> </div>
 
  We next aim to prove the commutativity of the star operator, i.e., that
     <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> is equivalent to <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span>. By symmetry, it suffices to prove
-    the entailement in one direction, e.g., <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> <span class="inlinecode">==&gt;</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span>. The
+    the entailment in one direction, e.g., <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> <span class="inlinecode">==&gt;</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span>. The
     symmetry argument for any binary operator on heap predicates is captured by
     the lemma <span class="inlinecode"><span class="id" title="var">hprop_op_comm</span></span> shown below. 
 </div>
@@ -645,7 +644,7 @@ Then we reveal the definitions of <span class="inlinecode">==&gt;</span>, <span 
 <span class="id" title="keyword">Lemma</span> <a id="HpropProofs.hprop_op_comm" class="idref" href="#HpropProofs.hprop_op_comm"><span class="id" title="lemma">hprop_op_comm</span></a> : <span class="id" title="keyword">∀</span> (<a id="op:93" class="idref" href="#op:93"><span class="id" title="binder">op</span></a>:<a class="idref" href="Hprop.html#hprop"><span class="id" title="definition">hprop</span></a><a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><a class="idref" href="Hprop.html#hprop"><span class="id" title="definition">hprop</span></a><a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><a class="idref" href="Hprop.html#hprop"><span class="id" title="definition">hprop</span></a>),<br/>
 &nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <a id="H<sub>1</sub>:94" class="idref" href="#H<sub>1</sub>:94"><span class="id" title="binder">H<sub>1</sub></span></a> <a id="H<sub>2</sub>:95" class="idref" href="#H<sub>2</sub>:95"><span class="id" title="binder">H<sub>2</sub></span></a> <a id="h:96" class="idref" href="#h:96"><span class="id" title="binder">h</span></a>, <a class="idref" href="Hprop.html#op:93"><span class="id" title="variable">op</span></a> <a class="idref" href="Hprop.html#H<sub>1</sub>:94"><span class="id" title="variable">H<sub>1</sub></span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:95"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="Hprop.html#h:96"><span class="id" title="variable">h</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Hprop.html#op:93"><span class="id" title="variable">op</span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:95"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="Hprop.html#H<sub>1</sub>:94"><span class="id" title="variable">H<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h:96"><span class="id" title="variable">h</span></a><a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
 &nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><span class="id" title="keyword">∀</span> <a id="H<sub>1</sub>:97" class="idref" href="#H<sub>1</sub>:97"><span class="id" title="binder">H<sub>1</sub></span></a> <a id="H<sub>2</sub>:98" class="idref" href="#H<sub>2</sub>:98"><span class="id" title="binder">H<sub>2</sub></span></a>, <a class="idref" href="Hprop.html#op:93"><span class="id" title="variable">op</span></a> <a class="idref" href="Hprop.html#H<sub>1</sub>:97"><span class="id" title="variable">H<sub>1</sub></span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:98"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Hprop.html#op:93"><span class="id" title="variable">op</span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:98"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="Hprop.html#H<sub>1</sub>:97"><span class="id" title="variable">H<sub>1</sub></span></a><a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a>.<br/>
-<span class="id" title="keyword">Proof</span> <span class="id" title="keyword">using</span>. <span class="id" title="var">introv</span> <span class="id" title="var">M</span>. <span class="id" title="tactic">intros</span>. <span class="id" title="var">applys</span> <a class="idref" href="Hprop.html#hprop_eq"><span class="id" title="lemma">hprop_eq</span></a>. <span class="id" title="tactic">split</span>; <span class="id" title="var">applys</span> <span class="id" title="var">M</span>. <span class="id" title="keyword">Qed</span>.<br/>
+<span class="id" title="keyword">Proof</span> <span class="id" title="keyword">using</span>. <span class="id" title="var">introv</span> <span class="id" title="var">M</span>. <span class="id" title="tactic">intros</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="Hprop.html#hprop_eq"><span class="id" title="lemma">hprop_eq</span></a>. <span class="id" title="tactic">split</span>; <span class="id" title="tactic">apply</span> <span class="id" title="var">M</span>. <span class="id" title="keyword">Qed</span>.<br/>
 </div>
 
 <div class="doc">
@@ -664,13 +663,8 @@ To prove commutativity of star, we need to exploit the fact that the union
 &nbsp;&nbsp;&nbsp;<a class="idref" href="Hprop.html#H<sub>1</sub>:99"><span class="id" title="variable">H<sub>1</sub></span></a> <a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation"><span class='gray-font'>\</span>*</span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:100"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:100"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation"><span class='gray-font'>\</span>*</span></a> <a class="idref" href="Hprop.html#H<sub>1</sub>:99"><span class="id" title="variable">H<sub>1</sub></span></a>.<br/>
 <span class="id" title="keyword">Proof</span> <span class="id" title="keyword">using</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;Exploit&nbsp;symmetry.&nbsp;*)</span><br/>
-&nbsp;&nbsp;<span class="id" title="var">applys</span> <a class="idref" href="Hprop.html#HpropProofs.hprop_op_comm"><span class="id" title="lemma">hprop_op_comm</span></a>.<br/>
-</div>
-
-<div class="doc">
-Unfold the defnition of <span class="inlinecode"><span class="id" title="var">star</span></span>. 
-</div>
-<div class="code">
+&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="Hprop.html#HpropProofs.hprop_op_comm"><span class="id" title="lemma">hprop_op_comm</span></a>.<br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;Unfold&nbsp;the&nbsp;definition&nbsp;of&nbsp;<span class="inlinecode"><span class="id" title="var">star</span></span>.&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="id" title="var">introv</span> (<span class="id" title="var">h<sub>1</sub></span>&amp;<span class="id" title="var">h<sub>2</sub></span>&amp;<span class="id" title="var">M<sub>1</sub></span>&amp;<span class="id" title="var">M<sub>2</sub></span>&amp;<span class="id" title="var">D</span>&amp;<span class="id" title="var">U</span>).<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">∃</span> <span class="id" title="var">h<sub>2</sub></span> <span class="id" title="var">h<sub>1</sub></span>. <span class="id" title="tactic">subst</span>. <span class="id" title="var">splits</span>¬.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;Exploit&nbsp;commutativity&nbsp;of&nbsp;disjoint&nbsp;union&nbsp;*)</span><br/>
@@ -679,7 +673,7 @@ Unfold the defnition of <span class="inlinecode"><span class="id" title="var">st
 </div>
 
 <div class="doc">
-<a id="lab103"></a><h2 class="section">Associativity of Separating Conjunction</h2>
+<a id="lab108"></a><h3 class="section">Associativity of Separating Conjunction</h3>
 
 <div class="paragraph"> </div>
 
@@ -700,7 +694,7 @@ Unfold the defnition of <span class="inlinecode"><span class="id" title="var">st
 </span>
 <div class="paragraph"> </div>
 
-<a id="lab104"></a><h4 class="section">Exercise: 1 star, standard, optional (hstar_assoc)</h4>
+<a id="lab109"></a><h4 class="section">Exercise: 1 star, standard, optional (hstar_assoc)</h4>
  Complete the right-to-left part of the proof of associativity of the star
     operator. 
 </div>
@@ -709,11 +703,11 @@ Unfold the defnition of <span class="inlinecode"><span class="id" title="var">st
 <span class="id" title="keyword">Lemma</span> <a id="HpropProofs.hstar_assoc" class="idref" href="#HpropProofs.hstar_assoc"><span class="id" title="lemma">hstar_assoc</span></a> : <span class="id" title="keyword">∀</span> <a id="H<sub>1</sub>:101" class="idref" href="#H<sub>1</sub>:101"><span class="id" title="binder">H<sub>1</sub></span></a> <a id="H<sub>2</sub>:102" class="idref" href="#H<sub>2</sub>:102"><span class="id" title="binder">H<sub>2</sub></span></a> <a id="H<sub>3</sub>:103" class="idref" href="#H<sub>3</sub>:103"><span class="id" title="binder">H<sub>3</sub></span></a>,<br/>
 &nbsp;&nbsp;<a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="Hprop.html#H<sub>1</sub>:101"><span class="id" title="variable">H<sub>1</sub></span></a> <a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation"><span class='gray-font'>\</span>*</span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:102"><span class="id" title="variable">H<sub>2</sub></span></a><a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation"><span class='gray-font'>\</span>*</span></a> <a class="idref" href="Hprop.html#H<sub>3</sub>:103"><span class="id" title="variable">H<sub>3</sub></span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Hprop.html#H<sub>1</sub>:101"><span class="id" title="variable">H<sub>1</sub></span></a> <a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation"><span class='gray-font'>\</span>*</span></a> <a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="Hprop.html#H<sub>2</sub>:102"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation"><span class='gray-font'>\</span>*</span></a> <a class="idref" href="Hprop.html#H<sub>3</sub>:103"><span class="id" title="variable">H<sub>3</sub></span></a><a class="idref" href="Hprop.html#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation">)</span></a>.<br/>
 <span class="id" title="keyword">Proof</span> <span class="id" title="keyword">using</span>.<br/>
-&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="var">applys</span> <a class="idref" href="Hprop.html#hprop_eq"><span class="id" title="lemma">hprop_eq</span></a>. <span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">apply</span> <a class="idref" href="Hprop.html#hprop_eq"><span class="id" title="lemma">hprop_eq</span></a>. <span class="id" title="tactic">split</span>.<br/>
 &nbsp;&nbsp;{ <span class="id" title="tactic">intros</span> (<span class="id" title="var">h'</span>&amp;<span class="id" title="var">h<sub>3</sub></span>&amp;<span class="id" title="var">M<sub>1</sub></span>&amp;<span class="id" title="var">M<sub>2</sub></span>&amp;<span class="id" title="var">D</span>&amp;<span class="id" title="var">U</span>). <span class="id" title="tactic">destruct</span> <span class="id" title="var">M<sub>1</sub></span> <span class="id" title="keyword">as</span> (<span class="id" title="var">h<sub>1</sub></span>&amp;<span class="id" title="var">h<sub>2</sub></span>&amp;<span class="id" title="var">M<sub>3</sub></span>&amp;<span class="id" title="var">M<sub>4</sub></span>&amp;<span class="id" title="var">D'</span>&amp;<span class="id" title="var">U'</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">subst</span> <span class="id" title="var">h'</span>. <span class="id" title="tactic">rewrite</span> <a class="idref" href="LibSepReference.html#Fmap.disjoint_union_eq_l"><span class="id" title="lemma">Fmap.disjoint_union_eq_l</span></a> <span class="id" title="keyword">in</span> <span class="id" title="var">D</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">∃</span> <span class="id" title="var">h<sub>1</sub></span> (<span class="id" title="var">h<sub>2</sub></span> <a class="idref" href="Hprop.html#11dbc5cc324072f557c3f348a31ba1a<sub>0</sub>"><span class="id" title="notation">\</span></a><a class="idref" href="Hprop.html#11dbc5cc324072f557c3f348a31ba1a<sub>0</sub>"><span class="id" title="notation">u</span></a> <span class="id" title="var">h<sub>3</sub></span>). <span class="id" title="var">splits</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="var">applys</span> <span class="id" title="var">M<sub>3</sub></span>. }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">apply</span> <span class="id" title="var">M<sub>3</sub></span>. }<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">∃</span>* <span class="id" title="var">h<sub>2</sub></span> <span class="id" title="var">h<sub>3</sub></span>. }<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">rewrite</span>* @<a class="idref" href="LibSepReference.html#Fmap.disjoint_union_eq_r"><span class="id" title="lemma">Fmap.disjoint_union_eq_r</span></a>. }<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">rewrite</span>* @<a class="idref" href="LibSepReference.html#Fmap.union_assoc"><span class="id" title="lemma">Fmap.union_assoc</span></a> <span class="id" title="keyword">in</span> <span class="id" title="var">U</span>. } }<br/>
@@ -725,7 +719,7 @@ Unfold the defnition of <span class="inlinecode"><span class="id" title="var">st
 <div class="paragraph"> </div>
 
  The lemma showing that <span class="inlinecode"><span class="id" title="var">hempty</span></span> is a right neutral can be derived from the
-    fact that <span class="inlinecode"><span class="id" title="var">hempty</span></span> is a left neutral, and from commutativity. 
+    fact that <span class="inlinecode"><span class="id" title="var">hempty</span></span> is a left neutral, plus commutativity. 
 </div>
 <div class="code">
 
@@ -737,7 +731,7 @@ Unfold the defnition of <span class="inlinecode"><span class="id" title="var">st
 </div>
 
 <div class="doc">
-<a id="lab105"></a><h4 class="section">Exercise: 1 star, standard, especially useful (hstar_comm_assoc)</h4>
+<a id="lab110"></a><h4 class="section">Exercise: 1 star, standard, especially useful (hstar_comm_assoc)</h4>
  The commutativity and associativity results combine into one result that is
     sometimes convenient to exploit in proofs. 
 </div>
@@ -751,30 +745,33 @@ Unfold the defnition of <span class="inlinecode"><span class="id" title="var">st
 
 
 <div class="doc">
-<a id="lab106"></a><h2 class="section">Extract Pure Facts from Separating Conjunctions</h2>
+<a id="lab111"></a><h3 class="section">Extracting Pure Facts from Separating Conjunctions</h3>
 
 <div class="paragraph"> </div>
 
  The lemma <span class="inlinecode"><span class="id" title="var">hstar_hpure_l</span></span> stated below explains how to extract a pure fact
     from an assertion. It asserts that the proposition <span class="inlinecode">(<span class='gray-font'>\</span>[<span class="id" title="var">P</span>]</span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H</span>)</span> <span class="inlinecode"><span class="id" title="var">h</span></span> is
-    equivalent <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode">∧</span> <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">h</span></span>. This lemma will also be pervasively used in proofs
-    throughout the subsequent chapters. 
+    equivalent to <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode">∧</span> <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">h</span></span>. This lemma will also be used pervasively in proofs
+    in subsequent chapters. 
 <div class="paragraph"> </div>
 
-<a id="lab107"></a><h4 class="section">Exercise: 4 stars, standard, especially useful (hstar_hpure_l)</h4>
+<a id="lab112"></a><h4 class="section">Exercise: 4 stars, standard, especially useful (hstar_hpure_l)</h4>
 
 <div class="paragraph"> </div>
 
  Prove that a heap <span class="inlinecode"><span class="id" title="var">h</span></span> satisfies <span class="inlinecode"><span class='gray-font'>\</span>[<span class="id" title="var">P</span>]</span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H</span></span> if and only if <span class="inlinecode"><span class="id" title="var">P</span></span> is true and
-    <span class="inlinecode"><span class="id" title="var">h</span></span> it satisfies <span class="inlinecode"><span class="id" title="var">H</span></span>. The proof requires two lemmas on finite maps from
+    <span class="inlinecode"><span class="id" title="var">h</span></span> satisfies <span class="inlinecode"><span class="id" title="var">H</span></span>. The proof requires two lemmas on finite maps from
     <span class="inlinecode"><span class="id" title="var">LibSepFmap.v</span></span>:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Check</span> <span class="id" title="var">Fmap.union_empty_l</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">h</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Fmap.empty</span> \<span class="id" title="var">u</span> <span class="id" title="var">h</span> = <span class="id" title="var">h</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Check</span> <span class="id" title="var">Fmap.disjoint_empty_l</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">h</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Fmap.disjoint</span> <span class="id" title="var">Fmap.empty</span> <span class="id" title="var">h</span>.
-</span>    Note that <span class="inlinecode"><span class="id" title="tactic">auto</span></span> can apply <span class="inlinecode"><span class="id" title="var">Fmap.disjoint_empty_l</span></span> automatically. Hint:
-    begin the proof by appyling <span class="inlinecode"><span class="id" title="var">propositional_extensionality</span></span>. 
+</span>    Note that <span class="inlinecode"><span class="id" title="tactic">auto</span></span> can apply <span class="inlinecode"><span class="id" title="var">Fmap.disjoint_empty_l</span></span> automatically.
+
+<div class="paragraph"> </div>
+
+    Hint: begin the proof by appyling <span class="inlinecode"><span class="id" title="var">propositional_extensionality</span></span>. 
 </div>
 <div class="code">
 
@@ -790,16 +787,16 @@ Unfold the defnition of <span class="inlinecode"><span class="id" title="var">st
 </div>
 
 <div class="doc">
-<a id="lab108"></a><h1 class="section">Optional Material</h1>
+<a id="lab113"></a><h1 class="section">More Details</h1>
 
 </div>
 
 <div class="doc">
-<a id="lab109"></a><h2 class="section">Alternative Definitions for Heap Predicates</h2>
+<a id="lab114"></a><h2 class="section">Alternative Definitions for Heap Predicates</h2>
 
 <div class="paragraph"> </div>
 
- In what follows, we discuss alternative, equivalent definitions for the
+ We pause here to discuss some alternative, equivalent definitions for the
     fundamental heap predicates. We write these equivalences using equalities of
     the form <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span>. Recall that the lemma <span class="inlinecode"><span class="id" title="var">hprop_eq</span></span> enables deriving such
     equalities by invoking predicate extensionality. 
@@ -859,12 +856,12 @@ Thus, <span class="inlinecode"><span class="id" title="var">hpure</span></span> 
 
 <div class="doc">
 It is useful to minimize the number of combinators, both for elegance and to
-    reduce proof effort. We cannot do without <span class="inlinecode"><span class="id" title="var">hexists</span></span>, thus there remains
-    a choice between considering either <span class="inlinecode"><span class="id" title="var">hpure</span></span> or <span class="inlinecode"><span class="id" title="var">hempty</span></span> as primitive, and
-    the other one as derived. The predicate <span class="inlinecode"><span class="id" title="var">hempty</span></span> is simpler and appears as
-    more fundamental. Hence, in the subsequent chapters (and in the CFML tool),
-    we define <span class="inlinecode"><span class="id" title="var">hpure</span></span> in terms of <span class="inlinecode"><span class="id" title="var">hexists</span></span> and <span class="inlinecode"><span class="id" title="var">hempty</span></span>, as in the definition
-    of <span class="inlinecode"><span class="id" title="var">hpure'</span></span> shown above. In other words, we assume the definition:
+    reduce proof effort. We cannot do without <span class="inlinecode"><span class="id" title="var">hexists</span></span>, thus there remains a
+    choice between considering either <span class="inlinecode"><span class="id" title="var">hpure</span></span> or <span class="inlinecode"><span class="id" title="var">hempty</span></span> as primitive, and the
+    other one as derived. The predicate <span class="inlinecode"><span class="id" title="var">hempty</span></span> is simpler and appears as more
+    fundamental. Hence, in the subsequent chapters, we define <span class="inlinecode"><span class="id" title="var">hpure</span></span> in terms
+    of <span class="inlinecode"><span class="id" title="var">hexists</span></span> and <span class="inlinecode"><span class="id" title="var">hempty</span></span>, as in the definition of <span class="inlinecode"><span class="id" title="var">hpure'</span></span> shown above. In
+    other words, we assume the definition:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">hpure</span> (<span class="id" title="var">P</span>:<span class="id" title="keyword">Prop</span>) : <span class="id" title="var">hprop</span> :=<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class='gray-font'>\</span><span class="id" title="tactic">∃</span> (<span class="id" title="var">p</span>:<span class="id" title="var">P</span>), <span class='gray-font'>\</span>[].
@@ -872,7 +869,12 @@ It is useful to minimize the number of combinators, both for elegance and to
 </div>
 
 <div class="doc">
-<a id="lab110"></a><h2 class="section">Additional Explanations for the Definition of <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span></h2>
+<a id="lab115"></a><h1 class="section">Optional Material</h1>
+
+</div>
+
+<div class="doc">
+<a id="lab116"></a><h2 class="section">More on the Definition of the Existential Quantifier</h2>
 
 <div class="paragraph"> </div>
 
@@ -916,7 +918,7 @@ It is useful to minimize the number of combinators, both for elegance and to
 </div>
 
 <div class="doc">
-<a id="lab111"></a><h2 class="section">Formulation of the Extensionality Axioms</h2>
+<a id="lab117"></a><h2 class="section">Formulation of the Extensionality Axioms</h2>
 
 </div>
 <div class="code">
@@ -951,7 +953,7 @@ The axiom of "functional extensionality", as we saw above, asserts that two
 </div>
 
 <div class="doc">
-<a id="lab112"></a><h4 class="section">Exercise: 1 star, standard, especially useful (predicate_extensionality_derived)</h4>
+<a id="lab118"></a><h4 class="section">Exercise: 1 star, standard, especially useful (predicate_extensionality_derived)</h4>
  Use <span class="inlinecode"><span class="id" title="var">propositional_extensionality</span></span> and <span class="inlinecode"><span class="id" title="var">functional_extensionality</span></span> to derive
     <span class="inlinecode"><span class="id" title="var">predicate_extensionality</span></span>. 
 </div>
@@ -970,7 +972,7 @@ The axiom of "functional extensionality", as we saw above, asserts that two
 </div>
 
 <div class="doc">
-<a id="lab113"></a><h2 class="section">Historical Notes</h2>
+<a id="lab119"></a><h2 class="section">Historical Notes</h2>
 
 <div class="paragraph"> </div>
 
@@ -980,13 +982,13 @@ The axiom of "functional extensionality", as we saw above, asserts that two
     the first mechanized formalizations of Separation Logic, in Coq by
     <a href="Bib.html#Yu,-Hamid, and Shao 2003"><span class="inlineref">[Yu, Hamid, and Shao 2003]</span></a>, and in Isabelle/HOL by <a href="Bib.html#Weber-2004"><span class="inlineref">[Weber 2004]</span></a>.
     These two formalizations were carried out soon after the invention of
-    Separation Logic, by researcher who were used to mechanizing Hoare logic and
+    Separation Logic, by researchers who were used to mechanizing Hoare logic and
     had spotted the potential benefit of working with the separating
     conjunction. 
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2024-01-03&nbsp;14:46&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-08-25&nbsp;14:17&nbsp;*)</span><br/>
 </div>
 </div>
 

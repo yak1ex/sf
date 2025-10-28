@@ -38,7 +38,7 @@ idtac " ".
 idtac "#> balanceP".
 idtac "Possible points: 2".
 check_type @balanceP (
-(forall (V : Type) (P : key -> V -> Prop) (c : color) 
+(forall (V : Type) (P : key -> V -> Prop) (c : color)
    (l r : tree V) (k : key) (v : V),
  @ForallT V P l ->
  @ForallT V P r -> P k v -> @ForallT V P (@balance V c l k v r))).
@@ -304,6 +304,6 @@ idtac "---------- redblack_bound ---------".
 idtac "MANUAL".
 Abort.
 
-(* 2023-08-23 11:34 *)
+(* 2024-08-25 08:38 *)
 
-(* 2023-08-23 11:34 *)
+(* 2024-08-25 08:38 *)

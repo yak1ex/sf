@@ -337,7 +337,7 @@ Fixpoint type_check (Gamma : context) (t : tm) : option ty :=
       end
 
   (* Complete the following cases. *)
-  
+
   (* sums *)
   (* FILL IN HERE *)
   (* lists (the [tm_lcase] is given for free) *)
@@ -685,4 +685,4 @@ Import StepFunction.
 End StlcImpl.
 (** [] *)
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:25 *)

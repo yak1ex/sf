@@ -148,7 +148,7 @@ idtac " ".
 idtac "#> STLCArith.weakening".
 idtac "Possible points: 6".
 check_type @STLCArith.weakening (
-(forall (Gamma Gamma' : Maps.partial_map STLCArith.ty) 
+(forall (Gamma Gamma' : Maps.partial_map STLCArith.ty)
    (t : STLCArith.tm) (T : STLCArith.ty),
  @Maps.includedin STLCArith.ty Gamma Gamma' ->
  STLCArith.has_type Gamma t T -> STLCArith.has_type Gamma' t T)).
@@ -240,6 +240,6 @@ idtac "---------- STLCProp.substitution_preserves_typing_from_typing_ind -------
 Print Assumptions STLCProp.substitution_preserves_typing_from_typing_ind.
 Abort.
 
-(* 2024-01-03 15:05 *)
+(* 2024-08-25 08:24 *)
 
-(* 2024-01-03 15:05 *)
+(* 2024-08-25 08:25 *)

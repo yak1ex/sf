@@ -18,49 +18,51 @@ Implicit Types z : nat.
 (** * First Pass *)
 
 (** This chapter explains how to specify operations on ML-style arrays in
-    Separation Logic. In ML languages, an array of size [n] is an allocated
+    Separation Logic. In ML-like languages, an array of size [n] is an allocated
     block of size [n+1] with a header field that stores the length of the array.
     To perform a [get] or a [set] operation on an array, the programmer provides
-    the pointer to the array object, that is, the address of the header cell, as
-    well as the index on which to operate.
+    the pointer to the array object -- that is, the address of the header cell
+    -- as well as the index on which to operate.
 
-    This chapter starts with a presentation of large-footprint operations for
+    The chapter starts with a presentation of _large-footprint_ operations for
     arrays, expressed with respect to a representation predicate of the form
-    [harray L p]. Then, it presents small-footprint specifications for the same
+    [harray L p]. Then it presents _small-footprint_ specifications for the same
     operations, involving a representation predicate of the form [hcell v p i]
     for representing each cell, as well as a predicate, written [hheader p n]
-    for representing the header field.
+    for representing the header field. Interestingly, the header cell predicate
+    alone suffices for reading the length of an array.
 
     We will illustrate the benefits of small-footprint specifications for
     reasoning about the recursive function [quicksort], which operates on array
     segments. Segments are described using the heap predicate [harray_seg L p i]
-    . Array segments allow "framing" the parts of the arrays that are not
-    involved in a recursive call.
+    . Array segments allow "framing" the parts of arrays that are not involved
+    in a recursive call.
 
-    The "more details" part of the chapter explains how to define the predicates
+    The "More Details" part of the chapter explains how to define the predicates
     [hheader], [hcell], [hseg], and [harray] with respect to the representation
     of heaps as a finite map from locations to values. The "optional material"
     part of the chapter shows how to implement and verify [make], [length],
-    [get], and [set] in terms of block allocation and pointer arithmetics. *)
+    [get], and [set] in terms of block allocation and pointer arithmetic. *)
 
 (* ================================================================= *)
 (** ** Large-Footprint Specifications for Array Operations *)
 
-(** The heap predicate [harray L p] asserts that an array allocated is allocated
-    at address [p], and that its elements are described by the list [L]. At this
+(** The heap predicate [harray L p] asserts that an array is allocated at
+    address [p] and that its elements are described by the list [L]. At this
     stage, let us axiomatize this predicate. *)
 
 Parameter harray : forall (L:list val) (p:loc), hprop.
 
-(** The operation [val_array_make n v] allocates a fresh array of length [n],
-    such that each of its cells contains the value [v]. *)
+(** The primitive operation [val_array_make n v] allocates a fresh array of
+    length [n], with each of its cells containing the value [v]. *)
 
 Parameter val_array_make : val.
 
-(** The specifications of [val_array_make] requires the length [n] to be
+(** The specification of [val_array_make] requires the length [n] to be
     nonnegative. The output array is described as a list made of [n] copies of
-    the value [v]. This list is written [LibList.make (abs n) v], where [abs]
-    converts the integer [n] into a natural number. *)
+    the value [v]. This list is built by the utility function
+    [LibList.make (abs n) v], where [abs] converts the integer [n] into a
+    natural number. *)
 
 Parameter triple_array_make : forall n v,
   n >= 0 ->
@@ -70,8 +72,7 @@ Parameter triple_array_make : forall n v,
 
 (** Alternatively, the array produced by [make n v] can be described
     extensionally, as a list [L] of length [n] such that all its elements are
-    equal to [v]. This alternative statement of the postcondition is, however,
-    much more verbose. *)
+    equal to [v]. *)
 
 Parameter triple_array_make' : forall n v,
   n >= 0 ->
@@ -81,15 +82,18 @@ Parameter triple_array_make' : forall n v,
                  \* \[n = length L]
                  \* \[forall i, 0 <= i < n -> LibList.nth (abs i) L = v]).
 
+(** We'll come back shortly afterwards on the benefits of using the first
+    presentation, expressed using [LibList.make]. *)
+
 (** The operation [val_array_length p] returns the length of the array allocated
     at location [p]. *)
 
 Parameter val_array_length : val.
 
 (** The specification for [val_array_length] expects a heap predicate of the
-    form [harray L p], and asserts that the return value is the length of the
+    form [harray L p] and asserts that the return value is the length of the
     logical list [L]. The postcondition repeats [harray L p] to capture the fact
-    that the array is not modify during the operation. *)
+    that the array is not modified during the operation. *)
 
 Parameter triple_array_length : forall L p,
   triple (val_array_length p)
@@ -105,8 +109,8 @@ Parameter val_array_get : val.
     describes the array in the form [harray L p], with a premise that requires
     the index [i] to be in the valid range, that is, between zero (inclusive)
     and the length of [L] (exclusive). The postcondition asserts that the result
-    value is the [i]-th value of the list [L], written [nth (abs i) L]. The
-    postcondition repeats [harray L p] because the array is unchanged. *)
+    value is the [i]-th element of the list [L], written [nth (abs i) L]. The
+    postcondition again repeats [harray L p] because the array is unchanged. *)
 
 Parameter triple_array_get : forall L p i,
   0 <= i < length L ->
@@ -132,32 +136,85 @@ Parameter triple_array_set : forall L p i v,
     (fun _ => harray (LibList.update (abs i) v L) p).
 
 #[global] Hint Resolve triple_array_get triple_array_set
-  triple_array_make triple_array_length : triple.
+                       triple_array_make triple_array_length : triple.
+
+(** Above, we saw two ways of stating the postcondition of the [array_make]
+    operation: either describing the result using a corresponding logical
+    operation, like in [triple_array_make]; or describing the result
+    extensionally by specifying the value of each cell, as in
+    [triple_array_make']. A question of this kind appears not only here for
+    [array_make], but for numerous other operations involving arrays. There is
+    no definite rule, but the following considerations motivate our preference
+    for the first style.
+
+    A first aspect to take into account is that expressing the postcondition in
+    terms of a logical operation like in [triple_array_make] leads to a more
+    concise specification.
+
+    A second aspect to consider is how to reason about a sequence of operations
+    involving arrays. For example, consider the following program fragment.
+
+OCaml:
+
+    let t = Array.make n v in
+    t.(i) <- w;
+    t.(j)
+
+    When using logical operations, the resulting array may be described as
+    [nth (abs j) (update (abs i) w (make n v))]. If [i <> j], this expression
+    can be simplified by rewriting into [v]. In other words, all the reasoning
+    is carried out by in-place rewriting without involving any hypothesis.
+
+    When using extensional characterization, the operation [Array.make n v] is
+    described as an array [L] such that [nth (abs k) L = v] holds for any valid
+    index [k]. In that same style, the operation [Array.set t i w] would be
+    described as returning an array [L'] such that [nth (abs i) L' = w] and
+    [nth (abs k) L' = nth (abs k) L] for any valid index [k] such that [k <> i].
+    Then, the final value is described as [nth (abs j) L']. To prove this value
+    equal to [v] under the assumption [i <> j], we would need to perform two
+    rewriting steps using each of the two hypotheses: [nth (abs j) L'] is equal
+    to [nth (abs j) L], hence equal to [v].
+
+    In summary, both approach work. But when a logical function corresponding to
+    the program function can be used, hypotheses are more concise and tend to be
+    better suited for automated simplification by rewriting. Of course, there
+    might be overheads to defining this logical function, but if it already
+    exists in the library of our theorem prover, then the overhead is null. *)
 
 (* ================================================================= *)
 (** ** Small-Footprint Specifications for Array Operations *)
 
 (** The large-footprint specifications presented above are sufficently
-    expressive for verifying sequential programs manipulating arrays. Yet, they
+    expressive for verifying sequential programs manipulating arrays, but they
     are too limited for verifying a parallel program that concurrently updates
-    two independent segments of an array. In fact, even the verification of
+    two independent segments of an array. Indeed, even the verification of
     certain sequential programs can benefit from the use of smaller-footprint
     specifications, which require the ownership not of the whole array but only
-    of a specific subset of the array cells. For example, the [quicksort]
-    divide-and-conquer function sorts the elements over a given range of cells.
+    of a specific subset of the array cells.
+
+    For example, the divide-and-conquer [quicksort] function sorts the elements
+    in a given range of cells. Even though [quicksort] is not a concurrent
+    function, using a small-footprint specification avoids the need to
+    explicitly state the fact that cells of the array outside of the segment
+    targeted by a recursive call remain unmodified.
+
     In what follows, we present small-footprint specifications for operating on
     individual cells and for operating on array segments, then present the proof
     of quicksort. *)
 
-(** Small-footprint specifications are expressed using the heap predicate for
-    individual cells and for header cells. The heap predicate [hcell v p i]
-    asserts that the cell at index [i] in the array [p] stores the value [v].
-    Internally, [hcell v p i] may be defined as [(p+i) ~~> v]. *)
+(** Small-footprint specifications are expressed using heap predicates for
+    individual array and header cells.
+
+    The heap predicate [hcell v p i] asserts that the cell at index [i] in the
+    array [p] stores the value [v].
+
+    Internally, as explained below, [hcell v p i] can be defined as
+    [(p+1+i) ~~> v], with the [+1] corresponding to the header cell. *)
 
 Parameter hcell : forall (v:val) (p:loc) (i:int), hprop.
 
 (** The heap predicate [hheader n p] asserts that the header cell of the array
-    at address [p] stores the length [n]. Internally, [hheader n p] may be
+    at address [p] stores the length [n]. Internally, [hheader n p] can be
     defined as [p ~~> n]. *)
 
 Parameter hheader : forall (n:int) (p:loc), hprop.
@@ -186,31 +243,36 @@ Parameter triple_array_set_hcell : forall p i v w,
     (hcell w p i)
     (fun _ => hcell v p i).
 
-(** Note: technically, a ML runtime performs bound checks on [get] and [set]
+(** Note: technically, an ML runtime performs bound checks on [get] and [set]
     operations, to ensure that the indices provided fall within the array. These
     bound-checks operations do involve a read to the header field. Thus, it may
     appear that the header cell ought to be involved in the specification of
-    [get] and [set]. Yet, providing the [hheader] predicate is not required for
-    verifying the correctness a program. If one wanted to formally verify a
-    runtime system, one would argue instead that headers are read-only cells,
-    and the runtime system would keep at hand a "fraction" of the [hheader]
-    predicate to justify its reads in header cells. *)
+    [get] and [set]. However, providing the [hheader] predicate is not actually
+    required for verifying the correctness a program. If one wanted to formally
+    verify a _runtime system_, on the other hand, one would argue instead that
+    headers are read-only cells, and that the access permissions over such cells
+    can be "divided" among the client code and the runtime system. The
+    realization of this "division" mechanism is based on the use of "fractional
+    permissions", a Separation Logic concept that is just beyond the scope of
+    the present course. *)
 
 (* ================================================================= *)
 (** ** Heap Predicate for Array Segments *)
 
 (** So far, we have presented small-footprint specifications expressed in terms
-    of [hheader] and [hcell]. Yet, the creation of an array via the operation
+    of [hheader] and [hcell]. But the creation of an array via
     [val_array_make n v] produces a heap predicate of the form [harray L p].
-    Thus, there remain to explain how to convert an [harray] predicate into the
-    separating conjunction of a [hheader] predicate and of a set of [hcell]
+    Thus, it remains to explain how to convert an [harray] predicate into the
+    separating conjunction of an [hheader] predicate and a set of [hcell]
     predicates. *)
 
 (** The auxiliary predicate [hseg L p j] describes an "array segment": it
     describes the iterated separating conjunction of the predicate [hcell] over
     a set of consecutive cells starting at index [j], with elements described by
-    the list [L]. For example [hseg (x0::x1::x2::nil) p j] corresponds to
-    [hcell x0 p (j+0) \* hcell x1 p (j+1) \* hcell x2 p (j+2)]. *)
+    the list [L]. For example, [hseg (x0::x1::x2::nil) p j] corresponds to
+    [hcell x0 p (j+0) \* hcell x1 p (j+1) \* hcell x2 p (j+2)]. Internally, this
+    corresponds to the cells at address [p+1+j], [p+2+j], and [p+3+j], skipping
+    the header cell located at address [p+j]. *)
 
 Fixpoint hseg (L:list val) (p:loc) (j:int) : hprop :=
   match L with
@@ -218,24 +280,24 @@ Fixpoint hseg (L:list val) (p:loc) (j:int) : hprop :=
   | x::L' => (hcell x p j) \* (hseg L' p (j+1))
   end.
 
-(** If the list [L] is empty, then the predicate [hseg nil p j] is equivalent to
-    the empty heap predicate. In particular, it does not assert that [j] is a
-    valid index in the array. (The proof of this lemma and the following one
-    appears further in the file.) *)
+(** If the list [L] is empty, then [hseg nil p j] is equivalent to the empty
+    heap predicate. In particular, it does not assert that [j] is a valid index
+    in the array. (The proofs of this lemma and the following one appear further
+    in the file.) *)
 
 Parameter hseg_nil : forall p j,
   hseg nil p j = \[].
 
-(** If the list [L] is a singleton list, then the predicate [hseg (v::nil) p j]
-    is equivalent to the [hcell v p j]. *)
+(** If the list [L] is a singleton, then [hseg (v::nil) p j] is equivalent to
+    [hcell v p j]. *)
 
 Parameter hseg_one : forall v p j,
   hseg (v::nil) p j = hcell v p j.
 
 (** A key result captures how a range of consecutive cells may be split in two
     parts. Concretely, a heap predicate describing a segment with elements
-    [(L1++L2)] can be split into a prediate describing a first segment with
-    elements [L1], and another predicate describing a second segment with
+    [(L1++L2)] can be split into a predicate describing a first segment with
+    elements [L1] and another predicate describing a second segment with
     elements [L2]. The two parts can be merged back into the original form at
     any time, as captured by the equality symbol in the statement below. *)
 
@@ -255,11 +317,12 @@ Lemma hseg_last : forall v p j L,
   hseg (L&v) p j = hseg L p j \* hcell v p (j+length L).
 Proof using. intros. rewrite hseg_app. rewrite hseg_cons, hseg_nil. xsimpl. Qed.
 
-(** These two corollaries themselves admin additional reformulations that help
-    merge back the isolated head and tail cells. The statements do not
-    constraint the offsets to be syntactically of the form [j + 1] or
-    [j + length L1], but instead introduces arithmetic equalities that the
-    tactic [math] can generally handle. *)
+(** These two corollaries themselves admit additional reformulations that help
+    merge back the isolated head and tail cells. *)
+
+(** Their statements do not constraint the offsets to be syntactically of the
+    form [j + 1] or [j + length L1], but instead introduce arithmetic equalities
+    that the tactic [math] can generally handle. *)
 
 Lemma hseg_cons_r : forall L v p j1 j2,
   j2 = j1 + 1 ->
@@ -279,16 +342,12 @@ Proof using. intros. subst. rewrite* hseg_last. Qed.
 (* ================================================================= *)
 (** ** Derived Segment-Based Specifications for Array Operations *)
 
-(** For reasoning about programs that operate over array segments, e.g.
+(** For reasoning about programs that operate over array segments, such as
     [quicksort], it is convenient to specify the functions [make], [length],
     [get] and [set] exclusively in terms of [hheader] and [hseg]. The lemma
-    [triple_array_length_header] specifies [length] in terms [hheader]. For the
-    other operations, we consider the following derived specifications. *)
-
-Parameter triple_array_length_hheader' : forall n p,
-  triple (val_array_length p)
-    (hheader n p)
-    (fun r => \[r = (n:int)] \* hheader n p).
+    [triple_array_length_header], already stated earlier, specifies [length] in
+    terms of [hheader]. For the other operations, we consider the following
+    derived specifications. *)
 
  Parameter triple_array_make_hseg : forall n v,
   n >= 0 ->
@@ -314,28 +373,26 @@ Parameter triple_array_set_hseg : forall L p i j v,
 Module QuickSort.
 Export NotationForVariables.
 
-(** Let us illustrate the benefits of these segment-based specifications through
-    the reasoning about the divide-and-conquer [quicksort] function. For
-    simplicity, let us consider an array that stores integer values. The
-    implementation of quicksort is standard, using an auxiliary [pivot]
-    function. The operation [pivot p i n] processes the segment of array [p]
-    that starts at index [i] and is made of [n] elements. The [pivot] function
-    considers an arbitrary element from that segment as pivot. It then reorders
-    the elements from the segment, separating the values less than or equal to
-    the pivot value from the values greater than the pivot value. The function
-    returns the index at which the pivot value ends up being stored in the
-    segment.
+(** Let us illustrate the benefits of these segment-based specifications by
+    reasoning about the divide-and-conquer [quicksort] function. For simplicity,
+    let us consider an array that stores integer values. The implementation of
+    quicksort is standard, using an auxiliary [pivot] function. The operation
+    [pivot p i n] processes the segment of array [p] that starts at index [i]
+    and is made of [n] elements. It first chooses an arbitrary element from that
+    segment as pivot. It then reorders the elements from the segment, separating
+    the values less than or equal to the pivot value from the values greater
+    than the pivot value. It returns the index at which the pivot value ends up
+    being stored in the segment.
 
-OCaml:
+    OCaml:
 
   let pivot p i n = ...
-    (* [pivot] modifies an array [p],
-       and returns the index [j] of a pivot value [x],
-       with [j] in the range [i <= j < i+n],
-       such that elements in the range [i .. j-1] are smaller than [x],
-       and elements in the range [j+1 .. i+n-1] are no smaller than [x]. *)
+    (* [pivot] modifies an array [p], and returns the index [j] of a pivot
+       value [x], with [j] in the range [i <= j < i+n], such that elements
+       in the range [i .. j-1] are smaller than or equal to [x], and elements
+       in the range [j+1 .. i+n-1] are greater than [x]. *)
 
-  (* [quicksort] sort an array [p] on the range of indices [i .. i+n-1]. *)
+  (* [quicksort] sorts an array [p] on the range of indices [i .. i+n-1]. *)
   let rec quicksort p i n =
     if n > 1 then begin
       let j = pivot p i n in
@@ -346,21 +403,24 @@ OCaml:
 *)
 
 (** As a warm-up before establishing the full functional correctness of
-    [quicksort], we begin by establishing the safety and the termination of the
-    code. In other words, the aim is to prove that every array access is valid,
-    through the use of array-segment specifications. This safety proof captures
-    the essence of the ownership reasoning at play, including the framing
-    process over recursive calls. In the "more details" section, we will
-    generalize the proof to justify that [quicksort] correctly sorts its input
-    array. *)
+    [quicksort], we begin by establishing its safety and termination. The core
+    of this argument is proving that every array access is valid, through the
+    use of array-segment specifications. The safety proof captures the essence
+    of the ownership reasoning at play, including the framing process over
+    recursive calls. In the "More Details" section, we generalize the proof to
+    show that [quicksort] also correctly sorts its input array. *)
 
-(** The safety specification of [pivot] asserts that [pivot p i n] operates on a
-    range of size [n], starting at index [i] of the array [p]. This range is
-    described in the precondition by a list [L], and in the postcondition by a
-    list [L']. This list [L'] decomposes as [L1 ++ x :: L2], where [x] denotes
-    the pivot value. In the full correctness proof, we will assert that [L1]
-    contains values smaller than [x], and [L2] values no smaller than [x], but
-    for establishing safety these assertions are not needed. *)
+(** First, [pivot].
+
+    Its safety specification asserts that [pivot p i n] operates on a range of
+    size [n], starting at index [i] of the array [p]. This range is described in
+    the precondition by a list [L], and in the postcondition by a list [L'].
+    This list [L'] decomposes as [L1 ++ x :: L2], where [x] denotes the pivot
+    value. *)
+
+(** In the full correctness proof, we will further assert that [L1] contains
+    only values smaller than [x] and [L2] only values at least as large as [x],
+    but for establishing safety these assertions are not needed. *)
 
 Parameter val_pivot : val.
 
@@ -375,8 +435,8 @@ Parameter triple_pivot_safety : forall p i n L,
                /\ L' = L1 ++ val_int x :: L2
                /\ j - i = length L1 ]).
 
-(** The recursive function [quicksort p i n] sorts an segment of length [n],
-    starting at index [i], in the array [p]. *)
+(** Now, the recursive function [quicksort p i n] sorts an segment of length
+    [n], starting at index [i], in the array [p]. *)
 
 Definition val_quicksort : val :=
   <{ fix 'f 'p 'i 'n =>
@@ -394,7 +454,7 @@ Definition val_quicksort : val :=
 (** **** Exercise: 4 stars, standard, especially useful (triple_quicksort_safety)
 
     Prove that [quicksort] operates on the targeted array segment without
-    interferring with the other cells of the array. This property is captured by
+    interfering with the other cells of the array. This property is captured by
     the specification shown below. Hint: use [xapp triple_pivot_safety] to
     reason about the call to [pivot]. *)
 
@@ -419,9 +479,9 @@ Proof using.
 Section SortedLists.
 
 (** To refine the above safety proof into a functional correctness proof, we
-    first need to formalize the notation of permutation and of sortedness. The
-    predicate [permut L L'] asserts that [L'] is a permutation of the list [L].
-    *)
+    first need to formalize the notations of permutation and sortedness.
+
+    The predicate [permut L L'] asserts that [L'] is a permutation of [L]. *)
 
 Inductive permut (A:Type) : list A -> list A -> Prop :=
   | permut_mid : forall L1 L2 L3 L4,
@@ -448,16 +508,15 @@ Qed.
 
 #[local] Hint Resolve permut_refl.
 
-(** If [L'] is a permutation of [L], then [L'] has the same length as [L]. *)
+(** If [L'] is a permutation of [L], then it has the same length as [L]. *)
 
 Lemma permut_length : forall A (L L':list A),
   permut L L' ->
   length L = length L'.
 Proof using. introv M. induction M; rew_list in *; try math. Qed.
 
-(** If [L1'] is a permutation of [L1], and [L2'] is a permutation of [L2], then
-    the concatenation [L1' ++ L2'] is a permutation of [L1 ++ L2]. This result,
-    and its corollaries for [cons] and [last] are stated next. *)
+(** If [L1'] is a permutation of [L1] and [L2'] is a permutation of [L2], then
+    [L1' ++ L2'] is a permutation of [L1 ++ L2]. *)
 
 Lemma permut_app : forall A (L1 L2 L1' L2':list A),
   permut L1 L1' ->
@@ -473,6 +532,8 @@ Proof using.
     { applys* permut_trans IHM2_2. } }
 Qed.
 
+(** Useful corollaries for [cons] and [last]: *)
+
 Lemma permut_cons : forall A (x:A) L1 L1',
   permut L1 L1' ->
   permut (x :: L1) (x :: L1').
@@ -483,8 +544,8 @@ Lemma permut_last : forall A (x:A) L1 L1',
   permut (L1 & x) (L1' & x).
 Proof using. intros. applys* permut_app L1 (x::nil) L1' (x::nil). Qed.
 
-(** Swapping of consecutive elements, or moving the first element to the last
-    position, yield valid permutations. *)
+(** Swapping of consecutive elements or moving the first element to the last
+    position yield valid permutations. *)
 
 Lemma permut_swap_first_two : forall A (x y : A) (L:list A),
   permut (x :: y :: L) (y :: x :: L).
@@ -532,9 +593,10 @@ Definition list_of_gt (x:int) (L:list int) : Prop :=
 Definition list_of_le (x:int) (L:list int) : Prop :=
   Forall (fun y => y <= x) L.
 
-(** Two key lemmas for verifying sorting algorithms are stated below. First, if
-    [L] is sorted, then adding an element [x] no greater than elements in [L] to
-    the front of [L] yields a sorted list. *)
+(** Two key lemmas for verifying sorting algorithms are stated below.
+
+    First, if [L] is sorted, then adding an element [x] no greater than elements
+    in [L] to the front of [L] yields a sorted list. *)
 
 Lemma sorted_cons_gt : forall x L,
   list_of_gt x L ->
@@ -546,8 +608,8 @@ Proof using.
   { lets (Hv&_): Forall_cons_inv N. applys* sorted_cons. math. }
 Qed.
 
-(** Second, if [L1] is a sorted list, if [x] is no less than the elements in
-    [L1], and if [x::L2] is a sorted list, then [L1 ++ x :: L2] is sorted. *)
+(** Second, if [L1] is a sorted list, [x] is no less than the elements in [L1],
+    and [x::L2] is a sorted list, then [L1 ++ x :: L2] is sorted. *)
 
 Lemma sorted_app_le : forall x L1 L2,
   list_of_le x L1 ->
@@ -566,18 +628,24 @@ End SortedLists.
 (** ** Formalization of Arrays of Integer Values *)
 
 (** To specify [quicksort] and other functions manipulating lists of integers,
-    it is useful to introduce a convertion function named [vals_int], which
-    converts converts a list of integer (type [list int]) into a list of values
-    (type [list val]). In particular, [hseg (vals_int L) p i] describes an array
-    segment containing integer values. *)
+    it is useful to introduce a conversion function [vals_int], which converts a
+    list of integers (type [list int]) into a list of values (type [list val]).
+
+    In particular, [hseg (vals_int L) p i] describes an array segment containing
+    integer values. *)
 
 Definition vals_int (L:list int) : list val :=
   LibList.map val_int L.
 
-(** To reason about these operations, we add rewriting rules to the tactic
-    [rew_list] and [rew_listx]. The latter is a variant of [rew_list] that
-    includes a larger number of rewriting lemmas, including e.g. properties
-    operations such as [LibList.map]. *)
+(** To ease the reasoning about [vals_int], we add the rewriting rules, stated
+    below, to the tactics [rew_list] and [rew_listx]. These tactics perform
+    normalization by means of Coq's [autorewrite] tactic. In an ideal world, we
+    would use a single tactic [rew_list] to handle all rewriting rules related
+    to lists. Unfortunately, [autorewrite] is undesirably slow when handling a
+    large the data base of rewriting rules. The TLC library therefore relies on
+    a 2-layer design: the tactic [rew_list] covers only the most frequently used
+    rewriting rules, whereas the tactic [rew_listx] is slower but covers all
+    rewriting rules. *)
 
 Lemma vals_int_nil :
   vals_int nil = nil.
@@ -605,12 +673,13 @@ Proof using. intros. unfold vals_int. rew_listx*. Qed.
     vals_int_last length_vals_int : rew_listx.
 
 (* ================================================================= *)
-(** ** Functional Correctness Proof for Quicksort *)
+(** ** Functional Correctness of Quicksort *)
 
 (** In order to verify [quicksort], we need to refine the specification of the
-    [pivot] function to include functional correctness properties. The
-    postcondition of the pivot operation describes the elements in the segment
-    as the list [L']. This list decomposes as [L1 ++ x :: L2], where [x]
+    [pivot] function to include functional correctness properties.
+
+    The postcondition of the pivot operation describes the elements in the
+    segment as the list [L']. This list decomposes as [L1 ++ x :: L2], where [x]
     corresponds to the pivot. This time, the assertions [list_of_le x L1] and
     [list_of_gt x L2] are included. *)
 
@@ -637,7 +706,8 @@ Lemma triple_quicksort : forall p i n L,
   i >= 0 ->
   triple (val_quicksort p i n)
     (hseg (vals_int L) p i)
-    (fun _ => \exists L', \[permut L L' /\ sorted L'] \* hseg (vals_int L') p i).
+    (fun _ => \exists L', \[permut L L' /\ sorted L']
+                          \* hseg (vals_int L') p i).
 Proof using. (* FILL IN HERE *) Admitted.
 
 (** [] *)
@@ -680,8 +750,8 @@ End QuickSort.
 Module Realization.
 
 (** So far, the predicates [hheader] and [hcell] were axiomatized. Let us show
-    how they can be realized with respect to the representation of the memory
-    state, of type [heap]. The predicates [hseg] and [harray] can then be
+    how they can be realized with respect to the concrete representation of the
+    memory state, of type [heap]. The predicates [hseg] and [harray] can then be
     defined on top of [hheader] and [hcell].
 
     Following the standard memory layout of allocated blocks in ML programs, we
@@ -690,26 +760,31 @@ Module Realization.
     remaining cells store the elements from the array.
 
     The heap predicate [hheader n p] describes a cell at location [p] with
-    contents [n]. Recall that the definition of [hheader] is opaque to the user,
-    thus there is no risk that the programmer attempts to reason about code that
-    modifies header fields. *)
+    contents [n]. Recall that the definition of [hheader] is opaque when
+    reasoning about array-using programs, so there is no risk that the
+    programmer attempts to reason about code that modifies header fields. *)
 
 Definition hheader (n:int) (p:loc) : hprop :=
   p ~~> (val_int n).
 
-(** The following lemma is useful for folding or unfolding the definition. *)
+(** Because Coq's [fold] operation rarely applys as the user expects, we state a
+    lemma that reformulates the definition of [hheader] as an equality.
+    Performing a [rewrite] using this lemma corresponds either to an [unfold] or
+    to a [fold] operation, depending on the direction. More generally,
+    reformulating a definition as an equality is strongly recommended for every
+    representation predicate. *)
 
 Lemma hheader_eq : forall p n,
   (hheader n p) = (p ~~> (val_int n)).
 Proof using. auto. Qed.
 
 (** The predicate [hcell v p i] asserts that the cell at index [i] from the
-    array at address [p] stores the value [p]. We defined this predicate by
-    asserting that the cell in memory at address [p+1+i] stores the value [v].
-    Thus, as first approximation, the predicate [hcell v p i] could be defined
-    as [(p + 1 + abs i) ~~> v]. The actual definition also embeds the assertion
-    [i >= 0] to guarantee that [i] refers to a valid index, and that
-    [p + 1 + abs i] computes the expected offset. *)
+    array at address [p] stores the value [p]. We defined this predicate
+    informally by asserting that the cell in memory at address [p+1+i] stores
+    the value [v]. Thus, as first approximation, the predicate [hcell v p i]
+    could be defined as [(p + 1 + abs i) ~~> v]. The actual definition also
+    embeds the assertion [i >= 0] to guarantee that [i] refers to a valid index
+    and [p + 1 + abs i] computes the expected offset. *)
 
 Definition hcell (v:val) (p:loc) (i:int) : hprop :=
   ((p + 1 + abs i)%nat ~~> v) \* \[i >= 0].
@@ -720,8 +795,7 @@ Lemma hcell_eq : forall v p i,
   (hcell v p i) = ((p + 1 + abs i)%nat ~~> v) \* \[i >= 0].
 Proof using. auto. Qed.
 
-(** The corollary stated below extracts the property [i >= 0] from [hcell v p i]
-    . *)
+(** This one extracts the property [i >= 0] from [hcell v p i] . *)
 
 Lemma hcell_nonneg : forall v p i,
   hcell v p i ==> hcell v p i \* \[i >= 0].
@@ -731,7 +805,7 @@ Proof using. unfold hcell. xsimpl*. Qed.
 (** ** Realization of [hseg] and [harray] *)
 
 (** The heap predicate [hseg] for array segments can be defined in terms of
-    [hcell] as shown earlier on. *)
+    [hcell] as suggested earlier. *)
 
 Fixpoint hseg (L:list val) (p:loc) (j:int) : hprop :=
   match L with
@@ -739,9 +813,9 @@ Fixpoint hseg (L:list val) (p:loc) (j:int) : hprop :=
   | x::L' => (hcell x p j) \* (hseg L' p (j+1))
   end.
 
-(** The predicate for full arrays [harray] can be defined as the pair of a
-    predicate [hheader] covering the header cell, and a segment covering the
-    full range of the array, described using [hseg]. *)
+(** The predicate for full arrays, [harray], can be defined as the pair of an
+    [hheader] predicate describing the header cell and a [hseg] covering the
+    full contents of the array. *)
 
 Definition harray (L:list val) (p:loc) : hprop :=
   hheader (length L) p \* hseg L p 0.
@@ -765,8 +839,8 @@ Proof using. intros. subst*. Qed.
 #[local] Hint Extern 1 (hseg ?L ?p ?j1 ==> hseg ?L ?p ?j2) =>
   apply hseg_start_eq; math.
 
-(** We prove the lemmas [hseg_nil] and [hseg_one] and [hseg_cons], which we
-    presented and exploited earlier in this chapter. *)
+(** We now prove the lemmas [hseg_nil] and [hseg_one] and [hseg_cons], which we
+    presented and used earlier in the chapter. *)
 
 Lemma hseg_nil : forall p j,
   hseg nil p j = \[].
@@ -782,9 +856,9 @@ Proof using. intros. simpl. xsimpl*. Qed.
 
 (** **** Exercise: 3 stars, standard, especially useful (hseg_app)
 
-    Prove the splitting lemma for array segments. Hint: [rew_list] is helpful to
-    simplify list operations. Recall that [xsimpl] helps proving equalities on
-    [hprop]. *)
+    Prove the splitting lemma for array segments. Hint: [rew_list] is helpful
+    for simplifying list operations. Recall that [xsimpl] helps proving
+    equalities on [hprop]. *)
 
 Lemma hseg_app : forall L1 L2 p j,
     hseg (L1 ++ L2) p j
@@ -798,9 +872,9 @@ Proof using. (* FILL IN HERE *) Admitted.
 
 (** With a predicate [harray L p] at hand, it may be useful to isolate the cell
     at an index [i], that is, to extract the predicate [hcell v p i], where
-    [0 <= i < length L] and [v = LibList.nth (abs i) L]. By giving back the
-    predicate [hcell v p i], one gets back the original predicate [harray L p].
-    *)
+    [0 <= i < length L] and [v = LibList.nth (abs i) L]. By "giving back" the
+    predicate [hcell v p i], we can get back to the original predicate
+    [harray L p]. *)
 
 Parameter harray_focus_read' : forall i L p,
   0 <= i < length L ->
@@ -809,7 +883,7 @@ Parameter harray_focus_read' : forall i L p,
       (hcell v p i) \* (hcell v p i \-* harray L p).
 
 (** The lemma above, called a "focus" lemma or "borrowing" lemma in Rust's
-    terminology only supports reading into the "focused" cell at index [i]. It
+    terminology, only supports reading into the "focused" cell at index [i]; it
     does not allow modifying the contents of the cell. Indeed, if [hcell v p i]
     is updated to [hcell w p i], then the magic wand
     [hcell v p i \-* harray L p] can no longer be exploited.
@@ -826,17 +900,15 @@ Parameter harray_focus' : forall i L p,
          (hcell v p i)
       \* (\forall w, hcell w p i \-* harray (LibList.update (abs i) w L) p).
 
-(** The focus lemmas are not easy to read, yet they are critically useful.
-    Without them, we would need to repeat a number of tedious splitting and
-    merging steps. *)
+(** The focus lemmas are critically useful. Without them, we would need to
+    repeat a number of tedious splitting and merging steps. *)
 
 (** **** Exercise: 4 stars, standard, especially useful (hseg_focus)
 
-    Prove the focus lemma for array segments. Hint: although a proof by
-    induction is possible, a simpler proof can be achieved by exploiting the
-    lemmas [LibList.list_middle_inv], [LibList.nth_middle] and
-    [LibList.update_middle]. Besides, recall that lemma [Inhab_val] proves
-    [Inhab val]. *)
+    Prove the following focus lemma for array _segments_. Hint: although a proof
+    by induction is possible, a simpler proof can be achieved by exploiting
+    [LibList.list_middle_inv], [LibList.nth_middle] and [LibList.update_middle].
+    Also, recall that lemma [Inhab_val] proves [Inhab val]. *)
 
 Lemma hseg_focus_relative : forall (k:nat) L p j,
   0 <= k < length L ->
@@ -852,8 +924,7 @@ Arguments hseg_focus_relative : clear implicits.
 
 (** In the statement above, [k] is an index relative to the start of the
     segment. The focus lemma can also be expressed in terms of absolute indices.
-    Below, [i] denotes a valid array index that falls in the targeted segment.
-    *)
+    Below, [i] denotes a valid array index within the targeted segment. *)
 
 Lemma hseg_focus : forall i L p j,
   0 <= i-j < length L ->
@@ -868,7 +939,7 @@ Qed.
 
 Arguments hseg_focus : clear implicits.
 
-(** We can derive the focus lemma for [harray] from that for [hseg]. *)
+(** We can derive the final focus lemma for [harray] from the one for [hseg]. *)
 
 Lemma harray_focus : forall i L p,
   0 <= i < length L ->
@@ -885,7 +956,7 @@ Qed.
 
 Arguments harray_focus : clear implicits.
 
-(** **** Exercise: 3 stars, standard, especially useful (harray_focus_read)
+(** **** Exercise: 3 stars, standard, optional (harray_focus_read)
 
     Prove that the "focus-read" lemma is a direct consequence of the general
     version of the focus lemma [harray_focus]. Hint: use
@@ -910,7 +981,7 @@ Arguments harray_focus_read : clear implicits.
     arithmetic. *)
 
 (* ================================================================= *)
-(** ** Semantics of Pointer Arithmetics *)
+(** ** Semantics of Pointer Arithmetic *)
 
 (** The operation [val_ptr_add p n] applies to a pointer [p] and an integer [n],
     and returns the address [p+n]. In other words, it computes the address of
@@ -937,7 +1008,7 @@ Proof using.
   applys hpure_intro. auto.
 Qed.
 
-(** For the [math] tactic provided by the TLC library to operate well on goals
+(** For the [math] tactic provided by the TLC library to behave well on goals
     involving expressions of the form [p+n] involved in calls to [val_ptr_add],
     we need a small tweak. We instantiate a hook of the [math] tactic to
     registier [loc] as transparent type for this tactic. *)
@@ -966,13 +1037,13 @@ Qed.
 (* ================================================================= *)
 (** ** Semantics of Low-Level Block Allocation *)
 
-(** The operation [val_alloc n] allocates a block of [n] consecutive cells. It
-    is specified as shown below. Starting from a state [sa], it produces a state
-    described as the union of [sb] and [sa], where [sb] consists of consecutive
-    of [n] consecutive cells. In the evaluation rule shown below,
-    [Fmap.conseq L p] builds a state with a range of cells starting a location
-    [p], and with contents described by the list [L]. Each of these cells is
-    specified as having the special value [val_uninit] as contents. *)
+(** The operation [val_alloc n] allocates a block of [n] consecutive cells.
+    Starting from a state [sa], it produces a state described as the union of
+    [sb] and [sa], where [sb] consists of consecutive of [n] consecutive cells.
+    In the evaluation rule shown below, [Fmap.conseq ... p] builds a state with
+    a range of cells starting a location [p] and with contents described by the
+    list [L]. Each of these cells is specified as having the special value
+    [val_uninit] as contents. *)
 
 Parameter val_alloc : val.
 
@@ -986,10 +1057,9 @@ Parameter eval_alloc : forall n sa Q,
   eval sa (val_alloc (val_int n)) Q.
 
 (** The specification of [val_alloc] is expressed using the heap predicate
-    [hrange L p]. This predicate describes a range of consecutive cells. In
-    short, [hrange L p] characterizes heaps produces by [Fmap.conseq L p]. The
-    structure of the recursive definition of [hrange] resembles that of [hseg].
-    *)
+    [hrange L p] to describe a range of consecutive cells -- a heap produced by
+    [Fmap.conseq L p]. The structure of the recursive definition of [hrange]
+    resembles that of [hseg]. *)
 
 Fixpoint hrange (L:list val) (p:loc) : hprop :=
   match L with
@@ -1094,10 +1164,10 @@ Definition val_array_make : val :=
 (* ================================================================= *)
 (** ** Verification of Low-Level Operations for Arrays *)
 
-(** The purpose of this section is to prove that the implementations presented
-    above for [length], [get], [set], and [make] indeed satisfy the
-    specifications axiomatized for them earlier in this chapter. For these
-    proofs, we need to set the definition of [hheader] as transparent. *)
+(** Now we can prove that the implementations presented above for [length],
+    [get], [set], and [make] indeed satisfy the specifications axiomatized for
+    them earlier in this chapter. For these proofs, we need to set the
+    definition of [hheader] as transparent. *)
 
 Global Transparent hheader.
 
@@ -1189,7 +1259,8 @@ Proof using.
     xapp; try math. xchange <- hseg_cons.
     rewrites* (>> LibList.make_pos (abs n) v).
     math_rewrite* (abs (n-1) = abs n - 1)%nat. }
-  { xval. math_rewrite (n = 0) in *. destruct L; rew_listx in *; tryfalse. auto. }
+  { xval. math_rewrite (n = 0) in *.
+    destruct L; rew_listx in *; tryfalse. auto. }
 Qed.
 
 Lemma triple_array_make_hseg : forall n v,
@@ -1248,7 +1319,7 @@ Qed.
 End Realization.
 
 (* ################################################################# *)
-(** * Bonus Material *)
+(** * Appendix *)
 
 (* ================================================================= *)
 (** ** Verification of the Pivot Function *)
@@ -1258,14 +1329,13 @@ Import QuickSort.
 Local Ltac auto_star ::= eauto with maths.
 
 (** For completeness, we include the formal verification of the [pivot]
-    function. The proof is unfortunately cluttered with reasoning on the
-    [vals_int] conversion function. The need for it stems from the fact that we
-    are reasoning on untyped code. The actual CFML tool provides reasoning rule
-    for well-typed code, and is thereby avoids all this kind of clutter.
+    function. The proof is unfortunately rather cluttered with reasoning about
+    the [vals_int] conversion function. The need for it stems from the fact that
+    we are reasoning on untyped code. The actual CFML tool provides reasoning
+    rule for well-typed code, and is thereby avoids all this kind of clutter.
 
     We consider a simple, unoptimized implementation of the [pivot] function.
-    This implementation is recursive, and performs a series of [swap]
-    operations.
+    This implementation is recursive and performs a series of [swap] operations.
 
 OCaml:
 
@@ -1373,7 +1443,7 @@ Proof using.
 Qed.
 
 (** We also derive a specification for [swap] specialized for the case where it
-    permuts an element with itself. *)
+    permutes an element with itself. *)
 
 Lemma triple_array_swap_seg_self : forall L p i j1 j2,
   0 <= j1 - i < length L ->
@@ -1382,12 +1452,13 @@ Lemma triple_array_swap_seg_self : forall L p i j1 j2,
     (hseg L p i)
     (fun _ => hseg L p i).
 Proof using.
-  introv H1 ->. xapp* triple_array_swap_seg. do 2 rewrite* LibList.update_nth_same.
+  introv H1 ->. xapp* triple_array_swap_seg.
+  do 2 rewrite* LibList.update_nth_same.
 Qed.
 
 (** We are now ready to prove the [pivot] function. For the recursion, we need
     to furthermore assert in the postcondition that the pivot value [x] is, at
-    reach recursive call, located at the head of the segment on which the
+    each recursive call, located at the head of the segment on which the
     recursive call is performed. This property is captured by the additional
     assertion [x = LibList.nth 0%nat L]. This assertion was not needed for the
     verification of [quicksort]. *)
@@ -1471,10 +1542,10 @@ Proof using.
          { subst L'. rew_listx*. } } } }
 Qed.
 
-(** As mentioned earlier, the proof is longer than we would like it to be. The
-    proof would be much simpler in the CFML tool, in which invariants need not
-    mention the [vals_int] conversion function. *)
+(** As mentioned earlier, the proof is longer than we would like it to be. (It
+    would be much simpler in the CFML tool, where invariants need not mention
+    the [vals_int] conversion function.) *)
 
 End Pivot.
 
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 08:34 *)

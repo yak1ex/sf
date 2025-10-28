@@ -15,9 +15,13 @@ Implicit Types Q : val->hprop.
 (* ################################################################# *)
 (** * More Details *)
 
-(** This chapter describes the soundness proof for [wpgen]. The "optional
-    material" section details the proof of two technical lemmas related to
-    substitutions. *)
+(** This chapter develops the soundness proof for [wpgen]. The key theorem
+    asserts that, for any term and and postcondition, [wpgen] (on an empty
+    substitution context) yields a formula that entails [wp]. Formally:
+    [wpgen nil t Q ==> wp t Q]. The present "more details" section contains the
+    proof of this theorem. The "optional material" section details the proofs of
+    two technical lemmas related to permutation of substitutions. This chapter
+    may be safely skipped. *)
 
 (* ================================================================= *)
 (** ** Definition of the Predicate [formula_sound] *)
@@ -28,33 +32,32 @@ Implicit Types Q : val->hprop.
       wpgen E t Q ==> wp (isubst E t) Q.
 *)
 
-(** Before entering the details of the proof, let us reformulate the soundness
-    statement of the soundness theorem in a way that will make proof obligations
-    and induction hypotheses easier to read. To that end, we introduce the
-    predicate [formula_sound t F], to be read "F is a formula sound for t". This
-    predicate asserts that [F] is a weakest-precondition style formula that
-    entails [wp t]. Formally: *)
+(** Before entering into the details of the proof, let us reformulate the
+    statement of the soundness theorem to make proof obligations and induction
+    hypotheses easier to read. To that end, we introduce the predicate
+    [formula_sound t F], read "F is a formula sound for t". It asserts that [F]
+    is a weakest-precondition style formula that entails [wp t]. Formally: *)
 
 Definition formula_sound (t:trm) (F:formula) : Prop :=
   forall Q, F Q ==> wp t Q.
 
-(** Using [formula_sound], the soundness theorem for [wpgen] reformulates as
+(** Using [formula_sound], the soundness theorem for [wpgen] is reformulated as
     follows.
 
-    Parameter wpgen_sound' : forall E t,
+    Parameter wpgen_sound : forall E t,
       formula_sound (isubst E t) (wpgen E t).
 *)
 
-(** Obviously, the formula [wp t] is a sound formula for a term [t], for any
-    term [t], because [wp t] entails [wp t]. *)
-
-Lemma wp_sound : forall t,
-  formula_sound t (wp t).
-Proof using. intros. intros Q. applys himpl_refl. Qed.
-
-(** This statement is proved by induction on [t]. We begin by stating and
-    proving the keys lemmas that will help proving each of the cases of the
-    induction. *)
+(** The soundness theorem [wpgen_sound] is proved by induction on [t]. Each case
+    of this inductive proof corresponds to a term construct. For each term
+    construct, we need to exploit two lemmas. The first lemma, common to all
+    term constructs, is called [mkstruct_sound], and is used to argue that the
+    presence of [mkstruct] in the definition of [wpgen] is sound. The second
+    lemma is specific to the term construct. For example, [wpgen_sound_seq] is
+    of the form [formula_sound (trm_seq t1 t2) (wpgen_seq F1 F2)]. We next
+    explain the details of how to state and prove [wpgen_sound_seq], then
+    present the other auxiliary lemmas useful for completing the proof by
+    induction of [wpgen_sound]. *)
 
 (* ================================================================= *)
 (** ** Soundness for the Case of Sequences *)
@@ -67,12 +70,12 @@ Parameter wpgen_sound_seq_1 : forall E t1 t2,
   formula_sound (isubst E (trm_seq t1 t2))
                 (wpgen E (trm_seq t1 t2)).
 
-(** Let us ignore [mkstruct] for a minute, that is, pretend that [wpgen] is
+(** Let us ignore [mkstruct] for a minute -- that is, pretend that [wpgen] is
     defined without [mkstruct]. Under this assumption, [wpgen E (trm_seq t1 t2)]
     evaluates to [wpgen_seq (wpgen E t1) (wpgen E t2)]. Besides, the expression
     [isubst E (trm_seq t1 t2)] evaluates to
     [trm_seq (isubst E t1) (isubst E t2)]. Therefore, the soundness statement to
-    establish reformulates as: *)
+    establish can be reformulated as: *)
 
 Parameter wpgen_sound_seq_2 : forall E t1 t2,
   formula_sound (trm_seq (isubst E t1) (isubst E t2))
@@ -121,7 +124,7 @@ Proof using.
 Qed.
 
 (* ================================================================= *)
-(** ** Soundness of [wpgen] for the Other Term Constructs *)
+(** ** Soundness for the Other Term Constructs *)
 
 (** Similarly, for every other language construct, we state and prove a lemma
     about [formula_sound]. The reader may skip over the proof details. What is
@@ -191,9 +194,9 @@ Lemma wpgen_fix_val_sound : forall f x t,
 Proof using. intros. intros Q. unfolds wpgen_val. applys wp_fix. Qed.
 
 (* ================================================================= *)
-(** ** Soundness of [mkstruct] *)
+(** ** Soundness of the Predicate Transformer [mkstruct] *)
 
-(** Earlier on, we have ignored the existence of [mkstruct] at the head of
+(** Above, we have ignored the existence of [mkstruct] at the head of
     formulae produced by [wpgen]. We next show that the insertion of [mkstruct]
     in formulae preserves their soundness. In other words, if the formula [F] is
     a valid weakest precondition for [t], then so is [mkstruct F].
@@ -205,9 +208,9 @@ Proof using. intros. intros Q. unfolds wpgen_val. applys wp_fix. Qed.
     In order to prove this result, we first need to show that [mkstruct] is a
     predicate transformer that does not affect the meaning of any formula of the
     form [wp t]. Intuitively, [mkstruct] adds support for applying structural
-    rules of Separation Logic; but a formula [wp t] inherently satisfies all the
-    structural reasoning rules of Separation Logic; hence wrapping [wp t] inside
-    a call to [mkstruct] does not increase not decrease its expressive power. *)
+    rules of Separation Logic; but a formula [wp t] _inherently_ satisfies all
+    the structural rules; hence wrapping [wp t] inside a call to [mkstruct] does
+    not increase (nor decrease) its expressive power. *)
 
 Lemma mkstruct_wp : forall t,
   mkstruct (wp t) = (wp t).
@@ -300,14 +303,12 @@ Parameter isubst_rem : forall x v E t,
 
 (** At last, we are ready to establish the soundness of [wpgen E t]. As
     previously announced, the proof is by structural induction on [t]. For each
-    term construct, the proof case consists of two steps:
+    term construct, the proof has two steps:
 
     - first, invoke the lemma [mkstruct_sound] to justify soundness
       of the leading [mkstruct] produced by [wpgen],
     - second, invoke the the soundness lemma specific to that term
-      construct, e.g. [wpgen_seq_sound] for sequences.
-
-*)
+      construct, e.g. [wpgen_seq_sound] for sequences. *)
 
 Lemma wpgen_sound_induct : forall E t,
   formula_sound (isubst E t) (wpgen E t).
@@ -389,7 +390,7 @@ Qed.
 (** * Optional Material *)
 
 (* ================================================================= *)
-(** ** Proof of Properties of Iterated Substitution *)
+(** ** Proofs of Properties of Iterated Substitution *)
 
 Module IsubstProp.
 
@@ -587,6 +588,4 @@ Qed.
 
 End IsubstProp.
 
-
-
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 08:34 *)

@@ -3,41 +3,38 @@
 (* ################################################################# *)
 (** * Welcome *)
 
-(** This electronic book is Volume 6 of the _Software Foundations_ series,
-    which presents the mathematical underpinnings of reliable software.
+(** This electronic book is Volume 6 of the _Software Foundations_ series, which
+    presents the mathematical underpinnings of reliable software.
 
-    *COMPANION COURSE NOTES*: A large part of this course is also written
-    up in traditional LaTeX-style presentation.  It's available from
+    *COMPANION COURSE NOTES*: A large part of this course is also written up in
+    traditional LaTeX-style presentation. It's available from
     [http://www.chargueraud.org/teach/verif/slf_notes.pdf].
 
     This book will teach you about the foundations of Separation Logic, a
-    practical approach to the modular verification of imperative
-    programs. In particular, it presents the building blocks for
-    constructing a program verification tool. It does not, however, focus
-    on reasoning about data structures and algorithms using Separation
-    Logic. This aspect is covered to some extent by Volume 5 of _Software
-    Foundations_, which presents Verifiable C, a program logic and proof
-    system for C. For OCaml programs, this aspect will be covered in a
-    yet-to-be-written volume presenting CFML, a tool that builds upon all
-    the techniques presented in this volume.
+    practical approach to the modular verification of imperative programs. In
+    particular, it presents the building blocks for constructing a program
+    verification tool. It does not, however, focus on reasoning about data
+    structures and algorithms using Separation Logic. This aspect is covered to
+    some extent by Volume 5 of _Software Foundations_, which presents Verifiable
+    C, a program logic and proof system for C. For OCaml programs, this aspect
+    will be covered in a yet-to-be-written volume presenting CFML, a tool that
+    builds upon all the techniques presented in this volume.
 
-    You are only assumed to understand the material in _Software
-    Foundations_ Volume 1 (_Logical Foundations_), and the two chapters on
-    Hoare Logic (Hoare and Hoare2) from Software Foundations Volume 2 (_PL
-    Foundations_). Volume 5 is not a prerequisite. The exposition here is
-    intended for a broad range of readers, from advanced undergraduates to
-    PhD students and researchers. *)
+    You are only assumed to understand the material in _Software Foundations_
+    Volume 1 (_Logical Foundations_), and the two chapters on Hoare Logic (Hoare
+    and Hoare2) from Software Foundations Volume 2 (_PL Foundations_). Volume 5
+    is not a prerequisite. The exposition here is intended for a broad range of
+    readers, from advanced undergraduates to PhD students and researchers. *)
 
 (* ################################################################# *)
 (** * Separation Logic *)
 
-(** Separation Logic is a _program logic_: it enables one to establish
-    that a program satisfies its specification. Specifications are expressed
-    using triples of the form [{H} t {Q}]. Whereas in Hoare logic the
-    precondition [H] and the postcondition [Q] describe the whole memory
-    state, in Separation Logic [H] and [Q] describe only a fragment of the
-    memory state that includes the resources necessary to the execution
-    of [t].
+(** Separation Logic is a _program logic_: it enables one to establish that a
+    program satisfies its specification. Specifications are expressed using
+    triples of the form [{H} t {Q}]. Whereas in Hoare logic the precondition [H]
+    and the postcondition [Q] describe the whole memory state, in Separation
+    Logic [H] and [Q] describe only a fragment of the memory state that includes
+    the resources necessary to the execution of [t].
 
     A key ingredient of Separation Logic is the frame rule, which enables
     modular proofs. It is stated as follows.
@@ -47,11 +44,11 @@
      { H \* H' } t { Q \* H' }
 
     The above rule asserts that if, a term [t] executes correctly with the
-    resources [H] and produces [Q], then [t] admits the same
-    behavior in a larger memory state, described by the union of [H]
-    with a disjoint component [H'], producing the postcondition [Q] extended
-    with that same resource [H'] unmodified. The star symbol [\*] denotes the
-    _separating conjunction_ operator of Separation Logic.
+    resources [H] and produces [Q], then [t] admits the same behavior in a
+    larger memory state, described by the union of [H] with a disjoint component
+    [H'], producing the postcondition [Q] extended with that same resource [H']
+    unmodified. The star symbol [\*] denotes the _separating conjunction_
+    operator of Separation Logic.
 
     Separation Logic can be exploited in three kind of tools.
 
@@ -67,18 +64,18 @@
       using a proof assistant such as Coq.
 
     The present course focuses on the third approach, that is, the integration
-    of Separation Logic in an interactive proof assistant. This approach
-    has been successfully put to practice throughout the world, using
-    various proof assistants (Coq, Isabelle/HOL, HOL), targeting different
-    languages (Assembly, C, SML, OCaml, Rust...) and for verifying various
-    kind of programs, ranging from low-level operating system kernels
-    to high-level data structures and algorithms. *)
+    of Separation Logic in an interactive proof assistant. This approach has
+    been successfully put to practice throughout the world, using various proof
+    assistants (Coq, Isabelle/HOL, HOL), targeting different languages
+    (Assembly, C, SML, OCaml, Rust...) and for verifying various kind of
+    programs, ranging from low-level operating system kernels to high-level data
+    structures and algorithms. *)
 
 (* ################################################################# *)
 (** * Separation Logic in a Proof Assistant *)
 
-(** The benefits of exploiting Separation Logic in a proof assistant
-    include at least four major points:
+(** The benefits of exploiting Separation Logic in a proof assistant include at
+    least four major points:
 
     - higher-order logic provides virtually unlimited expressiveness
       that enables formulating arbitrarily complex specifications and
@@ -92,8 +89,8 @@
     - the fact that Separation Logic itself is formalized in the proof
       assistant provides high confidence in the correctness of the tool.
 
-    Pretty much all the tools that leverage Separation Logic in proof
-    assistants are constructed following the same schema:
+    Pretty much all the tools that leverage Separation Logic in proof assistants
+    are constructed following the same schema:
 
     - A formalization of the syntax and semantics of the source language.
       This is called a _deep embedding_ of the programming language.
@@ -115,8 +112,8 @@
     language. The language essentially consists of a lambda-calculus with
     references. This language admits a simple semantics. It avoids, in
     particular, the need to distinguish between stack variables and heap-
-    allocated variables. Advanced chapters later in the course explain how
-    to add support for loops, records, arrays, and n-ary functions. *)
+    allocated variables. Advanced chapters later in the course explain how to
+    add support for loops, records, arrays, and n-ary functions. *)
 
 (* ################################################################# *)
 (** * Multiple Reading Depths *)
@@ -139,24 +136,22 @@
       Logic beyond the present course, and (2) teachers using the course. *)
 
 (* ################################################################# *)
-(** * Overview *)
+(** * Chapters Overview *)
 
-(** The first two chapters, [Basic] and [Repr],
-    give a primer on how to prove imperative programs in Separation Logic,
-    i.e. they focus on the end user's perspective. The eight following chapters
-    focus on the implementor's perspective, explaining how Separation Logic
-    is defined and how a practical verification tool can be constructed.
-    The last three chapters cover language extensions, from the perspective of
-    both the user and the implementor.
+(** The first two chapters, [Basic] and [Repr], give a primer on how
+    to prove imperative programs in Separation Logic, i.e. they focus on the end
+    user's perspective. The eight following chapters focus on the implementor's
+    perspective, explaining how Separation Logic is defined and how a practical
+    verification tool can be constructed. The last three chapters cover language
+    extensions, from the perspective of both the user and the implementor.
 
     The list of chapters appears below. The numbering corresponds to _teaching
     units_: if the chapters were taught as part of a University course, one
     could reasonably aim to cover one teaching unit per week.
 
     - (1) [Basic]: introduction to the core features of Separation Logic,
-          illustrated using short programs manipulating references.
 
-    - (1) [Repr]: introduction to representation predicates in Separation
+    - (2) [Repr]: introduction to representation predicates in Separation
           Logic, in particular for describing mutable lists and trees.
 
     - (2) [Hprop]: definition of the core operators of Separation Logic.
@@ -182,30 +177,28 @@
           specification.
 
     - (5) [WPsound]: soundness proof for the weakest precondition
-          generator; the contents is for the most part optional.
+          generator (mostly optional).
 
     - (6) [Affine]: description of a generalization of Separation Logic
           with affine heap predicates, which are useful, in particular, for
           handling garbage-collected programming languages.
 
-    - (6) [Arrays]: specification of both ML-style arrays with headers,
+    - (6) [Arrays]: specification of both ML-style arrays with headers
           and C-style arrays with pointer arithmetic.
 
-    - (6) [Records]: representation predicate for records, allowing to
-          isolate arbitrary subsets of the record fields.
- *)
+    - (6) [Records]: representation predicate for records, allowing us to
+          isolate arbitrary subsets of a record's fields. *)
 
 (* ################################################################# *)
 (** * Other Distributed Files *)
 
-(** The chapters listed above depend on a number of auxiliary files, which
-    the reader does not need to go through but might be interested in
-    looking at, either by curiosity, or for checking out a specific
-    implementation detail.
+(** The chapters listed above depend on a number of auxiliary files, which the
+    reader does not need to go through but might be interested in looking at,
+    either by curiosity, or for checking out a specific implementation detail.
 
     - [LibSepReference]: a long file that defines the program
       verification tool that is used in the first two chapters, and whose
-      implementation is discussed throughout the other chapters.  Each
+      implementation is discussed throughout the other chapters. Each
       chapter from the course imports this module, as opposed to importing
       earlier chapters.
 
@@ -218,24 +211,23 @@
     - [LibSepSimpl]: a functor that implements a powerful tactic for
       automatically simplifying entailments in Separation Logic.
 
-    - [LibSepMinimal]: a minimalistic formalization of a soundness
-      proof for Separation Logic.
+    - [LibSepMinimal]: a minimalistic formalization of a soundness proof
+      for Separation Logic, up to the verification of the [incr] function.
 
     - All other [Lib*] files are imports from the TLC library, which is
       described next. *)
 
 (** The TLC library is a collection of general purpose theory and tactics
-    developed over the years by Arthur Charguéraud. The TLC library is
-    exploited in this course to streamline the presentation. TLC provides,
-    in particular, extensions for classical logic and tactics that are
-    particularly well suited for meta-theory. Prior knowledge of TLC is not
-    required, and all exercises can be completed without using TLC tactics.
+    developed over the years by Arthur Charguéraud. The TLC library is exploited
+    in this course to streamline the presentation. TLC provides, in particular,
+    extensions for classical logic and tactics that are particularly well suited
+    for meta-theory. Prior knowledge of TLC is not required, and all exercises
+    can be completed without using TLC tactics.
 
-    The classical logic aspects of TLC are presented in chapter
-    [Hprop].  Each TLC tactic is introduced when it is first
-    used. Most of these tactics are also presented in the chapter
-    [UseTactics] of Software Foundations Volume 2 (_Programming
-    Language Foundations_). *)
+    The classical logic aspects of TLC are presented in chapter [Hprop].
+    Each TLC tactic is introduced when it is first used. Most of these tactics
+    are also presented in the chapter [UseTactics] of Software
+    Foundations Volume 2 (_Programming Language Foundations_). *)
 
 (* ################################################################# *)
 (** * Practicalities *)
@@ -246,42 +238,41 @@
 (** Install instructions for Coq and IDEs may be found on this page:
     [https://www.chargueraud.org/teach/verif/install/install.html]
 
-    The files you are reading have been tested with Coq version
-    8.17 but may also work with other versions. *)
+    The files you are reading have been tested with Coq version 8.17.1 but
+    may also work with other versions. *)
 
 (* ================================================================= *)
 (** ** Feedback Welcome *)
 
-(** If you intend to use this course either in class of for self-study,
-    the author would love to hear from you. Just
-    knowing in which contexts the course has been used and how much of
-    the text students were able to cover is very valuable information.
+(** If you intend to use this course either in class of for self-study, the
+    author would love to hear from you. Just knowing in which contexts the
+    course has been used and how much of the text students were able to cover is
+    very valuable information.
 
     You can send feedback to slf --at-- chargueraud.org.
 
-    If you plan on providing any non-small amount of feedback, do not
-    hesitate to ask the author to be added as contributor to the
-    github repository. *)
+    If you plan on providing any non-small amount of feedback, do not hesitate
+    to ask the author to be added as contributor to the github repository. *)
 
 (* ================================================================= *)
 (** ** Exercises *)
 
 (** Each chapter includes numerous exercises. The star rating scheme is
-    described in the [Preface] of Software Foundations Volume
-    1 (_Logical Foundations_).
+    described in the [Preface] of Software Foundations Volume 1 (_Logical
+    Foundations_).
 
     _Disclaimer_: the difficulty ratings currently in place are fairly
     speculative. You feedback is very much welcome.
 
-    _Disclaimer_: (for instructors) the auto-grading system has not been
-    tested for this volume. If you are interested in using auto-grading for
-    this volume, please contact the author. *)
+    _Disclaimer_: (for instructors) the auto-grading system has not been tested
+    for this volume. If you are interested in using auto-grading for this
+    volume, please contact the author. *)
 
 (* ================================================================= *)
 (** ** Recommended Citation Format *)
 
-(** If you want to refer to this volume in your own writing, please
-    do so as follows:
+(** If you want to refer to this volume in your own writing, please do so as
+    follows:
 
     @book            {Chargueraud:SF6,
     author       =   {Arthur Charguéraud},
@@ -291,7 +282,7 @@
     volume       =   "6",
     year         =   "2024",
     publisher    =   "Electronic textbook",
-    note         =   {Version 2.0, \URL{http://softwarefoundations.cis.upenn.edu} },
+    note         =   {Version 2.1, \URL{http://softwarefoundations.cis.upenn.edu} },
     }
 *)
 
@@ -303,4 +294,4 @@
     Foundation under the NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2024-01-03 14:46 *)
+(* 2024-08-25 08:34 *)

@@ -517,7 +517,7 @@ Proof.
 
     is traditionally called _beta-reduction_. *)
 
-(** 
+(**
                                value v2
                      ---------------------------                     (ST_AppAbs)
                      (\x:T2,t1) v2 --> [x:=v2]t1
@@ -749,7 +749,7 @@ Definition context := partial_map ty.
 (* ================================================================= *)
 (** ** Typing Relation *)
 
-(** 
+(**
                             Gamma x = T1
                           ------------------                             (T_Var)
                           Gamma |-- x \in T1
@@ -851,7 +851,6 @@ Proof.
 
     Formally prove the following typing derivation holds:
 
-    
        empty |-- \x:Bool->B, \y:Bool->Bool, \z:Bool,
                    y (x z)
              \in T.
@@ -913,4 +912,4 @@ Proof.
 
 End STLC.
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:25 *)

@@ -66,7 +66,7 @@ Definition insert (x: key) (q: priqueue) : priqueue :=
      carry q (Node x Leaf Leaf).
 
 Eval compute in fold_left (fun x q =>insert q x) [3;1;4;1;5;9;2;3;5] empty.
-(** 
+(**
     = [Node 5 Leaf Leaf;
        Leaf;
        Leaf;
@@ -397,4 +397,4 @@ End BinomQueue.
 *)
 (** [] *)
 
-(* 2023-08-23 11:34 *)
+(* 2024-08-25 08:38 *)

@@ -15,22 +15,26 @@ Implicit Types Q : val->hprop.
 (* ################################################################# *)
 (** * First Pass *)
 
-(** The Separation Logic framework that we have constructed is well-suited for a
-    language with explicit deallocation, but cannot be used as such for a
-    language equipped with a garbage collector. As pointed out in the chapter
-    [Basic], there is no rule in our basic Separation Logic that allows
-    discarding a heap predicate from the precondition or the postcondition.
+(** The Separation Logic framework that we have constructed is well suited for a
+    language with explicit deallocation, but cannot be used as-is for a language
+    equipped with a garbage collector. As pointed out in chapter [Basic],
+    there is no rule in our basic Separation Logic that allows discarding a heap
+    predicate from the precondition or the postcondition. From a theoretical
+    perspective, discarding predicates from the postcondition is sufficient.
+    From a practical perspective, however, the user may wish to clarify the
+    proof obligations by discarding predicates appearing in the precondition as
+    soon as they are no longer useful.
 
     In this chapter, we explain how to generalize the Separation Logic framework
     to support a "discard rule", which one may invoke to discard heap predicates
-    from the precondition or from the postcondition.
+    from the precondition or postcondition.
 
     The framework extended with the discard rule corresponds to an "affine"
     logic, where heap predicates may be freely discarded, as opposed to a
     "linear" logic, where heap predicates cannot be thrown away. As we argue, it
     may be interesting for a program logic to accomodate both "affine"
-    predicates and "linear" predicates. We will explain how to fine-tune which
-    heap predicates may or may not be freely discared.
+    predicates and "linear" predicates. We will explain how to fine tune which
+    heap predicates may be freely discarded.
 
     For example, even in a programming language featuring a garbage collector,
     it may be useful to ensure that every file handle opened eventually gets
@@ -38,10 +42,19 @@ Implicit Types Q : val->hprop.
     locks are example of resources that may be described in Separation Logic,
     yet that one should not be allowed to discard freely.
 
-    This chapter is organized as follows:
+    Regarding garbage-collected data, another possible approach is to require
+    the programmer to integrate "free" operations defined as no-ops, to
+    materialize the places where memory cells can and should be discarded. This
+    approach, however, is cumbersome for freeing recursive data structures. For
+    example, to free a mutable list, the programmer would need to iterate over
+    the list to free its cells one by one. In contrast, with a "discard rule" in
+    the program logic, the user can discard at once the representation predicate
+    for the full list, without involving any form of iteration. *)
+
+(** The chapter is organized as follows:
 
     - first, we recall the example illustrating the limitation of a logic
-      without a discard rule, for a garbage-collected language;
+      without a discard rule for a garbage-collected language;
     - second, we present several versions of the "discard rule";
     - third, we show how to refine the definition of Separation Logic
       triples in such a way that the discard rules are satisfied
@@ -53,10 +66,10 @@ Implicit Types Q : val->hprop.
 Module MotivatingExample.
 Export DemoPrograms.
 
-(** Let us recall the example of the function [succ_using_incr_attempt] from
-    chapter [Basic]. This function allocates a reference with contents [n],
-    then increments that reference, and finally returning its contents, that is,
-    [n+1]. Let us revisit this example, with this time the intention of
+(** Recall the example of the function [succ_using_incr_attempt] from chapter
+    [Basic]. This function allocates a reference with contents [n], then
+    increments that reference, and finally returning its contents, that is,
+    [n+1]. Let us revisit this example, this time with the intention of
     establishing for it a postcondition that does not leak the existence of a
     left-over reference cell. *)
 
@@ -68,10 +81,10 @@ Definition succ_using_incr :=
 
 (** In the framework developed so far, the heap predicate describing the
     reference cell allocated by the function cannot be discarded, because the
-    code considered does not include a deallocation operation. Thus, we are
-    forced to include in the postcondition the description of a left-over
-    reference with a heap predicate, e.g., [\exists p, p ~~> (n+1)], or
-    [\exists p m, p ~~> m]. *)
+    code does not include a deallocation operation. Thus, we are forced to
+    include in the postcondition the description of a left-over reference with a
+    heap predicate, e.g., [\exists p, p ~~> (n+1)], or [\exists p m, p ~~> m].
+    *)
 
 Lemma triple_succ_using_incr : forall (n:int),
   triple (succ_using_incr n)
@@ -93,25 +106,21 @@ Proof using.
   xwp. xapp. intros p. xapp. xapp. xsimpl. { auto. } (* stuck here *)
 Abort.
 
-(** This situation is desirable in a programming language with explicit
-    deallocation, because it ensures that the code written by the programmer is
-    not missing any deallocation operation. However, it is ill-suited for a
-    programming language equipped with a garbage collector that deallocates data
-    automatically. This chapter presents an "affine" version of Separation
-    Logic, where the above function [succ_using_incr] does admit the expected
-    postcondition [fun r => \[r = n+1]]. *)
+(** In what follows, we extend our Separation Logic with a "discard rule" that
+    allows proving the above specification for [succ_using_incr]. *)
 
 End MotivatingExample.
 
 (* ================================================================= *)
-(** ** Statement of the Discard Rule *)
+(** ** Statement of The Discard Rule *)
 
 (** There are several ways to state the "discard rule". Let us begin with two
-    rules: one that discards a heap predicate [H'] from the postcondition, and
-    one that discards a heap predicate [H'] from the precondition. The first
-    rule, named [triple_hany_post], asserts that an arbitrary heap predicate
-    [H'] can be dropped from the postcondition, simplifying it from [Q \*+ H']
-    to [Q]. *)
+    variants: one that discards a heap predicate [H'] from the postcondition,
+    and one that discards a heap predicate [H'] from the precondition.
+
+    The first rule, named [triple_hany_post], asserts that an arbitrary heap
+    predicate [H'] can be dropped from the postcondition, simplifying it from
+    [Q \*+ H'] to [Q]. *)
 
 Parameter triple_hany_post : forall t H H' Q,
   triple t H (Q \*+ H') ->
@@ -144,27 +153,34 @@ Parameter triple_hany_pre : forall t H H' Q,
 
 (** Observe the difference between the two rules. In [triple_hany_post], the
     discarded predicate [H'] appears in the premise, reflecting the fact that we
-    discard it after the evaluation of the term [t]. On the contrary, in
-    [triple_hany_pre], the discarded predicate [H'] appears in the conclusion,
-    reflecting the fact that we discard it before the evaluation of [t]. *)
+    discard it after the evaluation of the term [t].
 
-(** The two rules [triple_hany_pre] and [triple_hany_post] can be derived from
-    each other. As we will establish further on, the rule [triple_hany_pre] is
-    derivable from [triple_hany_post], by a simple application of the frame
-    rule. Reciprocally, [triple_hany_post] is derivable from [triple_hany_pre],
-    however the proof is slightly more involved. This proof appears in lemma
+    Conversely, in [triple_hany_pre], the discarded predicate [H'] appears in
+    the conclusion, reflecting the fact that we discard it before the evaluation
+    of [t]. *)
+
+(** The rules [triple_hany_pre] and [triple_hany_post] can be derived from each
+    other. As we will establish further on, [triple_hany_pre] is derivable from
+    [triple_hany_post] by a simple application of the frame rule. Reciprocally,
+    [triple_hany_post] is derivable from [triple_hany_pre], though the proof is
+    slightly more involved. This proof appears in lemma
     [triple_hgc_post_from_hgc_pre] in the "optional material" section. *)
 
 (* ================================================================= *)
-(** ** Fine-grained Control on Collectable Predicates *)
+(** ** Fine-grained Control of Collectable Predicates *)
+
+(* ----------------------------------------------------------------- *)
+(** *** Axiomatization of [heap_affine] and [haffine] *)
 
 (** As suggested in the introduction, it may be useful to constrain the discard
     rule in such a way that it can be used to discard only certain types of heap
-    predicates, and not arbitrary heap predicates. The idea is to restrict the
-    discard rules so that only predicates satisyfing a predicate called
-    [haffine] may be discarded. The two discard rules should thus feature an
-    extra premise: to discard a heap predicate [H'], the proposition
-    [haffine H'] must hold. *)
+    predicates, not arbitrary ones.
+
+    The idea is to restrict the discard rules so that only predicates satisfying
+    a predicate called [haffine] may be discarded.
+
+    The two discard rules should thus feature an extra premise: to discard a
+    heap predicate [H'], the proposition [haffine H'] must hold. *)
 
 Module Preview.
 
@@ -185,15 +201,16 @@ End Preview.
 (** The predicate [haffine H] is defined in terms of a lower-level predicate
     [heap_affine]. The proposition [heap_affine h] asserts that the piece of
     heap [h] may be freely discarded, in the sense that it does not have to be
-    accounted for in the program logic. This predicate [heap_affine] may be
-    customized depending on the logic one wants to set up. The definition of
-    [heap_affine h] is left abstract for the moment. *)
+    accounted for in the program logic. The question of whether a heap or a heap
+    predicate should be affine or not is to be decided on a case-by-case basis.
+    It depends on the intention of the designer of the program logic. For the
+    moment, we leave the predicate [heap_affine] abstract, and allow it to be
+    customized later on. *)
 
 Parameter heap_affine : heap -> Prop.
 
-(** The only assumptions we need to make about [heap_affine] is that this
-    predicate holds of the empty heap, and that it is preserved by a disjoint
-    union operation. *)
+(** The only assumptions we need to make about [heap_affine] is that it holds of
+    the empty heap and that it is preserved by a disjoint union operation. *)
 
 Parameter heap_affine_empty :
   heap_affine Fmap.empty.
@@ -205,29 +222,41 @@ Parameter heap_affine_union : forall h1 h2,
   heap_affine (Fmap.union h1 h2).
 
 (** We will later show two extreme instantiations: one that leads to a logic
-    where all predicates are affine (i.e. can be freely discarded), one one that
+    where all predicates are affine (i.e. can be freely discarded), and one that
     leads to a logic where all predicates are linear (i.e. none can be freely
     discarded, like in our previous set up). *)
 
-(* ================================================================= *)
-(** ** Definition and Properties of [heap_affine] *)
+(* ----------------------------------------------------------------- *)
+(** *** Definition and Properties of [heap_affine] *)
 
-(** The predicate [haffine H] captures the notion of "affine heap predicate". A
-    heap predicate is affine iff it only holds of affine heaps. *)
+(** The predicate [haffine H] captures the notion of "affine heap predicate".
+
+    A heap predicate is affine iff it holds only of affine heaps. *)
 
 Definition haffine (H:hprop) : Prop :=
   forall h, H h -> heap_affine h.
 
-(** The predicate [haffine] distributes in a natural way on each of the
-    operators of Separation Logic: the combination of affine heap predicates
-    yields affine heap predicates. In particular:
+(** The predicate [haffine] distributes in a natural way over each of the
+    operators of Separation Logic -- i.e., the combination of affine heap
+    predicates yields affine heap predicates. In particular:
 
-    - [\[]] and [\[P]], which describes empty heaps, can always be discarded;
+    - [\[]] and [\[P]], which describe empty heaps, can always be discarded;
     - [H1 \* H2] can be discarded if both [H1] and [H2] can be discarded;
-    - [\exists x, H] can be discarded if [H] can be discarded for any [x];
-    - [\forall x, H] can be discarded if [H] can be discarded for at least one [x].
+    - [\forall x, H] can be discarded if [H] can be discarded for at least one
+      [x];
+    - [\exists x, H] can be discarded if [H] can be discarded for every [x].
 
-*)
+    The treatment of universal quantifiers can be explained as follows. Consider
+    a heap [h] that satisfies [\forall (x:A), H], and consider a particular
+    value [v] of type [A]. The heap [h] also satisfies [[x:=v]H]. Thus, if the
+    heap predicate [[x:=v]H] can be discarded, the stronger predicate
+    [\forall (x:A), H] can also be discarded.
+
+    Existential quantifiers can be explained as follows. Consider a heap [h]
+    that satisfies [\exists (x:A), H]. We know that there exists a value [v] of
+    type [A] such that [h] satisfies [[x:=v]H]. However, we know nothing about
+    this value [v]. Therefore, to discard [\exists (x:A), H], we need to know
+    that [[x:=v]H] can be discarded for every possible [v]. *)
 
 Lemma haffine_hempty :
   haffine \[].
@@ -266,8 +295,8 @@ Qed.
 (** The rule [haffine_hforall'] requires the user to provide evidence that there
     exists at least one value [x] of type [A] for which [haffine (J x)] is true.
     In practice, the user is generally not interested in proving properties of a
-    specific value [x], but is happy to justify that [J x] is affine for any [x]
-    . The corresponding statement appears below, with an assumption [Inhab A]
+    specific value [x], but is happy to justify that [J x] is affine for any
+    [x]. The corresponding statement appears below, with an assumption [Inhab A]
     asserting that the type [A] is inhabited. In practice, the [\forall]
     quantifier is always invoked on inhabited types, so this is a benign
     restriction. *)
@@ -289,17 +318,28 @@ Lemma haffine_hstar_hpure_l : forall P H,
 Proof using. introv M. intros h K. rewrite hstar_hpure_l in K. applys* M. Qed.
 
 (* ================================================================= *)
-(** ** Definition of the "Affine Top" Heap Predicates *)
+(** ** The Affine-Top Heap Predicate: [\GC] *)
 
-(** We next introduce a new heap predicate, called "affine top" and written
-    [\GC], that is very handy for describing "the possibility to discard a heap
-    predicate". We use this predicate to reformulate the discard rules in a more
-    concise and more usable manner. This predicate is written [\GC] and named
-    [hgc] in the formalization. The predicate [\GC] holds of any affine heap.
-    [\GC] can be defined as [exists H, \[haffine H] \* H]. As we prove further
-    on, it could be equivalently defined as [fun h => heap_affine h]. We prefer
-    the former definition, which is easier to manipulate using the [xsimpl]
-    tactic. *)
+(* ----------------------------------------------------------------- *)
+(** *** Definition of The Affine-Top Predicate *)
+
+(** We next introduce a new heap predicate, called "affine top", that is very
+    handy for describing "the possibility to discard a heap predicate". We use
+    this predicate to reformulate the discard rules in a more concise and usable
+    manner. This predicate is written [\GC] and named [hgc] in the
+    formalization. The predicate [\GC] holds of any affine heap.
+
+    The reason [\GC] is named "affine top" is because it refines a
+    representation predicate called "top", and written [\Top]. The predicate
+    [\Top] is the heap predicate that holds of any heap. It can be defined as
+    [fun (h:heap) => True], or, equivalently, as [\exists (H:hprop), H]. The
+    characteristic property of [\Top] is the entailment
+    [forall H, (H ==> \Top)].
+
+    The affine top predicate [\GC] can be defined as
+    [exists H, \[haffine H] \* H]. As we prove further on, it could be
+    equivalently defined as [fun h => heap_affine h]. We prefer the former
+    definition as it is easier to manipulate using the [xsimpl] tactic. *)
 
 Definition hgc : hprop :=
   \exists H, \[haffine H] \* H.
@@ -309,8 +349,8 @@ Open Scope hgc_scope.
 
 Notation "\GC" := (hgc) : hgc_scope.
 
-(** The introduction lemmas asserts that [\GC h] holds when [h] satisfies
-    [heap_affine]. *)
+(** The following introduction lemma asserts that [\GC h] holds when [h]
+    satisfies [heap_affine]. *)
 
 (** **** Exercise: 2 stars, standard, especially useful (triple_frame)
 
@@ -323,7 +363,7 @@ Proof using. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(** The elimination lemma asserts the reciprocal. *)
+(** The elimination lemma asserts the converse. *)
 
 (** **** Exercise: 2 stars, standard, optional (hgc_inv)
 
@@ -347,12 +387,12 @@ Proof using.
   { intros h M. applys* hgc_intro. }
 Qed.
 
-(* ================================================================= *)
-(** ** Properties of the [\GC] Predicate *)
+(* ----------------------------------------------------------------- *)
+(** *** Properties of the Affine-Top Predicate *)
 
-(** One fundamental property of [\GC] that appears necessary in the soundness
-    proofs is that the conjunction of two occurences of [\GC] may be merged into
-    a single [\GC]. *)
+(** One fundamental property of [\GC] that is useful in the soundness proofs is
+    that the conjunction of two occurences of [\GC] may be merged into a single
+    [\GC]. *)
 
 Lemma hstar_hgc_hgc :
   (\GC \* \GC) = \GC.
@@ -363,8 +403,7 @@ Proof using.
 Qed.
 
 (** Another useful property is that the heap predicate [\GC] itself satisifes
-    [haffine]. Indeed, [\GC] denotes some heap [H] such that [H] is affine;
-    Thus, by essence, it denotes an affine heap predicate. *)
+    [haffine]. *)
 
 Lemma haffine_hgc :
   haffine \GC.
@@ -372,7 +411,7 @@ Proof using.
   applys haffine_hexists. intros H. applys haffine_hstar_hpure_l. auto.
 Qed.
 
-(** The process of exploiting the [\GC] to "absorb" affine heap predicates is
+(** The process of exploiting [\GC] to "absorb" affine heap predicates is
     captured by the following lemma, which asserts that a heap predicate [H]
     entails [\GC] whenever [H] is affine. *)
 
@@ -382,7 +421,7 @@ Lemma himpl_hgc_r : forall H,
 Proof using. introv M. intros h K. applys hgc_intro. applys M K. Qed.
 
 (** In particular, the empty heap predicate [\[]] entails [\GC], because the
-    empty heap predicate is affine (recall lemma [haffine_hempty]). *)
+    empty heap predicate is affine (lemma [haffine_hempty]). *)
 
 Lemma hempty_himpl_hgc :
   \[] ==> \GC.
@@ -406,14 +445,17 @@ Parameter triple_hgc_post : forall t H Q,
   triple t H (Q \*+ \GC) ->
   triple t H Q.
 
-(** This rule more concise than [triple_haffine_post]. Moreover, it has the
-    benefits that the piece of heap discarded, previously described by [H'], no
-    longer needs to be provided upfront at the moment of applying the rule. It
-    may be provided further on in the reasoning, by exploiting [himpl_hgc_r] to
-    prove an entailment of the form [H' ==> \GC]. *)
+(** This rule is more concise than [triple_haffine_post]. Moreover, the piece of
+    heap being discarded, previously described by [H'], no longer needs to be
+    provided up front, at the moment of applying the rule. Instead, it can be
+    provided further on in the reasoning, by exploiting [himpl_hgc_r] to prove
+    an entailment of the form [H' ==> \GC]. *)
 
 (* ================================================================= *)
-(** ** Instantiation of [heap_affine] for a Fully Affine Logic *)
+(** ** Example Instantiations of [heap_affine] *)
+
+(* ----------------------------------------------------------------- *)
+(** *** Instantiation of [heap_affine] for a Fully Affine Logic *)
 
 Module FullyAffineLogic.
 
@@ -448,7 +490,7 @@ Proof using.
 Qed.
 
 (** Moreover, the affine top predicate [\GC] is equivalent to the top predicate
-    [htop], defined as [fun h => True] or, equivalently, as [\exists H, H]. *)
+    [htop], defined as [fun h => True] or equivalently as [\exists H, H]. *)
 
 Definition htop : hprop :=
   \exists H, H.
@@ -462,8 +504,8 @@ Qed.
 
 End FullyAffineLogic.
 
-(* ================================================================= *)
-(** ** Instantiation of [heap_affine] for a Fully Linear Logic *)
+(* ----------------------------------------------------------------- *)
+(** *** Instantiation of [heap_affine] for a Fully Linear Logic *)
 
 Module FullyLinearLogic.
 
@@ -517,18 +559,21 @@ Qed.
 End FullyLinearLogic.
 
 (* ================================================================= *)
-(** ** Refined Definition of Separation Logic Triples *)
+(** ** Definition of a Partially Affine Separation Logic *)
+
+(* ----------------------------------------------------------------- *)
+(** *** Refined Definition of Triples *)
 
 Module NewTriples.
 
-(** This section explains how to refine the notion of Separation Logic triple so
-    as to accomodate the discard rule. Recall the previous definition of
-    triples, which capture a linear logic.
+(** We now explain how to refine the notion of Separation Logic triple so as to
+    accomodate the discard rule. Recall the previous definition of triples,
+    capturing a linear logic.
 
     Definition triple (t:trm) (H:hprop) (Q:val->hprop) : Prop :=
       forall s, H s -> eval s t Q.
 
-    The discard rule [triple_htop_post] asserts that postconditions may be
+    The new discard rule [triple_htop_post] asserts that postconditions may be
     freely extended with the [\GC] predicate. To support this rule, it suffices
     to modify the definition of [triple] to include the predicate [\GC] in the
     postcondition of the underlying Hoare triple, as follows. *)
@@ -536,22 +581,21 @@ Module NewTriples.
 Definition triple (t:trm) (H:hprop) (Q:val->hprop) : Prop :=
   forall s, H s -> eval s t (Q \*+ \GC).
 
-(** For the updated definition of [triple] using [\GC], we establish:
+(** Next, for the updated definition of [triple] using [\GC], we establish:
 
     - that all the existing reasoning rules of Separation Logic remain sound,
-    - that the discard rules [triple_htop_post], [triple_haffine_hpost]
-      and [triple_haffine_hpre] are provable.
+      and
+    - that the new discard rules [triple_htop_post], [triple_haffine_hpost], and
+      [triple_haffine_hpre] are provable. *)
 
-*)
+(* ----------------------------------------------------------------- *)
+(** *** Soundness of the Existing Rules *)
 
-(* ================================================================= *)
-(** ** Soundness of the Existing Rules *)
-
-(** Let us update the soundness proof of the rules of Separation Logic, to
+(** Let us update the soundness proof of the rules of Separation Logic to
     account for the addition of [\GC] in the definition of [triples]. All the
-    rules are proved using the same proof script as before, only with [xsimpl]
-    possibly performing extra work for cancelling out occurrences of [\GC] on
-    both sides of an entailement. *)
+    rules are proved using exactly the same proof scripts as before, with
+    [xsimpl] possibly performing extra work for cancelling out occurrences of
+    [\GC] on both sides of an entailment. *)
 
 Lemma triple_conseq : forall t H' Q' H Q,
   triple t H' Q' ->
@@ -584,8 +628,8 @@ Lemma triple_hexists : forall t (A:Type) (J:A->hprop) Q,
   triple t (hexists J) Q.
 Proof using. introv M (x&K). applys M K. Qed.
 
-(** We also need to update reasoning rule for terms. We present one
-    representative example, namely the proof rule for sequences. *)
+(** We also need to update the reasoning rules for terms. We present one
+    representative example: the proof rule for sequences. *)
 
 Lemma triple_seq : forall t1 t2 H Q H1,
   triple t1 H (fun v => H1) ->
@@ -605,8 +649,8 @@ Proof using.
     xchange hstar_hgc_hgc. xsimpl. }
 Qed.
 
-(* ================================================================= *)
-(** ** Soundness of the Discard Rules *)
+(* ----------------------------------------------------------------- *)
+(** *** Soundness of the Discard Rules *)
 
 (** Let us first establish the soundness of the discard rule [triple_htop_post].
     *)
@@ -615,7 +659,7 @@ Qed.
 
     Prove [triple_hgc_post] with respect to the refined definition of [triple]
     that includes [\GC] in the postcondition. Hint: exploit [hstar_hgc_hgc],
-    with help of the tactics [xchange] and [xsimpl]. *)
+    with help from the tactics [xchange] and [xsimpl]. *)
 
 Lemma triple_hgc_post : forall t H Q,
   triple t H (Q \*+ \GC) ->
@@ -639,7 +683,7 @@ Proof using. (* FILL IN HERE *) Admitted.
 
 (** **** Exercise: 1 star, standard, optional (triple_hgc_post_from_triple_haffine_post)
 
-    Reciprocally, prove that [triple_hgc_post] is derivable from
+    Conversely, prove that [triple_hgc_post] is derivable from
     [triple_haffine_post]. *)
 
 Lemma triple_hgc_post_from_triple_haffine_post : forall t H Q,
@@ -663,8 +707,8 @@ Proof using. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(* ================================================================= *)
-(** ** Combined Structural Rules *)
+(* ----------------------------------------------------------------- *)
+(** *** Combined Structural Rules *)
 
 (** **** Exercise: 2 stars, standard, optional (triple_conseq_frame_hgc)
 
@@ -701,9 +745,11 @@ Proof using. (* FILL IN HERE *) Admitted.
 (* ================================================================= *)
 (** ** Discard Rules in WP Style *)
 
-(** In chapter [WPsem], we have defined [wp t Q s] as [eval s t Q]. To
-    account for affine heaps, we refine the definition to [eval s t (Q \*+ \GC)]
-    . *)
+(* ----------------------------------------------------------------- *)
+(** *** Definition of WP for a Partially Affine Separation Logic *)
+
+(** In chapter [WPsem], we defined [wp t Q s] as [eval s t Q]. To account
+    for affine heaps, we refine the definition to [eval s t (Q \*+ \GC)]. *)
 
 Definition wp (t:trm) (Q:val->hprop) : hprop :=
   fun s => eval s t (Q \*+ \GC).
@@ -716,8 +762,7 @@ Lemma wp_equiv : forall t H Q,
   (H ==> wp t Q) <-> (triple t H Q).
 Proof using. iff M; introv Hs; applys M Hs. Qed.
 
-(** The structural reasoning rules remain valid for the definition of [wp]
-    extended with [\GC]. *)
+(** The structural reasoning rules also remain valid. *)
 
 Lemma wp_conseq : forall t Q1 Q2,
   Q1 ===> Q2 ->
@@ -737,12 +782,9 @@ Proof using.
 Qed.
 
 (** In weakest precondition style, the discard rule [triple_hgc_post] translates
-    into the entailment [wp t (Q \*+ \GC) ==> wp t Q], as we prove next. *)
+    into the entailment [wp t (Q \*+ \GC) ==> wp t Q]. *)
 
-(** **** Exercise: 1 star, standard, optional (wp_hgc_post)
-
-    Prove the discard rule in wp-style. *)
-
+(** **** Exercise: 1 star, standard, optional (wp_hgc_post) *)
 Lemma wp_hgc_post : forall t Q,
   wp t (Q \*+ \GC) ==> wp t Q.
 Proof using. (* FILL IN HERE *) Admitted.
@@ -779,15 +821,15 @@ Proof using. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(* ================================================================= *)
-(** ** Exploiting the Discard Rule in Proofs *)
+(* ----------------------------------------------------------------- *)
+(** *** Exploiting the Discard Rule in Proofs *)
 
 (** In a practical verification proof, there are two useful ways to discard heap
     predicates that are no longer needed:
 
-    - either by invoking [triple_haffine_pre] to remove a specific
-      predicate from the current state, i.e., the precondition;
-    - or by invoking [triple_htop_post] to add a [\GC] into the
+    - by invoking [triple_haffine_pre] to remove a specific
+      predicate from the current state, i.e., the precondition; or
+    - by invoking [triple_htop_post] to add a [\GC] into the
       current postcondition and allow subsequent removal of any
       predicate that may be left-over in the final entailment
       justifying that the final state satisfies the postcondition.
@@ -796,9 +838,9 @@ Proof using. (* FILL IN HERE *) Admitted.
     can always be lazy and postpone the application of the discard rule until
     the last step of reasoning.
 
-    It is cumbersome for the use to anticipate, right from the beginning of the
-    proof of a function, the need of discarding heap predicates at the last line
-    of the function body. To ease the work of the user, it suffices to
+    It is cumbersome for the user to anticipate, right from the beginning of the
+    proof of a function, the need to discard heap predicates at the last line of
+    the function body. To ease the work of the user, it suffices to
     systematically apply the rule [triple_htop_post] as very first step of the
     proof of every function. The effect is to extend the postcondition of the
     function with a [\GC] predicate. This predicate may be used to absorb any
@@ -832,12 +874,12 @@ Tactic Notation "xwp" :=
   intros; applys xwp_lemma';
   [ reflexivity | simpl; unfold wpgen_var; simpl ].
 
-(* ================================================================= *)
-(** ** Example Proof Involving Discarded Heap Predicates *)
+(* ----------------------------------------------------------------- *)
+(** *** Example Proof in an Affine Separation Logic *)
 
 (** Using the updated version of [xwp], let us revisite the proof of our
-    motivating example [succ_using_incr] in a fully affine logic, i.e., a
-    logical where any predicate can be discarded. *)
+    motivating example [succ_using_incr] in a fully affine logic where any
+    predicate can be discarded. *)
 
 Module MotivatingExampleWithUpdatedXwp.
 Export MotivatingExample.
@@ -847,8 +889,8 @@ Export MotivatingExample.
 Parameter haffine_hany : forall (H:hprop),
   haffine H.
 
-(** Observe in the proof below the [\GC] introduced in the postcondition by the
-    call to [xwp]. *)
+(** Observe, in the proof below, the [\GC] introduced in the postcondition by
+    the call to [xwp]. *)
 
 Lemma triple_succ_using_incr : forall (n:int),
   triple (succ_using_incr n)
@@ -856,7 +898,7 @@ Lemma triple_succ_using_incr : forall (n:int),
     (fun r => \[r = n+1]).
 Proof using.
   xwp. xapp. intros r. xapp. xapp. xsimpl. { auto. }
-  (* There remains to absorb the left-over reference into the [\GC] predicate *)
+  (* It remains to absorb the left-over reference into the [\GC] predicate *)
   applys himpl_hgc_r. applys haffine_hany.
 Qed.
 
@@ -870,21 +912,21 @@ End MotivatingExampleWithUpdatedXwp.
 (** ** Revised Definition of [mkstruct] *)
 
 (** Recall the definition [mkstruct], which is key to implementing [wpgen] and
-    x-tactics.
+    the x-tactics.
 
     Definition mkstruct (F:formula) : formula :=
       fun Q => \exists Q', (F Q') \* (Q' \--* Q).
 
     This definition can be generalized to handle not just the consequence and
-    the frame rule, but also the discard rule. To that end, [mkstruct] is
-    extended with an additional [\GC], as follows. *)
+    frame rules, but also the discard rule. To that end, [mkstruct] is extended
+    with an additional [\GC], as follows. *)
 
 Definition mkstruct (F:formula) : formula :=
   fun Q => \exists Q', F Q' \* (Q' \--* (Q \*+ \GC)).
 
-(** Let us prove that this revised definition of [mkstruct] does sastisfy the
-    [wp]-style statement of the discard rule, which is stated in a way similar
-    to [wp_hgc_post]. *)
+(** Let us prove that this revised definition of [mkstruct] does indeed satisfy
+    the [wp]-style statement of the discard rule, which is stated in a way
+    similar to [wp_hgc_post]. *)
 
 Lemma mkstruct_hgc : forall Q F,
   mkstruct F (Q \*+ \GC) ==> mkstruct F Q.
@@ -893,8 +935,8 @@ Proof using.
   { xsimpl. } { subst X. apply hstar_hgc_hgc. }
 Qed.
 
-(** Besides, let us prove that the revised definition of [mkstruct] still
-    satisfies the three originally required properties: erasure, consequence,
+(** Further, let us prove that the revised definition of [mkstruct] still
+    satisfies the four originally required properties: erasure, consequence,
     frame, and monoticity. *)
 
 Lemma mkstruct_erase : forall F Q,
@@ -950,15 +992,15 @@ Proof using. (* FILL IN HERE *) Admitted.
 End NewTriples.
 
 (* ================================================================= *)
-(** ** The Tactic [xaffine], and Behavior of [xsimpl] on [\GC] *)
+(** ** The Tactic [xaffine] and the Behavior of [xsimpl] on [\GC] *)
 
 Module Xaffine.
 
-(** The tactic [xaffine] applys to a goal of the form [haffine H]. The tactic
+(** The tactic [xaffine] applies to a goal of the form [haffine H]. It
     simplifies the goal using all the distributivity rules associated with
     [haffine]. Ultimately, it invokes [eauto with haffine], which can leverage
     knowledge specific to the definition of [haffine] from the Separation Logic
-    set up at hand. *)
+    setup at hand. *)
 
 Create HintDb haffine.
 
@@ -1007,24 +1049,24 @@ Proof using. introv K1. xsimpl. Qed.
 End XsimplExtended.
 
 (* ================================================================= *)
-(** ** The Proof Tactics for Applying the Discard Rules *)
+(** ** Tactics for Applying the Discard Rules *)
 
 Module XGC.
 Import LibSepReference.
 
-(** This section presents the discard tactics [xgc], [xc_keep] and [xgc_post].
+(** This section presents the discard tactics [xgc], [xc_keep], and [xgc_post].
     Their implementation leverages the discard property of [mkstruct],
     reproduced below. *)
 
 Parameter mkstruct_hgc : forall Q F,
   mkstruct F (Q \*+ \GC) ==> mkstruct F Q.
 
-(** The tactic [xgc H1] removes [H1] from the precondition (i.e. from the
+(** The tactic [xgc H1] removes [H1] from the precondition (i.e., from the
     current state), in the course of a proof exploiting a formula produced by
     [wpgen]. More precisely, the tactic [xgc H1] removes [H1] from the current
     precondition [H]. It leverages [xsimpl] to simplify the entailment
-    [H ==> H1 \* H2] to infer the predicate [H2], which describes what remains
-    after removing [H1] from [H]. *)
+    [H ==> H1 \* H2] and infer [H2], which describes what remains after removing
+    [H1] from [H]. *)
 
 Lemma xgc_lemma: forall H1 H2 H F Q,
   H ==> H1 \* H2 ->
@@ -1046,7 +1088,7 @@ Lemma xgc_demo : forall H1 H2 H3 F Q,
   (H1 \* H2 \* H3) ==> mkstruct F Q.
 Proof using. introv K2. xgc H2. (* clears [H2] *) Abort.
 
-(** The tactic [xgc_keep H] is a variant of [xgc] that enables to discard
+(** The tactic [xgc_keep H] is a variant of [xgc] that enables discarding
     everything but [H] from the precondition.
 
     The implementation of the tactic leverages the same lemma [xgc_lemma], but
@@ -1153,7 +1195,8 @@ Parameter triple_hgc_post : forall t H Q,
 
 (** The key idea of the proof is that a term [t] admits the same behavior as
     [let x = t in x]. Recall from chapter [Rules] the lemma
-    [eta_same_triples] which asserts the equivalence of [t] and [let x = t in x]. *)
+    [eta_same_triples] which asserts the equivalence of [t] and
+    [let x = t in x]. *)
 
 Parameter eta_same_triples : forall (t:trm) (x:var) H Q,
    triple t H Q <-> triple (trm_let x t x) H Q.
@@ -1177,14 +1220,13 @@ End FromPreToPostGC.
 (* ================================================================= *)
 (** ** Historical Notes *)
 
-(** The seminal presentation of Separation Logic concerns a linear logic, for a
+(** The seminal presentation of Separation Logic concerned a linear logic for a
     programming language with explicit deallocation. More recent works on
-    Separation Logic for ML-style languages, equipped with a garbage collector,
+    Separation Logic for ML-style languages equipped with a garbage collector
     consider affine logics. For example, the original presentation of the Iris
     framework provides an affine entailment, for which [H ==> \[]] is always
     true. Follow-up work on Iris provides encodings for supporting linear
-    resources, i.e., resources that are not allowed to be "dropped on the
-    floor".
+    resources, i.e., resources that cannot be dropped on the floor.
 
     The present chapter gives a presentation of Separation Logic featuring a
     customizable predicate [haffine] for controlling which resources should be
@@ -1192,4 +1234,4 @@ End FromPreToPostGC.
     approach to controlling linearity was introduced in the context of CFML, in
     work by [Guéneau, Jourdan, Charguéraud, and Pottier 2019] (in Bib.v). *)
 
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 14:17 *)

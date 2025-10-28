@@ -117,18 +117,11 @@ with trm : Type :=
   | trm_let : var -> trm -> trm -> trm
   | trm_if : trm -> trm -> trm -> trm.
 
-(** A state consists of a finite map from location to values. Records and
-    arrays are represented as sets of consecutive cells, preceeded by a
-    header field describing the length of the block. *)
+(** A state, a.k.a. [heap], consists of a finite map from location to values.
+    Records and arrays are represented as sets of consecutive cells, preceeded
+    by a header field describing the length of the block. *)
 
-Definition state : Type := fmap loc val.
-
-(** The type [heap], a.k.a. [state]. By convention, the "state" refers to the
-    full memory state when describing the semantics, while the "heap"
-    potentially refers to only a fraction of the memory state, when definining
-    Separation Logic predicates. *)
-
-Definition heap : Type := state.
+Definition heap : Type := fmap loc val.
 
 (* ================================================================= *)
 (** ** Coq Tweaks *)
@@ -146,8 +139,7 @@ Implicit Types p : loc.
 Implicit Types n : int.
 Implicit Types v w r vf vx : val.
 Implicit Types t : trm.
-Implicit Types h : heap.
-Implicit Types s : state.
+Implicit Types h s : heap.
 
 (** The types of values and terms are inhabited. *)
 
@@ -198,7 +190,7 @@ Fixpoint subst (y:var) (v':val) (t:trm) : trm :=
 (** The judgment [step s t s' t'] asserts that the configuration [(s,t)]
     can take one reduction step towards the program configuration [(s',t')]. *)
 
-Inductive step : state -> trm -> state -> trm -> Prop :=
+Inductive step : heap -> trm -> heap -> trm -> Prop :=
 
   (* Context rules *)
   | step_seq_ctx : forall s1 s2 t1 t1' t2,
@@ -288,7 +280,7 @@ Inductive step : state -> trm -> state -> trm -> Prop :=
   closure of [step]. Concretely, this judgment asserts that the configuration
   [(s,t)] can reduce in zero, one, or several steps to [(s',t')]. *)
 
-Inductive steps : state -> trm -> state -> trm -> Prop :=
+Inductive steps : heap -> trm -> heap -> trm -> Prop :=
   | steps_refl : forall s t,
       steps s t s t
   | steps_step : forall s1 s2 s3 t1 t2 t3,
@@ -310,12 +302,12 @@ Proof using. introv M1. induction M1; introv M2. { auto. } { constructors*. } Qe
 (** The predicate [reducible s t] asserts that the configuration [(s,t)]
     can take a step. *)
 
-Definition reducible (s:state) (t:trm) : Prop :=
+Definition reducible (s:heap) (t:trm) : Prop :=
   exists s' t', step s t s' t'.
 
 (** The predicate [notstuck s t] asserts that [t] is a value or is reducible. *)
 
-Definition notstuck (s:state) (t:trm) : Prop :=
+Definition notstuck (s:heap) (t:trm) : Prop :=
   trm_is_val t \/ reducible s t.
 
 (* ================================================================= *)
@@ -373,20 +365,20 @@ Inductive evalbinop : val -> val -> val -> (val->Prop) -> Prop :=
 Section Eval.
 
 (** The predicate [purepost s P] converts a predicate [P:val->Prop] into
-    a postcondition of type [val->state->Prop] that holds in the state [s]. *)
+    a postcondition of type [val->heap->Prop] that holds in the state [s]. *)
 
-Definition purepost (s:state) (P:val->Prop) : val->state->Prop :=
+Definition purepost (s:heap) (P:val->Prop) : val->heap->Prop :=
   fun v s' => P v /\ s' = s.
 
-Definition purepostin (s:state) (P:val->Prop) (Q:val->state->Prop) : Prop :=
+Definition purepostin (s:heap) (P:val->Prop) (Q:val->heap->Prop) : Prop :=
   (* equivalent to [purepost S P ===> Q] *)
   forall v, P v -> Q v s.
 
 (** Omni-Big-step evaluation judgement, written [eval s t Q]. *)
 
-Implicit Types Q : val->state->Prop.
+Implicit Types Q : val->heap->Prop.
 
-Inductive eval : state -> trm -> (val->state->Prop) -> Prop :=
+Inductive eval : heap -> trm -> (val->heap->Prop) -> Prop :=
   | eval_val : forall s v Q,
       Q v s ->
       eval s (trm_val v) Q
@@ -1304,7 +1296,7 @@ Notation "'funloc' p '=>' H" :=
     a configuration that terminates. Note that a configuration that has
     reached a value cannot take a step, hence is considered terminating. *)
 
-Inductive terminates : state->trm->Prop :=
+Inductive terminates : heap->trm->Prop :=
   | terminates_step : forall s t,
       (forall s' t', step s t s' t' -> terminates s' t') ->
       terminates s t.
@@ -1314,13 +1306,13 @@ Inductive terminates : state->trm->Prop :=
     [(s,t)], it is the case that the configuration [(s',t')] is either
     a value or is reducible. *)
 
-Definition safe (s:state) (t:trm) : Prop :=
+Definition safe (s:heap) (t:trm) : Prop :=
   forall s' t', steps s t s' t' -> notstuck s' t'.
 
 (** The judgment [correct s t Q] asserts that if the execution of [(s,t)] reaches
     a final configuration, then this final configuration satisfies [Q]. *)
 
-Definition correct (s:state) (t:trm) (Q:val->hprop) : Prop :=
+Definition correct (s:heap) (t:trm) (Q:val->hprop) : Prop :=
   forall s' v, steps s t s' v -> Q v s'.
 
 (** The aim is to show that [triple t H Q] entails that, for any [s] satisfying [H],
@@ -1333,7 +1325,7 @@ Definition correct (s:state) (t:trm) (Q:val->hprop) : Prop :=
     is reducible, and (2) if for any step that [(s,t)] may take to [(s',t')],
     the predicate [seval s' t' Q] holds. *)
 
-Inductive seval : state->trm->(val->hprop)->Prop :=
+Inductive seval : heap->trm->(val->hprop)->Prop :=
   | seval_val : forall s v Q,
       Q v s ->
       seval s v Q
@@ -2645,6 +2637,27 @@ Proof using.
   introv K. rewrite <- wp_equiv. xchange K. applys N.
 Qed.
 
+Lemma xfix_spec_lemma : forall (S:val->Prop) H Q Fof,
+  (forall vf,
+    (forall vx H' Q', (H' ==> Fof vf vx Q') -> triple (trm_app vf vx) H' Q') ->
+    S vf) ->
+  (forall vf, S vf -> (H ==> Q vf)) ->
+  H ==> wpgen_fix Fof Q.
+Proof using.
+  introv M1 M2. unfold wpgen_fix. xsimpl. intros vf N.
+  applys M2. applys M1. introv K. rewrite <- wp_equiv. xchange K. applys N.
+Qed.
+
+Lemma xfix_nospec_lemma : forall H Q Fof,
+  (forall vf,
+     (forall vx H' Q', (H' ==> Fof vf vx Q') -> triple (trm_app vf vx) H' Q') ->
+     (H ==> Q vf)) ->
+  H ==> wpgen_fix Fof Q.
+Proof using.
+  introv M. unfold wpgen_fix. xsimpl. intros vf N. applys M.
+  introv K. rewrite <- wp_equiv. xchange K. applys N.
+Qed.
+
 Lemma xwp_lemma_fun : forall v1 v2 x t H Q,
   v1 = val_fun x t ->
   H ==> wpgen ((x,v2)::nil) t Q ->
@@ -2810,11 +2823,17 @@ Tactic Notation "xapp_view" :=
 (** [xapp] is essentially equivalent to
     [ xapp_view; [ xapp_apply_spec | xapp_simpl ] ]. *)
 
+(** [xfun] handles local functions, only for functions of one argument. *)
+
 Tactic Notation "xfun" constr(S) :=
-  xseq_xlet_if_needed; xstruct_if_needed; applys xfun_spec_lemma S.
+  xseq_xlet_if_needed; xstruct_if_needed;
+  first [ applys xfun_spec_lemma S
+        | applys xfix_spec_lemma S ].
 
 Tactic Notation "xfun" :=
-  xseq_xlet_if_needed; xstruct_if_needed; applys xfun_nospec_lemma.
+  xseq_xlet_if_needed; xstruct_if_needed;
+  first [ applys xfun_nospec_lemma
+        | applys xfix_nospec_lemma ].
 
 (** [xvars] may be called for unfolding "program variables as definitions",
     which take the form [Vars.x], and revealing the underlying string. *)
@@ -2975,13 +2994,13 @@ Notation "'Fun' x '=>' F1" :=
    right associativity,
   format "'[v' '[' 'Fun'  x  '=>'  F1  ']' ']'") : wp_scope.
 
-Notation "'Fix' f x '=>' F1" :=
-  ((wpgen_fix (fun f x => F1)))
+Notation "'Fix' vf x '=>' F1" :=
+  ((wpgen_fix (fun vf x => F1)))
   (in custom wp at level 69,
-   f name, x name,
+   vf name, x name,
    F1 custom wp at level 99,
    right associativity,
-   format "'[v' '[' 'Fix'  f  x  '=>'  F1  ']' ']'") : wp_scope.
+   format "'[v' '[' 'Fix'  vf  x  '=>'  F1  ']' ']'") : wp_scope.
 
 (* ================================================================= *)
 (** ** Notation for Concrete Terms *)
@@ -3130,19 +3149,19 @@ Notation "'fun_' x1 .. xn '=>' t" :=
    x1, xn at level 0,
    format "'fun_'  x1  ..  xn  '=>'  t") : trm_scope.
 
-Notation "'fix_' f x1 '=>' t" :=
-  (trm_fix f x1 t)
+Notation "'fix_' vf x1 '=>' t" :=
+  (trm_fix vf x1 t)
   (in custom trm at level 69,
-   f, x1 at level 0,
+   vf, x1 at level 0,
    t custom trm at level 99,
-   format "'fix_'  f x1  '=>'  t") : trm_scope.
+   format "'fix_'  vf x1  '=>'  t") : trm_scope.
 
-Notation "'fix_' f x1 x2 .. xn '=>' t" :=
-  (trm_fix f x1 (trm_fun x2 .. (trm_fun xn t) ..))
+Notation "'fix_' vf x1 x2 .. xn '=>' t" :=
+  (trm_fix vf x1 (trm_fun x2 .. (trm_fun xn t) ..))
   (in custom trm at level 69,
    t custom trm,
-   f, x1, x2, xn at level 0,
-   format "'fix_'  f  x1  x2  ..  xn  '=>'  t") : trm_scope.
+   vf, x1, x2, xn at level 0,
+   format "'fix_'  vf  x1  x2  ..  xn  '=>'  t") : trm_scope.
 
 Notation "()" :=
   (trm_val val_unit)
@@ -3778,8 +3797,7 @@ Tactic Notation "xwp" :=
           | reflexivity
           | try reflexivity
           | try reflexivity
-          | ]
-        | fail 1 "xwp only applies to functions defined using [val_fun] or [val_fix], with at most 3 arguments" ];
+          | ] ];
   xwp_simpl.
 
 (* ================================================================= *)
@@ -4270,4 +4288,4 @@ Proof using. xwp. xif; auto_false. intros _. xval. xsimpl. Qed.
 
 End DemoPrograms.
 
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 08:34 *)

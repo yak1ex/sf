@@ -110,7 +110,7 @@ idtac " ".
 idtac "#> assertion_sub_ex2'".
 idtac "Possible points: 1".
 check_type @assertion_sub_ex2' (
-({{Aexp_of_nat 0 <= Aexp_of_nat 3 /\ Aexp_of_nat 3 <= Aexp_of_nat 5}} 
+({{Aexp_of_nat 0 <= Aexp_of_nat 3 /\ Aexp_of_nat 3 <= Aexp_of_nat 5}}
  X := (ANum 3)
  {{Aexp_of_nat 0 <= Aexp_of_aexp (AId X) /\
    Aexp_of_aexp (AId X) <= Aexp_of_nat 5}})).
@@ -172,8 +172,8 @@ idtac " ".
 idtac "#> if_minus_plus".
 idtac "Possible points: 2".
 check_type @if_minus_plus (
-({{assert_of_Prop True}} if (AId X) <= (AId Y) then 
-                         Z := (AId Y) - (AId X) else 
+({{assert_of_Prop True}} if (AId X) <= (AId Y) then
+                         Z := (AId Y) - (AId X) else
                          Y := (AId X) + (AId Z) end
  {{Aexp_of_aexp (AId Y) = Aexp_of_aexp (AId X) + Aexp_of_aexp (AId Z)}})).
 idtac "Assumptions:".
@@ -371,6 +371,6 @@ idtac "---------- Himp.havoc_post ---------".
 Print Assumptions Himp.havoc_post.
 Abort.
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:24 *)
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:25 *)

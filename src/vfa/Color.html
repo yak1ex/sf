@@ -132,7 +132,7 @@ The nodes in our graph will be named by positive numbers.
 
 <span class="id" title="keyword">Module</span> <a id="E" class="idref" href="#E"><span class="id" title="module">E</span></a> := <a class="idref" href="http://coq.inria.fr/library//Coq.Structures.OrderedTypeEx.html#PositiveOrderedTypeBits"><span class="id" title="module">PositiveOrderedTypeBits</span></a>.<br/>
 <span class="id" title="keyword">Print</span> <span class="id" title="keyword">Module</span> <span class="id" title="var">E</span>.<br/>
-<span class="id" title="keyword">Print</span> <a class="idref" href="Color.html#t"><span class="id" title="definition">E.t</span></a>.<br/>
+<span class="id" title="keyword">Print</span> <span class="id" title="var">E.t</span>.<br/>
 </div>
 
 <div class="doc">
@@ -144,7 +144,7 @@ The <span class="inlinecode"><span class="id" title="keyword">Module</span></spa
 
 <span class="id" title="keyword">Module</span> <a id="S" class="idref" href="#S"><span class="id" title="module">S</span></a> &lt;: <a class="idref" href="http://coq.inria.fr/library//Coq.FSets.FSetInterface.html#S"><span class="id" title="module">FSetInterface.S</span></a> := <a class="idref" href="http://coq.inria.fr/library//Coq.FSets.FSetPositive.html#PositiveSet"><span class="id" title="module">PositiveSet</span></a>.<br/>
 <span class="id" title="keyword">Print</span> <span class="id" title="keyword">Module</span> <span class="id" title="var">S</span>.<br/>
-<span class="id" title="keyword">Print</span> <a class="idref" href="Color.html#elt"><span class="id" title="definition">S.elt</span></a>.<br/>
+<span class="id" title="keyword">Print</span> <span class="id" title="var">S.elt</span>.<br/>
 </div>
 
 <div class="doc">
@@ -236,7 +236,7 @@ Example:  Make a map from <i>node</i> (represented as <span class="inlinecode"><
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Print</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Lists.SetoidList.html#equivlistA"><span class="id" title="definition">equivlistA</span></a>. <span class="comment">(*&nbsp;<br/>
+<span class="id" title="keyword">Print</span> <span class="id" title="var">equivlistA</span>. <span class="comment">(*&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;fun&nbsp;{A&nbsp;:&nbsp;Type}&nbsp;(eqA&nbsp;:&nbsp;A&nbsp;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>&nbsp;A&nbsp;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>&nbsp;Prop)&nbsp;(l&nbsp;l'&nbsp;:&nbsp;list&nbsp;A)&nbsp;=&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;forall&nbsp;x&nbsp;:&nbsp;A,&nbsp;InA&nbsp;eqA&nbsp;x&nbsp;l&nbsp;&lt;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>&nbsp;InA&nbsp;eqA&nbsp;x&nbsp;l'<br/>
 &nbsp;&nbsp;&nbsp;:&nbsp;forall&nbsp;{A:Type},&nbsp;(A<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>A<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>Prop)&nbsp;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>&nbsp;list&nbsp;A&nbsp;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>&nbsp;list&nbsp;A&nbsp;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>&nbsp;Prop&nbsp;*)</span><br/>
@@ -747,7 +747,7 @@ A node has "low degree" if the cardinality of its adjacency set is less than <sp
 </div>
 <div class="code">
 <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/library//Coq.funind.Recdef.html#"><span class="id" title="library">Recdef</span></a>. <span class="comment">(*&nbsp;Must&nbsp;import&nbsp;this&nbsp;to&nbsp;use&nbsp;the&nbsp;<span class="inlinecode"><span class="id" title="keyword">Function</span></span>&nbsp;feature&nbsp;*)</span><br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Function</span> <span class="id" title="var">select</span> (<a id="K:91" class="idref" href="#K:91"><span class="id" title="binder">K</span></a>: <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="g:92" class="idref" href="#g:92"><span class="id" title="binder">g</span></a>: <a class="idref" href="Color.html#graph"><span class="id" title="definition">graph</span></a>) {<span class="id" title="keyword">measure</span> <a class="idref" href="Color.html#cardinal"><span class="id" title="definition">M.cardinal</span></a> <span class="id" title="var">g</span>}: <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="Color.html#node"><span class="id" title="definition">node</span></a> :=<br/>
+<span class="id" title="keyword">Function</span> <span class="id" title="var">select</span> (<a id="K:79" class="idref" href="#K:79"><span class="id" title="binder"><span id="K:82" class="id"><span id="K:84" class="id"><span id="K:87" class="id"><span id="K:89" class="id"><span id="K:91" class="id">K</span></span></span></span></span></span></a>: <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="g:80" class="idref" href="#g:80"><span class="id" title="binder"><span id="g:83" class="id"><span id="g:85" class="id"><span id="g:88" class="id"><span id="g:90" class="id"><span id="g:92" class="id">g</span></span></span></span></span></span></a>: <a class="idref" href="Color.html#graph"><span class="id" title="definition">graph</span></a>) {<span class="id" title="keyword">measure</span> <a class="idref" href="Color.html#cardinal"><span class="id" title="definition">M.cardinal</span></a> <span class="id" title="var">g</span>}: <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="Color.html#node"><span class="id" title="definition">node</span></a> :=<br/>
 &nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="Color.html#choose"><span class="id" title="definition">S.choose</span></a> (<a class="idref" href="Color.html#subset_nodes"><span class="id" title="definition">subset_nodes</span></a> (<a class="idref" href="Color.html#low_deg"><span class="id" title="definition">low_deg</span></a> <a class="idref" href="Color.html#K:79"><span class="id" title="variable">K</span></a>) <a class="idref" href="Color.html#g:80"><span class="id" title="variable">g</span></a>) <span class="id" title="keyword">with</span><br/>
 &nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <span class="id" title="var">n</span> ⇒ <span class="id" title="var">n</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#::list_scope:x_'::'_x"><span class="id" title="notation">::</span></a> <a class="idref" href="Color.html#select:81"><span class="id" title="definition">select</span></a> <a class="idref" href="Color.html#K:79"><span class="id" title="variable">K</span></a> (<a class="idref" href="Color.html#remove_node"><span class="id" title="definition">remove_node</span></a> <span class="id" title="var">n</span> <a class="idref" href="Color.html#g:80"><span class="id" title="variable">g</span></a>)<br/>
 &nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a> ⇒ <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nil"><span class="id" title="constructor">nil</span></a><br/>
@@ -854,7 +854,7 @@ That is our graph coloring:  Node <span class="inlinecode">4</span> is colored w
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2023-08-23&nbsp;11:34&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-08-25&nbsp;08:38&nbsp;*)</span><br/>
 </div>
 </div>
 

@@ -1924,7 +1924,7 @@ Proof with eauto.
     uncomment the example below; the proof should be fully
     automatic using the [reduce] tactic. *)
 
-(* 
+(*
 Lemma factorial_4 : exists st,
   <{ factorial 4 }> / nil -->* tm_const 24 / st.
 Proof.
@@ -1947,4 +1947,4 @@ Qed.
 End RefsAndNontermination.
 End STLCRef.
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:25 *)

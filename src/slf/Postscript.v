@@ -7,8 +7,8 @@
     sequential programs, and discussed the set up of tooling for computing
     weakest preconditions.
 
-    There are numerous aspects of Separation Logic that were not covered
-    in this course, including:
+    There are numerous aspects of Separation Logic that were not covered in this
+    course, including:
 
     - Concurrent Separation Logic, for reasoning about concurrent programs.
     - Automated reasoning using Separation Logic, typically for a restricted
@@ -22,12 +22,11 @@
 (* ################################################################# *)
 (** * Tools Leveraging Separation Logic *)
 
-(** Ideas of Separation Logic have had significant influence on the field
-    of programming languages from various perspectives. For a broad survey
-    of Separation Logic, we refer to Peter O'Hearn's CACM paper [2019].
-    https://dl.acm.org/doi/10.1145/3211968
-    (Make sure to also download the "supplementary material" link at the bottom
-    of the page.)
+(** Ideas of Separation Logic have had significant influence on the field of
+    programming languages from various perspectives. For a broad survey of
+    Separation Logic, we refer to Peter O'Hearn's CACM paper [2019].
+    https://dl.acm.org/doi/10.1145/3211968 (Make sure to also download the
+    "supplementary material" link at the bottom of the page.)
 
     Here is a non-exhaustive list of active projects leveraging Separation
     Logic.
@@ -118,4 +117,4 @@
 
 *)
 
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 08:34 *)

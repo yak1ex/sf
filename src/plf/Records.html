@@ -42,7 +42,7 @@
 </div>
 
 <div class="doc">
-<a id="lab405"></a><h1 class="section">Adding Records</h1>
+<a id="lab399"></a><h1 class="section">Adding Records</h1>
 
 <div class="paragraph"> </div>
 
@@ -149,7 +149,7 @@
 </div>
 
 <div class="doc">
-<a id="lab406"></a><h1 class="section">Formalizing Records</h1>
+<a id="lab400"></a><h1 class="section">Formalizing Records</h1>
 
 </div>
 <div class="code">
@@ -158,7 +158,7 @@
 </div>
 
 <div class="doc">
-<a id="lab407"></a><h3 class="section">Syntax and Operational Semantics</h3>
+<a id="lab401"></a><h3 class="section">Syntax and Operational Semantics</h3>
 
 <div class="paragraph"> </div>
 
@@ -169,7 +169,7 @@
 
 <span class="id" title="keyword">Module</span> <a id="STLCExtendedRecords.FirstTry" class="idref" href="#STLCExtendedRecords.FirstTry"><span class="id" title="module">FirstTry</span></a>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Definition</span> <a id="STLCExtendedRecords.FirstTry.alist" class="idref" href="#STLCExtendedRecords.FirstTry.alist"><span class="id" title="definition">alist</span></a> (<a id="X:1" class="idref" href="#X:1"><span class="id" title="binder">X</span></a> : <span class="id" title="keyword">Type</span>) := <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a> (<a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#string"><span class="id" title="inductive">string</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#11c698c8685bb8ab1cf725545c085ac<sub>4</sub>"><span class="id" title="notation">×</span></a> <a class="idref" href="Records.html#X:1"><span class="id" title="variable">X</span></a>).<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.FirstTry.ty" class="idref" href="#STLCExtendedRecords.FirstTry.ty"><span class="id" title="inductive">ty</span></a> : <span class="id" title="keyword">Type</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.FirstTry.ty" class="idref" href="#STLCExtendedRecords.FirstTry.ty"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.FirstTry.ty_rect" class="id"><span id="STLCExtendedRecords.FirstTry.ty_ind" class="id"><span id="STLCExtendedRecords.FirstTry.ty_rec" class="id"><span id="STLCExtendedRecords.FirstTry.ty_sind" class="id">ty</span></span></span></span></span></a> : <span class="id" title="keyword">Type</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.FirstTry.Base" class="idref" href="#STLCExtendedRecords.FirstTry.Base"><span class="id" title="constructor">Base</span></a>     : <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#string"><span class="id" title="inductive">string</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#ty:2"><span class="id" title="inductive">ty</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.FirstTry.Arrow" class="idref" href="#STLCExtendedRecords.FirstTry.Arrow"><span class="id" title="constructor">Arrow</span></a>    : <a class="idref" href="Records.html#ty:2"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#ty:2"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#ty:2"><span class="id" title="inductive">ty</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.FirstTry.TRcd" class="idref" href="#STLCExtendedRecords.FirstTry.TRcd"><span class="id" title="constructor">TRcd</span></a>     : <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="Records.html#STLCExtendedRecords.FirstTry.alist"><span class="id" title="definition">alist</span></a> <a class="idref" href="Records.html#ty:2"><span class="id" title="inductive">ty</span></a><a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#ty:2"><span class="id" title="inductive">ty</span></a>.<br/>
@@ -212,7 +212,7 @@ It is possible to get a better induction principle out of Coq, but
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.ty" class="idref" href="#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> : <span class="id" title="keyword">Type</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.ty" class="idref" href="#STLCExtendedRecords.ty"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.ty_rect" class="id"><span id="STLCExtendedRecords.ty_ind" class="id"><span id="STLCExtendedRecords.ty_rec" class="id"><span id="STLCExtendedRecords.ty_sind" class="id">ty</span></span></span></span></span></a> : <span class="id" title="keyword">Type</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.Ty_Base" class="idref" href="#STLCExtendedRecords.Ty_Base"><span class="id" title="constructor">Ty_Base</span></a> : <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#string"><span class="id" title="inductive">string</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#ty:4"><span class="id" title="inductive">ty</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.Ty_Arrow" class="idref" href="#STLCExtendedRecords.Ty_Arrow"><span class="id" title="constructor">Ty_Arrow</span></a> : <a class="idref" href="Records.html#ty:4"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#ty:4"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#ty:4"><span class="id" title="inductive">ty</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.Ty_RNil" class="idref" href="#STLCExtendedRecords.Ty_RNil"><span class="id" title="constructor">Ty_RNil</span></a> : <a class="idref" href="Records.html#ty:4"><span class="id" title="inductive">ty</span></a><br/>
@@ -226,7 +226,7 @@ Similarly, at the level of terms, we have constructors <span class="inlinecode">
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.tm" class="idref" href="#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> : <span class="id" title="keyword">Type</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.tm" class="idref" href="#STLCExtendedRecords.tm"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.tm_rect" class="id"><span id="STLCExtendedRecords.tm_ind" class="id"><span id="STLCExtendedRecords.tm_rec" class="id"><span id="STLCExtendedRecords.tm_sind" class="id">tm</span></span></span></span></span></a> : <span class="id" title="keyword">Type</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.tm_var" class="idref" href="#STLCExtendedRecords.tm_var"><span class="id" title="constructor">tm_var</span></a> : <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#string"><span class="id" title="inductive">string</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#tm:6"><span class="id" title="inductive">tm</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.tm_app" class="idref" href="#STLCExtendedRecords.tm_app"><span class="id" title="constructor">tm_app</span></a> : <a class="idref" href="Records.html#tm:6"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#tm:6"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#tm:6"><span class="id" title="inductive">tm</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.tm_abs" class="idref" href="#STLCExtendedRecords.tm_abs"><span class="id" title="constructor">tm_abs</span></a> : <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#string"><span class="id" title="inductive">string</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#tm:6"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#tm:6"><span class="id" title="inductive">tm</span></a><br/>
@@ -292,7 +292,7 @@ Some examples...
 </div>
 
 <div class="doc">
-<a id="lab408"></a><h3 class="section">Well-Formedness</h3>
+<a id="lab402"></a><h3 class="section">Well-Formedness</h3>
 
 <div class="paragraph"> </div>
 
@@ -321,7 +321,7 @@ where the "tail" of a record type is not actually a record type!
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.record_ty" class="idref" href="#STLCExtendedRecords.record_ty"><span class="id" title="inductive">record_ty</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.record_ty" class="idref" href="#STLCExtendedRecords.record_ty"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.record_ty_ind" class="id"><span id="STLCExtendedRecords.record_ty_sind" class="id">record_ty</span></span></span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.RTnil" class="idref" href="#STLCExtendedRecords.RTnil"><span class="id" title="constructor">RTnil</span></a> :<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#record_ty:8"><span class="id" title="inductive">record_ty</span></a> <a class="idref" href="Records.html#9117ef97be47c16687a336570867da4a"><span class="id" title="notation">&lt;<span style='letter-spacing:-.4em;'>{</span>{</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.:stlc_ty::'nil'"><span class="id" title="notation">nil</span></a> <a class="idref" href="Records.html#9117ef97be47c16687a336570867da4a"><span class="id" title="notation"><span style='letter-spacing:-.4em;'>}</span>}&gt;</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.RTcons" class="idref" href="#STLCExtendedRecords.RTcons"><span class="id" title="constructor">RTcons</span></a> : <span class="id" title="keyword">∀</span> <a id="i:10" class="idref" href="#i:10"><span class="id" title="binder">i</span></a> <a id="T<sub>1</sub>:11" class="idref" href="#T<sub>1</sub>:11"><span class="id" title="binder">T<sub>1</sub></span></a> <a id="T<sub>2</sub>:12" class="idref" href="#T<sub>2</sub>:12"><span class="id" title="binder">T<sub>2</sub></span></a>,<br/>
@@ -333,7 +333,7 @@ With this, we can define well-formed types.
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.well_formed_ty" class="idref" href="#STLCExtendedRecords.well_formed_ty"><span class="id" title="inductive">well_formed_ty</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.well_formed_ty" class="idref" href="#STLCExtendedRecords.well_formed_ty"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.well_formed_ty_ind" class="id"><span id="STLCExtendedRecords.well_formed_ty_sind" class="id">well_formed_ty</span></span></span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.wfBase" class="idref" href="#STLCExtendedRecords.wfBase"><span class="id" title="constructor">wfBase</span></a> : <span class="id" title="keyword">∀</span> (<a id="i:15" class="idref" href="#i:15"><span class="id" title="binder">i</span></a> : <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#string"><span class="id" title="inductive">string</span></a>),<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#well_formed_ty:13"><span class="id" title="inductive">well_formed_ty</span></a> <a class="idref" href="Records.html#9117ef97be47c16687a336570867da4a"><span class="id" title="notation">&lt;<span style='letter-spacing:-.4em;'>{</span>{</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.:stlc_ty::'Base'_x"><span class="id" title="notation">Base</span></a> <a class="idref" href="Records.html#i:15"><span class="id" title="variable">i</span></a> <a class="idref" href="Records.html#9117ef97be47c16687a336570867da4a"><span class="id" title="notation"><span style='letter-spacing:-.4em;'>}</span>}&gt;</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.wfArrow" class="idref" href="#STLCExtendedRecords.wfArrow"><span class="id" title="constructor">wfArrow</span></a> : <span class="id" title="keyword">∀</span> <a id="T<sub>1</sub>:16" class="idref" href="#T<sub>1</sub>:16"><span class="id" title="binder">T<sub>1</sub></span></a> <a id="T<sub>2</sub>:17" class="idref" href="#T<sub>2</sub>:17"><span class="id" title="binder">T<sub>2</sub></span></a>,<br/>
@@ -368,7 +368,7 @@ Note that <span class="inlinecode"><span class="id" title="var">record_ty</span>
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.record_tm" class="idref" href="#STLCExtendedRecords.record_tm"><span class="id" title="inductive">record_tm</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.record_tm" class="idref" href="#STLCExtendedRecords.record_tm"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.record_tm_ind" class="id"><span id="STLCExtendedRecords.record_tm_sind" class="id">record_tm</span></span></span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.rtnil" class="idref" href="#STLCExtendedRecords.rtnil"><span class="id" title="constructor">rtnil</span></a> :<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#record_tm:21"><span class="id" title="inductive">record_tm</span></a> <a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.:stlc::'nil'"><span class="id" title="notation">nil</span></a> <a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">}&gt;</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.rtcons" class="idref" href="#STLCExtendedRecords.rtcons"><span class="id" title="constructor">rtcons</span></a> : <span class="id" title="keyword">∀</span> <a id="i:23" class="idref" href="#i:23"><span class="id" title="binder">i</span></a> <a id="t<sub>1</sub>:24" class="idref" href="#t<sub>1</sub>:24"><span class="id" title="binder">t<sub>1</sub></span></a> <a id="t<sub>2</sub>:25" class="idref" href="#t<sub>2</sub>:25"><span class="id" title="binder">t<sub>2</sub></span></a>,<br/>
@@ -377,7 +377,7 @@ Note that <span class="inlinecode"><span class="id" title="var">record_ty</span>
 </div>
 
 <div class="doc">
-<a id="lab409"></a><h3 class="section">Substitution</h3>
+<a id="lab403"></a><h3 class="section">Substitution</h3>
 
 <div class="paragraph"> </div>
 
@@ -406,7 +406,7 @@ Note that <span class="inlinecode"><span class="id" title="var">record_ty</span>
 </div>
 
 <div class="doc">
-<a id="lab410"></a><h3 class="section">Reduction</h3>
+<a id="lab404"></a><h3 class="section">Reduction</h3>
 
 <div class="paragraph"> </div>
 
@@ -414,7 +414,7 @@ Note that <span class="inlinecode"><span class="id" title="var">record_ty</span>
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.value" class="idref" href="#STLCExtendedRecords.value"><span class="id" title="inductive">value</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.value" class="idref" href="#STLCExtendedRecords.value"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.value_ind" class="id"><span id="STLCExtendedRecords.value_sind" class="id">value</span></span></span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.v_abs" class="idref" href="#STLCExtendedRecords.v_abs"><span class="id" title="constructor">v_abs</span></a> : <span class="id" title="keyword">∀</span> <a id="x:33" class="idref" href="#x:33"><span class="id" title="binder">x</span></a> <a id="T<sub>2</sub>:34" class="idref" href="#T<sub>2</sub>:34"><span class="id" title="binder">T<sub>2</sub></span></a> <a id="t<sub>1</sub>:35" class="idref" href="#t<sub>1</sub>:35"><span class="id" title="binder">t<sub>1</sub></span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#value:31"><span class="id" title="inductive">value</span></a>  <a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Records.html#8e83a2cb3fb7bcc278eeca793b61ab<sub>67</sub>"><span class="id" title="notation">\</span></a> <a class="idref" href="Records.html#x:33"><span class="id" title="variable">x</span></a> <a class="idref" href="Records.html#8e83a2cb3fb7bcc278eeca793b61ab<sub>67</sub>"><span class="id" title="notation">:</span></a> <a class="idref" href="Records.html#T<sub>2</sub>:34"><span class="id" title="variable">T<sub>2</sub></span></a><a class="idref" href="Records.html#8e83a2cb3fb7bcc278eeca793b61ab<sub>67</sub>"><span class="id" title="notation">,</span></a> <a class="idref" href="Records.html#t<sub>1</sub>:35"><span class="id" title="variable">t<sub>1</sub></span></a> <a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">}&gt;</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.v_rnil" class="idref" href="#STLCExtendedRecords.v_rnil"><span class="id" title="constructor">v_rnil</span></a> : <a class="idref" href="Records.html#value:31"><span class="id" title="inductive">value</span></a> <a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.:stlc::'nil'"><span class="id" title="notation">nil</span></a> <a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">}&gt;</span></a><br/>
@@ -444,7 +444,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 </div>
 <div class="code">
 <hr class='doublespaceincode'/>
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.step" class="idref" href="#STLCExtendedRecords.step"><span class="id" title="inductive">step</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.step" class="idref" href="#STLCExtendedRecords.step"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.step_ind" class="id"><span id="STLCExtendedRecords.step_sind" class="id">step</span></span></span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.ST_AppAbs" class="idref" href="#STLCExtendedRecords.ST_AppAbs"><span class="id" title="constructor">ST_AppAbs</span></a> : <span class="id" title="keyword">∀</span> <a id="x:45" class="idref" href="#x:45"><span class="id" title="binder">x</span></a> <a id="T<sub>2</sub>:46" class="idref" href="#T<sub>2</sub>:46"><span class="id" title="binder">T<sub>2</sub></span></a> <a id="t<sub>1</sub>:47" class="idref" href="#t<sub>1</sub>:47"><span class="id" title="binder">t<sub>1</sub></span></a> <a id="v<sub>2</sub>:48" class="idref" href="#v<sub>2</sub>:48"><span class="id" title="binder">v<sub>2</sub></span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#STLCExtendedRecords.value"><span class="id" title="inductive">value</span></a> <a class="idref" href="Records.html#v<sub>2</sub>:48"><span class="id" title="variable">v<sub>2</sub></span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">&lt;{</span></a><a class="idref" href="Records.html#6a63f178ee59cb86a0e9a58cfa031423"><span class="id" title="notation">(</span></a><a class="idref" href="Records.html#8e83a2cb3fb7bcc278eeca793b61ab<sub>67</sub>"><span class="id" title="notation">\</span></a><a class="idref" href="Records.html#x:45"><span class="id" title="variable">x</span></a><a class="idref" href="Records.html#8e83a2cb3fb7bcc278eeca793b61ab<sub>67</sub>"><span class="id" title="notation">:</span></a><a class="idref" href="Records.html#T<sub>2</sub>:46"><span class="id" title="variable">T<sub>2</sub></span></a><a class="idref" href="Records.html#8e83a2cb3fb7bcc278eeca793b61ab<sub>67</sub>"><span class="id" title="notation">,</span></a> <a class="idref" href="Records.html#t<sub>1</sub>:47"><span class="id" title="variable">t<sub>1</sub></span></a><a class="idref" href="Records.html#6a63f178ee59cb86a0e9a58cfa031423"><span class="id" title="notation">)</span></a> <a class="idref" href="Records.html#v<sub>2</sub>:48"><span class="id" title="variable">v<sub>2</sub></span></a><a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">}&gt;</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.:::x_'--&gt;'_x"><span class="id" title="notation"><span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:6%;'><span style='letter-spacing:-.2em;'>-</span><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> <a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Records.html#6b3bab402afeb111cd472fd09a3b5ea<sub>9</sub>"><span class="id" title="notation">[</span></a><a class="idref" href="Records.html#x:45"><span class="id" title="variable">x</span></a><a class="idref" href="Records.html#6b3bab402afeb111cd472fd09a3b5ea<sub>9</sub>"><span class="id" title="notation">:=</span></a><a class="idref" href="Records.html#v<sub>2</sub>:48"><span class="id" title="variable">v<sub>2</sub></span></a><a class="idref" href="Records.html#6b3bab402afeb111cd472fd09a3b5ea<sub>9</sub>"><span class="id" title="notation">]</span></a><a class="idref" href="Records.html#t<sub>1</sub>:47"><span class="id" title="variable">t<sub>1</sub></span></a> <a class="idref" href="Records.html#578583e5bab5b75c1f745f27b2fa3362"><span class="id" title="notation">}&gt;</span></a><br/>
@@ -477,7 +477,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 </div>
 
 <div class="doc">
-<a id="lab411"></a><h3 class="section">Typing</h3>
+<a id="lab405"></a><h3 class="section">Typing</h3>
 
 <div class="paragraph"> </div>
 
@@ -515,7 +515,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 <span class="id" title="keyword">Definition</span> <a id="STLCExtendedRecords.context" class="idref" href="#STLCExtendedRecords.context"><span class="id" title="definition">context</span></a> := <span class="id" title="definition">partial_map</span> <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a>.<br/><hr class='doublespaceincode'/>
 
 <br/>
-<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.has_type" class="idref" href="#STLCExtendedRecords.has_type"><span class="id" title="inductive">has_type</span></a> (<a id="Gamma:73" class="idref" href="#Gamma:73"><span class="id" title="binder">Gamma</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.context"><span class="id" title="definition">context</span></a>) :<a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.has_type" class="idref" href="#STLCExtendedRecords.has_type"><span class="id" title="definition, inductive"><span id="STLCExtendedRecords.has_type_ind" class="id"><span id="STLCExtendedRecords.has_type_sind" class="id">has_type</span></span></span></a> (<a id="Gamma:73" class="idref" href="#Gamma:73"><span class="id" title="binder">Gamma</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.context"><span class="id" title="definition">context</span></a>) :<a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.T_Var" class="idref" href="#STLCExtendedRecords.T_Var"><span class="id" title="constructor">T_Var</span></a> : <span class="id" title="keyword">∀</span> <a id="x:76" class="idref" href="#x:76"><span class="id" title="binder">x</span></a> <a id="T:77" class="idref" href="#T:77"><span class="id" title="binder">T</span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#Gamma:73"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="Records.html#x:76"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <a class="idref" href="Records.html#T:77"><span class="id" title="variable">T</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#STLCExtendedRecords.well_formed_ty"><span class="id" title="inductive">well_formed_ty</span></a> <a class="idref" href="Records.html#T:77"><span class="id" title="variable">T</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
@@ -547,11 +547,11 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 </div>
 
 <div class="doc">
-<a id="lab412"></a><h2 class="section">Examples</h2>
+<a id="lab406"></a><h2 class="section">Examples</h2>
 
 <div class="paragraph"> </div>
 
-<a id="lab413"></a><h4 class="section">Exercise: 2 stars, standard (examples)</h4>
+<a id="lab407"></a><h4 class="section">Exercise: 2 stars, standard (examples)</h4>
  Finish the proofs below.  Feel free to use Coq's automation
     features in this proof.  However, if you are not confident about
     how the type system works, you may want to carry out the proofs
@@ -589,7 +589,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 
 
 <div class="doc">
-<a id="lab414"></a><h2 class="section">Properties of Typing</h2>
+<a id="lab408"></a><h2 class="section">Properties of Typing</h2>
 
 <div class="paragraph"> </div>
 
@@ -599,7 +599,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 </div>
 
 <div class="doc">
-<a id="lab415"></a><h3 class="section">Well-Formedness</h3>
+<a id="lab409"></a><h3 class="section">Well-Formedness</h3>
 
 </div>
 <div class="code">
@@ -649,7 +649,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 </div>
 
 <div class="doc">
-<a id="lab416"></a><h3 class="section">Field Lookup</h3>
+<a id="lab410"></a><h3 class="section">Field Lookup</h3>
 
 <div class="paragraph"> </div>
 
@@ -727,7 +727,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 </div>
 
 <div class="doc">
-<a id="lab417"></a><h3 class="section">Progress</h3>
+<a id="lab411"></a><h3 class="section">Progress</h3>
 
 </div>
 <div class="code">
@@ -832,7 +832,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 </div>
 
 <div class="doc">
-<a id="lab418"></a><h2 class="section">Weakening</h2>
+<a id="lab412"></a><h2 class="section">Weakening</h2>
 
 <div class="paragraph"> </div>
 
@@ -860,7 +860,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 </div>
 
 <div class="doc">
-<a id="lab419"></a><h3 class="section">Preservation</h3>
+<a id="lab413"></a><h3 class="section">Preservation</h3>
 
 <div class="paragraph"> </div>
 
@@ -943,7 +943,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="Records.html#STLCExtendedRecords.T_RCons"><span class="id" title="constructor">T_RCons</span></a>... <span class="id" title="tactic">eapply</span> <a class="idref" href="Records.html#STLCExtendedRecords.step_preserves_record_tm"><span class="id" title="lemma">step_preserves_record_tm</span></a>...<br/>
 <span class="id" title="keyword">Qed</span>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">End</span> <a class="idref" href="Records.html#STLCExtendedRecords"><span class="id" title="module">STLCExtendedRecords</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2024-01-03&nbsp;15:04&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-08-25&nbsp;08:25&nbsp;*)</span><br/>
 </div>
 </div>
 

@@ -86,7 +86,7 @@
 </div>
 
 <div class="doc">
-<a id="lab420"></a><h1 class="section">Definitions</h1>
+<a id="lab414"></a><h1 class="section">Definitions</h1>
 
 <div class="paragraph"> </div>
 
@@ -128,7 +128,7 @@
 </div>
 
 <div class="doc">
-<a id="lab421"></a><h1 class="section">Syntax</h1>
+<a id="lab415"></a><h1 class="section">Syntax</h1>
 
 <div class="paragraph"> </div>
 
@@ -183,7 +183,7 @@ The basic operations on references are <i>allocation</i>,
 </div>
 
 <div class="doc">
-<a id="lab422"></a><h3 class="section">Types</h3>
+<a id="lab416"></a><h3 class="section">Types</h3>
 
 <div class="paragraph"> </div>
 
@@ -206,7 +206,7 @@ The basic operations on references are <i>allocation</i>,
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCRef.ty" class="idref" href="#STLCRef.ty"><span class="id" title="inductive">ty</span></a> : <span class="id" title="keyword">Type</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCRef.ty" class="idref" href="#STLCRef.ty"><span class="id" title="definition, inductive"><span id="STLCRef.ty_rect" class="id"><span id="STLCRef.ty_ind" class="id"><span id="STLCRef.ty_rec" class="id"><span id="STLCRef.ty_sind" class="id">ty</span></span></span></span></span></a> : <span class="id" title="keyword">Type</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCRef.Ty_Nat" class="idref" href="#STLCRef.Ty_Nat"><span class="id" title="constructor">Ty_Nat</span></a>   : <a class="idref" href="References.html#ty:1"><span class="id" title="inductive">ty</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCRef.Ty_Unit" class="idref" href="#STLCRef.Ty_Unit"><span class="id" title="constructor">Ty_Unit</span></a>  : <a class="idref" href="References.html#ty:1"><span class="id" title="inductive">ty</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCRef.Ty_Arrow" class="idref" href="#STLCRef.Ty_Arrow"><span class="id" title="constructor">Ty_Arrow</span></a> : <a class="idref" href="References.html#ty:1"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#ty:1"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#ty:1"><span class="id" title="inductive">ty</span></a><br/>
@@ -214,7 +214,7 @@ The basic operations on references are <i>allocation</i>,
 </div>
 
 <div class="doc">
-<a id="lab423"></a><h3 class="section">Terms</h3>
+<a id="lab417"></a><h3 class="section">Terms</h3>
 
 <div class="paragraph"> </div>
 
@@ -232,7 +232,7 @@ The basic operations on references are <i>allocation</i>,
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCRef.tm" class="idref" href="#STLCRef.tm"><span class="id" title="inductive">tm</span></a>  : <span class="id" title="keyword">Type</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCRef.tm" class="idref" href="#STLCRef.tm"><span class="id" title="definition, inductive"><span id="STLCRef.tm_rect" class="id"><span id="STLCRef.tm_ind" class="id"><span id="STLCRef.tm_rec" class="id"><span id="STLCRef.tm_sind" class="id">tm</span></span></span></span></span></a>  : <span class="id" title="keyword">Type</span> :=<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;STLC&nbsp;with&nbsp;numbers:&nbsp;*)</span><br/>
 &nbsp;&nbsp;| <a id="STLCRef.tm_var" class="idref" href="#STLCRef.tm_var"><span class="id" title="constructor">tm_var</span></a>    : <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#string"><span class="id" title="inductive">string</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#tm:3"><span class="id" title="inductive">tm</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCRef.tm_app" class="idref" href="#STLCRef.tm_app"><span class="id" title="constructor">tm_app</span></a>    : <a class="idref" href="References.html#tm:3"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#tm:3"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#tm:3"><span class="id" title="inductive">tm</span></a><br/>
@@ -326,7 +326,7 @@ Intuitively:
 </div>
 
 <div class="doc">
-<a id="lab424"></a><h3 class="section">Typing (Preview)</h3>
+<a id="lab418"></a><h3 class="section">Typing (Preview)</h3>
 
 <div class="paragraph"> </div>
 
@@ -381,7 +381,7 @@ Intuitively:
 </div>
 
 <div class="doc">
-<a id="lab425"></a><h3 class="section">Values and Substitution</h3>
+<a id="lab419"></a><h3 class="section">Values and Substitution</h3>
 
 <div class="paragraph"> </div>
 
@@ -390,7 +390,7 @@ Intuitively:
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCRef.value" class="idref" href="#STLCRef.value"><span class="id" title="inductive">value</span></a> : <a class="idref" href="References.html#STLCRef.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCRef.value" class="idref" href="#STLCRef.value"><span class="id" title="definition, inductive"><span id="STLCRef.value_ind" class="id"><span id="STLCRef.value_sind" class="id">value</span></span></span></a> : <a class="idref" href="References.html#STLCRef.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCRef.v_abs" class="idref" href="#STLCRef.v_abs"><span class="id" title="constructor">v_abs</span></a> : <span class="id" title="keyword">∀</span> <a id="x:7" class="idref" href="#x:7"><span class="id" title="binder">x</span></a> <a id="T<sub>2</sub>:8" class="idref" href="#T<sub>2</sub>:8"><span class="id" title="binder">T<sub>2</sub></span></a> <a id="t<sub>1</sub>:9" class="idref" href="#t<sub>1</sub>:9"><span class="id" title="binder">t<sub>1</sub></span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#value:5"><span class="id" title="inductive">value</span></a> <a class="idref" href="References.html#35fac1f60887e7b37d44f938e80b2dc<sub>6</sub>"><span class="id" title="notation">&lt;{</span></a><a class="idref" href="References.html#fcbb07911888b1a4b268f628a4d64735"><span class="id" title="notation">\</span></a><a class="idref" href="References.html#x:7"><span class="id" title="variable">x</span></a><a class="idref" href="References.html#fcbb07911888b1a4b268f628a4d64735"><span class="id" title="notation">:</span></a><a class="idref" href="References.html#T<sub>2</sub>:8"><span class="id" title="variable">T<sub>2</sub></span></a><a class="idref" href="References.html#fcbb07911888b1a4b268f628a4d64735"><span class="id" title="notation">,</span></a> <a class="idref" href="References.html#t<sub>1</sub>:9"><span class="id" title="variable">t<sub>1</sub></span></a><a class="idref" href="References.html#35fac1f60887e7b37d44f938e80b2dc<sub>6</sub>"><span class="id" title="notation">}&gt;</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCRef.v_nat" class="idref" href="#STLCRef.v_nat"><span class="id" title="constructor">v_nat</span></a> : <span class="id" title="keyword">∀</span> <a id="n:10" class="idref" href="#n:10"><span class="id" title="binder">n</span></a> : <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> ,<br/>
@@ -447,12 +447,12 @@ Extending substitution to handle the new syntax of terms is
 </div>
 
 <div class="doc">
-<a id="lab426"></a><h1 class="section">Pragmatics</h1>
+<a id="lab420"></a><h1 class="section">Pragmatics</h1>
 
 </div>
 
 <div class="doc">
-<a id="lab427"></a><h2 class="section">Side Effects and Sequencing</h2>
+<a id="lab421"></a><h2 class="section">Side Effects and Sequencing</h2>
 
 <div class="paragraph"> </div>
 
@@ -498,7 +498,7 @@ Extending substitution to handle the new syntax of terms is
 </div>
 
 <div class="doc">
-<a id="lab428"></a><h2 class="section">References and Aliasing</h2>
+<a id="lab422"></a><h2 class="section">References and Aliasing</h2>
 
 <div class="paragraph"> </div>
 
@@ -548,7 +548,7 @@ Extending substitution to handle the new syntax of terms is
 </div>
 
 <div class="doc">
-<a id="lab429"></a><h2 class="section">Shared State</h2>
+<a id="lab423"></a><h2 class="section">Shared State</h2>
 
 <div class="paragraph"> </div>
 
@@ -588,7 +588,7 @@ Extending substitution to handle the new syntax of terms is
 </div>
 
 <div class="doc">
-<a id="lab430"></a><h2 class="section">Objects</h2>
+<a id="lab424"></a><h2 class="section">Objects</h2>
 
 <div class="paragraph"> </div>
 
@@ -622,7 +622,7 @@ Extending substitution to handle the new syntax of terms is
  
 <div class="paragraph"> </div>
 
-<a id="lab431"></a><h4 class="section">Exercise: 1 star, standard, optional (store_draw)</h4>
+<a id="lab425"></a><h4 class="section">Exercise: 1 star, standard, optional (store_draw)</h4>
  Draw (on paper) the contents of the store at the point in
     execution where the first two <span class="inlinecode"><span class="id" title="keyword">let</span></span>s have finished and the third
     one is about to begin. 
@@ -635,7 +635,7 @@ Extending substitution to handle the new syntax of terms is
 
 
 <div class="doc">
-<a id="lab432"></a><h2 class="section">References to Compound Types</h2>
+<a id="lab426"></a><h2 class="section">References to Compound Types</h2>
 
 <div class="paragraph"> </div>
 
@@ -698,7 +698,7 @@ Extending substitution to handle the new syntax of terms is
     lists and trees. 
 <div class="paragraph"> </div>
 
-<a id="lab433"></a><h4 class="section">Exercise: 2 stars, standard, especially useful (compact_update)</h4>
+<a id="lab427"></a><h4 class="section">Exercise: 2 stars, standard, especially useful (compact_update)</h4>
  If we defined <span class="inlinecode"><span class="id" title="var">update</span></span> more compactly like this
 <pre>
       update = \a:NatArray, \m:Nat, \v:Nat,
@@ -716,7 +716,7 @@ would it behave the same?
 
 
 <div class="doc">
-<a id="lab434"></a><h2 class="section">Null References</h2>
+<a id="lab428"></a><h2 class="section">Null References</h2>
 
 <div class="paragraph"> </div>
 
@@ -751,7 +751,7 @@ would it behave the same?
 </div>
 
 <div class="doc">
-<a id="lab435"></a><h2 class="section">Garbage Collection</h2>
+<a id="lab429"></a><h2 class="section">Garbage Collection</h2>
 
 <div class="paragraph"> </div>
 
@@ -775,7 +775,7 @@ would it behave the same?
     other with type <span class="inlinecode"><span class="id" title="var">Ref</span></span> <span class="inlinecode"><span class="id" title="var">Bool</span></span>. 
 <div class="paragraph"> </div>
 
-<a id="lab436"></a><h4 class="section">Exercise: 2 stars, standard (type_safety_violation)</h4>
+<a id="lab430"></a><h4 class="section">Exercise: 2 stars, standard (type_safety_violation)</h4>
  Show how this can lead to a violation of type safety. 
 </div>
 <div class="code">
@@ -788,12 +788,12 @@ would it behave the same?
 
 
 <div class="doc">
-<a id="lab437"></a><h1 class="section">Operational Semantics</h1>
+<a id="lab431"></a><h1 class="section">Operational Semantics</h1>
 
 </div>
 
 <div class="doc">
-<a id="lab438"></a><h2 class="section">Locations</h2>
+<a id="lab432"></a><h2 class="section">Locations</h2>
 
 <div class="paragraph"> </div>
 
@@ -847,7 +847,7 @@ would it behave the same?
 </div>
 
 <div class="doc">
-<a id="lab439"></a><h2 class="section">Stores</h2>
+<a id="lab433"></a><h2 class="section">Stores</h2>
 
 <div class="paragraph"> </div>
 
@@ -900,7 +900,7 @@ To update the store, we use the <span class="inlinecode"><span class="id" title=
 <span class="id" title="keyword">Fixpoint</span> <a id="STLCRef.replace" class="idref" href="#STLCRef.replace"><span class="id" title="definition">replace</span></a> {<a id="A:21" class="idref" href="#A:21"><span class="id" title="binder">A</span></a>:<span class="id" title="keyword">Type</span>} (<a id="n:22" class="idref" href="#n:22"><span class="id" title="binder">n</span></a>:<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>) (<a id="x:23" class="idref" href="#x:23"><span class="id" title="binder">x</span></a>:<a class="idref" href="References.html#A:21"><span class="id" title="variable">A</span></a>) (<a id="l:24" class="idref" href="#l:24"><span class="id" title="binder">l</span></a>:<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="References.html#A:21"><span class="id" title="variable">A</span></a>) : <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#list"><span class="id" title="inductive">list</span></a> <a class="idref" href="References.html#A:21"><span class="id" title="variable">A</span></a> :=<br/>
 &nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="References.html#l:24"><span class="id" title="variable">l</span></a> <span class="id" title="keyword">with</span><br/>
 &nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nil"><span class="id" title="constructor">nil</span></a>    ⇒ <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nil"><span class="id" title="constructor">nil</span></a><br/>
-&nbsp;&nbsp;| <span class="id" title="var">h</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#::list_scope:x_'::'_x"><span class="id" title="notation">::</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Arith.PeanoNat.html#Nat.t"><span class="id" title="definition">t</span></a> ⇒<br/>
+&nbsp;&nbsp;| <span class="id" title="var">h</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#::list_scope:x_'::'_x"><span class="id" title="notation">::</span></a> <span class="id" title="var">t</span> ⇒<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="References.html#n:22"><span class="id" title="variable">n</span></a> <span class="id" title="keyword">with</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#O"><span class="id" title="constructor">O</span></a>    ⇒ <a class="idref" href="References.html#x:23"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#::list_scope:x_'::'_x"><span class="id" title="notation">::</span></a> <span class="id" title="var">t</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a> <span class="id" title="var">n'</span> ⇒ <span class="id" title="var">h</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#::list_scope:x_'::'_x"><span class="id" title="notation">::</span></a> <a class="idref" href="References.html#replace:25"><span class="id" title="definition">replace</span></a> <span class="id" title="var">n'</span> <a class="idref" href="References.html#x:23"><span class="id" title="variable">x</span></a> <span class="id" title="var">t</span><br/>
@@ -980,7 +980,7 @@ As might be expected, we will also need some technical
 </div>
 
 <div class="doc">
-<a id="lab440"></a><h2 class="section">Reduction</h2>
+<a id="lab434"></a><h2 class="section">Reduction</h2>
 
 <div class="paragraph"> </div>
 
@@ -1302,7 +1302,7 @@ As might be expected, we will also need some technical
 </div>
 <div class="code">
 <hr class='doublespaceincode'/>
-<span class="id" title="keyword">Inductive</span> <a id="STLCRef.step" class="idref" href="#STLCRef.step"><span class="id" title="inductive">step</span></a> : <a class="idref" href="References.html#STLCRef.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#11c698c8685bb8ab1cf725545c085ac<sub>4</sub>"><span class="id" title="notation">×</span></a> <a class="idref" href="References.html#STLCRef.store"><span class="id" title="definition">store</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#STLCRef.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#11c698c8685bb8ab1cf725545c085ac<sub>4</sub>"><span class="id" title="notation">×</span></a> <a class="idref" href="References.html#STLCRef.store"><span class="id" title="definition">store</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCRef.step" class="idref" href="#STLCRef.step"><span class="id" title="definition, inductive"><span id="STLCRef.step_ind" class="id"><span id="STLCRef.step_sind" class="id">step</span></span></span></a> : <a class="idref" href="References.html#STLCRef.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#11c698c8685bb8ab1cf725545c085ac<sub>4</sub>"><span class="id" title="notation">×</span></a> <a class="idref" href="References.html#STLCRef.store"><span class="id" title="definition">store</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#STLCRef.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#11c698c8685bb8ab1cf725545c085ac<sub>4</sub>"><span class="id" title="notation">×</span></a> <a class="idref" href="References.html#STLCRef.store"><span class="id" title="definition">store</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCRef.ST_AppAbs" class="idref" href="#STLCRef.ST_AppAbs"><span class="id" title="constructor">ST_AppAbs</span></a> : <span class="id" title="keyword">∀</span> <a id="x:44" class="idref" href="#x:44"><span class="id" title="binder">x</span></a> <a id="T<sub>2</sub>:45" class="idref" href="#T<sub>2</sub>:45"><span class="id" title="binder">T<sub>2</sub></span></a> <a id="t<sub>1</sub>:46" class="idref" href="#t<sub>1</sub>:46"><span class="id" title="binder">t<sub>1</sub></span></a> <a id="v<sub>2</sub>:47" class="idref" href="#v<sub>2</sub>:47"><span class="id" title="binder">v<sub>2</sub></span></a> <a id="st:48" class="idref" href="#st:48"><span class="id" title="binder">st</span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.value"><span class="id" title="inductive">value</span></a> <a class="idref" href="References.html#v<sub>2</sub>:47"><span class="id" title="variable">v<sub>2</sub></span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#35fac1f60887e7b37d44f938e80b2dc<sub>6</sub>"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="References.html#0975a85e562f22315b420c8d1c95dd<sub>06</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="References.html#fcbb07911888b1a4b268f628a4d64735"><span class="id" title="notation">\</span></a><a class="idref" href="References.html#x:44"><span class="id" title="variable">x</span></a> <a class="idref" href="References.html#fcbb07911888b1a4b268f628a4d64735"><span class="id" title="notation">:</span></a> <a class="idref" href="References.html#T<sub>2</sub>:45"><span class="id" title="variable">T<sub>2</sub></span></a><a class="idref" href="References.html#fcbb07911888b1a4b268f628a4d64735"><span class="id" title="notation">,</span></a> <a class="idref" href="References.html#t<sub>1</sub>:46"><span class="id" title="variable">t<sub>1</sub></span></a><a class="idref" href="References.html#0975a85e562f22315b420c8d1c95dd<sub>06</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="References.html#v<sub>2</sub>:47"><span class="id" title="variable">v<sub>2</sub></span></a> <a class="idref" href="References.html#35fac1f60887e7b37d44f938e80b2dc<sub>6</sub>"><span class="id" title="notation">}&gt;</span></a> <a class="idref" href="References.html#52c1db39972e4cbec4580651bf814ae<sub>4</sub>"><span class="id" title="notation">/</span></a> <a class="idref" href="References.html#st:48"><span class="id" title="variable">st</span></a> <a class="idref" href="References.html#52c1db39972e4cbec4580651bf814ae<sub>4</sub>"><span class="id" title="notation"><span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:6%;'><span style='letter-spacing:-.2em;'>-</span><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> <a class="idref" href="References.html#35fac1f60887e7b37d44f938e80b2dc<sub>6</sub>"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="References.html#b811d80014e4babd27a16e96fb5faa5f"><span class="id" title="notation">[</span></a><a class="idref" href="References.html#x:44"><span class="id" title="variable">x</span></a> <a class="idref" href="References.html#b811d80014e4babd27a16e96fb5faa5f"><span class="id" title="notation">:=</span></a> <a class="idref" href="References.html#v<sub>2</sub>:47"><span class="id" title="variable">v<sub>2</sub></span></a><a class="idref" href="References.html#b811d80014e4babd27a16e96fb5faa5f"><span class="id" title="notation">]</span></a> <a class="idref" href="References.html#t<sub>1</sub>:46"><span class="id" title="variable">t<sub>1</sub></span></a> <a class="idref" href="References.html#35fac1f60887e7b37d44f938e80b2dc<sub>6</sub>"><span class="id" title="notation">}&gt;</span></a> <a class="idref" href="References.html#52c1db39972e4cbec4580651bf814ae<sub>4</sub>"><span class="id" title="notation">/</span></a> <a class="idref" href="References.html#st:48"><span class="id" title="variable">st</span></a><br/>
@@ -1386,7 +1386,7 @@ One slightly ugly point should be noted here: In the
 </div>
 
 <div class="doc">
-<a id="lab441"></a><h1 class="section">Typing</h1>
+<a id="lab435"></a><h1 class="section">Typing</h1>
 
 <div class="paragraph"> </div>
 
@@ -1399,7 +1399,7 @@ One slightly ugly point should be noted here: In the
 </div>
 
 <div class="doc">
-<a id="lab442"></a><h2 class="section">Store typings</h2>
+<a id="lab436"></a><h2 class="section">Store typings</h2>
 
 <div class="paragraph"> </div>
 
@@ -1512,7 +1512,7 @@ Naturally, the key question is, "What is the type of a location?"
 <pre>
    [\x:Nat, (!(loc 1)) x, \x:Nat, (!(loc 0)) x]
 </pre>
-<a id="lab443"></a><h4 class="section">Exercise: 3 stars, standard (cyclic_store)</h4>
+<a id="lab437"></a><h4 class="section">Exercise: 3 stars, standard (cyclic_store)</h4>
  Can you find a term whose reduction will create this particular
     cyclic store? 
 </div>
@@ -1608,7 +1608,7 @@ Suppose we are given a store typing <span class="inlinecode"><span class="id" ti
 </div>
 
 <div class="doc">
-<a id="lab444"></a><h2 class="section">The Typing Relation</h2>
+<a id="lab438"></a><h2 class="section">The Typing Relation</h2>
 
 <div class="paragraph"> </div>
 
@@ -1680,7 +1680,7 @@ Suppose we are given a store typing <span class="inlinecode"><span class="id" ti
 </div>
 <div class="code">
 <hr class='doublespaceincode'/>
-<span class="id" title="keyword">Inductive</span> <a id="STLCRef.has_type" class="idref" href="#STLCRef.has_type"><span class="id" title="inductive">has_type</span></a> (<a id="ST:125" class="idref" href="#ST:125"><span class="id" title="binder">ST</span></a> : <a class="idref" href="References.html#STLCRef.store_ty"><span class="id" title="definition">store_ty</span></a>) : <a class="idref" href="References.html#STLCRef.context"><span class="id" title="definition">context</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#STLCRef.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#STLCRef.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCRef.has_type" class="idref" href="#STLCRef.has_type"><span class="id" title="definition, inductive"><span id="STLCRef.has_type_ind" class="id"><span id="STLCRef.has_type_sind" class="id">has_type</span></span></span></a> (<a id="ST:125" class="idref" href="#ST:125"><span class="id" title="binder">ST</span></a> : <a class="idref" href="References.html#STLCRef.store_ty"><span class="id" title="definition">store_ty</span></a>) : <a class="idref" href="References.html#STLCRef.context"><span class="id" title="definition">context</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#STLCRef.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#STLCRef.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCRef.T_Var" class="idref" href="#STLCRef.T_Var"><span class="id" title="constructor">T_Var</span></a> : <span class="id" title="keyword">∀</span> <a id="Gamma:128" class="idref" href="#Gamma:128"><span class="id" title="binder">Gamma</span></a> <a id="x:129" class="idref" href="#x:129"><span class="id" title="binder">x</span></a> <a id="T<sub>1</sub>:130" class="idref" href="#T<sub>1</sub>:130"><span class="id" title="binder">T<sub>1</sub></span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#Gamma:128"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="References.html#x:129"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <a class="idref" href="References.html#T<sub>1</sub>:130"><span class="id" title="variable">T<sub>1</sub></span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#Gamma:128"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="References.html#9b43725c4c39885bc2622c3bae000985"><span class="id" title="notation">;</span></a> <a class="idref" href="References.html#ST:125"><span class="id" title="variable">ST</span></a> <a class="idref" href="References.html#9b43725c4c39885bc2622c3bae000985"><span class="id" title="notation"><span class="nowrap">&vert;--</span></span></a> <a class="idref" href="References.html#x:129"><span class="id" title="variable">x</span></a> <a class="idref" href="References.html#9b43725c4c39885bc2622c3bae000985"><span class="id" title="notation">\</span></a><a class="idref" href="References.html#9b43725c4c39885bc2622c3bae000985"><span class="id" title="notation">in</span></a> <a class="idref" href="References.html#T<sub>1</sub>:130"><span class="id" title="variable">T<sub>1</sub></span></a><br/>
@@ -1757,7 +1757,7 @@ Of course, these typing rules will accurately predict the results
 </div>
 
 <div class="doc">
-<a id="lab445"></a><h1 class="section">Properties</h1>
+<a id="lab439"></a><h1 class="section">Properties</h1>
 
 <div class="paragraph"> </div>
 
@@ -1771,7 +1771,7 @@ Of course, these typing rules will accurately predict the results
 </div>
 
 <div class="doc">
-<a id="lab446"></a><h2 class="section">Well-Typed Stores</h2>
+<a id="lab440"></a><h2 class="section">Well-Typed Stores</h2>
 
 <div class="paragraph"> </div>
 
@@ -1822,7 +1822,7 @@ Informally, we will write <span class="inlinecode"><span class="id" title="var">
     stores like the one we saw above. 
 <div class="paragraph"> </div>
 
-<a id="lab447"></a><h4 class="section">Exercise: 3 stars, standard (store_not_unique)</h4>
+<a id="lab441"></a><h4 class="section">Exercise: 3 stars, standard (store_not_unique)</h4>
  Can you find a store <span class="inlinecode"><span class="id" title="var">st</span></span>, and two
     different store typings <span class="inlinecode"><span class="id" title="var">ST<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" title="var">ST<sub>2</sub></span></span> such that both
     <span class="inlinecode"><span class="id" title="var">ST<sub>1</sub></span></span> <span class="inlinecode"><span class="nowrap">&vert;--</span></span> <span class="inlinecode"><span class="id" title="var">st</span></span> and <span class="inlinecode"><span class="id" title="var">ST<sub>2</sub></span></span> <span class="inlinecode"><span class="nowrap">&vert;--</span></span> <span class="inlinecode"><span class="id" title="var">st</span></span>? 
@@ -1867,7 +1867,7 @@ This statement is fine for all of the reduction rules except
 </div>
 
 <div class="doc">
-<a id="lab448"></a><h2 class="section">Extending Store Typings</h2>
+<a id="lab442"></a><h2 class="section">Extending Store Typings</h2>
 
 <div class="paragraph"> </div>
 
@@ -1879,7 +1879,7 @@ This statement is fine for all of the reduction rules except
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCRef.extends" class="idref" href="#STLCRef.extends"><span class="id" title="inductive">extends</span></a> : <a class="idref" href="References.html#STLCRef.store_ty"><span class="id" title="definition">store_ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#STLCRef.store_ty"><span class="id" title="definition">store_ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCRef.extends" class="idref" href="#STLCRef.extends"><span class="id" title="definition, inductive"><span id="STLCRef.extends_ind" class="id"><span id="STLCRef.extends_sind" class="id">extends</span></span></span></a> : <a class="idref" href="References.html#STLCRef.store_ty"><span class="id" title="definition">store_ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#STLCRef.store_ty"><span class="id" title="definition">store_ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCRef.extends_nil" class="idref" href="#STLCRef.extends_nil"><span class="id" title="constructor">extends_nil</span></a>  : <span class="id" title="keyword">∀</span> <a id="ST':188" class="idref" href="#ST':188"><span class="id" title="binder">ST'</span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#extends:186"><span class="id" title="inductive">extends</span></a> <a class="idref" href="References.html#ST':188"><span class="id" title="variable">ST'</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#nil"><span class="id" title="constructor">nil</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCRef.extends_cons" class="idref" href="#STLCRef.extends_cons"><span class="id" title="constructor">extends_cons</span></a> : <span class="id" title="keyword">∀</span> <a id="x:189" class="idref" href="#x:189"><span class="id" title="binder">x</span></a> <a id="ST':190" class="idref" href="#ST':190"><span class="id" title="binder">ST'</span></a> <a id="ST:191" class="idref" href="#ST:191"><span class="id" title="binder">ST</span></a>,<br/>
@@ -1972,7 +1972,7 @@ Finally, <span class="inlinecode"><span class="id" title="var">ST</span></span> 
 </div>
 
 <div class="doc">
-<a id="lab449"></a><h2 class="section">Preservation, Finally</h2>
+<a id="lab443"></a><h2 class="section">Preservation, Finally</h2>
 
 <div class="paragraph"> </div>
 
@@ -2014,7 +2014,7 @@ Note that the preservation theorem merely asserts that there is
 </div>
 
 <div class="doc">
-<a id="lab450"></a><h2 class="section">Substitution Lemma</h2>
+<a id="lab444"></a><h2 class="section">Substitution Lemma</h2>
 
 <div class="paragraph"> </div>
 
@@ -2074,7 +2074,7 @@ Note that the preservation theorem merely asserts that there is
 </div>
 
 <div class="doc">
-<a id="lab451"></a><h2 class="section">Assignment Preserves Store Typing</h2>
+<a id="lab445"></a><h2 class="section">Assignment Preserves Store Typing</h2>
 
 <div class="paragraph"> </div>
 
@@ -2111,7 +2111,7 @@ Note that the preservation theorem merely asserts that there is
 </div>
 
 <div class="doc">
-<a id="lab452"></a><h2 class="section">Weakening for Stores</h2>
+<a id="lab446"></a><h2 class="section">Weakening for Stores</h2>
 
 <div class="paragraph"> </div>
 
@@ -2190,7 +2190,7 @@ We can use the <span class="inlinecode"><span class="id" title="var">store_weake
 </div>
 
 <div class="doc">
-<a id="lab453"></a><h2 class="section">Preservation!</h2>
+<a id="lab447"></a><h2 class="section">Preservation!</h2>
 
 <div class="paragraph"> </div>
 
@@ -2317,7 +2317,7 @@ And here, at last, is the preservation theorem:
 </div>
 
 <div class="doc">
-<a id="lab454"></a><h4 class="section">Exercise: 3 stars, standard (preservation_informal)</h4>
+<a id="lab448"></a><h4 class="section">Exercise: 3 stars, standard (preservation_informal)</h4>
  Write a careful informal proof of the preservation theorem,
     concentrating on the <span class="inlinecode"><span class="id" title="var">T_App</span></span>, <span class="inlinecode"><span class="id" title="var">T_Deref</span></span>, <span class="inlinecode"><span class="id" title="var">T_Assign</span></span>, and <span class="inlinecode"><span class="id" title="var">T_Ref</span></span>
     cases.
@@ -2336,7 +2336,7 @@ And here, at last, is the preservation theorem:
 
 
 <div class="doc">
-<a id="lab455"></a><h2 class="section">Progress</h2>
+<a id="lab449"></a><h2 class="section">Progress</h2>
 
 <div class="paragraph"> </div>
 
@@ -2443,7 +2443,7 @@ And here, at last, is the preservation theorem:
 </div>
 
 <div class="doc">
-<a id="lab456"></a><h1 class="section">References and Nontermination</h1>
+<a id="lab450"></a><h1 class="section">References and Nontermination</h1>
 
 <div class="paragraph"> </div>
 
@@ -2536,7 +2536,7 @@ To show formally that the term diverges, we first define the
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Inductive</span> <a id="STLCRef.RefsAndNontermination.step_closure" class="idref" href="#STLCRef.RefsAndNontermination.step_closure"><span class="id" title="inductive">step_closure</span></a> {<a id="X:255" class="idref" href="#X:255"><span class="id" title="binder">X</span></a>:<span class="id" title="keyword">Type</span>} (<a id="R:256" class="idref" href="#R:256"><span class="id" title="binder">R</span></a>: <a class="idref" href="Smallstep.html#relation"><span class="id" title="definition">relation</span></a> <a class="idref" href="References.html#X:255"><span class="id" title="variable">X</span></a>) : <span class="id" title="var">X</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="var">X</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="STLCRef.RefsAndNontermination.step_closure" class="idref" href="#STLCRef.RefsAndNontermination.step_closure"><span class="id" title="definition, inductive"><span id="STLCRef.RefsAndNontermination.step_closure_ind" class="id"><span id="STLCRef.RefsAndNontermination.step_closure_sind" class="id">step_closure</span></span></span></a> {<a id="X:255" class="idref" href="#X:255"><span class="id" title="binder">X</span></a>:<span class="id" title="keyword">Type</span>} (<a id="R:256" class="idref" href="#R:256"><span class="id" title="binder">R</span></a>: <a class="idref" href="Smallstep.html#relation"><span class="id" title="definition">relation</span></a> <a class="idref" href="References.html#X:255"><span class="id" title="variable">X</span></a>) : <span class="id" title="var">X</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="var">X</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCRef.RefsAndNontermination.sc_one" class="idref" href="#STLCRef.RefsAndNontermination.sc_one"><span class="id" title="constructor">sc_one</span></a>  : <span class="id" title="keyword">∀</span> (<a id="x:259" class="idref" href="#x:259"><span class="id" title="binder">x</span></a> <a id="y:260" class="idref" href="#y:260"><span class="id" title="binder">y</span></a> : <a class="idref" href="References.html#X:255"><span class="id" title="variable">X</span></a>),<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#R:256"><span class="id" title="variable">R</span></a> <a class="idref" href="References.html#x:259"><span class="id" title="variable">x</span></a> <a class="idref" href="References.html#y:260"><span class="id" title="variable">y</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="References.html#step_closure:257"><span class="id" title="inductive">step_closure</span></a> <a class="idref" href="References.html#R:256"><span class="id" title="variable">R</span></a> <a class="idref" href="References.html#x:259"><span class="id" title="variable">x</span></a> <a class="idref" href="References.html#y:260"><span class="id" title="variable">y</span></a><br/>
 &nbsp;&nbsp;| <a id="STLCRef.RefsAndNontermination.sc_step" class="idref" href="#STLCRef.RefsAndNontermination.sc_step"><span class="id" title="constructor">sc_step</span></a> : <span class="id" title="keyword">∀</span> (<a id="x:261" class="idref" href="#x:261"><span class="id" title="binder">x</span></a> <a id="y:262" class="idref" href="#y:262"><span class="id" title="binder">y</span></a> <a id="z:263" class="idref" href="#z:263"><span class="id" title="binder">z</span></a> : <a class="idref" href="References.html#X:255"><span class="id" title="variable">X</span></a>),<br/>
@@ -2606,7 +2606,7 @@ Finally, we show that the latter expression reduces in
 </div>
 
 <div class="doc">
-<a id="lab457"></a><h4 class="section">Exercise: 4 stars, standard (factorial_ref)</h4>
+<a id="lab451"></a><h4 class="section">Exercise: 4 stars, standard (factorial_ref)</h4>
  Use the above ideas to implement a factorial function in STLC with
     references.  (There is no need to prove formally that it really
     behaves like the factorial.  Just uncomment the example below to make
@@ -2641,11 +2641,11 @@ Qed.<br/>
 
 
 <div class="doc">
-<a id="lab458"></a><h1 class="section">Additional Exercises</h1>
+<a id="lab452"></a><h1 class="section">Additional Exercises</h1>
 
 <div class="paragraph"> </div>
 
-<a id="lab459"></a><h4 class="section">Exercise: 5 stars, standard, optional (garbage_collector)</h4>
+<a id="lab453"></a><h4 class="section">Exercise: 5 stars, standard, optional (garbage_collector)</h4>
  Challenge problem: modify our formalization to include an account
     of garbage collection, and prove that it satisfies whatever nice
     properties you can think to prove about it. 
@@ -2657,7 +2657,7 @@ Qed.<br/>
 
 <span class="id" title="keyword">End</span> <a class="idref" href="References.html#STLCRef.RefsAndNontermination"><span class="id" title="module">RefsAndNontermination</span></a>.<br/>
 <span class="id" title="keyword">End</span> <a class="idref" href="References.html#STLCRef"><span class="id" title="module">STLCRef</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2024-01-03&nbsp;15:04&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-08-25&nbsp;08:25&nbsp;*)</span><br/>
 </div>
 </div>
 

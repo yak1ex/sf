@@ -40,6 +40,13 @@
   In Internation Conference on Function Programming (ICFP).
   https://dl.acm.org/doi/abs/10.1145/3408998
 
+[Charguéraud 2023]
+  Arthur Charguéraud.
+  A Modern Eye on Separation Logic for Sequential Programs.
+  Habilitation Manuscript.
+  https://www.chargueraud.org/research/2023/hdr/chargueraud_hdr.pdf
+  https://inria.hal.science/tel-04076725/
+
 [Charguéraud et al 2023]
   Arthur Charguéraud, Adam Chlipala, Andres Erbsen, and Samuel Gruetter.
   Omnisemantics: Smoother Handling of Nondeterminism (TOPLAS).
@@ -128,6 +135,12 @@
   Workshop on Computer Science Logic (CSL).
   https://doi.org/10.1007/3-540-44802-0_1
 
+[Ni, Shao 2006]
+  Zhaozhong Ni and Zhong Shao.
+  Certified Assembly Programming with Embedded Code Pointers.
+  Symposium on Principles of Programming Languages (POPL).
+  https://doi.org/10.1145/1111037.1111066
+
 [Reynolds 2002]
   John C. Reynolds.
   Separation Logic: A Logic for Shared Mutable Data Structures.
@@ -165,4 +178,4 @@
 
 *)
 
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 08:34 *)

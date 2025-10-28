@@ -257,7 +257,6 @@ Inductive ty : Type :=
     written to the left of the turnstile.  For the moment, the context
     is always empty.
 
-    
                            -----------------                   (T_True)
                            |-- true \in Bool
 
@@ -706,4 +705,4 @@ Definition manual_grade_for_prog_pres_bigstep : option (nat*string) := None.
 (** [] *)
 End TM.
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:25 *)

@@ -92,7 +92,7 @@ idtac " ".
 idtac "#> STLCExtended.substitution_preserves_typing".
 idtac "Possible points: 2".
 check_type @STLCExtended.substitution_preserves_typing (
-(forall (Gamma : Maps.partial_map STLCExtended.ty) 
+(forall (Gamma : Maps.partial_map STLCExtended.ty)
    (x : String.string) (U : STLCExtended.ty) (t v : STLCExtended.tm)
    (T : STLCExtended.ty),
  STLCExtended.has_type (@Maps.update STLCExtended.ty Gamma x U) t T ->
@@ -160,6 +160,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2024-01-03 15:05 *)
+(* 2024-08-25 08:24 *)
 
-(* 2024-01-03 15:05 *)
+(* 2024-08-25 08:25 *)

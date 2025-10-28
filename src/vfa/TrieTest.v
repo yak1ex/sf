@@ -197,7 +197,7 @@ idtac " ".
 idtac "#> insert_relate".
 idtac "Possible points: 3".
 check_type @insert_relate (
-(forall (A : Type) (k : BinNums.positive) (v : A) 
+(forall (A : Type) (k : BinNums.positive) (v : A)
    (t : trie_table A) (cts : Maps.total_map A),
  @is_trie A t ->
  @Abs A t cts ->
@@ -274,6 +274,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2023-08-23 11:34 *)
+(* 2024-08-25 08:38 *)
 
-(* 2023-08-23 11:34 *)
+(* 2024-08-25 08:38 *)

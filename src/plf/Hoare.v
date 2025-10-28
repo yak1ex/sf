@@ -673,7 +673,7 @@ Proof. (* FILL IN HERE *) Admitted.
       {{ True }} X := a {{ X = a }}
 
     Give a counterexample showing that this rule is incorrect and use
-    it to complete the proof belkow, showing that it is really a
+    it to complete the proof below, showing that it is really a
     counterexample.  (Hint: The rule universally quantifies over the
     arithmetic expression [a], and your counterexample needs to
     exhibit an [a] for which the rule doesn't work.) *)
@@ -2330,4 +2330,4 @@ End HoareAssertAssume.
 
 
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:25 *)

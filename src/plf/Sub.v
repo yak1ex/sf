@@ -467,7 +467,7 @@ Write these types in order from the most specific to the most general.
 
 Where does the type [Top->Top->Student] fit into this order?
 That is, state how [Top -> (Top -> Student)] compares with each
-of the five types above. It may be unrelated to some of them.  
+of the five types above. It may be unrelated to some of them.
 *)
 
 (* Do not modify the following line: *)
@@ -491,18 +491,18 @@ Definition manual_grade_for_subtype_order : option (nat*string) := None.
       forall S T1 T2,
            (S <: T1 -> T2) ->
            exists S1 S2,
-              S = S1 -> S2  /\  T1 <: S1  /\  S2 <: T2 
+              S = S1 -> S2  /\  T1 <: S1  /\  S2 <: T2
 
       exists S,
-           S <: S->S 
+           S <: S->S
 
       exists S,
-           S->S <: S  
+           S->S <: S
 
       forall S T1 T2,
            S <: T1*T2 ->
            exists S1 S2,
-              S = S1*S2  /\  S1 <: T1  /\  S2 <: T2  
+              S = S1*S2  /\  S1 <: T1  /\  S2 <: T2
 *)
 
 (* Do not modify the following line: *)
@@ -1252,7 +1252,7 @@ Proof with eauto.
     + (* t1 is a value *) eauto.
     + apply canonical_forms_of_Bool in Ht1; [|assumption].
       destruct Ht1; subst...
-    + destruct H. rename x into t1'. eauto. 
+    + destruct H. rename x into t1'. eauto.
 Qed.
 
 (* ================================================================= *)
@@ -1477,7 +1477,7 @@ Proof with eauto.
        and [eauto] takes care of them *)
     + (* ST_AppAbs *)
       destruct (abs_arrow _ _ _ _ _ HT1) as [HA1 HA2].
-      apply substitution_preserves_typing with T0... 
+      apply substitution_preserves_typing with T0...
 Qed.
 
 (* ================================================================= *)
@@ -1788,83 +1788,9 @@ Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
 
-Definition smallest_largest HT :=
-  (* There exists a smallest and a largest. *)
-  (exists TS TL, forall T, TS <: T /\ T <: TL <-> HT T)
-  \/
-  (* There exists a smallest, but no largest. *)
-  ((exists TS, forall T, TS <: T <-> HT T) /\
-   ~(exists TL, forall T, T <: TL <-> HT T))
-  \/
-  (* There exists a largest, but not smallest. *)
-  (~(exists TS, forall T, TS <: T <-> HT T) /\
-   (exists TL, forall T, T <: TL <-> HT T))
-  \/
-  (* There exists neither a smallest nor a largest. *)
-  (~(exists TS, forall T, TS <: T <-> HT T) /\
-   ~(exists TL, forall T, T <: TL <-> HT T)).
-
-(** **** Exercise: 3 stars, advanced, optional (formal_small_large_1) *)
-Theorem formal_small_large_1:
-  smallest_largest
-  (fun T =>
-   empty |-- <{(\p:T*Top, p.fst) ((\z:A, z), unit)}> \in <{A->A}>).
-Proof.
-  (* FILL IN HERE *) Admitted.
-(** [] *)
-
-(** **** Exercise: 3 stars, advanced, optional (formal_small_large_2) *)
-Theorem formal_small_large_2:
-  smallest_largest
-  (fun T =>
-   empty |-- <{(\p:(A->A)*(B->B), p) ((\z:A, z), (\z:B, z))}> \in T).
-Proof.
-  (* FILL IN HERE *) Admitted.
-(** [] *)
-
-(** **** Exercise: 4 stars, advanced, optional (formal_small_large_3) *)
-Theorem formal_small_large_3:
-  smallest_largest
-  (fun T =>
-   (a |-> A) |-- <{(\p:A*T, (p.snd) (p.fst)) (a, \z:A, z)}> \in A).
-Proof.
-  (* FILL IN HERE *) Admitted.
-(** [] *)
-
-(** **** Exercise: 4 stars, advanced, optional (formal_small_large_4) *)
-Theorem formal_small_large_4:
-  smallest_largest
-  (fun T =>
-   exists S,
-     empty |-- <{\p:A*T, (p.snd) (p.fst)}> \in S).
-Proof.
-  (* FILL IN HERE *) Admitted.
-(** [] *)
-
-Definition smallest P :=
-  TF (exists TS, forall T, TS <: T <-> P T).
-
-(** **** Exercise: 3 stars, standard, optional (formal_smallest_1) *)
-Theorem formal_smallest_1:
-  smallest
-  (fun T =>
-   exists S t,
-     empty |-- <{ (\x:T, x x) t }> \in S).
-Proof.
-  (* FILL IN HERE *) Admitted.
-(** [] *)
-
-(** **** Exercise: 3 stars, standard, optional (formal_smallest_2) *)
-Theorem formal_smallest_2:
-  smallest
-  (fun T =>
-   empty |-- <{(\x:Top, x) ((\z:A, z), (\z:B, z))}> \in T).
-Proof.
-  (* FILL IN HERE *) Admitted.
-(** [] *)
 
 End FormalThoughtExercises.
 
 End STLCSub.
 
-(* 2024-01-03 15:04 *)
+(* 2024-08-25 08:25 *)

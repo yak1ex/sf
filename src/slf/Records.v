@@ -18,35 +18,34 @@ Implicit Type L : list val.
 (** * First Pass *)
 
 (** This chapter explains how to specify operations on ML-style records in
-    Separation Logic. In ML languages, a record is an allocated object whose
-    header field stores the number of fields of the record. Concretely, each
-    field is stored at a specific offset relative to the header. For example,
-    consider a mutable list cell allocated at location [p]. It is represented in
-    memory as:
+    Separation Logic. In ML-like languages, a record is an allocated object
+    whose header field stores the number of fields of the record. Concretely,
+    each field is stored at a specific offset relative to the header. For
+    example, consider a mutable list cell allocated at location [p]. It is
+    represented in memory as:
 
-    - a header at location [p], storing the number of fields, that is,
-      the value [2];
+    - a header at location [p], storing the number of fields, that is, the value
+      [2];
     - a cell at location [p+1], storing the contents of the head field,
     - a cell at location [p+2], storing the contents of the tail field.
 
     Thus, at a low level, such a record can be represented by the heap
     predicate: [(hheader 2 p) \* ((p+1) ~~> x) \* ((p+2) ~~> q)]. To avoid
-    exposing pointer arithmetic to the end-user, we introduce the predicate
+    exposing pointer arithmetic to the end user, we introduce the predicate
     [hfield p k v], written [p`.k ~~> v], to describe the contents of the field
     named [k] of the record at location [p].
 
-    This chapter starts by presenting the representation predicate [hfield], as
+    The chapter starts by presenting the representation predicate [hfield], as
     well as a higher-level predicate named [hrecord] for describing all fields
     at once. The second part of the chapter presents the specification of access
-    and allocation operations. The last part of the chapter explains how to
-    implement and verify these operations using block allocation and pointer
-    arithmetic. *)
+    and allocation operations. The last part explains how to implement and
+    verify these operations using block allocation and pointer arithmetic. *)
 
 (* ================================================================= *)
-(** ** Representation of Individual Records Fields *)
+(** ** Representation of Individual Record Fields *)
 
-(** Let us assume that each field name corresponds to a nonnegative offset. We
-    let [field] denote the type of field names, an alias for [nat]. *)
+(** Let us assume that each field name corresponds to a nonnegative offset. Let
+    [field] denote the type of field names, an alias for [nat]. *)
 
 Definition field : Type := nat.
 
@@ -64,19 +63,19 @@ Notation "p `. k '~~>' v" := (hfield p k v)
   (at level 32, k at level 0, no associativity,
    format "p `. k  '~~>'  v").
 
-(** To describe a list cell record, writing
-    [(hheader 2 p) \* (p`.head ~~> x) \* (p`.tail ~~> q)] is fairly verbose and
-    cumbersome to manipulate. To improve the situation, we introduce a generic
-    representation predicate for records. This predicate allows to describe the
-    same list cell much more concisely as [p ~~~>`{ head := x; tail := q }].
+(** Writing [(hheader 2 p) \* (p`.head ~~> x) \* (p`.tail ~~> q)] to describe a
+    list cell record is fairly verbose and cumbersome to manipulate. To improve
+    the situation, we introduce a generic representation predicate for records.
+    This predicate allows us to describe the same list cell much more concisely
+    as [p ~~~>`{ head := x; tail := q }].
 
     It what follows, we show how to implement this notation by introducing the
     heap predicates [hfields] and [hrecords]. These predicates will be used for
-    stating small-footprint specifications and large-footprint specifications
-    for record operations. *)
+    stating both small-footprint and large-footprint specifications for record
+    operations. *)
 
 (* ================================================================= *)
-(** ** Representation of Fields *)
+(** ** Representation of Sets of Fields *)
 
 (** A record field is described as the pair of a field and a value stored in
     this field. *)
@@ -87,7 +86,7 @@ Definition hrecord_field : Type := (field * val).
 
 Definition hrecord_fields : Type := list hrecord_field.
 
-(** We let the meta-variable [kvs] denote such lists. *)
+(** We let the meta-variable [kvs] range over such lists. *)
 
 Implicit Types kvs : hrecord_fields.
 
@@ -148,19 +147,19 @@ Open Scope val_scope.
     [n] exclusive.
 
     A permissive definition of [hrecord kvs p] would allow the fields from the
-    list [kvs] to be permuted arbitrarily. Yet, to avoid complications related
-    to permutations, we make in this course the simplifying assumptions that
-    fields are always listed in the order of their offsets.
+    list [kvs] to be permuted arbitrarily. However, to avoid complications
+    related to permutations, we make in this course the simplifying assumptions
+    that fields are always listed in the order of their offsets.
 
     The auxiliary predicate [maps_all_fields z kvs] asserts that the keys from
     the association list [kvs] correspond exactly to the sequence made of the
-    first [nb] natural numbers, that is, [0; 1; ...; n-1]. *)
+    first [n] natural numbers, that is, [0; 1; ...; n-1]. *)
 
 Definition maps_all_fields (n:nat) (kvs:hrecord_fields) : Prop :=
   LibList.map fst kvs = nat_seq 0 n.
 
 (** The predicate [hrecord kvs p] exploits [maps_all_fields n kvs] to relate the
-    value [nb] stored in the header with the association list [kvs] that
+    value [n] stored in the header with the association list [kvs] that
     describes the contents of the fields. *)
 
 Definition hrecord (kvs:hrecord_fields) (p:loc) : hprop :=
@@ -199,17 +198,20 @@ Lemma demo_hrecord_intro_elim : forall p x q,
 Proof using. intros. xchange hrecord_elim; simpl. Abort.
 
 (* ================================================================= *)
-(** ** Reading in Record Fields *)
+(** ** Reasoning about Reads from Record Fields *)
 
 Declare Scope trm_scope_ext.
 
 (** The read operation is described by an expression of the form
-    [val_get_field k p], where [k] denotes a field name, and where [p] denotes
-    the location of a record. Observe that [k] is not a program value of type
-    [val], but a name for a natural number. The expression [val_get_field] has
-    type [field -> val], and for a given field [k] the expression
-    [val_get_field k] is a value, which may be applied in the program syntax to
-    a pointer [p]. *)
+    [val_get_field k p], where [k] denotes a field name and [p] denotes the
+    location of a record.
+
+    Observe that [k] is _not_ a program value of type [val], but rather a name
+    for a natural number.
+
+    The expression [val_get_field] has type [field -> val], and for a given
+    field [k] the expression [val_get_field k] is a value, which may be applied
+    in the program syntax to a pointer [p]. *)
 
 Parameter val_get_field : field -> val.
 
@@ -234,9 +236,9 @@ Parameter triple_get_field : forall p k v,
 (** Second, the read operation [val_get_field] can be specified with respect to
     a list of fields, described in the form [hfields kvs p]. To that end, we
     introduce a function called [hfields_lookup] for extracting the value [v]
-    associated with a field [k] in a list of record fields [kvs]. Note: the
-    operation [hfields_lookup k kvs] returns a result of type [option val],
-    because we cannot presume that the field [k] occurs in [kvs]. *)
+    associated with a field [k] in a list of record fields [kvs]. Note that the
+    operation [hfields_lookup k kvs] returns an [option val], because we cannot
+    presume that the field [k] occurs in [kvs]. *)
 
 Fixpoint hfields_lookup (k:field) (kvs:hrecord_fields) : option val :=
   match kvs with
@@ -247,8 +249,7 @@ Fixpoint hfields_lookup (k:field) (kvs:hrecord_fields) : option val :=
   end.
 
 (** Under the assumption that [hfields_lookup k kvs] returns [Some v], the read
-    operation [val_get_field k p] is specified to return [v]. The corresponding
-    specification appears below. *)
+    operation [val_get_field k p] is specified to return [v]. *)
 
 Parameter triple_get_field_hfields : forall kvs p k v,
   hfields_lookup k kvs = Some v ->
@@ -256,10 +257,10 @@ Parameter triple_get_field_hfields : forall kvs p k v,
     (hfields kvs p)
     (fun r => \[r = v] \* hfields kvs p).
 
-(** Third and last, the read operation [val_get_field] can be specified with
-    respect to the predicate [hrecord kvs p], describing the full record,
-    including its header. The corresponding specification shown below follows a
-    similar pattern as the specification of [hfield]. *)
+(** Third, the read operation [val_get_field] can be specified with respect to
+    the predicate [hrecord kvs p], describing the full record, including its
+    header. The corresponding specification shown below follows a similar
+    pattern as the specification of [hfield]. *)
 
 Parameter triple_get_field_hrecord : forall kvs p k v,
   hfields_lookup k kvs = Some v ->
@@ -268,7 +269,7 @@ Parameter triple_get_field_hrecord : forall kvs p k v,
     (fun r => \[r = v] \* hrecord kvs p).
 
 (* ================================================================= *)
-(** ** Writing in Record Fields *)
+(** ** Reasoning about Writes To Record Fields *)
 
 (** The write operation is described by an expression of the form
     [val_set_field k p v], where [k] denotes a field name, and where [p] denotes
@@ -276,15 +277,14 @@ Parameter triple_get_field_hrecord : forall kvs p k v,
 
 Parameter val_set_field : field -> val.
 
-(** The write operation [val_get_field k p v] is abbreviated as [Set p`.k ':= v]
-    . *)
+(** The operation [val_set_field k p v] is abbreviated [Set p`.k ':= v]. *)
 
 Notation "t1 '`.' k ':=' t2" :=
   (val_set_field k t1 t2)
   (in custom trm at level 56, k at level 0, format "t1 '`.' k  ':=' t2")
   : trm_scope_ext.
 
-(** Like for the read operation, the write operation can be specified at three
+(** As for the read operation, the write operation can be specified at three
     levels. First, it may be specified at the level of an individual field. *)
 
 Parameter triple_set_field : forall v p k v',
@@ -295,6 +295,7 @@ Parameter triple_set_field : forall v p k v',
 (** Alternatively, it may be specified in terms of [hfields] or [hrecord], using
     an auxiliary function called [hrecord_update]. This function computes an
     updated list of fields to reflect the action of a write operation.
+
     Concretely, [hrecord_update k w kvs] replaces the contents of the field
     named [k] with the value [w]. It returns a description [kvs'] of the record
     fields, provided the update operation succeeded, i.e., provided that the
@@ -330,16 +331,18 @@ Parameter triple_set_field_hrecord : forall kvs kvs' k p v,
     (fun _ => hrecord kvs' p).
 
 (* ================================================================= *)
-(** ** Allocation of Records with Initializers *)
+(** ** Reasoning about Record Allocation with Initializers *)
 
 (** In ML, records may only be allocated by providing values to initialize every
-    fields. This allocation operation can be defined in an arity-generic way.
-    Yet, to avoid technicalities, we here present only its specialization for
-    arity 2. For example, the notation [`{ head := x; tail := q }] stands for
-    the term [(val_new_hrecord_2 head tail) x q]. Here, [val_new_hrecord_2] is a
-    Coq function that expects two names as argument, and produces a value. For
-    example, the expression [val_new_hrecord_2 head tail] is a value that may be
-    applied to two arguments in the program syntax. *)
+    field. This allocation operation can be defined in an arity-generic way.
+    However, to avoid technicalities, we here present only its specialization
+    for arity 2. For example, the notation [`{ head := x; tail := q }] stands
+    for the term [(val_new_hrecord_2 head tail) x q].
+
+    Here, [val_new_hrecord_2] is a Coq function that expects two names as
+    arguments and produces a value. For example, the expression
+    [val_new_hrecord_2 head tail] is a value that may be applied to two
+    arguments in the program syntax. *)
 
 Parameter val_new_hrecord_2 : field -> field -> val.
 
@@ -350,10 +353,10 @@ Notation "`{ k1 := v1 ; k2 := v2 }" :=
    v1, v2 at level 65).
 
 (** The record allocation operation [`{ k1 := v1 ; k2 := v2 }] is specified as
-    shown below. The premises [k1 = 0] and [k2 = 1] enforce the field names to
-    be provided in increasing order, starting from zero. The postcondition
+    follows. The premises [k1 = 0] and [k2 = 1] enforce the field names to be
+    provided in increasing order, starting from zero. The postcondition
     describes a record at address [p] using the predicate
-    [p ~~~> `{ k1 := v1 ; k2 := v2 }], which is a notation for
+    [p ~~~> `{ k1 := v1 ; k2 := v2 }], i.e.,
     [hrecord ((k1,v1)::(k2,v2)::nil) p]. *)
 
 Parameter triple_new_hrecord_2 : forall (k1 k2:field) (v1 v2:val),
@@ -375,9 +378,9 @@ Lemma triple_mcons : forall (x q:val),
     (funloc p => p ~~~> `{ head := x ; tail := q }).
 Proof using. intros. applys* triple_new_hrecord_2. Qed.
 
-(** This completes the presentation of the formalization of the mechanisms at
-    play for reasoning about records. These mechanisms were illustrated
-    throughout the chapter [Repr]. *)
+(** This completes the presentation of the formalization of the mechanisms for
+    reasoning about records. These mechanisms were illustrated throughout the
+    chapter [Repr]. *)
 
 (* ################################################################# *)
 (** * Optional Material *)
@@ -562,9 +565,9 @@ Qed.
     values can be implemented in two stages. The first function, named
     [val_alloc_hrecord], takes a list of [n] field names, and allocates a record
     with [n] fields, with contents specified as "uninitialized". The second
-    function, named [val_new_hrecord], takes [n] fields names and [n] values. It
+    function, named [val_new_hrecord], takes [n] field names and [n] values. It
     invokes the first function to allocate the record, then performs one write
-    per field, to store the provided values into the corresponding memory cells.
+    per field to store the provided values into the corresponding memory cells.
 
     The present section focuses on the first part, namely the allocation without
     initialization. The Coq value [val_alloc_hrecord ks] depends on a list of
@@ -577,8 +580,8 @@ Qed.
     fresh location [p], then sets the header cell to the value [n], then returns
     the address [p]. In the statement below, the expression
     [{LibListExec.length ks}] in braces computes in Coq the expression
-    [length ks], and insert the result as a constant integer in the code, that
-    is, as a value of the form [val_int (LibListExec.length ks)]. *)
+    [length ks], and inserts the result in the code as a constant integer --
+    that is, as a value of the form [val_int (LibListExec.length ks)]. *)
 
 Definition val_alloc_hrecord (ks:list field) : val :=
   <{ fun 'v =>
@@ -587,8 +590,8 @@ Definition val_alloc_hrecord (ks:list field) : val :=
        val_set 'p {LibListExec.length ks};
        'p }>.
 
-(** A key auxiliary result asserts that if [kvs] is a list of key-value pairs
-    such as the keys correspond to consecutive field names, then a list of
+(** A key auxiliary result asserts that, if [kvs] is a list of key-value pairs
+    such that the keys correspond to consecutive field names, then a list of
     fields described as [hfields kvs p] corresponds to a range of consecutive
     cells as described by [hrange (List.map snd kvs) (p+1)], for the definition
     of [hrange] given in [Arrays]. *)
@@ -650,13 +653,19 @@ Lemma triple_alloc_mcons :
   triple (val_alloc_hrecord (head::tail::nil) ())
     \[]
     (funloc p => p ~~~> `{ head := val_uninit ; tail := val_uninit }).
-Proof using. applys* triple_alloc_hrecord. Qed.
+Proof using.
+  dup.
+  { (* Detailed proof: *)
+    applys triple_alloc_hrecord. simpl. rew_listx. reflexivity. }
+  { (* Short proof: *)
+    applys* triple_alloc_hrecord. }
+Qed.
 
 (* ================================================================= *)
 (** ** Implementation of Record Allocation with Initialization *)
 
-(** We show the implementation of record initialization in the particular case
-    of records with exactly 2 fields. Recall that [val_new_hrecord_2 k1 k2]
+(** We now show the implementation of record initialization in the particular
+    case of records with exactly 2 fields. Recall that [val_new_hrecord_2 k1 k2]
     denotes a Coq value of type [val], which may be applied in the grammar of
     terms to two arguments, [x1] and [x2]. The definition below shows an
     implementation for [val_new_hrecord_2]. In this definition, the expression
@@ -723,9 +732,11 @@ Lemma xapp_get_field_lemma : forall H k p Q,
   H ==> wpgen_app (val_get_field k p) Q.
 Proof using.
   introv N. xchange N. intros kvs. cases (hfields_lookup k kvs).
-  { unfold wpgen_app. xsimpl. applys* triple_conseq_frame triple_get_field_hrecord.
+  { unfold wpgen_app. xsimpl.
+    applys* triple_conseq_frame triple_get_field_hrecord.
     { xsimpl. }
-    { xpull. intros r ->. xchange (qwand_specialize v). rewrite* hwand_hpure_l. } }
+    { xpull. intros r ->. xchange (qwand_specialize v).
+      rewrite* hwand_hpure_l. } }
   { xpull. }
 Qed.
 
@@ -742,7 +753,8 @@ Lemma xapp_set_field_lemma : forall H k p v Q,
   H ==> wpgen_app (val_set_field k p v) Q.
 Proof using.
   introv N. xchange N. intros kvs. cases (hfields_update k v kvs).
-  { unfold wpgen_app. xsimpl. applys* triple_conseq_frame triple_set_field_hrecord.
+  { unfold wpgen_app. xsimpl.
+    applys* triple_conseq_frame triple_set_field_hrecord.
     { xsimpl. }
     { xpull. intros r. xchange (qwand_specialize r). } }
   { xpull. }
@@ -758,4 +770,4 @@ Ltac xapp_nosubst_for_records tt ::=
 (** The above definition is the one used in [LibSepReference]. It was put to
     practice in the chapters [Basic] and [Repr]. *)
 
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 08:34 *)

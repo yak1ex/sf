@@ -1445,7 +1445,6 @@ Ltac xsimpl_step_lr tt :=
     | ?Hrg' => xsimpl_flip_acc_lr tt; apply xsimpl_lr_exit
   end end.
 
-  
 Ltac xsimpl_step cancel_wands :=
   first [ xsimpl_step_l cancel_wands
         | xsimpl_step_r tt
@@ -1487,6 +1486,12 @@ Tactic Notation "xsimpl" constr(X1) constr(X2) :=
   xsimpl (>> X1 X2).
 Tactic Notation "xsimpl" constr(X1) constr(X2) constr(X3) :=
   xsimpl (>> X1 X2 X3).
+  Tactic Notation "xsimpl" constr(X1) constr(X2) constr(X3) constr(X4):=
+  xsimpl (>> X1 X2 X3 X4).
+Tactic Notation "xsimpl" constr(X1) constr(X2) constr(X3) constr(X4) constr(X5) :=
+  xsimpl (>> X1 X2 X3 X4 X5).
+Tactic Notation "xsimpl" constr(X1) constr(X2) constr(X3) constr(X4) constr(X5) constr(X6) :=
+  xsimpl (>> X1 X2 X3 X4 X5 X6).
 
 Tactic Notation "xsimpl" "~" constr(L) :=
   xsimpl L; auto_tilde.
@@ -1494,6 +1499,12 @@ Tactic Notation "xsimpl" "~" constr(X1) constr(X2) :=
   xsimpl X1 X2; auto_tilde.
 Tactic Notation "xsimpl" "~" constr(X1) constr(X2) constr(X3) :=
   xsimpl X1 X2 X3; auto_tilde.
+Tactic Notation "xsimpl" "~" constr(X1) constr(X2) constr(X3) constr(X4):=
+  xsimpl X1 X2 X3 X4; auto_tilde.
+Tactic Notation "xsimpl" "~" constr(X1) constr(X2) constr(X3) constr(X4) constr(X5) :=
+  xsimpl X1 X2 X3 X4 X5; auto_tilde.
+Tactic Notation "xsimpl" "~" constr(X1) constr(X2) constr(X3) constr(X4) constr(X5) constr(X6) :=
+  xsimpl X1 X2 X3 X4 X5 X6; auto_tilde.
 
 Tactic Notation "xsimpl" "*" constr(L) :=
   xsimpl L; auto_star.
@@ -1501,6 +1512,12 @@ Tactic Notation "xsimpl" "*" constr(X1) constr(X2) :=
   xsimpl X1 X2; auto_star.
 Tactic Notation "xsimpl" "*" constr(X1) constr(X2) constr(X3) :=
   xsimpl X1 X2 X3; auto_star.
+Tactic Notation "xsimpl" "*" constr(X1) constr(X2) constr(X3) constr(X4):=
+  xsimpl X1 X2 X3 X4; auto_star.
+Tactic Notation "xsimpl" "*" constr(X1) constr(X2) constr(X3) constr(X4) constr(X5) :=
+  xsimpl X1 X2 X3 X4 X5; auto_star.
+Tactic Notation "xsimpl" "*" constr(X1) constr(X2) constr(X3) constr(X4) constr(X5) constr(X6) :=
+  xsimpl X1 X2 X3 X4 X5 X6; auto_star.
 
 (* ----------------------------------------------------------------- *)
 (** *** Tactic [xchange] *)
@@ -2009,4 +2026,4 @@ Qed.
 
 End XsimplSetup.
 
-(* 2024-01-03 14:19 *)
+(* 2024-08-25 08:34 *)
