@@ -13,23 +13,23 @@ Implicit Types x : val.
 (* ################################################################# *)
 (** * First Pass *)
 
-(** The previous chapter ([Basic]) has covered simple programs that
-    manipulate individual mutable cells. This chapter focuses on the
-    specification and verification of programs manipulating mutable data
-    structures such as lists and trees. In Separation Logic, tree-shaped data
-    structures are specified using "representation predicates".
+(** The previous chapter ([Basic]) covered simple programs that manipulate
+    individual mutable cells. This chapter focuses on the specification and
+    verification of programs manipulating mutable data structures like lists and
+    trees. In Separation Logic, such data structures are specified using
+    _representation predicates_.
 
     A representation predicate is a heap predicate that describes a mutable data
     structure. For example, the heap predicate [MList L p] describes a mutable
-    linked list whose head cell is at location [p], and whose elements are
+    linked list whose head cell is at location [p] and whose elements are
     described by the Coq list [L]. In this chapter, we will see how to define
-    [MList], and to use this predicate for specifying and verifying functions
+    [MList] and how to use this predicate for specifying and verifying functions
     that operate on mutable linked lists. We will also study representation
     predicates for mutable trees, as well as for counter functions, which
     feature an internal state.
 
     As explained in the [Preface], this chapter, like all the following
-    ones, is decomposed in three parts:
+    ones, is structured in three parts:
 
     - The _First Pass_ section presents the most important ideas only.
     - The _More Details_ section presents additional material explaining in more
@@ -42,12 +42,12 @@ Implicit Types x : val.
 
     - [xpull] to extract pure facts and quantifiers from the LHS of [==>].
     - [xchange] for exploiting transitivity of [==>].
-    - [xfun] to reason about a function definition.
-    - [xtriple] to establish a specification for an abstract function.
-    - [rew_list] is a TLC tactic used to normalize list expressions. *)
+    - [xfun] to reason about function definitions.
+    - [xtriple] to establish specifications for abstract functions.
+    - [rew_list] (a TLC tactic) to normalize list expressions. *)
 
 (* ================================================================= *)
-(** ** Formalization of the List Representation Predicate *)
+(** ** The List Representation Predicate *)
 
 (** The implementation of mutable lists and trees involves the use of records.
     For simplicity, field names are represented as natural numbers. For example,
@@ -69,11 +69,11 @@ Definition tail : field := 1%nat.
     the [null] value in its tail field.
 
     The heap predicate [MList L p] describes a list whose head cell is at
-    location [p], and whose elements are described by the list [L]. This
+    location [p] and whose elements are described by the list [L]. This
     predicate is defined recursively on the structure of [L].
 
     - If [L] is empty, then [p] is the null pointer.
-    - If [L] is of the form [x::L'], then [p] is not null, and the head field of
+    - If [L] is of the form [x::L'], then [p] is not null, the head field of
       [p] contains [x], and the tail field of [p] contains a pointer [q] such
       that [MList L' q] describes the tail of the list.
 
@@ -89,9 +89,9 @@ Fixpoint MList (L:list val) (p:loc) : hprop :=
 (** ** Alternative Characterizations of [MList] *)
 
 (** Carrying out proofs directly with [MList] can be slightly cumbersome, mainly
-    due to Coq's limited support for folding back definitions. We find it more
+    due to Coq's limited support for re-folding definitions. We find it more
     practical to explicitly state equalities that paraphrase the definition of
-    [MList]. There is one equality for the [nil] case, and one for the [cons]
+    [MList]. There is one equality for the [nil] case and one for the [cons]
     case. *)
 
 Lemma MList_nil : forall p,
@@ -106,7 +106,7 @@ Proof using. auto. Qed.
 (** In addition, it is also very useful in proofs to reformulate the definition
     of [MList L p] in the form of a case analysis on whether the pointer [p] is
     null or not. This corresponds to the programming pattern
-    [if p == null then ... else]. This alternative characterization of
+    [if p == null then ... else ...]. This alternative characterization of
     [MList L p] asserts the following.
 
     - If [p] is null, then [L] is empty.
@@ -117,7 +117,7 @@ Proof using. auto. Qed.
     The corresponding lemma, shown below, is stated using the
     [If P then X else Y] construction, which generalizes Coq's construction
     [if b then X else Y] to discriminate over a proposition [P] as opposed to a
-    boolean value [b]. The [If] construct leverages (strong) classical logic. It
+    boolean value [b]. The [If] construct leverages (strong) classical logic; it
     is provided by the TLC library. The tactic [case_if] is convenient for
     performing the case analysis on whether [P] is true or false. *)
 Lemma MList_if : forall (p:loc) (L:list val),
@@ -126,14 +126,14 @@ Lemma MList_if : forall (p:loc) (L:list val),
         then \[L = nil]
         else \exists x q L', \[L = x::L']
              \* (p ~~~> `{ head := x; tail := q}) \* (MList L' q)).
-(** The proof is a bit technical, it may be skipped over for a first reading. *)
+(** The proof is a bit technical: it may be skipped on a first reading. *)
 Proof using.
 (** Let's prove this result by case analysis on [L]. *)
   intros. destruct L as [|x L'].
 (** Case [L = nil]. By definition of [MList], we have [p = null]. To exploit
-    this property, we can execute [rewrite MList_nil], then invoke the CFML the
-    tactic [xpull] to extract the pure heap predicate [\[p = null]] from the
-    LHS. A more efficient approach is to leverage the CFML tactic [xchange], as
+    this fact, we can execute [rewrite MList_nil], then invoke the tactic
+    [xpull] to extract the pure heap predicate [\[p = null]] from the LHS. A
+    more efficient approach is to leverage the CFML tactic [xchange], as
     follows. *)
   { xchange MList_nil. (* Same as [rewrite MList_nil. xpull.] *)
     intros M.
@@ -142,14 +142,14 @@ Proof using.
     case_if. xsimpl. auto. }
 (** Case [L = x::L'].
 
-    To simplify [MList (x :: L') p], we could execute the tactics:
-    [rewrite MList_cons. xpull.] but, here again, using [xchange] leads to a
+    To simplify [MList (x :: L') p], we could execute the tactics
+    [rewrite MList_cons. xpull.], but, here again, using [xchange] leads to a
     more concise script. *)
     { xchange MList_cons. intros q.
 (** Because a record is allocated at location [p], the pointer [p] cannot be
-    null. The lemma [hrecord_not_null] allows us to exploit this property,
-    extracting the hypothesis [p <> null]. We use again the tactic [case_if] to
-    simplify the case analysis. *)
+    null. The library lemma [hrecord_not_null] allows us to exploit this
+    property, extracting the hypothesis [p <> null]. We use again the tactic
+    [case_if] to simplify the case analysis. *)
     xchange hrecord_not_null. intros N. case_if.
 (** To conclude, it suffices to correctly instantiate the existential
     quantifiers. The tactic [xsimpl] is able to guess the appropriate
@@ -160,16 +160,17 @@ Qed.
 (** Note that the reciprocal entailment to the one stated in [MList_if] is also
     true, but we do not need it so we do not bother proving it here. In the rest
     of the course, we will never unfold the definition [MList], but only work
-    using [MList_nil], [MList_cons], and [MList_if]. We make the definition of
-    [MList] opaque, preventing Coq from performing undesired simplifications. *)
+    with [MList_nil], [MList_cons], and [MList_if]. We therefore make the
+    definition of [MList] opaque to prevent Coq from performing undesired
+    simplifications. *)
 
 Global Opaque MList.
 
 (* ================================================================= *)
 (** ** In-place Concatenation of Two Mutable Lists *)
 
-(** The function [append] expects two arguments: a pointer [p1] on a nonempty
-    list, and a pointer [p2] on another list, possibly empty. The function
+(** The function [append] expects two arguments: a pointer [p1] to a nonempty
+    list, and a pointer [p2] to another list, possibly empty. The function
     updates the last cell from the first list in such a way that its tail points
     to the head cell of [p2]. After this operation, the pointer [p1] points to a
     list that corresponds to the concatenation of the two input lists.
@@ -192,7 +193,7 @@ Definition append : val :=
 
 (** The append function is specified and verified as shown below. The proof
     pattern is representative of that of many list-manipulating functions, so it
-    is essential that the reader follows through every step of this proof. *)
+    is essential that you follow through every step of this proof. *)
 
 Lemma triple_append : forall (L1 L2:list val) (p1 p2:loc),
   p1 <> null ->
@@ -200,7 +201,7 @@ Lemma triple_append : forall (L1 L2:list val) (p1 p2:loc),
     (MList L1 p1 \* MList L2 p2)
     (fun _ => MList (L1++L2) p1).
 Proof using.
-(** The induction principle provides an hypothesis for the tail of [L1].
+(** The induction principle provides a hypothesis for the tail of [L1].
     The predicate [list_sub L1' L1] asserts that [L1] decomposes as [x::L1']
     for some [x]. *)
   introv K. gen p1. induction_wf IH: list_sub L1. introv N. xwp.
@@ -211,10 +212,11 @@ Proof using.
   xapp. xapp. xif; intros Cq1.
 (** If [q1'] is null, then [L1'] is empty. *)
   { xchange (MList_if q1). case_if. xpull. intros ->.
-(** In this case, we reason about the assignement, then we fold back the head cell. *)
+(** In this case, we reason about the assignement, then we fold back the
+    head cell. *)
     xapp. xchange <- MList_cons. }
 (** Otherwise, if [q1'] is not null, we reason about the recursive call using
-    the induction hypothesis, then we fold back the head cell. *)
+    the induction hypothesis; then we re-fold the head cell. *)
   { xapp. xchange <- MList_cons. }
 Qed.
 
@@ -224,7 +226,7 @@ Qed.
 (** We next introduce two smart constructors for linked lists, called [mnil] and
     [mcons]. The operation [mnil()] creates an empty list. Its implementation
     simply returns the value [null]. Its specification asserts that the return
-    value is a pointer [p] such that [MList nil p] holds. *)
+    value is a pointer [p] such that [MList nil p]. *)
 
 Definition mnil : val :=
   <{ fun 'u =>
@@ -246,18 +248,18 @@ Proof using. xwp. xval. xchanges* <- (MList_nil null). Qed.
     low-level implementation details that involve the [null] pointer. *)
 
 (** The operation [mcons x q] creates a fresh list cell, with [x] in the head
-    field and [q] in the tail field. Its implementation allocates and
-    initializes a fresh record made of two fields. The allocation operation
-    leverages the allocation construct written [`{ head := 'x; tail := 'q }] in
-    the code. This construct is in fact a notation for a primitive operation
-    called [val_new_hrecord_2]. *)
+    field and [q] in the tail. Its implementation allocates and initializes a
+    fresh record made of two fields. The allocation operation leverages the
+    allocation construct written [`{ head := 'x; tail := 'q }] in the code. This
+    construct is in fact a notation for a primitive operation called
+    [val_new_hrecord_2]. *)
 
 Definition mcons : val :=
   <{ fun 'x 'q =>
        `{ head := 'x; tail := 'q } }>.
 
-(** The operation [mcons] admits two specifications. The first one describes
-    the production of record described using a record heap predicate. *)
+(** The operation [mcons] admits two specifications. The first one says that it
+    produces a record described with a record heap predicate. *)
 
 Lemma triple_mcons : forall x q,
   triple (mcons x q)
@@ -283,7 +285,7 @@ Qed.
 
 (** In practice, this second specification is more often useful than the first
     one, hence we register it in the database for [xapp]. It remains possible to
-    invoke [xapp triple_mcons] for exploiting the first specification, where
+    invoke [xapp triple_mcons] to exploit the first specification, where
     needed. *)
 
 #[global] Hint Resolve triple_mcons' : triple.
@@ -315,23 +317,19 @@ Definition mcopy : val :=
 
 (** The precondition of [mcopy] requires a linked list described as [MList L p].
     The postcondition asserts that the function returns a pointer [p'] and a
-    list described as [MList L p'], in addition to the original list [MList L p]
-    . The two lists are totally disjoint and independent, as captured by the
-    separating conjunction symbol (the star). *)
+    list described as [MList L p'], in addition to the original list
+    [MList L p]. The two lists are totally disjoint and independent, as
+    captured by the separating conjunction symbol (the star). *)
 
 Lemma triple_mcopy : forall L p,
   triple (mcopy p)
     (MList L p)
     (funloc p' => (MList L p) \* (MList L p')).
-(** The proof is structure is like the previous ones. While playing the script,
-    try to spot the places where:
-
-    - [mnil] produces an empty list of the form [MList nil p'],
-    - the recursive call produces a list of the form [MList L' q'],
-    - [mcons] produces a list of the form [MList (x::L') p'].
-
-*)
-
+(** The proof structure is like the previous ones. While playing the script,
+    try to spot the places where
+      - [mnil] produces an empty list of the form [MList nil p'],
+      - the recursive call produces a list of the form [MList L' q'], and
+      - [mcons] produces a list of the form [MList (x::L') p']. *)
 Proof using.
   intros. gen p. induction_wf IH: list_sub L.
   xwp. xapp. xchange MList_if. xif; intros C; case_if; xpull.
@@ -341,7 +339,7 @@ Proof using.
 Qed.
 
 (** When entering the first branch of the proof after the case analysis, Coq
-    reports on two hypotheses [p = null]. Actually, these two hypotheses are
+    reports two hypotheses [p = null]. Actually, these two hypotheses are
     slightly different. Using [Set Printing Coercions.] reveals their true type:
     [val_loc p = val_loc null] and [p = null]. Thus, only the second hypothesis
     can be used for a substitution or rewrite operation. *)
@@ -371,7 +369,7 @@ Definition mlength : val :=
 (** **** Exercise: 3 stars, standard, especially useful (triple_mlength)
 
     Prove the correctness of the function [mlength]. Hint: use the TLC tactic
-    [rew_list] to normalize list expressions, in particular to prove
+    [rew_list] to normalize list expressions -- in particular, to prove
     [length L' + 1 = length (x :: L')]. *)
 
 Lemma triple_mlength : forall L p,
@@ -1325,8 +1323,7 @@ Proof using. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(* ================================================================= *)
-(** ** A Continuation-Passing-Style, Factorial Function *)
+(** ** A Factorial Function in Continuation-Passing Style*)
 
 (** This section and the next one present examples of functions involving
     "continuations". As a warm-up, we first consider consider a function that
@@ -1401,7 +1398,7 @@ Proof using. (* FILL IN HERE *) Admitted.
 (** [] *)
 
 (* ================================================================= *)
-(** ** A Continuation-Passing-Style, In-Place Concatenation Function *)
+(** ** An In-Place Concatenation Function in Continuation-Passing Style *)
 
 (** This section presents an example verification of a function involving
     "continuations". The function [cps_append] is similar to the function
@@ -1495,11 +1492,11 @@ Proof using. (* FILL IN HERE *) Admitted.
 (* ================================================================= *)
 (** ** Historical Notes *)
 
-(** The representation predicate for lists appears in the seminal papers on
-    Separation Logic: the notes by Reynolds from the summer 1999, updated the
-    next summer [Reynolds 2000] (in Bib.v), and the publication by
-    [O’Hearn, Reynolds, and Yang 2001] (in Bib.v). The function [cps_append] was
-    proposed in Reynolds's article as an open challenge for verification.
+(** The representation predicate for lists appears in the seminal publications
+    on Separation Logic: the notes by Reynolds from the summer 1999, updated the
+    next summer [Reynolds 2000] (in Bib.v), and the paper by [O’Hearn, Reynolds,
+    and Yang 2001] (in Bib.v). The function [cps_append] was proposed in Reynolds's article
+    as an open challenge for verification.
 
     The specification of higher-order iterators requires higher-order Separation
     Logic. Being embedded in the higher-order logic of Coq, the Separation Logic
@@ -1507,4 +1504,4 @@ Proof using. (* FILL IN HERE *) Admitted.
     history of higher-order Separation Logic for higher-order programs may be
     found in the companion course notes, linked in the [Preface]. *)
 
-(* 2023-11-29 09:22 *)
+(* 2024-01-03 14:46 *)

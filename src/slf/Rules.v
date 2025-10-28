@@ -928,4 +928,4 @@ End ExamplePrograms2.
     (Isabelle/HOL, Coq, PVS, HOL4, HOL). For a detailed list, we refer to the
     last chapter of the companion notes, linked from the [Preface]. *)
 
-(* 2023-11-29 09:22 *)
+(* 2024-01-03 14:19 *)

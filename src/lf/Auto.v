@@ -249,25 +249,22 @@ Theorem ceval_deterministic': forall c st st1 st2,
 Proof.
   intros c st st1 st2 E1 E2.
   generalize dependent st2;
-       induction E1; intros st2 E2; inversion E2; subst; auto.
+    induction E1; intros st2 E2; inversion E2; subst;
+    auto.   (* <---- here's one good place for auto *)
   - (* E_Seq *)
     rewrite (IHE1_1 st'0 H1) in *.
-    auto.
-  - (* E_IfTrue *)
-    + (* b evaluates to false (contradiction) *)
-      rewrite H in H5. discriminate.
-  - (* E_IfFalse *)
-    + (* b evaluates to true (contradiction) *)
-      rewrite H in H5. discriminate.
-  - (* E_WhileFalse *)
-    + (* b evaluates to true (contradiction) *)
-      rewrite H in H2. discriminate.
-  (* E_WhileTrue *)
-  - (* b evaluates to false (contradiction) *)
+    auto.   (* <---- here's another *)
+  - (* E_IfTrue -- contradiction! *)
+    rewrite H in H5. discriminate.
+  - (* E_IfFalse -- contradiction! *)
+    rewrite H in H5. discriminate.
+  - (* E_WhileFalse -- contradiction! *)
+    rewrite H in H2. discriminate.
+  - (* E_WhileTrue, with b false -- contradiction! *)
     rewrite H in H4. discriminate.
-  - (* b evaluates to true *)
+  - (* E_WhileTrue, with b true *)
     rewrite (IHE1_1 st'0 H3) in *.
-    auto.
+    auto.   (* <---- and another *)
 Qed.
 
 (** When we are using a particular tactic many times in a proof, we
@@ -288,19 +285,15 @@ Proof with auto.
            intros st2 E2; inversion E2; subst...
   - (* E_Seq *)
     rewrite (IHE1_1 st'0 H1) in *...
-  - (* E_IfTrue *)
-    + (* b evaluates to false (contradiction) *)
-      rewrite H in H5. discriminate.
-  - (* E_IfFalse *)
-    + (* b evaluates to true (contradiction) *)
-      rewrite H in H5. discriminate.
-  - (* E_WhileFalse *)
-    + (* b evaluates to true (contradiction) *)
-      rewrite H in H2. discriminate.
-  (* E_WhileTrue *)
-  - (* b evaluates to false (contradiction) *)
+  - (* E_IfTrue -- contradiction! *)
+    rewrite H in H5. discriminate.
+  - (* E_IfFalse -- contradiction! *)
+    rewrite H in H5. discriminate.
+  - (* E_WhileFalse -- contradiction! *)
+    rewrite H in H2. discriminate.
+  - (* E_WhileTrue, with b false -- contradiction! *)
     rewrite H in H4. discriminate.
-  - (* b evaluates to true *)
+  - (* E_WhileTrue, with b true *)
     rewrite (IHE1_1 st'0 H3) in *...
 Qed.
 
@@ -344,18 +337,14 @@ Proof.
     rewrite (IHE1_1 st'0 H1) in *.
     auto.
   - (* E_IfTrue *)
-    + (* b evaluates to false (contradiction) *)
       rwd H H5.
   - (* E_IfFalse *)
-    + (* b evaluates to true (contradiction) *)
       rwd H H5.
   - (* E_WhileFalse *)
-    + (* b evaluates to true (contradiction) *)
       rwd H H2.
-  (* E_WhileTrue *)
-  - (* b evaluates to false (contradiction) *)
+  - (* E_WhileTrue - b false *)
     rwd H H4.
-  - (* b evaluates to true *)
+  - (* EWhileTrue - b true *)
     rewrite (IHE1_1 st'0 H3) in *.
     auto. Qed.
 
@@ -390,10 +379,9 @@ Proof.
   - (* E_Seq *)
     rewrite (IHE1_1 st'0 H1) in *.
     auto.
-  - (* E_WhileTrue *)
-    + (* b evaluates to true *)
-      rewrite (IHE1_1 st'0 H3) in *.
-      auto. Qed.
+  - (* E_WhileTrue - b true *)
+    rewrite (IHE1_1 st'0 H3) in *.
+    auto. Qed.
 
 (** Let's see about the remaining cases. Each of them involves
     rewriting a hypothesis after feeding it with the required
@@ -752,4 +740,4 @@ Proof.
   intros P Q HP HQ. destruct HP as [y HP']. eauto.
 Qed.
 
-(* 2023-10-10 11:34 *)
+(* 2023-12-29 17:12 *)

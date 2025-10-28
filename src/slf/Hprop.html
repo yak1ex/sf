@@ -47,9 +47,9 @@
  The first two chapters have illustrated how to specify and verify programs
     using Separation Logic. The purpose of the coming chapters is to explain how
     to formally assign meaning to the tokens used in the statement of
-    specifications (e.g., the star operator), to formally define the notion of
-    Separation Triples, and to prove the reasoning rules of Separation Logic.
-    These reasoning rules are exploited by the "x-tactics" used in the first two
+    specifications (e.g., the star operator), formally define the notion of
+    Separation Triples, and prove the reasoning rules of Separation Logic.
+    These rules are exploited by the "x-tactics" used in the first two
     chapters.
 
 <div class="paragraph"> </div>
@@ -72,8 +72,8 @@
 <li> <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> denotes the separating conjunction,
 
 </li>
-<li> <span class="inlinecode"><span class="id" title="var">Q<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*+</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> denotes the separating conjunction,
-                   between a postcondition and a heap predicate,
+<li> <span class="inlinecode"><span class="id" title="var">Q<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*+</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> denotes the separating conjunction between a
+                  postcondition and a heap predicate,
 
 </li>
 <li> <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">H</span></span> denotes an existential quantifier.
@@ -90,7 +90,7 @@
 <div class="paragraph"> </div>
 
     In Separation Logic, specifications are expressed using "heap predicates",
-    which are predicates over heaps, of type <span class="inlinecode"><span class="id" title="var">heap</span>→<span class="id" title="keyword">Prop</span></span>. We let <span class="inlinecode"><span class="id" title="var">hprop</span></span> be a
+    predicates over heaps, of type <span class="inlinecode"><span class="id" title="var">heap</span>→<span class="id" title="keyword">Prop</span></span>. We define <span class="inlinecode"><span class="id" title="var">hprop</span></span> to be a
     shorthand for that type.
 
 <div class="paragraph"> </div>
@@ -116,17 +116,17 @@
 
 <div class="paragraph"> </div>
 
- To reason about imperative programs, Separation Logic relies on "heap
-    predicates" for describing memory state. As its names suggests, a "heap
+ To reason about imperative programs, Separation Logic relies on heap
+    predicates for describing memory states. As the name suggests, a "heap
     predicate" is a predicate over heaps, i.e., over memory states. Heap
     predicates such as <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">n</span></span>, or <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> admit the type <span class="inlinecode"><span class="id" title="var">state</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>,
     where the type <span class="inlinecode"><span class="id" title="var">state</span></span> corresponds to a finite map used to describe the
     contents of the memory. In what follows, we give the formal definition of
-    <span class="inlinecode"><span class="id" title="var">state</span></span>, and of the type of heap predicates. 
+    <span class="inlinecode"><span class="id" title="var">state</span></span> and of the type of heap predicates. 
 <div class="paragraph"> </div>
 
  In the previous chapters, we have assumed a type <span class="inlinecode"><span class="id" title="var">val</span></span> to range over program
-    values, and a type <span class="inlinecode"><span class="id" title="var">loc</span></span> to denote memory locations. Concrete definitions
+    values and a type <span class="inlinecode"><span class="id" title="var">loc</span></span> to denote memory locations. Concrete definitions
     will be provided later on, in chapter <a href="Rules.html"><span class="inlineref">Rules</span></a>. At this point, we are
     interested in the definition of the type <span class="inlinecode"><span class="id" title="var">state</span></span>, used to describe the
     contents of the memory during the execution of a program. 
@@ -144,7 +144,7 @@
 </div>
 
 <div class="doc">
-By convention, we use the type <span class="inlinecode"><span class="id" title="var">state</span></span> describes a "full" state of memory,
+By convention, we use the type <span class="inlinecode"><span class="id" title="var">state</span></span> to describe a "full" memory state,
     and we use an alias, the type <span class="inlinecode"><span class="id" title="var">heap</span></span>, to describe a "piece of" state. 
 </div>
 <div class="code">
@@ -154,8 +154,7 @@ By convention, we use the type <span class="inlinecode"><span class="id" title="
 
 <div class="doc">
 The file <span class="inlinecode"><span class="id" title="var">LibSepReference</span></span> introduces the module name <span class="inlinecode"><span class="id" title="var">Fmap</span></span> as a shorthand
-    for <span class="inlinecode"><span class="id" title="var">LibSepFmap</span></span>. The key operations associated with finite maps are the
-    following:
+    for <span class="inlinecode"><span class="id" title="var">LibSepFmap</span></span>. The key operations associated with finite maps are:
 
 <div class="paragraph"> </div>
 
@@ -177,7 +176,7 @@ The file <span class="inlinecode"><span class="id" title="var">LibSepReference</
 
 <div class="paragraph"> </div>
 
-    Note that the union operation is commutative only when its two arguments
+    Note that the union operation is commutative only when its arguments
     have disjoint domains. Throughout the course, we only consider disjoint
     unions, for which commutativity holds. 
 </div>
@@ -197,7 +196,7 @@ The file <span class="inlinecode"><span class="id" title="var">LibSepReference</
 </div>
 
 <div class="doc">
-Thereafter, let <span class="inlinecode"><span class="id" title="var">H</span></span> range over heap predicates. 
+<span class="inlinecode"><span class="id" title="var">H</span></span> ranges over heap predicates. 
 </div>
 <div class="code">
 
@@ -215,8 +214,8 @@ An essential aspect of Separation Logic is that all heap predicates defined
     throughout the first two chapters. 
 <div class="paragraph"> </div>
 
- The <span class="inlinecode"><span class="id" title="var">hempty</span></span> predicate, usually written <span class="inlinecode"><span class='gray-font'>\</span>[]</span>, characterizes an empty state.
-    
+ The <span class="inlinecode"><span class="id" title="var">hempty</span></span> predicate, usually written <span class="inlinecode"><span class='gray-font'>\</span>[]</span>, characterizes an empty
+    state. 
 </div>
 <div class="code">
 
@@ -249,7 +248,7 @@ The singleton heap predicate, written <span class="inlinecode"><span class="id" 
 
 <div class="doc">
 The "separating conjunction", written <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span>, characterizes a state that
-    can be decomposed in two disjoint parts, one that satisfies <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span>, and
+    can be decomposed in two disjoint parts, one that satisfies <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> and
     another that satisfies <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span>. In the definition below, the two parts are
     named <span class="inlinecode"><span class="id" title="var">h<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" title="var">h<sub>2</sub></span></span>. 
 </div>
@@ -257,16 +256,16 @@ The "separating conjunction", written <span class="inlinecode"><span class="id" 
 
 <span class="id" title="keyword">Definition</span> <a id="hstar" class="idref" href="#hstar"><span class="id" title="definition">hstar</span></a> (<a id="H<sub>1</sub>:7" class="idref" href="#H<sub>1</sub>:7"><span class="id" title="binder">H<sub>1</sub></span></a> <a id="H<sub>2</sub>:8" class="idref" href="#H<sub>2</sub>:8"><span class="id" title="binder">H<sub>2</sub></span></a> : <a class="idref" href="Hprop.html#hprop"><span class="id" title="definition">hprop</span></a>) : <a class="idref" href="Hprop.html#hprop"><span class="id" title="definition">hprop</span></a> :=<br/>
 &nbsp;&nbsp;<span class="id" title="keyword">fun</span> (<a id="h:9" class="idref" href="#h:9"><span class="id" title="binder">h</span></a>:<a class="idref" href="Hprop.html#heap"><span class="id" title="definition">heap</span></a>) ⇒ <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="h<sub>1</sub>:10" class="idref" href="#h<sub>1</sub>:10"><span class="id" title="binder">h<sub>1</sub></span></a> <a id="h<sub>2</sub>:11" class="idref" href="#h<sub>2</sub>:11"><span class="id" title="binder">h<sub>2</sub></span></a><a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="Hprop.html#H<sub>1</sub>:7"><span class="id" title="variable">H<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:8"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="LibSepReference.html#Fmap.disjoint"><span class="id" title="definition">Fmap.disjoint</span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="Hprop.html#h:9"><span class="id" title="variable">h</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="LibSepReference.html#Fmap.union"><span class="id" title="definition">Fmap.union</span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a>.<br/><hr class='doublespaceincode'/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="Hprop.html#H<sub>2</sub>:8"><span class="id" title="variable">H<sub>2</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="LibSepReference.html#Fmap.disjoint"><span class="id" title="definition">Fmap.disjoint</span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="Hprop.html#h:9"><span class="id" title="variable">h</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="LibSepReference.html#Fmap.union"><span class="id" title="definition">Fmap.union</span></a> <a class="idref" href="Hprop.html#h<sub>1</sub>:10"><span class="id" title="variable">h<sub>1</sub></span></a> <a class="idref" href="Hprop.html#h<sub>2</sub>:11"><span class="id" title="variable">h<sub>2</sub></span></a>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Notation</span> <a id="1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>" class="idref" href="#1c2e0971edf6e9b6c6dd4a5951d04f<sub>36</sub>"><span class="id" title="notation">&quot;</span></a>H<sub>1</sub> '<span class='gray-font'>\</span>*' H<sub>2</sub>" := (<a class="idref" href="Hprop.html#hstar"><span class="id" title="definition">hstar</span></a> <span class="id" title="var">H<sub>1</sub></span> <span class="id" title="var">H<sub>2</sub></span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 41, <span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>).<br/>
 </div>
 
 <div class="doc">
 The existential quantifier for heap predicates, written <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">H</span></span>
     characterizes a heap that satisfies <span class="inlinecode"><span class="id" title="var">H</span></span> for some <span class="inlinecode"><span class="id" title="var">x</span></span>. The variable <span class="inlinecode"><span class="id" title="var">x</span></span> has
-    type <span class="inlinecode"><span class="id" title="var">A</span></span>, for some arbitrary type <span class="inlinecode"><span class="id" title="var">A</span></span>.
+    type <span class="inlinecode"><span class="id" title="var">A</span></span>, for some arbitrary <span class="inlinecode"><span class="id" title="var">A</span></span>.
 
 <div class="paragraph"> </div>
 
@@ -275,7 +274,7 @@ The existential quantifier for heap predicates, written <span class="inlinecode"
 
 <div class="paragraph"> </div>
 
-    The definition of <span class="inlinecode"><span class="id" title="var">hexists</span></span> is a bit technical. It is not essential to
+    The definition of <span class="inlinecode"><span class="id" title="var">hexists</span></span> is a bit technical, and it is not essential to
     master it at this point. Additional explanations are provided near the end
     of this chapter. 
 </div>
@@ -290,16 +289,16 @@ The existential quantifier for heap predicates, written <span class="inlinecode"
 </div>
 
 <div class="doc">
-Universal quantification in <span class="inlinecode"><span class="id" title="var">hprop</span></span> is only useful for more advanced
-    features of Separation Logic. We postpone its introduction to chapter
-    <a href="Wand.html"><span class="inlineref">Wand</span></a>. 
+Universal quantification in <span class="inlinecode"><span class="id" title="var">hprop</span></span> is also possible, but it is only
+    useful for more advanced features of Separation Logic. We postpone its
+    introduction to chapter <a href="Wand.html"><span class="inlineref">Wand</span></a>. 
 <div class="paragraph"> </div>
 
- All the definitions above are eventually turned <span class="inlinecode"><span class="id" title="keyword">Opaque</span></span>, after the
-    appropriate introduction and elimination lemmas are established for them.
-    Thus, at some point it is no longer possible to execute, say, <span class="inlinecode"><span class="id" title="tactic">unfold</span></span> <span class="inlinecode"><span class="id" title="var">hstar</span></span>
-    . Opacity is essential to ensures that proofs do not depend on the details
-    of how the definitions of heap predicates are set up. 
+ All the definitions above will eventually be made <span class="inlinecode"><span class="id" title="keyword">Opaque</span></span>, after the
+    appropriate introduction and elimination lemmas have been established,
+    making it no longer possible to execute, say, <span class="inlinecode"><span class="id" title="tactic">unfold</span></span> <span class="inlinecode"><span class="id" title="var">hstar</span></span>. Opacity is
+    essential to ensure that proofs do not depend on the details of the
+    definitions. 
 </div>
 
 <div class="doc">
@@ -380,10 +379,10 @@ More information about extensionality axioms may be found near the end of
 </div>
 
 <div class="doc">
-(3) The empty heap predicate is a neutral for the star. Because star is
-    commutative, it is equivalent to state that <span class="inlinecode"><span class="id" title="var">hempty</span></span> is a left or a right
-    neutral for <span class="inlinecode"><span class="id" title="var">hstar</span></span>. We chose, arbitrarily, to state the left-neutral
-    property. 
+(3) The empty heap predicate is a neutral element for the star. Because star
+    is commutative, it is equivalent to state that <span class="inlinecode"><span class="id" title="var">hempty</span></span> is a left or a right
+    neutral element for <span class="inlinecode"><span class="id" title="var">hstar</span></span>. We choose, arbitrarily, to state the
+    left-neutrality property. 
 </div>
 <div class="code">
 
@@ -416,7 +415,7 @@ More information about extensionality axioms may be found near the end of
 <div class="paragraph"> </div>
 
  A specification takes the form <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span>, where <span class="inlinecode"><span class="id" title="var">t</span></span> is a term, <span class="inlinecode"><span class="id" title="var">H</span></span> is a
-    precondition of type <span class="inlinecode"><span class="id" title="var">hprop</span></span>, and <span class="inlinecode"><span class="id" title="var">Q</span></span> is the postcondition. For example, a
+    precondition of type <span class="inlinecode"><span class="id" title="var">hprop</span></span>, and <span class="inlinecode"><span class="id" title="var">Q</span></span> is a postcondition. For example, a
     read at location <span class="inlinecode"><span class="id" title="var">p</span></span>, written <span class="inlinecode">!<span class="id" title="var">p</span></span> in OCaml, is specified as:
     <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode">&lt;{</span> <span class="inlinecode">!<span class="id" title="var">p</span></span> <span class="inlinecode">}&gt;</span> <span class="inlinecode">(<span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">v</span>)</span> <span class="inlinecode">(<span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">r</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode">(<span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">v</span>)</span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class='gray-font'>\</span>[<span class="id" title="var">r</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">v</span>])</span>.
 
@@ -424,8 +423,7 @@ More information about extensionality axioms may be found near the end of
 
     In general, a postcondition has type <span class="inlinecode"><span class="id" title="var">val</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">hprop</span></span>, which is equivalent to
     <span class="inlinecode"><span class="id" title="var">val</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">state</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="keyword">Prop</span></span>. The postcondition thereby capture the properties of
-    both the output value and the output state. Thereafter, we let <span class="inlinecode"><span class="id" title="var">Q</span></span> range
-    over postconditions. 
+    both the output value and the output state. 
 </div>
 <div class="code">
 
@@ -433,10 +431,11 @@ More information about extensionality axioms may be found near the end of
 </div>
 
 <div class="doc">
-One common operation is to augment a postcondition with a piece of state.
-    This operation is described by the operator <span class="inlinecode"><span class="id" title="var">Q</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*+</span> <span class="inlinecode"><span class="id" title="var">H</span></span>, which is just a
-    convenient notation for <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode">(<span class="id" title="var">Q</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H</span>)</span>. We will use this operator in
-    particular in the statement of the frame rule in the next chapter. 
+One common operation is augmenting a postcondition with a description of
+    another piece of state.  This operation is written as <span class="inlinecode"><span class="id" title="var">Q</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*+</span> <span class="inlinecode"><span class="id" title="var">H</span></span>, which is
+    just a convenient notation for <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode">(<span class="id" title="var">Q</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class='gray-font'>\</span>*</span> <span class="inlinecode"><span class="id" title="var">H</span>)</span>. We will use this
+    operator in particular in the statement of the frame rule in the next
+    chapter. 
 </div>
 <div class="code">
 
@@ -445,12 +444,12 @@ One common operation is to augment a postcondition with a piece of state.
 
 <div class="doc">
 Intuitively, in order to prove that two postconditions <span class="inlinecode"><span class="id" title="var">Q<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" title="var">Q<sub>2</sub></span></span> are
-    equal, it suffices to show that the heap predicates <span class="inlinecode"><span class="id" title="var">Q<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> and <span class="inlinecode"><span class="id" title="var">Q<sub>2</sub></span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> (both
-    of type <span class="inlinecode"><span class="id" title="var">hprop</span></span>) are equal for any value <span class="inlinecode"><span class="id" title="var">v</span></span>.
+    equal, it suffices to show that the heap predicates <span class="inlinecode"><span class="id" title="var">Q<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> and <span class="inlinecode"><span class="id" title="var">Q<sub>2</sub></span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> are
+    equal for any value <span class="inlinecode"><span class="id" title="var">v</span></span>.
 
 <div class="paragraph"> </div>
 
-    Again, the extensionality property that we need is not built-in to Coq. We
+    Again, the extensionality property that we need is not built into Coq. We
     need another axiom called "functional extensionality". 
 </div>
 <div class="code">
@@ -461,7 +460,7 @@ Intuitively, in order to prove that two postconditions <span class="inlinecode">
 </div>
 
 <div class="doc">
-The desired equality property for postconditions follows directly from that
+The desired equality property for postconditions follows directly from this
     axiom. 
 </div>
 <div class="code">
@@ -481,11 +480,11 @@ The desired equality property for postconditions follows directly from that
     definitions of heap predicates. They include "introduction lemmas" for
     proving goals of the form <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">h</span></span>, and "inversion lemmas" for extracting
     information from hypotheses of the form <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">h</span></span>. These lemmas will be
-    pervasively exploited in the next chapters for establishing reasoning rules.
-    
+    pervasively exploited in the next chapters for establishing reasoning
+    rules. 
 <div class="paragraph"> </div>
 
- Thereafter, to improve readability of statements in proofs, we introduce the
+ Hereafter, to improve readability of statements in proofs, we introduce the
     following notation for heap union. 
 </div>
 <div class="code">
@@ -801,7 +800,7 @@ Unfold the defnition of <span class="inlinecode"><span class="id" title="var">st
 <div class="paragraph"> </div>
 
  In what follows, we discuss alternative, equivalent definitions for the
-    fundamental heap predicates. We write these equivalence using equalities of
+    fundamental heap predicates. We write these equivalences using equalities of
     the form <span class="inlinecode"><span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span>. Recall that the lemma <span class="inlinecode"><span class="id" title="var">hprop_eq</span></span> enables deriving such
     equalities by invoking predicate extensionality. 
 <div class="paragraph"> </div>
@@ -860,11 +859,11 @@ Thus, <span class="inlinecode"><span class="id" title="var">hpure</span></span> 
 
 <div class="doc">
 It is useful to minimize the number of combinators, both for elegance and to
-    reduce the proof effort. We cannot do without <span class="inlinecode"><span class="id" title="var">hexists</span></span>, thus there remains
+    reduce proof effort. We cannot do without <span class="inlinecode"><span class="id" title="var">hexists</span></span>, thus there remains
     a choice between considering either <span class="inlinecode"><span class="id" title="var">hpure</span></span> or <span class="inlinecode"><span class="id" title="var">hempty</span></span> as primitive, and
     the other one as derived. The predicate <span class="inlinecode"><span class="id" title="var">hempty</span></span> is simpler and appears as
     more fundamental. Hence, in the subsequent chapters (and in the CFML tool),
-    we define <span class="inlinecode"><span class="id" title="var">hpure</span></span> in terms of <span class="inlinecode"><span class="id" title="var">hexists</span></span> and <span class="inlinecode"><span class="id" title="var">hempty</span></span>, like in the definition
+    we define <span class="inlinecode"><span class="id" title="var">hpure</span></span> in terms of <span class="inlinecode"><span class="id" title="var">hexists</span></span> and <span class="inlinecode"><span class="id" title="var">hempty</span></span>, as in the definition
     of <span class="inlinecode"><span class="id" title="var">hpure'</span></span> shown above. In other words, we assume the definition:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;<span class="id" title="keyword">Definition</span> <span class="id" title="var">hpure</span> (<span class="id" title="var">P</span>:<span class="id" title="keyword">Prop</span>) : <span class="id" title="var">hprop</span> :=<br/>
@@ -941,8 +940,8 @@ To establish extensionality of entailment, we have used the predicate
 </div>
 
 <div class="doc">
-The axiom of "functional extensionality" asserts that two functions are
-    equal if they provide equal result for every argument. 
+The axiom of "functional extensionality", as we saw above, asserts that two
+    functions are equal if they provide equal result for every argument. 
 </div>
 <div class="code">
 
@@ -953,9 +952,8 @@ The axiom of "functional extensionality" asserts that two functions are
 
 <div class="doc">
 <a id="lab112"></a><h4 class="section">Exercise: 1 star, standard, especially useful (predicate_extensionality_derived)</h4>
- Using the two axioms <span class="inlinecode"><span class="id" title="var">propositional_extensionality</span></span> and
-    <span class="inlinecode"><span class="id" title="var">functional_extensionality</span></span>, show how to derive <span class="inlinecode"><span class="id" title="var">predicate_extensionality</span></span>.
-    
+ Use <span class="inlinecode"><span class="id" title="var">propositional_extensionality</span></span> and <span class="inlinecode"><span class="id" title="var">functional_extensionality</span></span> to derive
+    <span class="inlinecode"><span class="id" title="var">predicate_extensionality</span></span>. 
 </div>
 <div class="code">
 
@@ -988,7 +986,7 @@ The axiom of "functional extensionality" asserts that two functions are
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2023-11-29&nbsp;09:22&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-01-03&nbsp;14:46&nbsp;*)</span><br/>
 </div>
 </div>
 

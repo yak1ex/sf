@@ -49,19 +49,19 @@
 
 <div class="paragraph"> </div>
 
- The previous chapter (<a href="Basic.html"><span class="inlineref">Basic</span></a>) has covered simple programs that
-    manipulate individual mutable cells. This chapter focuses on the
-    specification and verification of programs manipulating mutable data
-    structures such as lists and trees. In Separation Logic, tree-shaped data
-    structures are specified using "representation predicates".
+ The previous chapter (<a href="Basic.html"><span class="inlineref">Basic</span></a>) covered simple programs that manipulate
+    individual mutable cells. This chapter focuses on the specification and
+    verification of programs manipulating mutable data structures like lists and
+    trees. In Separation Logic, such data structures are specified using
+    <i>representation predicates</i>.
 
 <div class="paragraph"> </div>
 
     A representation predicate is a heap predicate that describes a mutable data
     structure. For example, the heap predicate <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> describes a mutable
-    linked list whose head cell is at location <span class="inlinecode"><span class="id" title="var">p</span></span>, and whose elements are
+    linked list whose head cell is at location <span class="inlinecode"><span class="id" title="var">p</span></span> and whose elements are
     described by the Coq list <span class="inlinecode"><span class="id" title="var">L</span></span>. In this chapter, we will see how to define
-    <span class="inlinecode"><span class="id" title="var">MList</span></span>, and to use this predicate for specifying and verifying functions
+    <span class="inlinecode"><span class="id" title="var">MList</span></span> and how to use this predicate for specifying and verifying functions
     that operate on mutable linked lists. We will also study representation
     predicates for mutable trees, as well as for counter functions, which
     feature an internal state.
@@ -69,7 +69,7 @@
 <div class="paragraph"> </div>
 
     As explained in the <a href="Preface.html"><span class="inlineref">Preface</span></a>, this chapter, like all the following
-    ones, is decomposed in three parts:
+    ones, is structured in three parts:
 
 <div class="paragraph"> </div>
 
@@ -101,20 +101,20 @@
 <li> <span class="inlinecode"><span class="id" title="var">xchange</span></span> for exploiting transitivity of <span class="inlinecode">==&gt;</span>.
 
 </li>
-<li> <span class="inlinecode"><span class="id" title="var">xfun</span></span> to reason about a function definition.
+<li> <span class="inlinecode"><span class="id" title="var">xfun</span></span> to reason about function definitions.
 
 </li>
-<li> <span class="inlinecode"><span class="id" title="var">xtriple</span></span> to establish a specification for an abstract function.
+<li> <span class="inlinecode"><span class="id" title="var">xtriple</span></span> to establish specifications for abstract functions.
 
 </li>
-<li> <span class="inlinecode"><span class="id" title="var">rew_list</span></span> is a TLC tactic used to normalize list expressions. 
+<li> <span class="inlinecode"><span class="id" title="var">rew_list</span></span> (a TLC tactic) to normalize list expressions. 
 
 </li>
 </ul>
 </div>
 
 <div class="doc">
-<a id="lab48"></a><h2 class="section">Formalization of the List Representation Predicate</h2>
+<a id="lab48"></a><h2 class="section">The List Representation Predicate</h2>
 
 <div class="paragraph"> </div>
 
@@ -146,7 +146,7 @@ The heap predicate <span class="inlinecode"><span class="id" title="var">p</span
 <div class="paragraph"> </div>
 
     The heap predicate <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> describes a list whose head cell is at
-    location <span class="inlinecode"><span class="id" title="var">p</span></span>, and whose elements are described by the list <span class="inlinecode"><span class="id" title="var">L</span></span>. This
+    location <span class="inlinecode"><span class="id" title="var">p</span></span> and whose elements are described by the list <span class="inlinecode"><span class="id" title="var">L</span></span>. This
     predicate is defined recursively on the structure of <span class="inlinecode"><span class="id" title="var">L</span></span>.
 
 <div class="paragraph"> </div>
@@ -155,7 +155,7 @@ The heap predicate <span class="inlinecode"><span class="id" title="var">p</span
 <li> If <span class="inlinecode"><span class="id" title="var">L</span></span> is empty, then <span class="inlinecode"><span class="id" title="var">p</span></span> is the null pointer.
 
 </li>
-<li> If <span class="inlinecode"><span class="id" title="var">L</span></span> is of the form <span class="inlinecode"><span class="id" title="var">x</span>::<span class="id" title="var">L'</span></span>, then <span class="inlinecode"><span class="id" title="var">p</span></span> is not null, and the head field of
+<li> If <span class="inlinecode"><span class="id" title="var">L</span></span> is of the form <span class="inlinecode"><span class="id" title="var">x</span>::<span class="id" title="var">L'</span></span>, then <span class="inlinecode"><span class="id" title="var">p</span></span> is not null, the head field of
       <span class="inlinecode"><span class="id" title="var">p</span></span> contains <span class="inlinecode"><span class="id" title="var">x</span></span>, and the tail field of <span class="inlinecode"><span class="id" title="var">p</span></span> contains a pointer <span class="inlinecode"><span class="id" title="var">q</span></span> such
       that <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L'</span></span> <span class="inlinecode"><span class="id" title="var">q</span></span> describes the tail of the list.
 
@@ -181,9 +181,9 @@ The heap predicate <span class="inlinecode"><span class="id" title="var">p</span
 <div class="paragraph"> </div>
 
  Carrying out proofs directly with <span class="inlinecode"><span class="id" title="var">MList</span></span> can be slightly cumbersome, mainly
-    due to Coq's limited support for folding back definitions. We find it more
+    due to Coq's limited support for re-folding definitions. We find it more
     practical to explicitly state equalities that paraphrase the definition of
-    <span class="inlinecode"><span class="id" title="var">MList</span></span>. There is one equality for the <span class="inlinecode"><span class="id" title="var">nil</span></span> case, and one for the <span class="inlinecode"><span class="id" title="var">cons</span></span>
+    <span class="inlinecode"><span class="id" title="var">MList</span></span>. There is one equality for the <span class="inlinecode"><span class="id" title="var">nil</span></span> case and one for the <span class="inlinecode"><span class="id" title="var">cons</span></span>
     case. 
 </div>
 <div class="code">
@@ -201,7 +201,7 @@ The heap predicate <span class="inlinecode"><span class="id" title="var">p</span
 In addition, it is also very useful in proofs to reformulate the definition
     of <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> in the form of a case analysis on whether the pointer <span class="inlinecode"><span class="id" title="var">p</span></span> is
     null or not. This corresponds to the programming pattern
-    <span class="inlinecode"><span class="id" title="keyword">if</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">==</span> <span class="inlinecode"><span class="id" title="var">null</span></span> <span class="inlinecode"><span class="id" title="keyword">then</span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" title="keyword">else</span></span>. This alternative characterization of
+    <span class="inlinecode"><span class="id" title="keyword">if</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">==</span> <span class="inlinecode"><span class="id" title="var">null</span></span> <span class="inlinecode"><span class="id" title="keyword">then</span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" title="keyword">else</span></span> <span class="inlinecode">...</span>. This alternative characterization of
     <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> asserts the following.
 
 <div class="paragraph"> </div>
@@ -222,7 +222,7 @@ In addition, it is also very useful in proofs to reformulate the definition
     The corresponding lemma, shown below, is stated using the
     <span class="inlinecode"><span class="id" title="var">If</span></span> <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode"><span class="id" title="keyword">then</span></span> <span class="inlinecode"><span class="id" title="var">X</span></span> <span class="inlinecode"><span class="id" title="keyword">else</span></span> <span class="inlinecode"><span class="id" title="var">Y</span></span> construction, which generalizes Coq's construction
     <span class="inlinecode"><span class="id" title="keyword">if</span></span> <span class="inlinecode"><span class="id" title="var">b</span></span> <span class="inlinecode"><span class="id" title="keyword">then</span></span> <span class="inlinecode"><span class="id" title="var">X</span></span> <span class="inlinecode"><span class="id" title="keyword">else</span></span> <span class="inlinecode"><span class="id" title="var">Y</span></span> to discriminate over a proposition <span class="inlinecode"><span class="id" title="var">P</span></span> as opposed to a
-    boolean value <span class="inlinecode"><span class="id" title="var">b</span></span>. The <span class="inlinecode"><span class="id" title="var">If</span></span> construct leverages (strong) classical logic. It
+    boolean value <span class="inlinecode"><span class="id" title="var">b</span></span>. The <span class="inlinecode"><span class="id" title="var">If</span></span> construct leverages (strong) classical logic; it
     is provided by the TLC library. The tactic <span class="inlinecode"><span class="id" title="var">case_if</span></span> is convenient for
     performing the case analysis on whether <span class="inlinecode"><span class="id" title="var">P</span></span> is true or false. 
 </div>
@@ -236,7 +236,7 @@ In addition, it is also very useful in proofs to reformulate the definition
 </div>
 
 <div class="doc">
-The proof is a bit technical, it may be skipped over for a first reading. 
+The proof is a bit technical: it may be skipped on a first reading. 
 </div>
 <div class="code">
 <span class="id" title="keyword">Proof</span> <span class="id" title="keyword">using</span>.<br/>
@@ -251,9 +251,9 @@ Let's prove this result by case analysis on <span class="inlinecode"><span class
 
 <div class="doc">
 Case <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">nil</span></span>. By definition of <span class="inlinecode"><span class="id" title="var">MList</span></span>, we have <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">null</span></span>. To exploit
-    this property, we can execute <span class="inlinecode"><span class="id" title="tactic">rewrite</span></span> <span class="inlinecode"><span class="id" title="var">MList_nil</span></span>, then invoke the CFML the
-    tactic <span class="inlinecode"><span class="id" title="var">xpull</span></span> to extract the pure heap predicate <span class="inlinecode"><span class='gray-font'>\</span>[<span class="id" title="var">p</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">null</span>]</span> from the
-    LHS. A more efficient approach is to leverage the CFML tactic <span class="inlinecode"><span class="id" title="var">xchange</span></span>, as
+    this fact, we can execute <span class="inlinecode"><span class="id" title="tactic">rewrite</span></span> <span class="inlinecode"><span class="id" title="var">MList_nil</span></span>, then invoke the tactic
+    <span class="inlinecode"><span class="id" title="var">xpull</span></span> to extract the pure heap predicate <span class="inlinecode"><span class='gray-font'>\</span>[<span class="id" title="var">p</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">null</span>]</span> from the LHS. A
+    more efficient approach is to leverage the CFML tactic <span class="inlinecode"><span class="id" title="var">xchange</span></span>, as
     follows. 
 </div>
 <div class="code">
@@ -270,8 +270,8 @@ We have to justify <span class="inlinecode"><span class="id" title="var">L</span
 </div>
 
 <div class="doc">
-Case <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">x</span>::<span class="id" title="var">L'</span></span>.  To simplify <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode">(<span class="id" title="var">x</span></span> <span class="inlinecode">::</span> <span class="inlinecode"><span class="id" title="var">L'</span>)</span> <span class="inlinecode"><span class="id" title="var">p</span></span>, we could execute the tactics:
-    <span class="inlinecode"><span class="id" title="tactic">rewrite</span></span> <span class="inlinecode"><span class="id" title="var">MList_cons</span>.</span> <span class="inlinecode"><span class="id" title="var">xpull</span>.</span> but, here again, using <span class="inlinecode"><span class="id" title="var">xchange</span></span> leads to a
+Case <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">x</span>::<span class="id" title="var">L'</span></span>.  To simplify <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode">(<span class="id" title="var">x</span></span> <span class="inlinecode">::</span> <span class="inlinecode"><span class="id" title="var">L'</span>)</span> <span class="inlinecode"><span class="id" title="var">p</span></span>, we could execute the tactics
+    <span class="inlinecode"><span class="id" title="tactic">rewrite</span></span> <span class="inlinecode"><span class="id" title="var">MList_cons</span>.</span> <span class="inlinecode"><span class="id" title="var">xpull</span>.</span>, but, here again, using <span class="inlinecode"><span class="id" title="var">xchange</span></span> leads to a
     more concise script. 
 </div>
 <div class="code">
@@ -280,9 +280,9 @@ Case <span class="inlinecode"><span class="id" title="var">L</span></span> <span
 
 <div class="doc">
 Because a record is allocated at location <span class="inlinecode"><span class="id" title="var">p</span></span>, the pointer <span class="inlinecode"><span class="id" title="var">p</span></span> cannot be
-    null. The lemma <span class="inlinecode"><span class="id" title="var">hrecord_not_null</span></span> allows us to exploit this property,
-    extracting the hypothesis <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">≠</span> <span class="inlinecode"><span class="id" title="var">null</span></span>. We use again the tactic <span class="inlinecode"><span class="id" title="var">case_if</span></span> to
-    simplify the case analysis. 
+    null. The library lemma <span class="inlinecode"><span class="id" title="var">hrecord_not_null</span></span> allows us to exploit this
+    property, extracting the hypothesis <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">≠</span> <span class="inlinecode"><span class="id" title="var">null</span></span>. We use again the tactic
+    <span class="inlinecode"><span class="id" title="var">case_if</span></span> to simplify the case analysis. 
 </div>
 <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">xchange</span> <a class="idref" href="LibSepReference.html#hrecord_not_null"><span class="id" title="axiom">hrecord_not_null</span></a>. <span class="id" title="tactic">intros</span> <span class="id" title="var">N</span>. <span class="id" title="var">case_if</span>.<br/>
@@ -302,8 +302,9 @@ To conclude, it suffices to correctly instantiate the existential
 Note that the reciprocal entailment to the one stated in <span class="inlinecode"><span class="id" title="var">MList_if</span></span> is also
     true, but we do not need it so we do not bother proving it here. In the rest
     of the course, we will never unfold the definition <span class="inlinecode"><span class="id" title="var">MList</span></span>, but only work
-    using <span class="inlinecode"><span class="id" title="var">MList_nil</span></span>, <span class="inlinecode"><span class="id" title="var">MList_cons</span></span>, and <span class="inlinecode"><span class="id" title="var">MList_if</span></span>. We make the definition of
-    <span class="inlinecode"><span class="id" title="var">MList</span></span> opaque, preventing Coq from performing undesired simplifications. 
+    with <span class="inlinecode"><span class="id" title="var">MList_nil</span></span>, <span class="inlinecode"><span class="id" title="var">MList_cons</span></span>, and <span class="inlinecode"><span class="id" title="var">MList_if</span></span>. We therefore make the
+    definition of <span class="inlinecode"><span class="id" title="var">MList</span></span> opaque to prevent Coq from performing undesired
+    simplifications. 
 </div>
 <div class="code">
 
@@ -315,8 +316,8 @@ Note that the reciprocal entailment to the one stated in <span class="inlinecode
 
 <div class="paragraph"> </div>
 
- The function <span class="inlinecode"><span class="id" title="var">append</span></span> expects two arguments: a pointer <span class="inlinecode"><span class="id" title="var">p<sub>1</sub></span></span> on a nonempty
-    list, and a pointer <span class="inlinecode"><span class="id" title="var">p<sub>2</sub></span></span> on another list, possibly empty. The function
+ The function <span class="inlinecode"><span class="id" title="var">append</span></span> expects two arguments: a pointer <span class="inlinecode"><span class="id" title="var">p<sub>1</sub></span></span> to a nonempty
+    list, and a pointer <span class="inlinecode"><span class="id" title="var">p<sub>2</sub></span></span> to another list, possibly empty. The function
     updates the last cell from the first list in such a way that its tail points
     to the head cell of <span class="inlinecode"><span class="id" title="var">p<sub>2</sub></span></span>. After this operation, the pointer <span class="inlinecode"><span class="id" title="var">p<sub>1</sub></span></span> points to a
     list that corresponds to the concatenation of the two input lists.
@@ -343,7 +344,7 @@ Note that the reciprocal entailment to the one stated in <span class="inlinecode
 <div class="doc">
 The append function is specified and verified as shown below. The proof
     pattern is representative of that of many list-manipulating functions, so it
-    is essential that the reader follows through every step of this proof. 
+    is essential that you follow through every step of this proof. 
 </div>
 <div class="code">
 
@@ -356,7 +357,7 @@ The append function is specified and verified as shown below. The proof
 </div>
 
 <div class="doc">
-The induction principle provides an hypothesis for the tail of <span class="inlinecode"><span class="id" title="var">L<sub>1</sub></span></span>.
+The induction principle provides a hypothesis for the tail of <span class="inlinecode"><span class="id" title="var">L<sub>1</sub></span></span>.
     The predicate <span class="inlinecode"><span class="id" title="var">list_sub</span></span> <span class="inlinecode"><span class="id" title="var">L<sub>1</sub>'</span></span> <span class="inlinecode"><span class="id" title="var">L<sub>1</sub></span></span> asserts that <span class="inlinecode"><span class="id" title="var">L<sub>1</sub></span></span> decomposes as <span class="inlinecode"><span class="id" title="var">x</span>::<span class="id" title="var">L<sub>1</sub>'</span></span>
     for some <span class="inlinecode"><span class="id" title="var">x</span></span>. 
 </div>
@@ -387,7 +388,8 @@ If <span class="inlinecode"><span class="id" title="var">q<sub>1</sub>'</span></
 </div>
 
 <div class="doc">
-In this case, we reason about the assignement, then we fold back the head cell. 
+In this case, we reason about the assignement, then we fold back the
+    head cell. 
 </div>
 <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">xapp</span>. <span class="id" title="var">xchange</span> &lt;- <a class="idref" href="Repr.html#MList_cons"><span class="id" title="lemma">MList_cons</span></a>. }<br/>
@@ -395,7 +397,7 @@ In this case, we reason about the assignement, then we fold back the head cell.
 
 <div class="doc">
 Otherwise, if <span class="inlinecode"><span class="id" title="var">q<sub>1</sub>'</span></span> is not null, we reason about the recursive call using
-    the induction hypothesis, then we fold back the head cell. 
+    the induction hypothesis; then we re-fold the head cell. 
 </div>
 <div class="code">
 &nbsp;&nbsp;{ <span class="id" title="var">xapp</span>. <span class="id" title="var">xchange</span> &lt;- <a class="idref" href="Repr.html#MList_cons"><span class="id" title="lemma">MList_cons</span></a>. }<br/>
@@ -410,7 +412,7 @@ Otherwise, if <span class="inlinecode"><span class="id" title="var">q<sub>1</sub
  We next introduce two smart constructors for linked lists, called <span class="inlinecode"><span class="id" title="var">mnil</span></span> and
     <span class="inlinecode"><span class="id" title="var">mcons</span></span>. The operation <span class="inlinecode"><span class="id" title="var">mnil</span>()</span> creates an empty list. Its implementation
     simply returns the value <span class="inlinecode"><span class="id" title="var">null</span></span>. Its specification asserts that the return
-    value is a pointer <span class="inlinecode"><span class="id" title="var">p</span></span> such that <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">nil</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> holds. 
+    value is a pointer <span class="inlinecode"><span class="id" title="var">p</span></span> such that <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">nil</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span>. 
 </div>
 <div class="code">
 
@@ -440,11 +442,11 @@ An important aspect of the specification <span class="inlinecode"><span class="i
 <div class="paragraph"> </div>
 
  The operation <span class="inlinecode"><span class="id" title="var">mcons</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">q</span></span> creates a fresh list cell, with <span class="inlinecode"><span class="id" title="var">x</span></span> in the head
-    field and <span class="inlinecode"><span class="id" title="var">q</span></span> in the tail field. Its implementation allocates and
-    initializes a fresh record made of two fields. The allocation operation
-    leverages the allocation construct written <span class="inlinecode">`{</span> <span class="inlinecode"><span class="id" title="var">head</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">'<span class="id" title="var">x</span>;</span> <span class="inlinecode"><span class="id" title="var">tail</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">'<span class="id" title="var">q</span></span> <span class="inlinecode">}</span> in
-    the code. This construct is in fact a notation for a primitive operation
-    called <span class="inlinecode"><span class="id" title="var">val_new_hrecord_2</span></span>. 
+    field and <span class="inlinecode"><span class="id" title="var">q</span></span> in the tail. Its implementation allocates and initializes a
+    fresh record made of two fields. The allocation operation leverages the
+    allocation construct written <span class="inlinecode">`{</span> <span class="inlinecode"><span class="id" title="var">head</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">'<span class="id" title="var">x</span>;</span> <span class="inlinecode"><span class="id" title="var">tail</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">'<span class="id" title="var">q</span></span> <span class="inlinecode">}</span> in the code. This
+    construct is in fact a notation for a primitive operation called
+    <span class="inlinecode"><span class="id" title="var">val_new_hrecord_2</span></span>. 
 </div>
 <div class="code">
 
@@ -454,8 +456,8 @@ An important aspect of the specification <span class="inlinecode"><span class="i
 </div>
 
 <div class="doc">
-The operation <span class="inlinecode"><span class="id" title="var">mcons</span></span> admits two specifications. The first one describes
-    the production of record described using a record heap predicate. 
+The operation <span class="inlinecode"><span class="id" title="var">mcons</span></span> admits two specifications. The first one says that it
+    produces a record described with a record heap predicate. 
 </div>
 <div class="code">
 
@@ -489,7 +491,7 @@ The second specification asserts that <span class="inlinecode"><span class="id" 
 <div class="doc">
 In practice, this second specification is more often useful than the first
     one, hence we register it in the database for <span class="inlinecode"><span class="id" title="var">xapp</span></span>. It remains possible to
-    invoke <span class="inlinecode"><span class="id" title="var">xapp</span></span> <span class="inlinecode"><span class="id" title="var">triple_mcons</span></span> for exploiting the first specification, where
+    invoke <span class="inlinecode"><span class="id" title="var">xapp</span></span> <span class="inlinecode"><span class="id" title="var">triple_mcons</span></span> to exploit the first specification, where
     needed. 
 </div>
 <div class="code">
@@ -530,9 +532,9 @@ In practice, this second specification is more often useful than the first
 <div class="doc">
 The precondition of <span class="inlinecode"><span class="id" title="var">mcopy</span></span> requires a linked list described as <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span>.
     The postcondition asserts that the function returns a pointer <span class="inlinecode"><span class="id" title="var">p'</span></span> and a
-    list described as <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p'</span></span>, in addition to the original list <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span>
-    . The two lists are totally disjoint and independent, as captured by the
-    separating conjunction symbol (the star). 
+    list described as <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p'</span></span>, in addition to the original list
+    <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span>. The two lists are totally disjoint and independent, as
+    captured by the separating conjunction symbol (the star). 
 </div>
 <div class="code">
 
@@ -543,29 +545,21 @@ The precondition of <span class="inlinecode"><span class="id" title="var">mcopy<
 </div>
 
 <div class="doc">
-The proof is structure is like the previous ones. While playing the script,
-    try to spot the places where:
-
-<div class="paragraph"> </div>
-
+The proof structure is like the previous ones. While playing the script,
+    try to spot the places where
 <ul class="doclist">
 <li> <span class="inlinecode"><span class="id" title="var">mnil</span></span> produces an empty list of the form <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">nil</span></span> <span class="inlinecode"><span class="id" title="var">p'</span></span>,
 
 </li>
-<li> the recursive call produces a list of the form <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L'</span></span> <span class="inlinecode"><span class="id" title="var">q'</span></span>,
+<li> the recursive call produces a list of the form <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode"><span class="id" title="var">L'</span></span> <span class="inlinecode"><span class="id" title="var">q'</span></span>, and
 
 </li>
-<li> <span class="inlinecode"><span class="id" title="var">mcons</span></span> produces a list of the form <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode">(<span class="id" title="var">x</span>::<span class="id" title="var">L'</span>)</span> <span class="inlinecode"><span class="id" title="var">p'</span></span>.
+<li> <span class="inlinecode"><span class="id" title="var">mcons</span></span> produces a list of the form <span class="inlinecode"><span class="id" title="var">MList</span></span> <span class="inlinecode">(<span class="id" title="var">x</span>::<span class="id" title="var">L'</span>)</span> <span class="inlinecode"><span class="id" title="var">p'</span></span>. 
 
 </li>
 </ul>
-
-<div class="paragraph"> </div>
-
-
 </div>
 <div class="code">
-
 <span class="id" title="keyword">Proof</span> <span class="id" title="keyword">using</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="var">gen</span> <span class="id" title="var">p</span>. <span class="id" title="var">induction_wf</span> <span class="id" title="var">IH</span>: <span class="id" title="inductive">list_sub</span> <span class="id" title="var">L</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="var">xwp</span>. <span class="id" title="var">xapp</span>. <span class="id" title="var">xchange</span> <a class="idref" href="Repr.html#MList_if"><span class="id" title="lemma">MList_if</span></a>. <span class="id" title="var">xif</span>; <span class="id" title="tactic">intros</span> <span class="id" title="var">C</span>; <span class="id" title="var">case_if</span>; <span class="id" title="var">xpull</span>.<br/>
@@ -577,7 +571,7 @@ The proof is structure is like the previous ones. While playing the script,
 
 <div class="doc">
 When entering the first branch of the proof after the case analysis, Coq
-    reports on two hypotheses <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">null</span></span>. Actually, these two hypotheses are
+    reports two hypotheses <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">null</span></span>. Actually, these two hypotheses are
     slightly different. Using <span class="inlinecode"><span class="id" title="keyword">Set</span></span> <span class="inlinecode"><span class="id" title="keyword">Printing</span></span> <span class="inlinecode"><span class="id" title="var">Coercions</span>.</span> reveals their true type:
     <span class="inlinecode"><span class="id" title="var">val_loc</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">val_loc</span></span> <span class="inlinecode"><span class="id" title="var">null</span></span> and <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">null</span></span>. Thus, only the second hypothesis
     can be used for a substitution or rewrite operation. 
@@ -613,7 +607,7 @@ When entering the first branch of the proof after the case analysis, Coq
 <div class="doc">
 <a id="lab54"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (triple_mlength)</h4>
  Prove the correctness of the function <span class="inlinecode"><span class="id" title="var">mlength</span></span>. Hint: use the TLC tactic
-    <span class="inlinecode"><span class="id" title="var">rew_list</span></span> to normalize list expressions, in particular to prove
+    <span class="inlinecode"><span class="id" title="var">rew_list</span></span> to normalize list expressions -- in particular, to prove
     <span class="inlinecode"><span class="id" title="var">length</span></span> <span class="inlinecode"><span class="id" title="var">L'</span></span> <span class="inlinecode">+</span> <span class="inlinecode">1</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">length</span></span> <span class="inlinecode">(<span class="id" title="var">x</span></span> <span class="inlinecode">::</span> <span class="inlinecode"><span class="id" title="var">L'</span>)</span>. 
 </div>
 <div class="code">
@@ -1810,7 +1804,7 @@ The specification of <span class="inlinecode"><span class="id" title="var">miter
 
 
 <div class="doc">
-<a id="lab83"></a><h2 class="section">A Continuation-Passing-Style, Factorial Function</h2>
+<a id="lab83"></a><h2 class="section">A Factorial Function in Continuation-Passing Style</h2>
 
 <div class="paragraph"> </div>
 
@@ -1897,7 +1891,7 @@ The specification of <span class="inlinecode"><span class="id" title="var">miter
 
 
 <div class="doc">
-<a id="lab86"></a><h2 class="section">A Continuation-Passing-Style, In-Place Concatenation Function</h2>
+<a id="lab86"></a><h2 class="section">An In-Place Concatenation Function in Continuation-Passing Style</h2>
 
 <div class="paragraph"> </div>
 
@@ -2014,11 +2008,11 @@ The goal is to establish the following specification for <span class="inlinecode
 
 <div class="paragraph"> </div>
 
- The representation predicate for lists appears in the seminal papers on
-    Separation Logic: the notes by Reynolds from the summer 1999, updated the
-    next summer <a href="Bib.html#Reynolds-2000"><span class="inlineref">[Reynolds 2000]</span></a>, and the publication by
-    <a href="Bib.html#O’Hearn,-Reynolds, and Yang 2001"><span class="inlineref">[O’Hearn, Reynolds, and Yang 2001]</span></a>. The function <span class="inlinecode"><span class="id" title="var">cps_append</span></span> was
-    proposed in Reynolds's article as an open challenge for verification.
+ The representation predicate for lists appears in the seminal publications
+    on Separation Logic: the notes by Reynolds from the summer 1999, updated the
+    next summer <a href="Bib.html#Reynolds-2000"><span class="inlineref">[Reynolds 2000]</span></a>, and the paper by \CITE{O’Hearn, Reynolds,
+    and Yang 2001}. The function <span class="inlinecode"><span class="id" title="var">cps_append</span></span> was proposed in Reynolds's article
+    as an open challenge for verification.
 
 <div class="paragraph"> </div>
 
@@ -2030,7 +2024,7 @@ The goal is to establish the following specification for <span class="inlinecode
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2023-11-29&nbsp;09:22&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-01-03&nbsp;14:46&nbsp;*)</span><br/>
 </div>
 </div>
 

@@ -848,4 +848,4 @@ End EntailmentRulesProofs.
     http://www.chargueraud.org/research/2020/seq_seplogic/seq_seplogic.pdf *)
 
 
-(* 2023-11-29 09:22 *)
+(* 2024-01-03 14:19 *)

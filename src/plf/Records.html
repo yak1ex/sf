@@ -46,14 +46,15 @@
 
 <div class="paragraph"> </div>
 
- We saw in chapter <a href="MoreStlc.html"><span class="inlineref">MoreStlc</span></a> how records can be treated as just
-    syntactic sugar for nested uses of products.  This is OK for
+ We saw in chapter <a href="MoreStlc.html"><span class="inlineref">MoreStlc</span></a> how records can be treated as
+    just syntactic sugar for nested uses of products.  This is OK for
     simple examples, but the encoding is informal (in reality, if we
-    actually treated records this way, it would be carried out in the
-    parser, which we are eliding here), and anyway it is not very
-    efficient.  So it is also interesting to see how records can be
-    treated as first-class citizens of the language.  This chapter
-    shows how.
+    actually treated records this way, the translation would be
+    carried out in the parser, which we are eliding here), and anyway
+    it is not very efficient, nor does it lead to nice error messages
+    for programs that the typechecker rejects.  So it is also
+    interesting to see how records can be treated as first-class
+    citizens of the language.  This chapter shows how.
 
 <div class="paragraph"> </div>
 
@@ -442,8 +443,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
     projection rule. 
 </div>
 <div class="code">
-
-<span class="id" title="keyword">Reserved Notation</span> &quot;t '<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:6%;'><span style='letter-spacing:-.2em;'>-</span><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>' t'" (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40).<br/><hr class='doublespaceincode'/>
+<hr class='doublespaceincode'/>
 <span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.step" class="idref" href="#STLCExtendedRecords.step"><span class="id" title="inductive">step</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.ST_AppAbs" class="idref" href="#STLCExtendedRecords.ST_AppAbs"><span class="id" title="constructor">ST_AppAbs</span></a> : <span class="id" title="keyword">∀</span> <a id="x:45" class="idref" href="#x:45"><span class="id" title="binder">x</span></a> <a id="T<sub>2</sub>:46" class="idref" href="#T<sub>2</sub>:46"><span class="id" title="binder">T<sub>2</sub></span></a> <a id="t<sub>1</sub>:47" class="idref" href="#t<sub>1</sub>:47"><span class="id" title="binder">t<sub>1</sub></span></a> <a id="v<sub>2</sub>:48" class="idref" href="#v<sub>2</sub>:48"><span class="id" title="binder">v<sub>2</sub></span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#STLCExtendedRecords.value"><span class="id" title="inductive">value</span></a> <a class="idref" href="Records.html#v<sub>2</sub>:48"><span class="id" title="variable">v<sub>2</sub></span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
@@ -513,8 +513,8 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 &nbsp;&nbsp;| <span class="id" title="var">_</span> ⇒ <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#None"><span class="id" title="constructor">None</span></a><br/>
 &nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Definition</span> <a id="STLCExtendedRecords.context" class="idref" href="#STLCExtendedRecords.context"><span class="id" title="definition">context</span></a> := <span class="id" title="definition">partial_map</span> <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Reserved Notation</span> &quot;Gamma '<span class="nowrap">&vert;--</span>' t '&#x2208;' T" (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">t</span> <span class="id" title="var">custom</span> <span class="id" title="var">stlc</span>, <span class="id" title="var">T</span> <span class="id" title="var">custom</span> <span class="id" title="var">stlc_ty</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0).<br/><hr class='doublespaceincode'/>
+
+<br/>
 <span class="id" title="keyword">Inductive</span> <a id="STLCExtendedRecords.has_type" class="idref" href="#STLCExtendedRecords.has_type"><span class="id" title="inductive">has_type</span></a> (<a id="Gamma:73" class="idref" href="#Gamma:73"><span class="id" title="binder">Gamma</span></a> : <a class="idref" href="Records.html#STLCExtendedRecords.context"><span class="id" title="definition">context</span></a>) :<a class="idref" href="Records.html#STLCExtendedRecords.tm"><span class="id" title="inductive">tm</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Records.html#STLCExtendedRecords.ty"><span class="id" title="inductive">ty</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="STLCExtendedRecords.T_Var" class="idref" href="#STLCExtendedRecords.T_Var"><span class="id" title="constructor">T_Var</span></a> : <span class="id" title="keyword">∀</span> <a id="x:76" class="idref" href="#x:76"><span class="id" title="binder">x</span></a> <a id="T:77" class="idref" href="#T:77"><span class="id" title="binder">T</span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Records.html#Gamma:73"><span class="id" title="variable">Gamma</span></a> <a class="idref" href="Records.html#x:76"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#Some"><span class="id" title="constructor">Some</span></a> <a class="idref" href="Records.html#T:77"><span class="id" title="variable">T</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
@@ -556,9 +556,12 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
     features in this proof.  However, if you are not confident about
     how the type system works, you may want to carry out the proofs
     first using the basic features (<span class="inlinecode"><span class="id" title="tactic">apply</span></span> instead of <span class="inlinecode"><span class="id" title="tactic">eapply</span></span>, in
-    particular) and then perhaps compress it using automation.  Before
-    starting to prove anything, make sure you understand what it is
-    saying. 
+    particular) and then perhaps compress it using automation.
+
+<div class="paragraph"> </div>
+
+    Before starting to prove <i>anything</i>, make sure you understand what
+    it is saying. :-) 
 </div>
 <div class="code">
 
@@ -940,7 +943,7 @@ The <span class="inlinecode"><span class="id" title="var">step</span></span> fun
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="Records.html#STLCExtendedRecords.T_RCons"><span class="id" title="constructor">T_RCons</span></a>... <span class="id" title="tactic">eapply</span> <a class="idref" href="Records.html#STLCExtendedRecords.step_preserves_record_tm"><span class="id" title="lemma">step_preserves_record_tm</span></a>...<br/>
 <span class="id" title="keyword">Qed</span>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">End</span> <a class="idref" href="Records.html#STLCExtendedRecords"><span class="id" title="module">STLCExtendedRecords</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2023-08-23&nbsp;11:31&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-01-03&nbsp;15:04&nbsp;*)</span><br/>
 </div>
 </div>
 

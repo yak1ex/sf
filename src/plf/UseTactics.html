@@ -131,7 +131,7 @@ The tactic <span class="inlinecode"><span class="id" title="var">introv</span></
     variables of a theorem and explicitly name the hypotheses
     involved. In the example shown next, the variables <span class="inlinecode"><span class="id" title="var">c</span></span>,
     <span class="inlinecode"><span class="id" title="var">st</span></span>, <span class="inlinecode"><span class="id" title="var">st<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" title="var">st<sub>2</sub></span></span> involved in the statement of determinism
-    need not be named explicitly, because their name where already
+    need not be named explicitly, because their names were already
     given in the statement of the lemma. On the contrary, it is
     useful to provide names for the two hypotheses, which we
     name <span class="inlinecode"><span class="id" title="var">E<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" title="var">E<sub>2</sub></span></span>, respectively. 
@@ -691,11 +691,11 @@ The tactic <span class="inlinecode"><span class="id" title="var">unfolds</span><
 
 <span class="id" title="keyword">Lemma</span> <a id="UnfoldsExample.bexp_eval_true" class="idref" href="#UnfoldsExample.bexp_eval_true"><span class="id" title="lemma">bexp_eval_true</span></a> : <span class="id" title="keyword">∀</span> <a id="b:67" class="idref" href="#b:67"><span class="id" title="binder">b</span></a> <a id="st:68" class="idref" href="#st:68"><span class="id" title="binder">st</span></a>,<br/>
 &nbsp;&nbsp;<span class="id" title="definition">beval</span> <a class="idref" href="UseTactics.html#st:68"><span class="id" title="variable">st</span></a> <a class="idref" href="UseTactics.html#b:67"><span class="id" title="variable">b</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <span class="id" title="notation">true</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
-&nbsp;&nbsp;(<a class="idref" href="Hoare.html#bassn"><span class="id" title="definition">bassn</span></a> <a class="idref" href="UseTactics.html#b:67"><span class="id" title="variable">b</span></a>) <a class="idref" href="UseTactics.html#st:68"><span class="id" title="variable">st</span></a>.<br/>
+&nbsp;&nbsp;(<a class="idref" href="Hoare.html#bassertion"><span class="id" title="definition">bassertion</span></a> <a class="idref" href="UseTactics.html#b:67"><span class="id" title="variable">b</span></a>) <a class="idref" href="UseTactics.html#st:68"><span class="id" title="variable">st</span></a>.<br/>
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">b</span> <span class="id" title="var">st</span> <span class="id" title="var">Hbe</span>. <span class="id" title="var">dup</span>.<br/><hr class='doublespaceincode'/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;old&nbsp;proof:&nbsp;*)</span><br/>
-&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <a class="idref" href="Hoare.html#bassn"><span class="id" title="definition">bassn</span></a>. <span class="id" title="tactic">assumption</span>.<br/><hr class='doublespaceincode'/>
+&nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <a class="idref" href="Hoare.html#bassertion"><span class="id" title="definition">bassertion</span></a>. <span class="id" title="tactic">assumption</span>.<br/><hr class='doublespaceincode'/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;new&nbsp;proof:&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="id" title="var">unfolds</span>. <span class="id" title="tactic">assumption</span>.<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
@@ -1256,7 +1256,7 @@ Note: one can write <span class="inlinecode"><span class="id" title="var">lets</
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2023-08-23&nbsp;11:31&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-01-03&nbsp;15:04&nbsp;*)</span><br/>
 </div>
 </div>
 

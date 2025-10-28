@@ -47,7 +47,7 @@ Hint Constructors ceval : core.
     the latter does not.
 
     To capture that difference, we introduced a definition
-    [hoare_triple] that described when a triple expresses such a
+    [valid_hoare_triple] that described when a triple expresses such a
     truth.  Let's repeat that definition, but this time we'll call it
     [valid]: *)
 
@@ -180,12 +180,12 @@ Inductive derivable : Assertion -> com -> Assertion -> Type :=
   | H_Seq : forall P c Q d R,
       derivable Q d R -> derivable P c Q -> derivable P <{c;d}> R
   | H_If : forall P Q b c1 c2,
-    derivable (fun st => P st /\ bassn b st) c1 Q ->
-    derivable (fun st => P st /\ ~(bassn b st)) c2 Q ->
+    derivable (fun st => P st /\ bassertion b st) c1 Q ->
+    derivable (fun st => P st /\ ~(bassertion b st)) c2 Q ->
     derivable P <{if b then c1 else c2 end}> Q
   | H_While : forall P b c,
-    derivable (fun st => P st /\ bassn b st) c P ->
-    derivable P <{while b do c end}> (fun st => P st /\ ~ (bassn b st))
+    derivable (fun st => P st /\ bassertion b st) c P ->
+    derivable P <{while b do c end}> (fun st => P st /\ ~ (bassertion b st))
   | H_Consequence : forall (P Q P' Q' : Assertion) c,
     derivable P' c Q' ->
     (forall st, P st -> P' st) ->
@@ -392,4 +392,4 @@ Proof.
     of Coq's logic. But this logic is far too powerful to be
     decidable. *)
 
-(* 2023-08-23 11:31 *)
+(* 2024-01-02 21:54 *)

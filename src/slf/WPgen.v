@@ -1849,4 +1849,4 @@ End WPgenRec.
     formulae replaced the original presentation based on triples with a simpler
     wp-style presentation. *)
 
-(* 2023-11-29 09:22 *)
+(* 2024-01-03 14:19 *)

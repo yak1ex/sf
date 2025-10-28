@@ -58,6 +58,7 @@
 <div class="code">
 
 <span class="id" title="keyword">Set</span> <span class="id" title="var">Warnings</span> "-notation-overridden,-parsing,-deprecated-hint-without-locality".<br/>
+<span class="id" title="keyword">Set</span> <span class="id" title="var">Warnings</span> "-non-recursive".<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Bool.Bool.html#"><span class="id" title="library">Bool.Bool</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">PLF</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <span class="id" title="library">Maps</span>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">PLF</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="Smallstep.html#"><span class="id" title="library">Smallstep</span></a>.<br/>
@@ -76,7 +77,6 @@
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Locate</span> "Bool".<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Fixpoint</span> <a id="STLCTypes.eqb_ty" class="idref" href="#STLCTypes.eqb_ty"><span class="id" title="definition">eqb_ty</span></a> (<a id="T<sub>1</sub>:1" class="idref" href="#T<sub>1</sub>:1"><span class="id" title="binder">T<sub>1</sub></span></a> <a id="T<sub>2</sub>:2" class="idref" href="#T<sub>2</sub>:2"><span class="id" title="binder">T<sub>2</sub></span></a>:<a class="idref" href="Stlc.html#STLC.ty"><span class="id" title="inductive">ty</span></a>) : <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> :=<br/>
 &nbsp;&nbsp;<span class="id" title="keyword">match</span> <a class="idref" href="Typechecking.html#T<sub>1</sub>:1"><span class="id" title="variable">T<sub>1</sub></span></a>,<a class="idref" href="Typechecking.html#T<sub>2</sub>:2"><span class="id" title="variable">T<sub>2</sub></span></a> <span class="id" title="keyword">with</span><br/>
 &nbsp;&nbsp;| <a class="idref" href="Stlc.html#eaa77420ac6a1aef5b440889c7543807"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Stlc.html#STLC.:stlc::'Bool'"><span class="id" title="notation">Bool</span></a> <a class="idref" href="Stlc.html#eaa77420ac6a1aef5b440889c7543807"><span class="id" title="notation">}&gt;</span></a> , <a class="idref" href="Stlc.html#eaa77420ac6a1aef5b440889c7543807"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Stlc.html#STLC.:stlc::'Bool'"><span class="id" title="notation">Bool</span></a> <a class="idref" href="Stlc.html#eaa77420ac6a1aef5b440889c7543807"><span class="id" title="notation">}&gt;</span></a> ⇒<br/>
@@ -853,7 +853,7 @@ Above, we showed how to write a typechecking function and prove it
 
 <div class="code">
 
-<span class="comment">(*&nbsp;2023-08-23&nbsp;11:31&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2024-01-03&nbsp;15:04&nbsp;*)</span><br/>
 </div>
 </div>
 

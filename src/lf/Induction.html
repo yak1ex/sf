@@ -388,24 +388,9 @@ Use induction to prove this simple fact about <span class="inlinecode"><span cla
 <font size=-2>&#9744;</font>
 </div>
 
-<div class="doc"> 
-<div class="paragraph"> </div>
-
-<a id="lab67"></a><h4 class="section">Exercise: 1 star, standard, optional (destruct_induction)</h4>
- Briefly explain the difference between the tactics <span class="inlinecode"><span class="id" title="tactic">destruct</span></span>
-    and <span class="inlinecode"><span class="id" title="tactic">induction</span></span>.
-
-<div class="paragraph"> </div>
-
-<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
-
-<div class="paragraph"> </div>
-
- <font size=-2>&#9744;</font> 
-</div>
 
 <div class="doc">
-<a id="lab68"></a><h1 class="section">Proofs Within Proofs</h1>
+<a id="lab67"></a><h1 class="section">Proofs Within Proofs</h1>
 
 <div class="paragraph"> </div>
 
@@ -488,7 +473,7 @@ To use <span class="inlinecode"><span class="id" title="var">add_comm</span></sp
 </div>
 
 <div class="doc">
-<a id="lab69"></a><h1 class="section">Formal vs. Informal Proof</h1>
+<a id="lab68"></a><h1 class="section">Formal vs. Informal Proof</h1>
 
 <div class="paragraph"> </div>
 
@@ -638,7 +623,7 @@ Coq is perfectly happy with this.  For a human, however, it
     things stand). 
 <div class="paragraph"> </div>
 
-<a id="lab70"></a><h4 class="section">Exercise: 2 stars, advanced, especially useful (add_comm_informal)</h4>
+<a id="lab69"></a><h4 class="section">Exercise: 2 stars, advanced, especially useful (add_comm_informal)</h4>
  Translate your solution for <span class="inlinecode"><span class="id" title="var">add_comm</span></span> into an informal proof:
 
 <div class="paragraph"> </div>
@@ -660,7 +645,7 @@ Coq is perfectly happy with this.  For a human, however, it
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab71"></a><h4 class="section">Exercise: 2 stars, standard, optional (eqb_refl_informal)</h4>
+<a id="lab70"></a><h4 class="section">Exercise: 2 stars, standard, optional (eqb_refl_informal)</h4>
  Write an informal proof of the following theorem, using the
     informal proof of <span class="inlinecode"><span class="id" title="var">add_assoc</span></span> as a model.  Don't just
     paraphrase the Coq tactics into English!
@@ -683,11 +668,11 @@ Coq is perfectly happy with this.  For a human, however, it
 
 
 <div class="doc">
-<a id="lab72"></a><h1 class="section">More Exercises</h1>
+<a id="lab71"></a><h1 class="section">More Exercises</h1>
 
 <div class="paragraph"> </div>
 
-<a id="lab73"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (mul_comm)</h4>
+<a id="lab72"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (mul_comm)</h4>
  Use <span class="inlinecode"><span class="id" title="tactic">assert</span></span> to help prove <span class="inlinecode"><span class="id" title="var">add_shuffle3</span></span>.  You don't need to
     use induction yet. 
 </div>
@@ -716,7 +701,7 @@ Now prove commutativity of multiplication.  You will probably want
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab74"></a><h4 class="section">Exercise: 2 stars, standard, optional (plus_leb_compat_l)</h4>
+<a id="lab73"></a><h4 class="section">Exercise: 2 stars, standard, optional (plus_leb_compat_l)</h4>
  If a hypothesis has the form <span class="inlinecode"><span class="id" title="var">H</span>:</span> <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">b</span></span>, then <span class="inlinecode"><span class="id" title="tactic">rewrite</span></span> <span class="inlinecode"><span class="id" title="var">H</span></span> will
     rewrite <span class="inlinecode"><span class="id" title="var">a</span></span> to <span class="inlinecode"><span class="id" title="var">b</span></span> in the goal, and add <span class="inlinecode"><span class="id" title="var">P</span></span> as a new subgoal. Use
     that in the inductive step of this exercise. 
@@ -734,7 +719,7 @@ Now prove commutativity of multiplication.  You will probably want
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab75"></a><h4 class="section">Exercise: 3 stars, standard, optional (more_exercises)</h4>
+<a id="lab74"></a><h4 class="section">Exercise: 3 stars, standard, optional (more_exercises)</h4>
  Take a piece of paper.  For each of the following theorems, first
     <i>think</i> about whether (a) it can be proved using only
     simplification and rewriting, (b) it also requires case
@@ -786,7 +771,7 @@ Now prove commutativity of multiplication.  You will probably want
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab76"></a><h4 class="section">Exercise: 2 stars, standard, optional (add_shuffle3')</h4>
+<a id="lab75"></a><h4 class="section">Exercise: 2 stars, standard, optional (add_shuffle3')</h4>
  The <span class="inlinecode"><span class="id" title="tactic">replace</span></span> tactic allows you to specify a particular subterm to
    rewrite and what you want it rewritten to: <span class="inlinecode"><span class="id" title="tactic">replace</span></span> <span class="inlinecode">(<span class="id" title="var">t</span>)</span> <span class="inlinecode"><span class="id" title="keyword">with</span></span> <span class="inlinecode">(<span class="id" title="var">u</span>)</span>
    replaces (all copies of) expression <span class="inlinecode"><span class="id" title="var">t</span></span> in the goal by expression
@@ -810,7 +795,7 @@ Now prove commutativity of multiplication.  You will probably want
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab77"></a><h1 class="section">Nat to Bin and Back to Nat</h1>
+<a id="lab76"></a><h1 class="section">Nat to Bin and Back to Nat</h1>
 
 <div class="paragraph"> </div>
 
@@ -844,7 +829,7 @@ In <a href="Basics.html"><span class="inlineref">Basics</span></a>, we did some 
     didn't prove its correctness. Now we'll do so. 
 <div class="paragraph"> </div>
 
-<a id="lab78"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (binary_commute)</h4>
+<a id="lab77"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (binary_commute)</h4>
  Prove that the following diagram commutes:
 
 <div class="paragraph"> </div>
@@ -880,7 +865,7 @@ In <a href="Basics.html"><span class="inlineref">Basics</span></a>, we did some 
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab79"></a><h4 class="section">Exercise: 3 stars, standard (nat_bin_nat)</h4>
+<a id="lab78"></a><h4 class="section">Exercise: 3 stars, standard (nat_bin_nat)</h4>
 
 <div class="paragraph"> </div>
 
@@ -916,7 +901,7 @@ Prove that, if we start with any <span class="inlinecode"><span class="id" title
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab80"></a><h1 class="section">Bin to Nat and Back to Bin (Advanced)</h1>
+<a id="lab79"></a><h1 class="section">Bin to Nat and Back to Bin (Advanced)</h1>
 
 <div class="paragraph"> </div>
 
@@ -936,7 +921,7 @@ Let's explore why that theorem fails, and how to prove a modified
     unrelated, but will turn out to be relevant. 
 <div class="paragraph"> </div>
 
-<a id="lab81"></a><h4 class="section">Exercise: 2 stars, advanced (double_bin)</h4>
+<a id="lab80"></a><h4 class="section">Exercise: 2 stars, advanced (double_bin)</h4>
 
 <div class="paragraph"> </div>
 
@@ -1018,7 +1003,7 @@ To solve that problem, we can introduce a <i>normalization</i> function
     back again produces that normalized, simplest <span class="inlinecode"><span class="id" title="var">bin</span></span>. 
 <div class="paragraph"> </div>
 
-<a id="lab82"></a><h4 class="section">Exercise: 4 stars, advanced (bin_nat_bin)</h4>
+<a id="lab81"></a><h4 class="section">Exercise: 4 stars, advanced (bin_nat_bin)</h4>
 
 <div class="paragraph"> </div>
 
@@ -1070,7 +1055,7 @@ Finally, prove the main theorem. The inductive cases could be a
 
 <div class="code">
 
-<span class="comment">(*&nbsp;2023-10-03&nbsp;16:40&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2023-12-29&nbsp;17:12&nbsp;*)</span><br/>
 </div>
 </div>
 

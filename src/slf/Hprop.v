@@ -10,9 +10,9 @@ Import ProgramSyntax.
 (** The first two chapters have illustrated how to specify and verify programs
     using Separation Logic. The purpose of the coming chapters is to explain how
     to formally assign meaning to the tokens used in the statement of
-    specifications (e.g., the star operator), to formally define the notion of
-    Separation Triples, and to prove the reasoning rules of Separation Logic.
-    These reasoning rules are exploited by the "x-tactics" used in the first two
+    specifications (e.g., the star operator), formally define the notion of
+    Separation Triples, and prove the reasoning rules of Separation Logic.
+    These rules are exploited by the "x-tactics" used in the first two
     chapters.
 
     This chapter presents the formal definitions of the key heap predicate
@@ -22,8 +22,8 @@ Import ProgramSyntax.
     - [\[P]] denotes a pure fact,
     - [p ~~> v] denotes a predicate that characterizes a singleton heap,
     - [H1 \* H2] denotes the separating conjunction,
-    - [Q1 \*+ H2] denotes the separating conjunction,
-                   between a postcondition and a heap predicate,
+    - [Q1 \*+ H2] denotes the separating conjunction between a
+                  postcondition and a heap predicate,
     - [\exists x, H] denotes an existential quantifier.
 
     To begin with, we define the type [state], for describing a full memory
@@ -31,7 +31,7 @@ Import ProgramSyntax.
     describe pieces of state.
 
     In Separation Logic, specifications are expressed using "heap predicates",
-    which are predicates over heaps, of type [heap->Prop]. We let [hprop] be a
+    predicates over heaps, of type [heap->Prop]. We define [hprop] to be a
     shorthand for that type.
 
     By convention, throughout the course:
@@ -44,16 +44,16 @@ Import ProgramSyntax.
 (* ================================================================= *)
 (** ** Description of Memory States *)
 
-(** To reason about imperative programs, Separation Logic relies on "heap
-    predicates" for describing memory state. As its names suggests, a "heap
+(** To reason about imperative programs, Separation Logic relies on heap
+    predicates for describing memory states. As the name suggests, a "heap
     predicate" is a predicate over heaps, i.e., over memory states. Heap
     predicates such as [p ~~> n], or [H1 \* H2] admit the type [state -> Prop],
     where the type [state] corresponds to a finite map used to describe the
     contents of the memory. In what follows, we give the formal definition of
-    [state], and of the type of heap predicates. *)
+    [state] and of the type of heap predicates. *)
 
 (** In the previous chapters, we have assumed a type [val] to range over program
-    values, and a type [loc] to denote memory locations. Concrete definitions
+    values and a type [loc] to denote memory locations. Concrete definitions
     will be provided later on, in chapter [Rules]. At this point, we are
     interested in the definition of the type [state], used to describe the
     contents of the memory during the execution of a program. *)
@@ -66,14 +66,13 @@ Import ProgramSyntax.
 
 Definition state : Type := fmap loc val.
 
-(** By convention, we use the type [state] describes a "full" state of memory,
+(** By convention, we use the type [state] to describe a "full" memory state,
     and we use an alias, the type [heap], to describe a "piece of" state. *)
 
 Definition heap : Type := state.
 
 (** The file [LibSepReference] introduces the module name [Fmap] as a shorthand
-    for [LibSepFmap]. The key operations associated with finite maps are the
-    following:
+    for [LibSepFmap]. The key operations associated with finite maps are:
 
     - [Fmap.empty] denotes the empty state,
     - [Fmap.single p v] denotes a singleton state, that is, a unique cell
@@ -81,7 +80,7 @@ Definition heap : Type := state.
     - [Fmap.union h1 h2] denotes the union of the two states [h1] and [h2].
     - [Fmap.disjoint h1 h2] asserts that [h1] and [h2] have disjoint domains.
 
-    Note that the union operation is commutative only when its two arguments
+    Note that the union operation is commutative only when its arguments
     have disjoint domains. Throughout the course, we only consider disjoint
     unions, for which commutativity holds. *)
 
@@ -94,7 +93,7 @@ Definition heap : Type := state.
 
 Definition hprop := heap -> Prop.
 
-(** Thereafter, let [H] range over heap predicates. *)
+(** [H] ranges over heap predicates. *)
 
 Implicit Type H : hprop.
 
@@ -106,8 +105,8 @@ Implicit Type H : hprop.
 (** We next describe the most important combinators, which were pervasively used
     throughout the first two chapters. *)
 
-(** The [hempty] predicate, usually written [\[]], characterizes an empty state.
-    *)
+(** The [hempty] predicate, usually written [\[]], characterizes an empty
+    state. *)
 
 Definition hempty : hprop :=
   fun (h:heap) => (h = Fmap.empty).
@@ -131,26 +130,26 @@ Definition hsingle (p:loc) (v:val) : hprop :=
 Notation "p '~~>' v" := (hsingle p v) (at level 32).
 
 (** The "separating conjunction", written [H1 \* H2], characterizes a state that
-    can be decomposed in two disjoint parts, one that satisfies [H1], and
+    can be decomposed in two disjoint parts, one that satisfies [H1] and
     another that satisfies [H2]. In the definition below, the two parts are
     named [h1] and [h2]. *)
 
 Definition hstar (H1 H2 : hprop) : hprop :=
   fun (h:heap) => exists h1 h2, H1 h1
-                              /\ H2 h2
-                              /\ Fmap.disjoint h1 h2
-                              /\ h = Fmap.union h1 h2.
+                             /\ H2 h2
+                             /\ Fmap.disjoint h1 h2
+                             /\ h = Fmap.union h1 h2.
 
 Notation "H1 '\*' H2" := (hstar H1 H2) (at level 41, right associativity).
 
 (** The existential quantifier for heap predicates, written [\exists x, H]
     characterizes a heap that satisfies [H] for some [x]. The variable [x] has
-    type [A], for some arbitrary type [A].
+    type [A], for some arbitrary [A].
 
     The notation [\exists x, H] stands for [hexists (fun x => H)]. The
     generalized notation [\exists x1 ... xn, H] is also available.
 
-    The definition of [hexists] is a bit technical. It is not essential to
+    The definition of [hexists] is a bit technical, and it is not essential to
     master it at this point. Additional explanations are provided near the end
     of this chapter. *)
 
@@ -162,15 +161,15 @@ Notation "'\exists' x1 .. xn , H" :=
   (at level 39, x1 binder, H at level 50, right associativity,
    format "'[' '\exists' '/ '  x1  ..  xn , '/ '  H ']'").
 
-(** Universal quantification in [hprop] is only useful for more advanced
-    features of Separation Logic. We postpone its introduction to chapter
-    [Wand]. *)
+(** Universal quantification in [hprop] is also possible, but it is only
+    useful for more advanced features of Separation Logic. We postpone its
+    introduction to chapter [Wand]. *)
 
-(** All the definitions above are eventually turned [Opaque], after the
-    appropriate introduction and elimination lemmas are established for them.
-    Thus, at some point it is no longer possible to execute, say, [unfold hstar]
-    . Opacity is essential to ensures that proofs do not depend on the details
-    of how the definitions of heap predicates are set up. *)
+(** All the definitions above will eventually be made [Opaque], after the
+    appropriate introduction and elimination lemmas have been established,
+    making it no longer possible to execute, say, [unfold hstar]. Opacity is
+    essential to ensure that proofs do not depend on the details of the
+    definitions. *)
 
 (* ================================================================= *)
 (** ** Extensionality for Heap Predicates *)
@@ -222,10 +221,10 @@ Parameter hstar_assoc : forall H1 H2 H3,
 Parameter hstar_comm : forall H1 H2,
    H1 \* H2 = H2 \* H1.
 
-(** (3) The empty heap predicate is a neutral for the star. Because star is
-    commutative, it is equivalent to state that [hempty] is a left or a right
-    neutral for [hstar]. We chose, arbitrarily, to state the left-neutral
-    property. *)
+(** (3) The empty heap predicate is a neutral element for the star. Because star
+    is commutative, it is equivalent to state that [hempty] is a left or a right
+    neutral element for [hstar]. We choose, arbitrarily, to state the
+    left-neutrality property. *)
 
 Parameter hstar_hempty_l : forall H,
   \[] \* H = H.
@@ -245,36 +244,36 @@ Parameter hstar_hpure_l : forall P H h,
 (** ** Postconditions: Type, Syntax, and Extensionality *)
 
 (** A specification takes the form [triple t H Q], where [t] is a term, [H] is a
-    precondition of type [hprop], and [Q] is the postcondition. For example, a
+    precondition of type [hprop], and [Q] is a postcondition. For example, a
     read at location [p], written [!p] in OCaml, is specified as:
     [triple <{ !p }> (p ~~> v) (fun r => (p ~~> v) \* \[r = v])].
 
     In general, a postcondition has type [val -> hprop], which is equivalent to
     [val -> state -> Prop]. The postcondition thereby capture the properties of
-    both the output value and the output state. Thereafter, we let [Q] range
-    over postconditions. *)
+    both the output value and the output state. *)
 
 Implicit Type Q : val -> hprop.
 
-(** One common operation is to augment a postcondition with a piece of state.
-    This operation is described by the operator [Q \*+ H], which is just a
-    convenient notation for [fun x => (Q x \* H)]. We will use this operator in
-    particular in the statement of the frame rule in the next chapter. *)
+(** One common operation is augmenting a postcondition with a description of
+    another piece of state.  This operation is written as [Q \*+ H], which is
+    just a convenient notation for [fun x => (Q x \* H)]. We will use this
+    operator in particular in the statement of the frame rule in the next
+    chapter. *)
 
 Notation "Q \*+ H" := (fun x => hstar (Q x) H) (at level 40).
 
 (** Intuitively, in order to prove that two postconditions [Q1] and [Q2] are
-    equal, it suffices to show that the heap predicates [Q1 v] and [Q2 v] (both
-    of type [hprop]) are equal for any value [v].
+    equal, it suffices to show that the heap predicates [Q1 v] and [Q2 v] are
+    equal for any value [v].
 
-    Again, the extensionality property that we need is not built-in to Coq. We
+    Again, the extensionality property that we need is not built into Coq. We
     need another axiom called "functional extensionality". *)
 
 Axiom functional_extensionality : forall A B (f g:A->B),
   (forall x, f x = g x) ->
   f = g.
 
-(** The desired equality property for postconditions follows directly from that
+(** The desired equality property for postconditions follows directly from this
     axiom. *)
 
 Lemma qprop_eq : forall (Q1 Q2:val->hprop),
@@ -289,10 +288,10 @@ Proof using. apply functional_extensionality. Qed.
     definitions of heap predicates. They include "introduction lemmas" for
     proving goals of the form [H h], and "inversion lemmas" for extracting
     information from hypotheses of the form [H h]. These lemmas will be
-    pervasively exploited in the next chapters for establishing reasoning rules.
-    *)
+    pervasively exploited in the next chapters for establishing reasoning
+    rules. *)
 
-(** Thereafter, to improve readability of statements in proofs, we introduce the
+(** Hereafter, to improve readability of statements in proofs, we introduce the
     following notation for heap union. *)
 
 Notation "h1 \u h2" := (Fmap.union h1 h2) (at level 37, right associativity).
@@ -537,7 +536,7 @@ End HpropProofs.
 (** ** Alternative Definitions for Heap Predicates *)
 
 (** In what follows, we discuss alternative, equivalent definitions for the
-    fundamental heap predicates. We write these equivalence using equalities of
+    fundamental heap predicates. We write these equivalences using equalities of
     the form [H1 = H2]. Recall that the lemma [hprop_eq] enables deriving such
     equalities by invoking predicate extensionality. *)
 
@@ -579,11 +578,11 @@ Definition hpure' (P:Prop) : hprop :=
   \exists (p:P), \[].
 
 (** It is useful to minimize the number of combinators, both for elegance and to
-    reduce the proof effort. We cannot do without [hexists], thus there remains
+    reduce proof effort. We cannot do without [hexists], thus there remains
     a choice between considering either [hpure] or [hempty] as primitive, and
     the other one as derived. The predicate [hempty] is simpler and appears as
     more fundamental. Hence, in the subsequent chapters (and in the CFML tool),
-    we define [hpure] in terms of [hexists] and [hempty], like in the definition
+    we define [hpure] in terms of [hexists] and [hempty], as in the definition
     of [hpure'] shown above. In other words, we assume the definition:
 
   Definition hpure (P:Prop) : hprop :=
@@ -646,8 +645,8 @@ Axiom propositional_extensionality : forall (P Q:Prop),
   (P <-> Q) ->
   P = Q.
 
-(** The axiom of "functional extensionality" asserts that two functions are
-    equal if they provide equal result for every argument. *)
+(** The axiom of "functional extensionality", as we saw above, asserts that two
+    functions are equal if they provide equal result for every argument. *)
 
 Axiom functional_extensionality : forall A B (f g:A->B),
   (forall x, f x = g x) ->
@@ -655,9 +654,8 @@ Axiom functional_extensionality : forall A B (f g:A->B),
 
 (** **** Exercise: 1 star, standard, especially useful (predicate_extensionality_derived)
 
-    Using the two axioms [propositional_extensionality] and
-    [functional_extensionality], show how to derive [predicate_extensionality].
-    *)
+    Use [propositional_extensionality] and [functional_extensionality] to derive
+    [predicate_extensionality]. *)
 
 Lemma predicate_extensionality_derived : forall A (P Q:A->Prop),
   (forall x, P x <-> Q x) ->
@@ -681,4 +679,4 @@ End Extensionality.
     had spotted the potential benefit of working with the separating
     conjunction. *)
 
-(* 2023-11-29 09:22 *)
+(* 2024-01-03 14:46 *)
