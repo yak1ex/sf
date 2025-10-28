@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From LF Require Import Tactics.
 
 Parameter MISSING: Type.
@@ -54,7 +54,8 @@ idtac "Possible points: 3".
 check_type @injection_ex3 (
 (forall (X : Type) (x y z : X) (l j : list X)
    (_ : @eq (list X) (@cons X x (@cons X y l)) (@cons X z j))
-   (_ : @eq (list X) j (@cons X z l)), @eq X x y)).
+   (_ : @eq (list X) j (@cons X z l)),
+ @eq X x y)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions injection_ex3.
@@ -263,6 +264,6 @@ idtac "---------- existsb_existsb' ---------".
 Print Assumptions existsb_existsb'.
 Abort.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

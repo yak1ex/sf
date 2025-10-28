@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From LF Require Import Poly.
 
 Parameter MISSING: Type.
@@ -558,6 +558,6 @@ idtac "---------- Exercises.Church.exp_3 ---------".
 Print Assumptions Exercises.Church.exp_3.
 Abort.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:25 *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

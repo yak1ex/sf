@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import Redblack.
 
 Parameter MISSING: Type.
@@ -40,7 +40,8 @@ idtac "Possible points: 2".
 check_type @balanceP (
 (forall (V : Type) (P : forall (_ : key) (_ : V), Prop)
    (c : color) (l r : tree V) (k : key) (v : V) (_ : @ForallT V P l)
-   (_ : @ForallT V P r) (_ : P k v), @ForallT V P (@balance V c l k v r))).
+   (_ : @ForallT V P r) (_ : P k v),
+ @ForallT V P (@balance V c l k v r))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions balanceP.
@@ -55,7 +56,8 @@ idtac "Possible points: 2".
 check_type @insP (
 (forall (V : Type) (P : forall (_ : key) (_ : V), Prop)
    (t : tree V) (k : key) (v : V) (_ : @ForallT V P t)
-   (_ : P k v), @ForallT V P (@ins V k v t))).
+   (_ : P k v),
+ @ForallT V P (@ins V k v t))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions insP.
@@ -100,10 +102,12 @@ check_type @balance_lookup (
    (v : V) (l r : tree V) (_ : @BST V l) (_ : @BST V r)
    (_ : @ForallT V
           (fun (k'0 : Extract.int) (_ : V) =>
-           BinInt.Z.lt (Extract.Abs k'0) (Extract.Abs k)) l)
+           BinInt.Z.lt (Extract.Abs k'0) (Extract.Abs k))
+          l)
    (_ : @ForallT V
           (fun (k'0 : Extract.int) (_ : V) =>
-           BinInt.Z.gt (Extract.Abs k'0) (Extract.Abs k)) r),
+           BinInt.Z.gt (Extract.Abs k'0) (Extract.Abs k))
+          r),
  @eq V (@lookup V d k' (@balance V c l k v r))
    (if BinInt.Z.ltb (Extract.Abs k') (Extract.Abs k)
     then @lookup V d k' l
@@ -307,6 +311,6 @@ idtac "---------- redblack_bound ---------".
 idtac "MANUAL".
 Abort.
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:54 *)

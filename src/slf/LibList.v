@@ -9,7 +9,7 @@
 ***************************************************************************)
 
 Set Implicit Arguments.
-Require Import Coq.Classes.Morphisms. (* for [Proper] instances *)
+Require Import Stdlib.Classes.Morphisms. (* for [Proper] instances *)
 From SLF Require Import LibTactics LibLogic LibReflect LibOperation
  LibProd LibOption LibNat LibInt LibWf LibMonoid LibRelation.
 Generalizable Variables A B.
@@ -3981,4 +3981,4 @@ Tactic Notation "list2_ind_last" constr(E) :=
   match type of E with length ?l1 = length ?l2 =>
     list2_ind_last l1 l2; [ apply E | | ] end.
 
-(* 2024-12-26 10:22 *)
+(* 2025-08-24 14:03 *)

@@ -13,7 +13,7 @@
       strengthening is required; and
     - more details on how to reason by case analysis. *)
 
-Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
+Set Warnings "-notation-overridden".
 From LF Require Export Poly.
 
 (* ################################################################# *)
@@ -137,16 +137,16 @@ Example trans_eq_example : forall (a b c d e f : nat),
      [a;b] = [e;f].
 Proof.
   intros a b c d e f eq1 eq2.
-  rewrite -> eq1. rewrite -> eq2. reflexivity.  Qed.
+  rewrite -> eq1. apply eq2. Qed.
 
 (** Since this is a common pattern, we might like to pull it out as a
     lemma that records, once and for all, the fact that equality is
     transitive. *)
 
-Theorem trans_eq : forall (X:Type) (n m o : X),
-  n = m -> m = o -> n = o.
+Theorem trans_eq : forall (X:Type) (x y z : X),
+  x = y -> y = z -> x = z.
 Proof.
-  intros X n m o eq1 eq2. rewrite -> eq1. rewrite -> eq2.
+  intros X x y z eq1 eq2. rewrite -> eq1. rewrite -> eq2.
   reflexivity.  Qed.
 
 (** Now, we should be able to use [trans_eq] to prove the above
@@ -167,10 +167,10 @@ Proof.
     an instantiation for [m]: we have to supply one explicitly by
     adding "[with (m:=[c,d])]" to the invocation of [apply]. *)
 
-  apply trans_eq with (m:=[c;d]).
+  apply trans_eq with (y:=[c;d]).
   apply eq1. apply eq2.   Qed.
 
-(** Actually, the name [m] in the [with] clause is not required,
+(** Actually, the name [y] in the [with] clause is not required,
     since Coq is often smart enough to figure out which variable we
     are instantiating. We could instead simply write [apply trans_eq
     with [c;d]]. *)
@@ -464,9 +464,7 @@ Theorem specialize_example: forall n,
 Proof.
   intros n H.
   specialize H with (m := 1).
-  simpl in H.
-  rewrite add_comm in H.
-  simpl in H.
+  rewrite mult_1_l in H.
   apply H. Qed.
 
 (** Using [specialize] before [apply] gives us yet another way to
@@ -477,7 +475,7 @@ Example trans_eq_example''' : forall (a b c d e f : nat),
      [a;b] = [e;f].
 Proof.
   intros a b c d e f eq1 eq2.
-  specialize trans_eq with (m:=[c;d]) as H.
+  specialize trans_eq with (y:=[c;d]) as H.
   apply H.
   apply eq1.
   apply eq2. Qed.
@@ -767,6 +765,49 @@ Proof.
         allows us to conclude that [n' = m'], and it follows immediately
         that [S n' = S m'].  Since [S n' = n] and [S m' = m], this is just
         what we wanted to show. [] *)
+
+(* ################################################################# *)
+(** * Rewriting with conditional statements *)
+
+(** Suppose that we want to show that [plus] is the inverse of
+    [minus].  Since we are working with natural numbers, we need an
+    assumption to prevent [minus] from truncating its result. With
+    this assumption, the induction hypothesis becomes [forall m, n'
+    <=? m = true -> (m - n') + n' = m].  The beginning of the proof
+    uses techniques we have already seen -- in particular, notice how
+    we induct on [n] before introducing [m], so that the induction
+    hypothesis becomes sufficiently general. *)
+
+Lemma sub_add_leb : forall n m, n <=? m = true -> (m - n) + n = m.
+Proof.
+  intros n.
+  induction n as [| n' IHn'].
+  - (* n = 0 *)
+    intros m H. rewrite add_0_r. destruct m as [| m'].
+    + (* m = 0 *)
+      reflexivity.
+    + (* m = S m' *)
+      reflexivity.
+  - (* n = S n' *)
+    intros m H. destruct m as [| m'].
+    + (* m = 0 *)
+      discriminate.
+    + (* m = S m' *)
+      simpl in H. simpl. rewrite <- plus_n_Sm.
+
+(** At this point, we need to show [S ((m' - n') + n') = S m'] from
+    the assumption [(n' <= m') = true].  We could use the [assert]
+    tactic to prove [(m' - n') + n' = m'] from the induction
+    hypothesis. However, we can also just use [rewrite] directly: if
+    we rewrite with a conditional statement of the form [P -> a = b],
+    then Coq tries to rewrite with [a = b], and then asks us to prove
+    [P] in a new subgoal.  If the statement has more than one
+    assumption, then we get one subgoal for each assumption. *)
+
+      rewrite IHn'.
+      * reflexivity.
+      * apply H.
+Qed.
 
 (** **** Exercise: 3 stars, standard, especially useful (gen_dep_practice)
 
@@ -1242,4 +1283,4 @@ Proof. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

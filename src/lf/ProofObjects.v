@@ -1,6 +1,6 @@
-(** * ProofObjects: The Curry-Howard Correspondence *)
+(** * Proofobjects: The Curry-Howard Correspondence *)
 
-Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
+Set Warnings "-notation-overridden,-notation-incompatible-prefix".
 From LF Require Export IndProp.
 
 (** "Algorithms are the computational content of proofs."
@@ -943,4 +943,4 @@ Theorem pe_implies_pi :
 Proof. (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

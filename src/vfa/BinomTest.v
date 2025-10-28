@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import Binom.
 
 Parameter MISSING: Type.
@@ -91,7 +91,8 @@ idtac "Possible points: 2".
 check_type @BinomQueue.tree_elems_ext (
 (forall (t : BinomQueue.tree) (e1 e2 : list BinomQueue.key)
    (_ : @Permutation.Permutation BinomQueue.key e1 e2)
-   (_ : BinomQueue.tree_elems t e1), BinomQueue.tree_elems t e2)).
+   (_ : BinomQueue.tree_elems t e1),
+ BinomQueue.tree_elems t e2)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions BinomQueue.tree_elems_ext.
@@ -121,7 +122,8 @@ idtac "Possible points: 2".
 check_type @BinomQueue.priqueue_elems_ext (
 (forall (q : list BinomQueue.tree) (e1 e2 : list BinomQueue.key)
    (_ : @Permutation.Permutation BinomQueue.key e1 e2)
-   (_ : BinomQueue.priqueue_elems q e1), BinomQueue.priqueue_elems q e2)).
+   (_ : BinomQueue.priqueue_elems q e1),
+ BinomQueue.priqueue_elems q e2)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions BinomQueue.priqueue_elems_ext.
@@ -136,7 +138,8 @@ idtac "Possible points: 2".
 check_type @BinomQueue.abs_perm (
 (forall (p : BinomQueue.priqueue) (al bl : list BinomQueue.key)
    (_ : BinomQueue.priq p) (_ : BinomQueue.Abs p al)
-   (_ : BinomQueue.Abs p bl), @Permutation.Permutation BinomQueue.key al bl)).
+   (_ : BinomQueue.Abs p bl),
+ @Permutation.Permutation BinomQueue.key al bl)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions BinomQueue.abs_perm.
@@ -249,6 +252,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:54 *)

@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import Merge.
 
 Parameter MISSING: Type.
@@ -71,7 +71,8 @@ idtac "#> sorted_merge".
 idtac "Possible points: 6".
 check_type @sorted_merge (
 (forall (l1 : list nat) (_ : Sort.sorted l1) (l2 : list nat)
-   (_ : Sort.sorted l2), Sort.sorted (merge l1 l2))).
+   (_ : Sort.sorted l2),
+ Sort.sorted (merge l1 l2))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions sorted_merge.
@@ -171,6 +172,6 @@ idtac "---------- mergesort_perm ---------".
 Print Assumptions mergesort_perm.
 Abort.
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)

@@ -10,7 +10,7 @@
     reasoning facilities, so it may be useful to look at this material
     just after the [IndProp] chapter. *)
 
-Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
+Set Warnings "-notation-overridden".
 From LF Require Export IndProp.
 
 (* ################################################################# *)
@@ -409,4 +409,4 @@ Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(* 2024-12-25 16:46 *)
+(* 2025-08-24 14:26 *)

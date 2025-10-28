@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import Selection.
 
 Parameter MISSING: Type.
@@ -222,7 +222,8 @@ idtac "#> cons_of_small_maintains_sort'".
 idtac "Possible points: 1".
 check_type @cons_of_small_maintains_sort' (
 (forall (bl : list nat) (y : nat) (_ : le_all y bl)
-   (_ : sorted (selsort' bl)), sorted (@cons nat y (selsort' bl)))).
+   (_ : sorted (selsort' bl)),
+ sorted (@cons nat y (selsort' bl)))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions cons_of_small_maintains_sort'.
@@ -327,6 +328,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)

@@ -9,7 +9,7 @@
 
 Set Implicit Arguments.
 From SLF Require Import LibTactics LibReflect.
-From Coq Require Export String.
+From Stdlib Require Export String.
 
 (* ********************************************************************** *)
 (* ################################################################# *)
@@ -19,4 +19,4 @@ From Coq Require Export String.
 Instance Inhab_string : Inhab string.
 Proof using. apply (Inhab_of_val EmptyString). Qed.
 
-(* 2025-01-06 19:51 *)
+(* 2025-08-24 14:03 *)

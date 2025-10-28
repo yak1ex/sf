@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From LF Require Import Induction.
 
 Parameter MISSING: Type.
@@ -263,6 +263,6 @@ idtac "---------- bin_nat_bin ---------".
 Print Assumptions bin_nat_bin.
 Abort.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:25 *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

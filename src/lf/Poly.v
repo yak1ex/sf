@@ -3,8 +3,8 @@
 (* Final reminder: Please do not put solutions to the exercises in
    publicly accessible places.  Thank you!! *)
 
-(* Suppress some annoying warnings from Coq: *)
-Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
+(* Suppress some annoying warnings from Rocq: *)
+Set Warnings "-notation-overridden".
 From LF Require Export Lists.
 
 (* ################################################################# *)
@@ -855,6 +855,11 @@ Example fold_example3 :
   fold app  [[1];[];[2;3];[4]] [] = [1;2;3;4].
 Proof. reflexivity. Qed.
 
+Example foldexample4 :
+  fold (fun l n => length l + n) [[1];[];[2;3;2];[4]] 0 = 5.
+Proof. reflexivity. Qed.
+
+
 (** **** Exercise: 1 star, standard, optional (fold_types_different)
 
     Observe that the type of [fold] is parameterized by _two_ type
@@ -1224,4 +1229,4 @@ Proof. (* FILL IN HERE *) Admitted.
 End Church.
 End Exercises.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

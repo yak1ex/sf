@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From LF Require Import Basics.
 
 Parameter MISSING: Type.
@@ -138,7 +138,8 @@ idtac "#> identity_fn_applied_twice".
 idtac "Possible points: 1".
 check_type @identity_fn_applied_twice (
 (forall (f : forall _ : bool, bool) (_ : forall x : bool, @eq bool (f x) x)
-   (b : bool), @eq bool (f (f b)) b)).
+   (b : bool),
+ @eq bool (f (f b)) b)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions identity_fn_applied_twice.
@@ -175,7 +176,8 @@ idtac "Possible points: 0.5".
 check_type @LateDays.test_grade_comparison1 (
 (@eq LateDays.comparison
    (LateDays.grade_comparison (LateDays.Grade LateDays.A LateDays.Minus)
-      (LateDays.Grade LateDays.B LateDays.Plus)) LateDays.Gt)).
+      (LateDays.Grade LateDays.B LateDays.Plus))
+   LateDays.Gt)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions LateDays.test_grade_comparison1.
@@ -187,7 +189,8 @@ idtac "Possible points: 0.5".
 check_type @LateDays.test_grade_comparison2 (
 (@eq LateDays.comparison
    (LateDays.grade_comparison (LateDays.Grade LateDays.A LateDays.Minus)
-      (LateDays.Grade LateDays.A LateDays.Plus)) LateDays.Lt)).
+      (LateDays.Grade LateDays.A LateDays.Plus))
+   LateDays.Lt)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions LateDays.test_grade_comparison2.
@@ -199,7 +202,8 @@ idtac "Possible points: 0.5".
 check_type @LateDays.test_grade_comparison3 (
 (@eq LateDays.comparison
    (LateDays.grade_comparison (LateDays.Grade LateDays.F LateDays.Plus)
-      (LateDays.Grade LateDays.F LateDays.Plus)) LateDays.Eq)).
+      (LateDays.Grade LateDays.F LateDays.Plus))
+   LateDays.Eq)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions LateDays.test_grade_comparison3.
@@ -211,7 +215,8 @@ idtac "Possible points: 0.5".
 check_type @LateDays.test_grade_comparison4 (
 (@eq LateDays.comparison
    (LateDays.grade_comparison (LateDays.Grade LateDays.B LateDays.Minus)
-      (LateDays.Grade LateDays.C LateDays.Plus)) LateDays.Gt)).
+      (LateDays.Grade LateDays.C LateDays.Plus))
+   LateDays.Gt)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions LateDays.test_grade_comparison4.
@@ -346,7 +351,8 @@ check_type @LateDays.lower_grade_lowers (
 (forall (g : LateDays.grade)
    (_ : @eq LateDays.comparison
           (LateDays.grade_comparison
-             (LateDays.Grade LateDays.F LateDays.Minus) g) LateDays.Lt),
+             (LateDays.Grade LateDays.F LateDays.Minus) g)
+          LateDays.Lt),
  @eq LateDays.comparison
    (LateDays.grade_comparison (LateDays.lower_grade g) g) LateDays.Lt)).
 idtac "Assumptions:".
@@ -543,6 +549,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 13:39 *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 13:39 *)

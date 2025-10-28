@@ -49,7 +49,7 @@ RUN opam init -y --disable-sandboxing --compiler=4.14.0
 RUN opam switch 4.14.0
 RUN opam install -y num
 RUN opam repo add -y coq-released https://coq.inria.fr/opam/released
-RUN opam pin add -y coq 8.19.1
+RUN opam pin add -y coq 9.0.0
 RUN opam install -y coq-simple-io
 RUN opam install -y vscoq-language-server
 RUN opam update -y

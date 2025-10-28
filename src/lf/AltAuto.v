@@ -32,8 +32,8 @@
     A deeper treatment of [auto] can be found in the [UseAuto]
     chapter in _Programming Language Foundations_.  *)
 
-Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality,-deprecated-syntactic-definition,-deprecated]".
-From Coq Require Import Arith List.
+Set Warnings "-notation-overridden,-notation-incompatible-prefix".
+From Stdlib Require Import Arith List.
 From LF Require Import IndProp.
 
 (** As a simple illustration of the benefits of automation,
@@ -764,7 +764,7 @@ Qed.
 
     Also, [lia] will do [intros] as necessary. *)
 
-From Coq Require Import Lia.
+From Stdlib Require Import Lia.
 
 Theorem lia_succeed1 : forall (n : nat),
   n > 0 -> n * 2 > n.
@@ -792,7 +792,7 @@ Abort.
     the algebraic structures of _rings_ and _fields_, from which the
     tactics get their names. These tactics do not do [intros]. *)
 
-Require Import Ring.
+From Stdlib Require Import Ring.
 
 Theorem mult_comm : forall (n m : nat),
     n * m = m * n.
@@ -1825,4 +1825,4 @@ Definition manual_grade_for_nor_intuition : option (nat*string) := None.
 
     - Ltac functions and [match goal] *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

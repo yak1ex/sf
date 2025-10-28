@@ -9,7 +9,7 @@
 
 Set Implicit Arguments.
 Generalizable Variables A B.
-Require Import Coq.Classes.Morphisms. (* for [Proper] instances *)
+Require Import Stdlib.Classes.Morphisms. (* for [Proper] instances *)
 From SLF Require Import LibTactics LibLogic LibReflect LibList
   LibOperation LibMonoid LibInt LibNat
   LibEpsilon LibRelation LibMin.
@@ -1143,4 +1143,4 @@ Tactic Notation "rew_foreach" "*" "in" "*" :=
 *)
 
 
-(* 2024-12-26 10:22 *)
+(* 2025-08-24 14:03 *)

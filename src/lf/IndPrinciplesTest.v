@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From LF Require Import IndPrinciples.
 
 Parameter MISSING: Type.
@@ -68,7 +68,8 @@ check_type @Toy_correct (
       (fun g : forall (_ : nat) (_ : Toy), Toy =>
        forall (P : forall _ : Toy, Prop) (_ : forall b : bool, P (f b))
          (_ : forall (n : nat) (t : Toy) (_ : P t), P (g n t))
-         (t : Toy), P t)))).
+         (t : Toy),
+       P t)))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions Toy_correct.
@@ -112,6 +113,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

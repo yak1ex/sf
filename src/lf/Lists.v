@@ -710,8 +710,9 @@ Proof.
     (* IHl' not applicable. *)
 Abort.
 
-(** We can slightly strengthen the lemma to work not only on
-    reversed lists but on general lists. *)
+(** It turns out that the above lemma is much more narrow than it
+    needs to be. We can strengthen the lemma to work not only on reversed
+    lists but on general lists. *)
 Theorem app_length_S: forall l n,
   length (l ++ [n]) = S (length l).
 Proof.
@@ -723,29 +724,6 @@ Proof.
     rewrite IHl'.
     reflexivity.
 Qed.
-(** This generalized lemma would be sufficient to conclude our
-    original proof.  Still, we can prove an even more general lemma
-    about the length of appended lists.  *)
-
-(** Let's take the equation relating [++] and [length] that
-    would have enabled us to make progress at the point where we got
-    stuck and state it as a separate lemma. *)
-
-Theorem app_length : forall l1 l2 : natlist,
-  length (l1 ++ l2) = (length l1) + (length l2).
-Proof.
-  (* WORKED IN CLASS *)
-  intros l1 l2. induction l1 as [| n l1' IHl1'].
-  - (* l1 = nil *)
-    reflexivity.
-  - (* l1 = cons *)
-    simpl. rewrite -> IHl1'. reflexivity.  Qed.
-
-(** Note that, to make the lemma as general as possible, we
-    quantify over _all_ [natlist]s, not just those that result from an
-    application of [rev].  This seems natural, because the truth of
-    the goal clearly doesn't depend on the list having been reversed.
-    Moreover, it is easier to prove the more general property. *)
 
 (** Now we can complete the original proof. *)
 
@@ -756,10 +734,24 @@ Proof.
   - (* l = nil *)
     reflexivity.
   - (* l = cons *)
-    simpl. rewrite -> app_length.
-    simpl. rewrite -> IHl'. rewrite add_comm.
+    simpl.
+    rewrite -> app_length_S.
+    rewrite -> IHl'.
     reflexivity.
 Qed.
+
+(** Note that the app_length_S lemma we proved above is pretty
+    narrow, requiring that the second list contains only a single element.
+    We can prove a more general version for any two lists. *)
+Theorem app_length : forall l1 l2 : natlist,
+  length (l1 ++ l2) = (length l1) + (length l2).
+Proof.
+  (* WORKED IN CLASS *)
+  intros l1 l2. induction l1 as [| n l1' IHl1'].
+  - (* l1 = nil *)
+    reflexivity.
+  - (* l1 = cons *)
+    simpl. rewrite -> IHl1'. reflexivity.  Qed.
 
 (** For comparison, here are informal proofs of these two theorems:
 
@@ -1207,4 +1199,4 @@ Proof.
 (** [] *)
 End PartialMap.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 13:39 *)

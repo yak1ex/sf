@@ -1,7 +1,6 @@
 (** * Logic: Logic in Coq *)
 
-Set Warnings "-notation-overridden,-parsing".
-Set Warnings "-deprecated-hint-without-locality".
+Set Warnings "-notation-overridden".
 Require Nat.
 From LF Require Export Tactics.
 
@@ -600,17 +599,16 @@ Proof.
 
 (** The handy "if and only if" connective, which asserts that two
     propositions have the same truth value, is simply the conjunction
-    of two implications. *)
+    of two implications.
 
-Module IffPlayground.
+      Print "<->".
+*)
+(* ===>
+     Notation "A <-> B" := (iff A B)
 
-Definition iff (P Q : Prop) := (P -> Q) /\ (Q -> P).
+     iff = fun A B : Prop => (A -> B) /\ (B -> A) : Prop -> Prop -> Prop
 
-Notation "P <-> Q" := (iff P Q)
-                      (at level 95, no associativity)
-                      : type_scope.
-
-End IffPlayground.
+     Argumments iff (A B)%%type_scope  *)
 
 Theorem iff_sym : forall P Q : Prop,
   (P <-> Q) -> (Q <-> P).
@@ -679,7 +677,7 @@ Proof.
     To enable this behavior, we have to import the Coq library that
     supports it: *)
 
-From Coq Require Import Setoids.Setoid.
+From Stdlib Require Import Setoids.Setoid.
 
 (** A "setoid" is a set equipped with an equivalence relation -- that
     is, a relation that is reflexive, symmetric, and transitive.  When two
@@ -1277,7 +1275,7 @@ Definition is_even_prime n :=
     This has to do with the _computational_ nature of Coq's core language,
     which is designed so that every function it can express is computable
     and total.  One reason for this is to allow the extraction of
-    executable programs from Coq developments.  As a consequence, [Prop] in
+    executable programs from Rocq developments.  As a consequence, [Prop] in
     Coq does _not_ have a universal case analysis operation telling whether
     any given proposition is true or false, since such an operation would
     allow us to write non-computable functions.  *)
@@ -1566,7 +1564,7 @@ Qed.
 (** To check whether a particular proof relies on any additional
     axioms, use the [Print Assumptions] command:
 
-      Print Assumptions function_equality_ex2
+      Print Assumptions function_equality_ex2.
 *)
 (* ===>
      Axioms:
@@ -1796,4 +1794,4 @@ Definition consequentia_mirabilis := forall P:Prop,
 
     [] *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

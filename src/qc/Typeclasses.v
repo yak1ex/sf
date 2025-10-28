@@ -1,9 +1,9 @@
 (** * Typeclasses: A Tutorial on Typeclasses in Coq *)
 
-From Coq Require Import Bool.
-From Coq Require Import Strings.String.
-From Coq Require Import Arith.
-From Coq Require Import Lia.
+From Stdlib Require Import Bool.
+From Stdlib Require Import Strings.String.
+From Stdlib Require Import Arith.
+From Stdlib Require Import Lia.
 Require Import List. Import ListNotations.
 Local Open Scope string.
 
@@ -866,7 +866,7 @@ Proof.
     members of other typeclasses: these are called _substructures_.
     Here is an example adapted from the Coq Reference Manual. *)
 
-From Coq Require Import Relations.Relation_Definitions.
+From Stdlib Require Import Relations.Relation_Definitions.
 
 Class Reflexive (A : Type) (R : relation A) :=
   {
@@ -1562,7 +1562,7 @@ Definition e4 : list nat := mymap false.
 (** ** John Wiegley *)
 
 (** One thing that always gets me is that overlapping instances are
-    easy to write with no warning from Coq (unlike Haskell, which
+    easy to write with no warning from Rocq (unlike Haskell, which
     ensures that resolution always pick a single instance). This
     requires me to often use:
 
@@ -1767,4 +1767,4 @@ Definition e4 : list nat := mymap false.
        {http://learnyouahaskell.com/making-our-own-types-and-typeclasses}
 *)
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:59 *)

@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import Priqueue.
 
 Parameter MISSING: Type.
@@ -51,9 +51,10 @@ idtac "#> List_Priqueue.select_biggest_aux".
 idtac "Possible points: 1".
 check_type @List_Priqueue.select_biggest_aux (
 (forall (i : nat) (al : list nat) (j : nat) (bl : list nat)
-   (_ : @List.Forall nat (fun x : nat => ge j x) bl)
+   (_ : @ListDef.Forall nat (fun x : nat => ge j x) bl)
    (_ : @eq (prod nat (list nat)) (List_Priqueue.select i al)
-          (@pair nat (list nat) j bl)), ge j i)).
+          (@pair nat (list nat) j bl)),
+ ge j i)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions List_Priqueue.select_biggest_aux.
@@ -66,7 +67,7 @@ check_type @List_Priqueue.select_biggest (
 (forall (i : nat) (al : list nat) (j : nat) (bl : list nat)
    (_ : @eq (prod nat (list nat)) (List_Priqueue.select i al)
           (@pair nat (list nat) j bl)),
- @List.Forall nat (fun x : nat => ge j x) bl)).
+ @ListDef.Forall nat (fun x : nat => ge j x) bl)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions List_Priqueue.select_biggest.
@@ -100,7 +101,7 @@ check_type @List_Priqueue.delete_max_Some_relate (
              (@pair nat List_Priqueue.priqueue k q)))
    (_ : List_Priqueue.Abs q ql),
  and (@Permutation.Permutation List_Priqueue.key pl (@cons nat k ql))
-   (@List.Forall nat (ge k) ql))).
+   (@ListDef.Forall nat (ge k) ql))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions List_Priqueue.delete_max_Some_relate.
@@ -118,7 +119,7 @@ check_type @List_Priqueue.delete_max_Some_relate (
              (@pair nat List_Priqueue.priqueue k q)))
    (_ : List_Priqueue.Abs q ql),
  and (@Permutation.Permutation List_Priqueue.key pl (@cons nat k ql))
-   (@List.Forall nat (ge k) ql))).
+   (@ListDef.Forall nat (ge k) ql))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions List_Priqueue.delete_max_Some_relate.
@@ -177,6 +178,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:54 *)

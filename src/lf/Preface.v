@@ -241,6 +241,25 @@
     very same underlying machinery -- i.e., _proofs are programs_.  *)
 
 (* ================================================================= *)
+(** ** Rocq vs. Coq *)
+
+(** Until 2025, the Rocq prover was known as Coq. According to the
+    official webpage, "The name 'Coq' referenced the Calculus of
+    Constructions (CoC), the foundational system it is based on, as
+    well as one of its creators, Thierry Coquand. Additionally, it
+    paid homage to the French national symbol, the rooster.  The new
+    name, 'the Rocq Prover', honors Inria Rocquencourt, the original
+    site where the prover was developed. It also alludes to the
+    mythological bird Roc (or Rokh), symbolizing strength and not so
+    disconnected to a rooster. Furthermore, the name conveys a sense
+    of solidity, and its unintended connection to music adds a
+    pleasant resonance."
+
+    The current release of Software Foundations is still in a
+    transitional state, and you will see references to both Coq and
+    Rocq. *)
+
+(* ================================================================= *)
 (** ** Further Reading *)
 
 (** This text is intended to be self contained, but readers looking
@@ -256,7 +275,7 @@
 (** ** System Requirements *)
 
 (** Coq runs on Windows, Linux, and macOS.  The files in this book
-    have been tested with Coq 8.20.
+    have been tested with Coq 9.0.0.
 
     You will need:
 
@@ -299,10 +318,11 @@
           libraries and such.
 
           Users who like CoqIDE should consider running it with the
-          "asynchronous" and "error resilience" modes disabled: [[
+          "asynchronous" and "error resilience" modes disabled:
+
           coqide -async-proofs off \
-          -async-proofs-command-error-resilience off Foo.v &
-          ]] *)
+                 -async-proofs-command-error-resilience off Foo.v &
+*)
 
 (* ----------------------------------------------------------------- *)
 (** *** Using Coq with VSCode and Docker *)
@@ -431,7 +451,7 @@
     volume       =   "1",
     year         =   "2025",
     publisher    =   "Electronic textbook",
-    note         =   {Version 6.8, \URL{http://softwarefoundations.cis.upenn.edu}}
+    note         =   {Version 6.9.0, \URL{http://softwarefoundations.cis.upenn.edu}}
     }
 *)
 
@@ -515,4 +535,4 @@
     NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

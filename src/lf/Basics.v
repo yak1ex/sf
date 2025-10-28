@@ -207,7 +207,7 @@ Proof. simpl. reflexivity.  Qed.
     the [String] module from the standard library.  We'll use strings
     for various things in later chapters, but we need to [Require] it here so
     that the grading scripts can use it for internal purposes. *)
-From Coq Require Export String.
+From Stdlib Require Export String.
 
 (* ================================================================= *)
 (** ** Booleans *)
@@ -595,7 +595,7 @@ Module NatPlayground.
     scratches on the walls of their caves). To represent unary numbers
     with a Coq datatype, we use two constructors. The capital-letter
     [O] constructor represents zero. The [S] constructor can be
-    applied to the representation of the natural number n, yieldimng
+    applied to the representation of the natural number n, yielding
     the representation of n+1, where [S] stands for "successor" (or
     "scratch").  Here is the complete datatype definition: *)
 
@@ -2037,4 +2037,4 @@ Example test_bin_incr6 :
     output.  But since they have to be graded by a human, the test
     script won't be able to tell you much about them.  *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 13:39 *)

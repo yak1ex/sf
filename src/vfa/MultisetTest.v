@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import Multiset.
 
 Parameter MISSING: Type.
@@ -297,6 +297,6 @@ idtac "---------- contents_perm ---------".
 Print Assumptions contents_perm.
 Abort.
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)

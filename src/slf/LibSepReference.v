@@ -2844,7 +2844,7 @@ Tactic Notation "xvars" :=
 (** [xwp_simpl] is a specialized version of [simpl] to be used for
     getting the function [wp] to compute properly. *)
 
-From Coq Require Bool.
+From Stdlib Require Bool.
 
 Ltac xwp_simpl :=
   xvars;
@@ -4289,4 +4289,4 @@ Proof using. xwp. xif; auto_false. intros _. xval. xsimpl. Qed.
 
 End DemoPrograms.
 
-(* 2025-01-06 19:51 *)
+(* 2025-08-24 14:03 *)

@@ -238,7 +238,7 @@
 (** Install instructions for Coq and IDEs may be found on this page:
     [https://www.chargueraud.org/teach/verif/install/install.html]
 
-    The files you are reading have been tested with Coq version 8.19.2 but
+    The files you are reading have been tested with Coq version 9.0.0 but
     may also work with other versions. *)
 
 (* ================================================================= *)
@@ -280,7 +280,7 @@
     title        =   "Separation Logic Foundations",
     series       =   "Software Foundations",
     volume       =   "6",
-    year         =   "2024",
+    year         =   "2025",
     publisher    =   "Electronic textbook",
     note         =   {Version 2.2, \URL{http://softwarefoundations.cis.upenn.edu} },
     }
@@ -294,4 +294,4 @@
     Foundation under the NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2024-12-26 10:22 *)
+(* 2025-08-20 18:09 *)

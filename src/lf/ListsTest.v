@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From LF Require Import Lists.
 
 Parameter MISSING: Type.
@@ -91,7 +91,8 @@ idtac "Possible points: 0.5".
 check_type @NatList.test_countoddmembers2 (
 (@eq nat
    (NatList.countoddmembers
-      (NatList.cons 0 (NatList.cons 2 (NatList.cons 4 NatList.nil)))) 0)).
+      (NatList.cons 0 (NatList.cons 2 (NatList.cons 4 NatList.nil))))
+   0)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions NatList.test_countoddmembers2.
@@ -184,7 +185,8 @@ check_type @NatList.test_sum1 (
    (NatList.count 1
       (NatList.sum
          (NatList.cons 1 (NatList.cons 2 (NatList.cons 3 NatList.nil)))
-         (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil))))) 3)).
+         (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil)))))
+   3)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions NatList.test_sum1.
@@ -197,7 +199,8 @@ check_type @NatList.test_add1 (
 (@eq nat
    (NatList.count 1
       (NatList.add 1
-         (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil))))) 3)).
+         (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil)))))
+   3)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions NatList.test_add1.
@@ -210,7 +213,8 @@ check_type @NatList.test_add2 (
 (@eq nat
    (NatList.count 5
       (NatList.add 1
-         (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil))))) 0)).
+         (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil)))))
+   0)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions NatList.test_add2.
@@ -222,7 +226,8 @@ idtac "Possible points: 0.5".
 check_type @NatList.test_member1 (
 (@eq bool
    (NatList.member 1
-      (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil)))) true)).
+      (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil))))
+   true)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions NatList.test_member1.
@@ -234,7 +239,8 @@ idtac "Possible points: 0.5".
 check_type @NatList.test_member2 (
 (@eq bool
    (NatList.member 2
-      (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil)))) false)).
+      (NatList.cons 1 (NatList.cons 4 (NatList.cons 1 NatList.nil))))
+   false)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions NatList.test_member2.
@@ -361,7 +367,8 @@ idtac "Advanced".
 idtac "Possible points: 3".
 check_type @NatList.involution_injective (
 (forall (f : forall _ : nat, nat) (_ : forall n : nat, @eq nat n (f (f n)))
-   (n1 n2 : nat) (_ : @eq nat (f n1) (f n2)), @eq nat n1 n2)).
+   (n1 n2 : nat) (_ : @eq nat (f n1) (f n2)),
+ @eq nat n1 n2)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions NatList.involution_injective.
@@ -542,6 +549,6 @@ idtac "---------- NatList.rev_injective ---------".
 Print Assumptions NatList.rev_injective.
 Abort.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:25 *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

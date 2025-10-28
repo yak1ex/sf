@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From LF Require Import IndProp.
 
 Parameter MISSING: Type.
@@ -141,7 +141,8 @@ idtac "#> Perm3_In".
 idtac "Possible points: 2".
 check_type @Perm3_In (
 (forall (X : Type) (x : X) (l1 l2 : list X) (_ : @Perm3 X l1 l2)
-   (_ : @In X x l1), @In X x l2)).
+   (_ : @In X x l1),
+ @In X x l2)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions Perm3_In.
@@ -533,6 +534,6 @@ idtac "---------- merge_filter ---------".
 Print Assumptions merge_filter.
 Abort.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

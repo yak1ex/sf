@@ -48,7 +48,7 @@
 
 Set Implicit Arguments.
 
-From Coq Require Import List.
+From Stdlib Require Import List.
 
 Declare Scope ltac_scope.
 
@@ -379,7 +379,7 @@ Ltac fast_rm_inside E :=
     Note: the tactic [number_to_nat] is extended in [LibInt] to
     take into account the [Z] type. *)
 
-From Coq Require BinNums BinInt.
+From Stdlib Require BinNums BinInt.
 
 Definition ltac_int_to_nat (x:BinInt.Z) : nat :=
   match x with
@@ -2580,7 +2580,7 @@ Tactic Notation "subst_eq" constr(E) :=
 (* ================================================================= *)
 (** ** Tactics to Work with Proof Irrelevance *)
 
-From Coq.Logic Require Import ProofIrrelevance.
+From Stdlib.Logic Require Import ProofIrrelevance.
 
 (** [pi_rewrite E] replaces [E] of type [Prop] with a fresh
     unification variable, and is thus a practical way to
@@ -3235,7 +3235,7 @@ Tactic Notation "cases_if'" :=
     [inductions E gen X1 .. XN] is a shorthand for
     [dependent induction E generalizing X1 .. XN]. *)
 
-From Coq.Program Require Import Equality.
+From Stdlib.Program Require Import Equality.
 
 Ltac inductions_post :=
   unfold eq' in *.
@@ -3312,8 +3312,8 @@ Tactic Notation "induction_wf" ident(IH) ":" constr(E) ident(X) :=
     judgment that includes a counter for the maximal height
     (see LibTacticsDemos for an example) *)
 
-From Coq.Arith Require Import Compare_dec.
-From Coq.micromega Require Import Lia.
+From Stdlib.Arith Require Import Compare_dec.
+From Stdlib.micromega Require Import Lia.
 
 Lemma induct_height_max2 : forall n1 n2 : nat,
   exists n, n1 < n /\ n2 < n.
@@ -5270,4 +5270,4 @@ Ltac autorewrite_in_star_patch cont :=
 
 (* End of experimental features *)
 
-(* 2025-01-06 19:51 *)
+(* 2025-08-24 14:03 *)

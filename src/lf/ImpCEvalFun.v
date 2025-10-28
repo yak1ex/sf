@@ -10,11 +10,12 @@
 (* ################################################################# *)
 (** * A Broken Evaluator *)
 
-From Coq Require Import Lia.
-From Coq Require Import Arith.
-From Coq Require Import PeanoNat.
+Set Warnings "-notation-overridden,-notation-incompatible-prefix".
+From Stdlib Require Import Lia.
+From Stdlib Require Import Arith.
+From Stdlib Require Import PeanoNat.
 Import Nat.
-From Coq Require Import EqNat.
+From Stdlib Require Import EqNat.
 From LF Require Import Imp Maps.
 
 (** Here was our first try at an evaluation function for commands,
@@ -393,4 +394,4 @@ Proof.
   rewrite E1 in E2. inversion E2. reflexivity.
   lia. lia.  Qed.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

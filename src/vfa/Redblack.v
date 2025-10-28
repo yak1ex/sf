@@ -31,12 +31,11 @@
       {http://www.cs.princeton.edu/~appel/papers/redblack.pdf}.  *)
 
 Set Warnings "-undo-batch-mode".
-From Coq Require Import String.
-From Coq Require Import FunctionalExtensionality.
-From Coq Require Import ZArith.
+From Stdlib Require Import String.
+From Stdlib Require Import FunctionalExtensionality.
+From Stdlib Require Import ZArith.
 From VFA Require Import Perm.
 From VFA Require Import Extract.
-Set Extraction Output Directory ".".
 Open Scope Z_scope.
 
 (* ################################################################# *)
@@ -836,4 +835,4 @@ On the same machine that prints,
     - Red-black trees are about as fast on consecutive insertions as
       on random. *)
 
-(* 2025-01-06 17:19 *)
+(* 2025-08-24 13:54 *)

@@ -6,7 +6,7 @@
     defined inductively, the corresponding induction principle is
     called [t_ind]. *)
 
-Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
+Set Warnings "-notation-overridden".
 From LF Require Export ProofObjects.
 
 (* ################################################################# *)
@@ -163,7 +163,6 @@ Inductive natlist' : Type :=
 
 (** Now the induction principle case for [nsnoc] is a bit different
     than the earlier case for [ncons]: *)
-Unset Automatic Proposition Inductives.
 
 Check natlist'_ind :
   forall P : natlist' -> Prop,
@@ -964,4 +963,4 @@ Proof. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

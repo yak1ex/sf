@@ -1,6 +1,6 @@
 (** * IndProp: Inductively Defined Propositions *)
 
-Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
+Set Warnings "-notation-overridden".
 From LF Require Export Logic.
 
 (* ################################################################# *)
@@ -1333,6 +1333,34 @@ Proof.
 
     [] *)
 
+(** **** Exercise: 2 stars, standard, optional (total_relation)
+
+    Define an inductive binary relation [total_relation] that holds
+    between every pair of natural numbers. *)
+
+Inductive total_relation : nat -> nat -> Prop :=
+  (* FILL IN HERE *)
+.
+
+Theorem total_relation_is_total : forall n m, total_relation n m.
+  Proof.
+  (* FILL IN HERE *) Admitted.
+(** [] *)
+
+(** **** Exercise: 2 stars, standard, optional (empty_relation)
+
+    Define an inductive binary relation [empty_relation] (on numbers)
+    that never holds. *)
+
+Inductive empty_relation : nat -> nat -> Prop :=
+  (* FILL IN HERE *)
+.
+
+Theorem empty_relation_is_empty : forall n m, ~ empty_relation n m.
+  Proof.
+  (* FILL IN HERE *) Admitted.
+(** [] *)
+
 (* ################################################################# *)
 (** * Case Study: Regular Expressions *)
 
@@ -2305,11 +2333,13 @@ Proof.
     chapter, which asserts that a value [x] appears at least once in a
     list [l]: *)
 
-(* Fixpoint In (A : Type) (x : A) (l : list A) : Prop :=
-   match l with
-   | [] => False
-   | x' :: l' => x' = x \/ In A x l'
-   end *)
+Module RecallIn.
+   Fixpoint In (A : Type) (x : A) (l : list A) : Prop :=
+     match l with
+     | [] => False
+     | x' :: l' => x' = x \/ In A x l'
+     end.
+End RecallIn.
 
 (** Your first task is to use [In] to define a proposition [disjoint X
     l1 l2], which should be provable exactly when [l1] and [l2] are
@@ -2410,7 +2440,7 @@ Proof.
 
 (** We will implement a regex matcher that matches strings represented
     as lists of ASCII characters: *)
-Require Import Coq.Strings.Ascii.
+From Stdlib Require Import Strings.Ascii.
 
 Definition string := list ascii.
 
@@ -2730,4 +2760,4 @@ Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

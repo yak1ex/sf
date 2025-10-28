@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From LF Require Import ProofObjects.
 
 Parameter MISSING: Type.
@@ -152,7 +152,8 @@ idtac "#> EqualityPlayground.equality__leibniz_equality".
 idtac "Possible points: 2".
 check_type @EqualityPlayground.equality__leibniz_equality (
 (forall (X : Type) (x y : X) (_ : @EqualityPlayground.eq X x y)
-   (P : forall _ : X, Prop) (_ : P x), P y)).
+   (P : forall _ : X, Prop) (_ : P x),
+ P y)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions EqualityPlayground.equality__leibniz_equality.
@@ -166,7 +167,8 @@ idtac "#> EqualityPlayground.equality__leibniz_equality_term".
 idtac "Possible points: 2".
 check_type @EqualityPlayground.equality__leibniz_equality_term (
 (forall (X : Type) (x y : X) (_ : @EqualityPlayground.eq X x y)
-   (P : forall _ : X, Prop) (_ : P x), P y)).
+   (P : forall _ : X, Prop) (_ : P x),
+ P y)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions EqualityPlayground.equality__leibniz_equality_term.
@@ -368,6 +370,6 @@ idtac "---------- pe_implies_pi ---------".
 Print Assumptions pe_implies_pi.
 Abort.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

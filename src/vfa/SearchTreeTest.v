@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import SearchTree.
 
 Parameter MISSING: Type.
@@ -52,7 +52,8 @@ idtac "Possible points: 1.5".
 check_type @ForallT_insert (
 (forall (V : Type) (P : forall (_ : key) (_ : V), Prop)
    (t : tree V) (_ : @ForallT V P t) (k : key) (v : V)
-   (_ : P k v), @ForallT V P (@insert V k v t))).
+   (_ : P k v),
+ @ForallT V P (@insert V k v t))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions ForallT_insert.
@@ -90,7 +91,7 @@ idtac "Possible points: 2".
 check_type @elements_preserves_forall (
 (forall (V : Type) (P : forall (_ : key) (_ : V), Prop)
    (t : tree V) (_ : @ForallT V P t),
- @List.Forall (prod key V) (@uncurry key V Prop P) (@elements V t))).
+ @ListDef.Forall (prod key V) (@uncurry key V Prop P) (@elements V t))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions elements_preserves_forall.
@@ -179,8 +180,8 @@ idtac "Advanced".
 idtac "Possible points: 3".
 check_type @sorted_app (
 (forall (l1 l2 : list nat) (x : nat) (_ : Sort.sorted l1)
-   (_ : Sort.sorted l2) (_ : @List.Forall nat (fun n : nat => lt n x) l1)
-   (_ : @List.Forall nat (fun n : nat => gt n x) l2),
+   (_ : Sort.sorted l2) (_ : @ListDef.Forall nat (fun n : nat => lt n x) l1)
+   (_ : @ListDef.Forall nat (fun n : nat => gt n x) l2),
  Sort.sorted (@app nat l1 (@cons nat x l2)))).
 idtac "Assumptions:".
 Abort.
@@ -297,6 +298,6 @@ idtac "---------- sorted_elements ---------".
 Print Assumptions sorted_elements.
 Abort.
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)

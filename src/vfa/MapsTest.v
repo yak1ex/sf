@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import Maps.
 
 Parameter MISSING: Type.
@@ -66,7 +66,8 @@ idtac "#> t_update_neq".
 idtac "Possible points: 1".
 check_type @t_update_neq (
 (forall (X : Type) (v : X) (x1 x2 : nat) (m : total_map X)
-   (_ : not (@eq nat x1 x2)), @eq X (@t_update X m x1 v x2) (m x2))).
+   (_ : not (@eq nat x1 x2)),
+ @eq X (@t_update X m x1 v x2) (m x2))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions t_update_neq.
@@ -170,6 +171,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)

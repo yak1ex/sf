@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import Color.
 
 Parameter MISSING: Type.
@@ -58,7 +58,7 @@ check_type @InA_map_fst_key (
 (forall (A : Type) (j : BinNums.positive) (l : list (prod M.E.t A)),
  iff
    (@SetoidList.InA BinNums.positive E.eq j
-      (@List.map (prod M.E.t A) M.E.t (@fst M.E.t A) l))
+      (@ListDef.map (prod M.E.t A) M.E.t (@fst M.E.t A) l))
    (@ex A
       (fun e : A =>
        @SetoidList.InA (prod M.key A) (@M.eq_key_elt A)
@@ -78,7 +78,7 @@ check_type @Sorted_lt_key (
 (forall (A : Type) (al : list (prod BinNums.positive A)),
  iff (@Sorted.Sorted (prod M.key A) (@M.lt_key A) al)
    (@Sorted.Sorted BinNums.positive E.lt
-      (@List.map (prod BinNums.positive A) BinNums.positive
+      (@ListDef.map (prod BinNums.positive A) BinNums.positive
          (@fst BinNums.positive A) al)))).
 idtac "Assumptions:".
 Abort.
@@ -329,6 +329,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:53 *)
+(* 2025-08-24 13:54 *)

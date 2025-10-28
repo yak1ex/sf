@@ -1,8 +1,8 @@
 (** * Auto: More Automation *)
 
-Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
-From Coq Require Import Lia.
-From Coq Require Import Strings.String.
+Set Warnings "-notation-overridden,-notation-incompatible-prefix".
+From Stdlib Require Import Lia.
+From Stdlib Require Import Strings.String.
 From LF Require Import Maps.
 From LF Require Import Imp.
 
@@ -741,4 +741,4 @@ Proof.
   intros P Q HP HQ. destruct HP as [y HP']. eauto.
 Qed.
 
-(* 2025-01-06 19:46 *)
+(* 2025-08-24 14:26 *)

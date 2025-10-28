@@ -345,10 +345,33 @@
     logical assertions.  Moreover, when we come to look more closely,
     we find that these two sides of Coq are actually aspects of the
     very same underlying machinery -- i.e., <i>proofs are programs</i>.  
+<div class="paragraph"> </div>
+
+<a id="lab6"></a><h2 class="section">Rocq vs. Coq</h2>
+
+<div class="paragraph"> </div>
+
+ Until 2025, the Rocq prover was known as Coq. According to the
+    official webpage, "The name 'Coq' referenced the Calculus of
+    Constructions (CoC), the foundational system it is based on, as
+    well as one of its creators, Thierry Coquand. Additionally, it
+    paid homage to the French national symbol, the rooster.  The new
+    name, 'the Rocq Prover', honors Inria Rocquencourt, the original
+    site where the prover was developed. It also alludes to the
+    mythological bird Roc (or Rokh), symbolizing strength and not so
+    disconnected to a rooster. Furthermore, the name conveys a sense
+    of solidity, and its unintended connection to music adds a
+    pleasant resonance."
+
+<div class="paragraph"> </div>
+
+    The current release of Software Foundations is still in a
+    transitional state, and you will see references to both Coq and
+    Rocq. 
 </div>
 
 <div class="doc">
-<a id="lab6"></a><h2 class="section">Further Reading</h2>
+<a id="lab7"></a><h2 class="section">Further Reading</h2>
 
 <div class="paragraph"> </div>
 
@@ -360,16 +383,16 @@
 </div>
 
 <div class="doc">
-<a id="lab7"></a><h1 class="section">Practicalities</h1>
+<a id="lab8"></a><h1 class="section">Practicalities</h1>
 
 <div class="paragraph"> </div>
 
-<a id="lab8"></a><h2 class="section">System Requirements</h2>
+<a id="lab9"></a><h2 class="section">System Requirements</h2>
 
 <div class="paragraph"> </div>
 
  Coq runs on Windows, Linux, and macOS.  The files in this book
-    have been tested with Coq 8.20.
+    have been tested with Coq 9.0.0.
 
 <div class="paragraph"> </div>
 
@@ -440,21 +463,20 @@
 <div class="paragraph"> </div>
 
           Users who like CoqIDE should consider running it with the
-          "asynchronous" and "error resilience" modes disabled: <br/>
-<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqide</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span> <span class="id" title="var">off</span> \<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span>-<span class="id" title="var">command</span>-<span class="id" title="var">error</span>-<span class="id" title="var">resilience</span> <span class="id" title="var">off</span> <span class="id" title="var">Foo.v</span> &amp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]] *)<br/>
+          "asynchronous" and "error resilience" modes disabled:
 <br/>
-</div>
-
-<div class="doc">
-
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqide</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span> <span class="id" title="var">off</span> \<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span>-<span class="id" title="var">command</span>-<span class="id" title="var">error</span>-<span class="id" title="var">resilience</span> <span class="id" title="var">off</span> <span class="id" title="var">Foo.v</span> &amp;
+</span>
 </li>
 </ul>
 
 </li>
 </ul>
-<a id="lab9"></a><h3 class="section">Using Coq with VSCode and Docker</h3>
+
+<div class="paragraph"> </div>
+
+<a id="lab10"></a><h3 class="section">Using Coq with VSCode and Docker</h3>
 
 <div class="paragraph"> </div>
 
@@ -535,7 +557,7 @@
 
 <div class="paragraph"> </div>
 
-<a id="lab10"></a><h2 class="section">Exercises</h2>
+<a id="lab11"></a><h2 class="section">Exercises</h2>
 
 <div class="paragraph"> </div>
 
@@ -604,7 +626,7 @@
     search engines. 
 <div class="paragraph"> </div>
 
-<a id="lab11"></a><h2 class="section">Downloading the Coq Files</h2>
+<a id="lab12"></a><h2 class="section">Downloading the Coq Files</h2>
 
 <div class="paragraph"> </div>
 
@@ -620,7 +642,7 @@
     you get any local updates during the semester. 
 <div class="paragraph"> </div>
 
-<a id="lab12"></a><h2 class="section">Chapter Dependencies</h2>
+<a id="lab13"></a><h2 class="section">Chapter Dependencies</h2>
 
 <div class="paragraph"> </div>
 
@@ -629,7 +651,7 @@
 </div>
 
 <div class="doc">
-<a id="lab13"></a><h2 class="section">Recommended Citation Format</h2>
+<a id="lab14"></a><h2 class="section">Recommended Citation Format</h2>
 
 <div class="paragraph"> </div>
 
@@ -651,17 +673,17 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">volume</span>       =   "1",<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">year</span>         =   "2025",<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">publisher</span>    =   "Electronic textbook",<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 6.8, \<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span><span style='letter-spacing:-.4em;'>}</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 6.9.0, \<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span><span style='letter-spacing:-.4em;'>}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;}
 </span>
 </div>
 
 <div class="doc">
-<a id="lab14"></a><h1 class="section">Resources</h1>
+<a id="lab15"></a><h1 class="section">Resources</h1>
 
 <div class="paragraph"> </div>
 
-<a id="lab15"></a><h2 class="section">Sample Exams</h2>
+<a id="lab16"></a><h2 class="section">Sample Exams</h2>
 
 <div class="paragraph"> </div>
 
@@ -673,7 +695,7 @@
     the problems are still relevant to the current text. 
 <div class="paragraph"> </div>
 
-<a id="lab16"></a><h2 class="section">Lecture Videos</h2>
+<a id="lab17"></a><h2 class="section">Lecture Videos</h2>
 
 <div class="paragraph"> </div>
 
@@ -686,7 +708,7 @@
 </div>
 
 <div class="doc">
-<a id="lab17"></a><h1 class="section">Note for Instructors and Contributors</h1>
+<a id="lab18"></a><h1 class="section">Note for Instructors and Contributors</h1>
 
 <div class="paragraph"> </div>
 
@@ -742,7 +764,7 @@
 </div>
 
 <div class="doc">
-<a id="lab18"></a><h1 class="section">Translations</h1>
+<a id="lab19"></a><h1 class="section">Translations</h1>
 
 <div class="paragraph"> </div>
 
@@ -753,7 +775,7 @@
 </div>
 
 <div class="doc">
-<a id="lab19"></a><h1 class="section">Thanks</h1>
+<a id="lab20"></a><h1 class="section">Thanks</h1>
 
 <div class="paragraph"> </div>
 
@@ -763,9 +785,9 @@
     Specification</i>. 
 </div>
 <div class="code">
-<br/>
-<span class="comment">(*&nbsp;2025-01-06&nbsp;19:46&nbsp;*)</span><br/>
-</span></div>
+
+<span class="comment">(*&nbsp;2025-08-24&nbsp;14:26&nbsp;*)</span><br/>
+</div>
 </div>
 
 <div id="footer">

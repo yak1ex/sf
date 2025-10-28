@@ -1,5 +1,5 @@
 Set Warnings "-notation-overridden,-parsing".
-From Coq Require Export String.
+From Stdlib Require Export String.
 From VFA Require Import ADT.
 
 Parameter MISSING: Type.
@@ -57,7 +57,8 @@ check_type @StringListsTableExamples.StringListsTable.get_set_same (
    (t : StringListsTableExamples.StringListsTable.table),
  @eq StringListsTableExamples.StringListsTable.V
    (StringListsTableExamples.StringListsTable.get k
-      (StringListsTableExamples.StringListsTable.set k v t)) v)).
+      (StringListsTableExamples.StringListsTable.set k v t))
+   v)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions StringListsTableExamples.StringListsTable.get_set_same.
@@ -86,7 +87,8 @@ idtac "Possible points: 0.5".
 check_type @StringListsTableExamples.ex1 (
 (@eq StringListsTableExamples.StringListsTable.V
    (StringListsTableExamples.StringListsTable.get 0
-      StringListsTableExamples.StringListsTable.empty) String.EmptyString)).
+      StringListsTableExamples.StringListsTable.empty)
+   String.EmptyString)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions StringListsTableExamples.ex1.
@@ -120,7 +122,8 @@ check_type @StringListsTableExamples.ex3 (
          (String.String
             (Ascii.Ascii true false false false false false true false)
             String.EmptyString)
-         StringListsTableExamples.StringListsTable.empty)) String.EmptyString)).
+         StringListsTableExamples.StringListsTable.empty))
+   String.EmptyString)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions StringListsTableExamples.ex3.
@@ -185,7 +188,8 @@ check_type @StringListETableAbs.lookup_relate (
    (_ : StringListETableAbs.rep_ok t),
  @eq StringVal.V
    (@map_find StringVal.V StringListETableAbs.default k
-      (StringListETableAbs.Abs t)) (StringListETableAbs.get k t))).
+      (StringListETableAbs.Abs t))
+   (StringListETableAbs.get k t))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions StringListETableAbs.lookup_relate.
@@ -482,6 +486,6 @@ idtac "---------- ListsETable ---------".
 idtac "MANUAL".
 Abort.
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)
 
-(* 2025-01-06 19:52 *)
+(* 2025-08-24 13:54 *)
