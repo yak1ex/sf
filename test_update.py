@@ -1,11 +1,12 @@
 import base64
-import tempfile
+import hashlib
 import os
 import subprocess
+import tempfile
 import pytest
+import pytest_mock
 from contextlib import chdir
-from update import process_toml, extract_metadata, replace_folder, \
-                    update_readme, create_commit_message
+import update
 
 
 # base64 encoded tgz file containing updated lf/index.html
@@ -15,6 +16,12 @@ oostX/Jm2EixNM4qa4Vhtq4q56rydeifCGW5qrTObSdYlVobQXbxybL3mMKeSIRcQuz6c+sepm3o
 R3qO7T5eYq4LGTayH5v2o+jSdljojDlgZ8zZ/JWz3/LXOX+T7wTxQvP88M/z93Pu9cp3bWhqn/o0
 tPVTGxM9zn+Fl8eOl4fnK/86NZ+57OqX/Bn6aSRXGLoquTRrxWtWpMo75hu6n97otlDu2stdXi9P
 ++TxtN9+aQAAAAAAAAAAAAAAAAAAAACAP+IL9poJVwAoAAA="""
+
+
+# Mock network calls for download_tar
+def mock_download_tar(url, dest_path):
+    with open(dest_path, "wb") as f:
+        f.write(base64.b64decode(TGZ_B64))
 
 
 @pytest.fixture
@@ -60,21 +67,57 @@ def setup_src():
         yield src_path
 
 
-def test_process_toml(setup_src):
+@pytest.mark.slow
+def test_download_tar():
+    with tempfile.TemporaryDirectory() as temp_dir:
+        dest_path = os.path.join(temp_dir, "lf-6.3.tgz")
+        update.download_tar("https://softwarefoundations.cis.upenn.edu/lf-6.3/lf.tgz", dest_path)
+        assert os.path.isfile(dest_path)
+        # calculate sha256 of downloaded file
+        sha256_hash = hashlib.sha256()
+        with open(dest_path, "rb") as f:
+            for byte_block in iter(lambda: f.read(4096), b""):
+                sha256_hash.update(byte_block)
+        assert sha256_hash.hexdigest() == "71d03081cedb34658be2090e63ad32bf602828e7197306e491090b161a0b81f3"
+
+
+def test_download_tars(mocker):
+    mocker.patch.object(update, 'download_tar', side_effect=mock_download_tar)
+    data = {
+        '2024-10-01': {
+            'lf': '6.4',
+            'plf': '6.4',
+        },
+        '2024-06-01': {
+            'lf': '6.3',
+            'plf': '6.3',
+        },
+    }
+    with tempfile.TemporaryDirectory() as temp_dir:
+        update.download_tars(data, temp_dir)
+        for volume in ['lf', 'plf']:
+            for version in ['6.4', '6.3']:
+                tar_path = os.path.join(temp_dir, f"{volume}-{version}.tgz")
+                assert os.path.isfile(tar_path)
+                with open(tar_path, "rb") as f:
+                    content = f.read()
+                    assert content == base64.b64decode(TGZ_B64)
+
+
+def test_process_toml(setup_src, mocker):
+    mocker.patch.object(update, 'download_tar', side_effect=mock_download_tar)
     with tempfile.NamedTemporaryFile(delete=False) as temp_toml:
         temp_toml.write(b"""[2024-10-01]
 lf = "6.4"
 """)
         temp_toml_path = temp_toml.name
     with tempfile.TemporaryDirectory() as temp_tgz_dir:
-        with open(os.path.join(temp_tgz_dir, "lf-6.4.tgz"), "wb") as temp_tar:
-            temp_tar.write(base64.b64decode(TGZ_B64))
         with chdir(os.path.join(setup_src, "..")):
-            updates = process_toml(temp_toml_path, prefix=setup_src, tgz_dir=temp_tgz_dir)
+            updates = update.process_toml(temp_toml_path, prefix=setup_src, tgz_dir=temp_tgz_dir)
             result = subprocess.run(["git", "log", "--stat"], cwd=os.path.join(setup_src, ".."), capture_output=True)
 
-        lf_meta = extract_metadata(os.path.join(setup_src, "lf"))
-        plf_meta = extract_metadata(os.path.join(setup_src, "plf"))
+        lf_meta = update.extract_metadata(os.path.join(setup_src, "lf"))
+        plf_meta = update.extract_metadata(os.path.join(setup_src, "plf"))
 
     assert updates == {
        '2024/10/01': {
@@ -102,7 +145,7 @@ lf = "6.4"
 
 def test_extract_metadata(setup_index):
     folder_path = setup_index
-    metadata = extract_metadata(folder_path)
+    metadata = update.extract_metadata(folder_path)
     assert metadata['version'] == '6.3'
     assert metadata['datetime'] == '2024/06/01 12:00'
     assert metadata['coq_version'] == 'Coq 8.15'
@@ -115,8 +158,8 @@ def test_replace_folder(setup_index):
     with tempfile.NamedTemporaryFile(delete=False) as temp_tar:
         temp_tar.write(tar_data)
         temp_tar_path = temp_tar.name
-    replace_folder(temp_tar_path, folder_path)
-    metadata = extract_metadata(folder_path)
+    update.replace_folder(temp_tar_path, folder_path)
+    metadata = update.extract_metadata(folder_path)
     assert metadata['version'] == '6.4'
     assert metadata['datetime'] == '2024/10/01 12:00'
     assert metadata['coq_version'] == 'Coq 8.16'
@@ -142,13 +185,14 @@ def test_update_readme():
                 'plf': {'version': '6.4', 'datetime': '2024/10/01 12:00', 'coq_version': 'Coq 8.16 or later'},
             },
         }
-        update_readme(updates_all, readme_path=readme_path)
+        update.update_readme(updates_all, readme_path=readme_path)
         with open(readme_path, "r") as f:
             lines = f.readlines()
             assert "||2024/10/01|2024/06/01|2023/7/6|\n" == lines[0]
             assert "|-|-|-|-|\n" == lines[1]
             assert "|1.Logical Foundations (lf)||[6.3](https://softwarefoundations.cis.upenn.edu/lf-6.3/index.html)<br>2024/06/01 12:00<br>Coq 8.16 or later||\n" == lines[2]
             assert "|2.Programming Language Foundations (plf)|[6.4](https://softwarefoundations.cis.upenn.edu/plf-6.4/index.html)<br>2024/10/01 12:00<br>Coq 8.16 or later|[6.3](https://softwarefoundations.cis.upenn.edu/plf-6.3/index.html)<br>2024/06/01 12:00<br>Coq 8.16 or later|[6.2](https://softwarefoundations.cis.upenn.edu/plf-6.2/index.html)<br>2023/07/06 15:52<br>Coq 8.15 or later|\n" == lines[3]
+
 
 @pytest.mark.parametrize(
     ["updates", "expected"],
@@ -189,5 +233,5 @@ def test_update_readme():
     ]
 )
 def test_create_commit_message(updates, expected):
-    actual = create_commit_message(updates)
+    actual = update.create_commit_message(updates)
     assert actual == expected

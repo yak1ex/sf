@@ -4,17 +4,18 @@ import subprocess
 import shutil
 import sys
 import tarfile
+import urllib.request
 if sys.version_info >= (3, 12):
     import tomllib
-    TOML_MODE='rb'
+    TOML_MODE = 'rb'
     EXTRACT_ALL_KWARGS = {'filter': 'data'}
 elif sys.version_info >= (3, 11):
     import tomllib
-    TOML_MODE='rb'
+    TOML_MODE = 'rb'
     EXTRACT_ALL_KWARGS = {}
 else:
     import toml as tomllib
-    TOML_MODE='r'
+    TOML_MODE = 'r'
     EXTRACT_ALL_KWARGS = {}
 
 """
@@ -32,7 +33,33 @@ vc=6.4
 
 
 METADATA_PATTERN = r'<p>Version (?P<version>[\d.]+) \((?P<datetime>[-\d: ]+), (?P<coq_version>[^)]+)\)</p>'
-BASE_URL = "https://softwarefoundations.cis.upenn.edu/"
+BASE_URL = "https://softwarefoundations.cis.upenn.edu"
+
+
+def download_tar(url, dest_path):
+    """Download a tar file from the specified URL to the destination path
+
+    Args:
+        url (str): The URL of the tar file to download
+        dest_path (str): The destination path to save the downloaded tar file
+    """
+    with urllib.request.urlopen(url) as response, open(dest_path, 'wb') as out_file:
+        shutil.copyfileobj(response, out_file)
+
+
+def download_tars(data, dest_dir):
+    """Download multiple tar files based on the provided data dictionary
+
+    Args:
+        data (dict): A dictionary where keys are volume names and values are version strings
+        dest_dir (str): The destination directory to save the downloaded tar files
+    """
+    for _, update in data.items():
+        for volume, version in update.items():
+            tar_filename = f"{volume}-{version}.tgz"
+            url = f"{BASE_URL}/{volume}-{version}/{volume}.tgz"
+            dest_file_path = os.path.join(dest_dir, tar_filename)
+            download_tar(url, dest_file_path)
 
 
 def replace_folder(tar_path, folder_path):
@@ -105,7 +132,7 @@ def update_readme(updates_all, readme_path="README.md"):
                     for date in dates:
                         if volume in updates_all[date]:
                             meta = updates_all[date][volume]
-                            new_line += f"|[{meta['version']}]({BASE_URL}{volume}-{meta['version']}/index.html)<br>" \
+                            new_line += f"|[{meta['version']}]({BASE_URL}/{volume}-{meta['version']}/index.html)<br>" \
                                         f"{meta['datetime']}<br>{meta['coq_version']}"
                         else:
                             new_line += "|"
@@ -137,6 +164,8 @@ def create_commit_message(updates):
 def process_toml(toml_path, prefix='src', tgz_dir='.'):
     with open(toml_path, TOML_MODE) as f:
         data = tomllib.load(f)
+
+    download_tars(data, tgz_dir)
 
     updates = {}
     for date in data.keys():
