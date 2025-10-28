@@ -145,7 +145,7 @@ Example example_empty := (_ !-> false).
 (** We next introduce a convenient notation for extending an existing
     map with a new binding. *)
 Notation "x '!->' v ';' m" := (t_update m x v)
-                              (at level 100, v at next level, right associativity).
+                                (at level 100, x constr, right associativity).
 
 (** The [examplemap] above can now be defined as follows: *)
 
@@ -278,14 +278,13 @@ Definition empty {A : Type} : partial_map A :=
 Definition update {A : Type} (m : partial_map A)
            (x : string) (v : A) :=
   (x !-> Some v ; m).
-
 (** We introduce a similar notation for partial maps: *)
 Notation "x '|->' v ';' m" := (update m x v)
-  (at level 100, v at next level, right associativity).
+  (at level 0, x constr, v at level 200, right associativity).
 
 (** We can also hide the last case when it is empty. *)
 Notation "x '|->' v" := (update empty x v)
-  (at level 100).
+  (at level 0, x constr, v at level 200).
 
 Definition examplepmap :=
   ("Church" |-> true ; "Turing" |-> false).
@@ -379,4 +378,4 @@ Qed.
     used to keep track of which program variables are defined in a
     given scope. *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

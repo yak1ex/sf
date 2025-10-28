@@ -2397,4 +2397,4 @@ End WPgenRec.
     the existence of a _pretty_ Separation Logic proof featuring local reasoning
     --that is, allowing for maximal usage of the frame rule. *)
 
-(* 2024-08-25 08:34 *)
+(* 2024-12-26 10:22 *)

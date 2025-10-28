@@ -29,12 +29,12 @@
 
 Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 From Coq Require Import Strings.String.  (* for manual grading *)
-From Coq Require Export Bool.Bool.
+From Coq Require Export Bool.
 From Coq Require Export Arith.Arith.
-From Coq Require Export Arith.PeanoNat.
+From Coq Require Export PeanoNat.
 From Coq Require Export Arith.EqNat.
 From Coq Require Export Lia.
-From Coq Require Export Lists.List.
+From Coq Require Export List.
 Export ListNotations.
 From Coq Require Export Permutation.
 
@@ -627,4 +627,4 @@ Proof.
     [maybe_swap_correct] will be applied (at a larger scale) in
     the next few chapters. *)
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 17:19 *)

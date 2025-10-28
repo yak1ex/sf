@@ -38,7 +38,7 @@ idtac " ".
 idtac "#> insert_sorted".
 idtac "Possible points: 3".
 check_type @insert_sorted (
-(forall (a : nat) (l : list nat), sorted l -> sorted (insert a l))).
+(forall (a : nat) (l : list nat) (_ : sorted l), sorted (insert a l))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions insert_sorted.
@@ -64,7 +64,7 @@ idtac "#> insert_perm".
 idtac "Possible points: 3".
 check_type @insert_perm (
 (forall (x : nat) (l : list nat),
- @Permutation.Permutation nat (x :: l) (insert x l))).
+ @Permutation.Permutation nat (@cons nat x l) (insert x l))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions insert_perm.
@@ -101,7 +101,7 @@ idtac " ".
 idtac "#> sorted_sorted'".
 idtac "Advanced".
 idtac "Possible points: 6".
-check_type @sorted_sorted' ((forall al : list nat, sorted al -> sorted' al)).
+check_type @sorted_sorted' ((forall (al : list nat) (_ : sorted al), sorted' al)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions sorted_sorted'.
@@ -114,7 +114,7 @@ idtac " ".
 idtac "#> sorted'_sorted".
 idtac "Advanced".
 idtac "Possible points: 3".
-check_type @sorted'_sorted ((forall al : list nat, sorted' al -> sorted al)).
+check_type @sorted'_sorted ((forall (al : list nat) (_ : sorted' al), sorted al)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions sorted'_sorted.
@@ -175,6 +175,6 @@ idtac "---------- sorted'_sorted ---------".
 Print Assumptions sorted'_sorted.
 Abort.
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 19:52 *)
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 19:52 *)

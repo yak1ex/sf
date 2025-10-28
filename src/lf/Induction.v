@@ -48,37 +48,40 @@ From LF Require Export Basics.
 
     To compile [Basics.v] from the command line...
 
-     - First, generate a [Makefile] using the [coq_makefile] utility,
-       which comes installed with Coq. (If you obtained the whole volume as
-       a single archive, a [Makefile] should already exist and you can
-       skip this step.)
-
-         coq_makefile -f _CoqProject *.v -o Makefile
-
-       You should rerun that command whenever you add or remove
-       Coq files in this directory.
-
-     - Now you can compile [Basics.v] by running [make] with the
-       corresponding [.vo] file as a target:
-
-         make Basics.vo
-
-       All files in the directory can be compiled by giving no
-       arguments:
-
-         make
-
-     - Under the hood, [make] uses the Coq compiler, [coqc].  You can
-       also run [coqc] directly:
+     - One way to do this is by manually running this command:
 
          coqc -Q . LF Basics.v
 
-     - Since [make] also calculates dependencies between source files
-       to compile them in the right order, [make] should generally be
-       preferred over running [coqc] explicitly.  But as a last (but
-       not terrible) resort, you can simply compile each file manually
-       as you go.  For example, before starting work on the present
-       chapter, you would need to run the following command:
+       In general you need to compile all the dependencies of the
+       current file, in the right order, which why, for later
+       chapters, using the [make] solution below may be preferable.
+
+    We recommend that you use the [make] or CoqIDE-based approaches.
+    If you opt for manual compilation, an equivalent command, i.e.:
+
+         coqc -Q . LF <CHAPTER>.v
+
+    is necessary at the end of every chapter because each subsequent
+    chapter imports the previous one.
+
+    If you have trouble (e.g., if you get complaints about missing
+    identifiers later in the file), it may be because the "load path"
+    for Coq is not set up correctly.  The [Print LoadPath.] command
+    may be helpful in sorting out such issues.
+
+    In particular, if you see a message like
+
+         make Basics.vo
+
+       Or you can compile all files in the directory by giving no
+       arguments to [make]:
+
+         make
+
+     - As a last (but not terrible) resort, you can simply compile each
+       file manually as you go.  For example, before starting work on
+       the present chapter, you would need to run the following
+       command:
 
         coqc -Q . LF Basics.v
 
@@ -799,4 +802,4 @@ Proof.
 
 (** [] *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

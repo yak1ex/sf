@@ -59,13 +59,13 @@
 
     This volume weaves together three conceptual threads:
 
-    (1) basic tools from _logic_ for making and justifying precise
+    (A) basic tools from _logic_ for making and justifying precise
         claims about programs;
 
-    (2) the use of _proof assistants_ to construct rigorous logical
+    (B) the use of _proof assistants_ to construct rigorous logical
         arguments;
 
-    (3) _functional programming_, both as a method of programming that
+    (C) _functional programming_, both as a method of programming that
         simplifies reasoning about programs and as a bridge between
         programming and logic. *)
 
@@ -256,7 +256,7 @@
 (** ** System Requirements *)
 
 (** Coq runs on Windows, Linux, and macOS.  The files in this book
-    have been tested with Coq 8.19.2.
+    have been tested with Coq 8.20.
 
     You will need:
 
@@ -431,7 +431,7 @@
     volume       =   "1",
     year         =   "2025",
     publisher    =   "Electronic textbook",
-    note         =   {Version 6.7, \URL{http://softwarefoundations.cis.upenn.edu}}
+    note         =   {Version 6.8, \URL{http://softwarefoundations.cis.upenn.edu}}
     }
 *)
 
@@ -492,7 +492,7 @@
 
     To get started, please send an email to Benjamin Pierce,
     describing yourself and how you plan to use the materials and
-    including (1) the above copyright transfer text and (2) your
+    including (A) the above copyright transfer text and (B) your
     github username.
 
     We'll set you up with access to the git repository and developers'
@@ -515,4 +515,4 @@
     NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

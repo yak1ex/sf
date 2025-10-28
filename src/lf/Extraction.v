@@ -12,6 +12,7 @@
 
 From Coq Require Extraction.
 Extraction Language OCaml.
+Set Extraction Output Directory ".".
 
 (** Now we load up the Coq environment with some definitions, either
     directly or by importing them from other modules. *)
@@ -129,4 +130,4 @@ Extraction "imp.ml" empty_st ceval_step parse.
     chapter in _Verified Functional Algorithms_ (_Software
     Foundations_ volume 3). *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

@@ -37,7 +37,8 @@ idtac " ".
 
 idtac "#> t_apply_empty".
 idtac "Possible points: 1".
-check_type @t_apply_empty ((forall (A : Type) (x : nat) (v : A), @t_empty A v x = v)).
+check_type @t_apply_empty (
+(forall (A : Type) (x : nat) (v : A), @eq A (@t_empty A v x) v)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions t_apply_empty.
@@ -51,7 +52,7 @@ idtac "#> t_update_eq".
 idtac "Possible points: 1".
 check_type @t_update_eq (
 (forall (A : Type) (m : total_map A) (x : nat) (v : A),
- @t_update A m x v x = v)).
+ @eq A (@t_update A m x v x) v)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions t_update_eq.
@@ -64,8 +65,8 @@ idtac " ".
 idtac "#> t_update_neq".
 idtac "Possible points: 1".
 check_type @t_update_neq (
-(forall (X : Type) (v : X) (x1 x2 : nat) (m : total_map X),
- x1 <> x2 -> @t_update X m x1 v x2 = m x2)).
+(forall (X : Type) (v : X) (x1 x2 : nat) (m : total_map X)
+   (_ : not (@eq nat x1 x2)), @eq X (@t_update X m x1 v x2) (m x2))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions t_update_neq.
@@ -79,7 +80,8 @@ idtac "#> t_update_shadow".
 idtac "Possible points: 1".
 check_type @t_update_shadow (
 (forall (A : Type) (m : total_map A) (v1 v2 : A) (x : nat),
- @t_update A (@t_update A m x v1) x v2 = @t_update A m x v2)).
+ @eq (total_map A) (@t_update A (@t_update A m x v1) x v2)
+   (@t_update A m x v2))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions t_update_shadow.
@@ -92,7 +94,8 @@ idtac " ".
 idtac "#> t_update_same".
 idtac "Possible points: 1".
 check_type @t_update_same (
-(forall (X : Type) (x : nat) (m : total_map X), @t_update X m x (m x) = m)).
+(forall (X : Type) (x : nat) (m : total_map X),
+ @eq (total_map X) (@t_update X m x (m x)) m)).
 idtac "Assumptions:".
 Abort.
 Print Assumptions t_update_same.
@@ -105,10 +108,10 @@ idtac " ".
 idtac "#> t_update_permute".
 idtac "Possible points: 1".
 check_type @t_update_permute (
-(forall (X : Type) (v1 v2 : X) (x1 x2 : nat) (m : total_map X),
- x2 <> x1 ->
- @t_update X (@t_update X m x2 v2) x1 v1 =
- @t_update X (@t_update X m x1 v1) x2 v2)).
+(forall (X : Type) (v1 v2 : X) (x1 x2 : nat) (m : total_map X)
+   (_ : not (@eq nat x2 x1)),
+ @eq (total_map X) (@t_update X (@t_update X m x2 v2) x1 v1)
+   (@t_update X (@t_update X m x1 v1) x2 v2))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions t_update_permute.
@@ -167,6 +170,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 19:52 *)
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 19:52 *)

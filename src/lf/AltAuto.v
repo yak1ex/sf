@@ -1180,14 +1180,7 @@ Lemma pumping : forall T (re : reg_exp T) s,
         forall m, s1 ++ napp m s2 ++ s3 =~ re.
 
 Proof.
-  intros T re s Hmatch.
-  induction Hmatch
-    as [ | x | s1 re1 s2 re2 Hmatch1 IH1 Hmatch2 IH2
-       | s1 re1 re2 Hmatch IH | s2 re1 re2 Hmatch IH
-       | re | s1 s2 re Hmatch1 IH1 Hmatch2 IH2 ];
-    simpl; try lia;
-    intros Hlen.
-(* FILL IN HERE *) Admitted.
+  (* FILL IN HERE *) Admitted.
 (* Do not modify the following line: *)
 Definition manual_grade_for_pumping_redux_strong : option (nat*string) := None.
 (** [] *)
@@ -1832,4 +1825,4 @@ Definition manual_grade_for_nor_intuition : option (nat*string) := None.
 
     - Ltac functions and [match goal] *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

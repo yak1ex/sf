@@ -38,8 +38,8 @@ idtac " ".
 idtac "#> ScratchPad2.insert_sorted".
 idtac "Possible points: 2".
 check_type @ScratchPad2.insert_sorted (
-(forall (a : nat) (l : list nat),
- ScratchPad2.sorted l -> ScratchPad2.sorted (ScratchPad2.insert a l))).
+(forall (a : nat) (l : list nat) (_ : ScratchPad2.sorted l),
+ ScratchPad2.sorted (ScratchPad2.insert a l))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions ScratchPad2.insert_sorted.
@@ -53,7 +53,7 @@ idtac "#> list_nat_in".
 idtac "Possible points: 2".
 check_type @list_nat_in (
 (forall (i : nat) (al : list nat),
- {@List.In nat i al} + {~ @List.In nat i al})).
+ sumbool (@List.In nat i al) (not (@List.In nat i al)))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions list_nat_in.
@@ -104,6 +104,6 @@ idtac "".
 idtac "********** Advanced **********".
 Abort.
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 19:53 *)
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 19:53 *)

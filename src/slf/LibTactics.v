@@ -48,7 +48,7 @@
 
 Set Implicit Arguments.
 
-Require Import Coq.Lists.List.
+From Coq Require Import List.
 
 Declare Scope ltac_scope.
 
@@ -379,7 +379,7 @@ Ltac fast_rm_inside E :=
     Note: the tactic [number_to_nat] is extended in [LibInt] to
     take into account the [Z] type. *)
 
-Require Coq.Numbers.BinNums Coq.ZArith.BinInt.
+From Coq Require BinNums BinInt.
 
 Definition ltac_int_to_nat (x:BinInt.Z) : nat :=
   match x with
@@ -691,9 +691,6 @@ Ltac jauto_set :=
 (* ================================================================= *)
 (** ** Application *)
 
-Ltac old_refine f :=
-  refine f. (* ; shelve_unifiable. *)
-
 (** [rapply] is a tactic similar to [eapply] except that it is
     based on the [refine] tactics, and thus is strictly more
     powerful (at least in theory :). In short, it is able to perform
@@ -703,22 +700,22 @@ Ltac old_refine f :=
 Tactic Notation "rapply" constr(t) :=
   first  (* --Note: the @ are not useful *)
   [ eexact (@t)
-  | old_refine (@t)
-  | old_refine (@t _)
-  | old_refine (@t _ _)
-  | old_refine (@t _ _ _)
-  | old_refine (@t _ _ _ _)
-  | old_refine (@t _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _ _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _ _ _ _ _ _ _ _)
-  | old_refine (@t _ _ _ _ _ _ _ _ _ _ _ _ _ _ _)
+  | refine (@t)
+  | refine (@t _)
+  | refine (@t _ _)
+  | refine (@t _ _ _)
+  | refine (@t _ _ _ _)
+  | refine (@t _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _ _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _ _ _ _ _ _ _ _)
+  | refine (@t _ _ _ _ _ _ _ _ _ _ _ _ _ _ _)
   ].
 
 (** No-typeclass refine apply, TEMPORARY for Coq < 8.11. *)
@@ -747,27 +744,27 @@ Ltac nrapply H :=
     the arity of function [T]. *)
 
 Tactic Notation "rapply_0" constr(t) :=
-  old_refine (@t).
+  refine (@t).
 Tactic Notation "rapply_1" constr(t) :=
-  old_refine (@t _).
+  refine (@t _).
 Tactic Notation "rapply_2" constr(t) :=
-  old_refine (@t _ _).
+  refine (@t _ _).
 Tactic Notation "rapply_3" constr(t) :=
-  old_refine (@t _ _ _).
+  refine (@t _ _ _).
 Tactic Notation "rapply_4" constr(t) :=
-  old_refine (@t _ _ _ _).
+  refine (@t _ _ _ _).
 Tactic Notation "rapply_5" constr(t) :=
-  old_refine (@t _ _ _ _ _).
+  refine (@t _ _ _ _ _).
 Tactic Notation "rapply_6" constr(t) :=
-  old_refine (@t _ _ _ _ _ _).
+  refine (@t _ _ _ _ _ _).
 Tactic Notation "rapply_7" constr(t) :=
-  old_refine (@t _ _ _ _ _ _ _).
+  refine (@t _ _ _ _ _ _ _).
 Tactic Notation "rapply_8" constr(t) :=
-  old_refine (@t _ _ _ _ _ _ _ _).
+  refine (@t _ _ _ _ _ _ _ _).
 Tactic Notation "rapply_9" constr(t) :=
-  old_refine (@t _ _ _ _ _ _ _ _ _).
+  refine (@t _ _ _ _ _ _ _ _ _).
 Tactic Notation "rapply_10" constr(t) :=
-  old_refine (@t _ _ _ _ _ _ _ _ _ _).
+  refine (@t _ _ _ _ _ _ _ _ _ _).
 
 (** [lets_base H E] adds an hypothesis [H : T] to the context, where [T] is
     the type of term [E]. If [H] is an introduction pattern, it will
@@ -1301,11 +1298,12 @@ Ltac applys_build Ei :=
   let args := args_unfold_head_if_not_product_but_params args in
   build_app args ltac:(fun R =>
    first [ apply R | eapply R | rapply R ]).
+   (* TODO: is apply needed? *)
 
 Ltac applys_base E :=
   match type of E with
   | list Boxer => applys_build E
-  | _ => first [ rapply E | applys_build E ]
+  | _ => first [ eapply E | rapply E | applys_build E ]
   end; fast_rm_inside E.
 
 Tactic Notation "applys" constr(E) :=
@@ -2582,7 +2580,7 @@ Tactic Notation "subst_eq" constr(E) :=
 (* ================================================================= *)
 (** ** Tactics to Work with Proof Irrelevance *)
 
-Require Import Coq.Logic.ProofIrrelevance.
+From Coq.Logic Require Import ProofIrrelevance.
 
 (** [pi_rewrite E] replaces [E] of type [Prop] with a fresh
     unification variable, and is thus a practical way to
@@ -3237,7 +3235,7 @@ Tactic Notation "cases_if'" :=
     [inductions E gen X1 .. XN] is a shorthand for
     [dependent induction E generalizing X1 .. XN]. *)
 
-Require Import Coq.Program.Equality.
+From Coq.Program Require Import Equality.
 
 Ltac inductions_post :=
   unfold eq' in *.
@@ -3314,8 +3312,8 @@ Tactic Notation "induction_wf" ident(IH) ":" constr(E) ident(X) :=
     judgment that includes a counter for the maximal height
     (see LibTacticsDemos for an example) *)
 
-Require Import Coq.Arith.Compare_dec.
-Require Import Coq.micromega.Lia.
+From Coq.Arith Require Import Compare_dec.
+From Coq.micromega Require Import Lia.
 
 Lemma induct_height_max2 : forall n1 n2 : nat,
   exists n, n1 < n /\ n2 < n.
@@ -4319,7 +4317,7 @@ Tactic Notation "exists" "~" constr(T1) "," constr(T2) "," constr(T3) ","
     same as for light automation.
 
     Exception: use [subs*] instead of [subst*] if you
-    import the library [Coq.Classes.Equivalence]. *)
+    import the library [Equivalence] from [Stdlib]. *)
 
 Tactic Notation "equates" "*" constr(E) :=
    equates E; auto_star.
@@ -5272,4 +5270,4 @@ Ltac autorewrite_in_star_patch cont :=
 
 (* End of experimental features *)
 
-(* 2024-08-25 08:33 *)
+(* 2025-01-06 19:51 *)

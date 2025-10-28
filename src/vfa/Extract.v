@@ -14,6 +14,7 @@
 Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 From VFA Require Import Perm.
 Require Extraction.
+Set Extraction Output Directory ".".
 
 (* ################################################################# *)
 (** * Extraction *)
@@ -388,4 +389,4 @@ Insert and lookup 20000 consecutive integers in 0.387535 seconds.
     balanced search trees to achieve logarithmic.  [Redblack]
     will do that. *)
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 17:19 *)

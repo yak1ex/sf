@@ -163,6 +163,7 @@ Inductive natlist' : Type :=
 
 (** Now the induction principle case for [nsnoc] is a bit different
     than the earlier case for [ncons]: *)
+Unset Automatic Proposition Inductives.
 
 Check natlist'_ind :
   forall P : natlist' -> Prop,
@@ -963,4 +964,4 @@ Proof. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

@@ -937,8 +937,11 @@ Example test_ltb3:             (ltb 4 2) = false.
     were always the same: use [simpl] to simplify both sides of the
     equation, then use [reflexivity] to check that both sides contain
     identical values.
+ *)
+Example plus_1_1 : 1 + 1 = 2.
+Proof. simpl. reflexivity. Qed.
 
-    The same sort of "proof by simplification" can be used to
+(**   The same sort of "proof by simplification" can be used to
     establish more interesting properties as well.  For example, the
     fact that [0] is a "neutral element" for [+] on the left can be
     proved just by observing that [0 + n] reduces to [n] no matter
@@ -2034,4 +2037,4 @@ Example test_bin_incr6 :
     output.  But since they have to be graded by a human, the test
     script won't be able to tell you much about them.  *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

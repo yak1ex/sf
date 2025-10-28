@@ -1,8 +1,8 @@
 (** * Typeclasses: A Tutorial on Typeclasses in Coq *)
 
-From Coq Require Import Bool.Bool.
+From Coq Require Import Bool.
 From Coq Require Import Strings.String.
-From Coq Require Import Arith.Arith.
+From Coq Require Import Arith.
 From Coq Require Import Lia.
 Require Import List. Import ListNotations.
 Local Open Scope string.
@@ -888,8 +888,8 @@ Proof.
   assumption. assumption. assumption. Defined.
 
 Class PreOrder (A : Type) (R : relation A) :=
-  { PreOrder_Reflexive :> Reflexive A R ;
-    PreOrder_Transitive :> Transitive A R }.
+  { PreOrder_Reflexive :: Reflexive A R ;
+    PreOrder_Transitive :: Transitive A R }.
 
 (** The syntax [:>] indicates that each [PreOrder] can be seen as a
     [Reflexive] and [Transitive] relation, so that, any time a
@@ -1767,4 +1767,4 @@ Definition e4 : list nat := mymap false.
        {http://learnyouahaskell.com/making-our-own-types-and-typeclasses}
 *)
 
-(* 2023-08-27 16:20 *)
+(* 2025-01-06 19:53 *)

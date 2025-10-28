@@ -1098,10 +1098,11 @@ Notation "e" := e (in custom com_aux at level 0, e custom com) : com_scope.
 
 Notation "( x )" := x (in custom com, x at level 99) : com_scope.
 Notation "x" := x (in custom com at level 0, x constr at level 0) : com_scope.
+
 Notation "f x .. y" := (.. (f x) .. y)
                   (in custom com at level 0, only parsing,
-                  f constr at level 0, x constr at level 9,
-                  y constr at level 9) : com_scope.
+                  f constr at level 0, x constr at level 1,
+                      y constr at level 1) : com_scope.
 Notation "x + y"   := (APlus x y) (in custom com at level 50, left associativity).
 Notation "x - y"   := (AMinus x y) (in custom com at level 50, left associativity).
 Notation "x * y"   := (AMult x y) (in custom com at level 40, left associativity).
@@ -1161,13 +1162,12 @@ Definition empty_st := (_ !-> 0).
 
 (** Also, we can add a notation for a "singleton state" with just one
     variable bound to a value. *)
-Notation "x '!->' v" := (x !-> v ; empty_st) (at level 100).
+Notation "x '!->' v" := (x !-> v ; empty_st) (at level 100, v at level 200).
 
 Example aexp1 :
     aeval (X !-> 5) <{ 3 + (X * 2) }>
   = 13.
 Proof. reflexivity. Qed.
-
 Example aexp2 :
     aeval (X !-> 5 ; Y !-> 4) <{ Z + (X * Y) }>
   = 20.
@@ -1395,7 +1395,7 @@ Fixpoint ceval_fun_no_while (st : state) (c : com) : state :=
     | <{ skip }> =>
         st
     | <{ x := a }> =>
-        (x !-> (aeval st a) ; st)
+        (x !-> aeval st a ; st)
     | <{ c1 ; c2 }> =>
         let st' := ceval_fun_no_while st c1 in
         ceval_fun_no_while st' c2
@@ -2087,4 +2087,4 @@ End BreakImp.
 
     [] *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

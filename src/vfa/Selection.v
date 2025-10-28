@@ -27,7 +27,7 @@
 Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
 From VFA Require Import Perm.
 Hint Constructors Permutation : core.
-From Coq Require Export Lists.List.  (* for exercises involving [List.length] *)
+From Coq Require Export List.  (* for exercises involving [List.length] *)
 
 (* ################################################################# *)
 (** * The Selection-Sort Program  *)
@@ -459,4 +459,4 @@ Proof. (* FILL IN HERE *) Admitted.
 
 (** [] *)
 
-(* 2024-08-25 08:38 *)
+(* 2025-01-06 17:19 *)

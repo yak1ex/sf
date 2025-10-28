@@ -100,7 +100,7 @@ Proof using. intros. intros h K. apply* K. Qed.
 Lemma himpl_hforall_l : forall A (v:A) (J:A->hprop) H,
   J v ==> H ->
   (\forall x, J x) ==> H.
-Proof using. introv M. applys himpl_trans M. applys hforall_specialize. Qed.
+Proof using. introv M. applys himpl_trans_r M. applys hforall_specialize. Qed.
 
 (** Universal quantifers that appear in the precondition of a triple may be
     specialized like universal quantifiers appearing on the left-hand side of an
@@ -1273,4 +1273,4 @@ End QwandEquiv.
     [Hobor and Villard 2013] (in Bib.v). The rule has later been popularized by the
     Iris framework, in particular. *)
 
-(* 2024-08-25 14:17 *)
+(* 2025-01-06 19:51 *)

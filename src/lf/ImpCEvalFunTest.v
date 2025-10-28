@@ -47,9 +47,10 @@ idtac " ".
 idtac "#> ceval__ceval_step".
 idtac "Possible points: 3".
 check_type @ceval__ceval_step (
-(forall (c : Imp.com) (st st' : Imp.state),
- Imp.ceval c st st' ->
- exists i : nat, ceval_step st c i = @Some Imp.state st')).
+(forall (c : Imp.com) (st st' : Imp.state) (_ : Imp.ceval c st st'),
+ @ex nat
+   (fun i : nat =>
+    @eq (option Imp.state) (ceval_step st c i) (@Some Imp.state st')))).
 idtac "Assumptions:".
 Abort.
 Print Assumptions ceval__ceval_step.
@@ -91,6 +92,6 @@ idtac "---------- ceval_step__ceval_inf ---------".
 idtac "MANUAL".
 Abort.
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)
 
-(* 2025-01-13 16:00 *)
+(* 2025-01-06 19:46 *)

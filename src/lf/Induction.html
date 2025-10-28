@@ -111,44 +111,49 @@ For this <span class="inlinecode"><span class="id" title="keyword">Require</span
 <div class="paragraph"> </div>
 
 <ul class="doclist">
-<li> First, generate a <span class="inlinecode"><span class="id" title="var">Makefile</span></span> using the <span class="inlinecode"><span class="id" title="var">coq_makefile</span></span> utility, 
-       which comes installed with Coq. (If you obtained the whole volume as 
-       a single archive, a <span class="inlinecode"><span class="id" title="var">Makefile</span></span> should already exist and you can
-       skip this step.)
+<li> One way to do this is by manually running this command:
 <br/>
-<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coq_makefile</span> -<span class="id" title="var">f</span> <span class="id" title="var">_CoqProject</span> *.<span class="id" title="var">v</span> -<span class="id" title="var">o</span> <span class="id" title="var">Makefile</span>
-</span>       You should rerun that command whenever you add or remove
-       Coq files in this directory.
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqc</span> -<span class="id" title="var">Q</span> . <span class="id" title="var">LF</span> <span class="id" title="var">Basics.v</span>
+</span>       In general you need to compile all the dependencies of the
+       current file, in the right order, which why, for later
+       chapters, using the <span class="inlinecode"><span class="id" title="var">make</span></span> solution below may be preferable.
+
+</li>
+</ul>
 
 <div class="paragraph"> </div>
 
+    We recommend that you use the <span class="inlinecode"><span class="id" title="var">make</span></span> or CoqIDE-based approaches.
+    If you opt for manual compilation, an equivalent command, i.e.:
+<br/>
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqc</span> -<span class="id" title="var">Q</span> . <span class="id" title="var">LF</span> &lt;<span class="id" title="var">CHAPTER</span>&gt;.<span class="id" title="var">v</span>
+</span>    is necessary at the end of every chapter because each subsequent
+    chapter imports the previous one.
 
-</li>
-<li> Now you can compile <span class="inlinecode"><span class="id" title="var">Basics.v</span></span> by running <span class="inlinecode"><span class="id" title="var">make</span></span> with the
-       corresponding <span class="inlinecode">.<span class="id" title="var">vo</span></span> file as a target:
+<div class="paragraph"> </div>
+
+    If you have trouble (e.g., if you get complaints about missing
+    identifiers later in the file), it may be because the "load path"
+    for Coq is not set up correctly.  The <span class="inlinecode"><span class="id" title="keyword">Print</span></span> <span class="inlinecode"><span class="id" title="var">LoadPath</span>.</span> command
+    may be helpful in sorting out such issues.
+
+<div class="paragraph"> </div>
+
+    In particular, if you see a message like
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">make</span> <span class="id" title="var">Basics.vo</span>
-</span>       All files in the directory can be compiled by giving no
-       arguments:
+</span>       Or you can compile all files in the directory by giving no
+       arguments to <span class="inlinecode"><span class="id" title="var">make</span></span>:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">make</span>
 </span>
-</li>
-<li> Under the hood, <span class="inlinecode"><span class="id" title="var">make</span></span> uses the Coq compiler, <span class="inlinecode"><span class="id" title="var">coqc</span></span>.  You can
-       also run <span class="inlinecode"><span class="id" title="var">coqc</span></span> directly:
-<br/>
-<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqc</span> -<span class="id" title="var">Q</span> . <span class="id" title="var">LF</span> <span class="id" title="var">Basics.v</span>
-</span>
 <div class="paragraph"> </div>
 
-
-</li>
-<li> Since <span class="inlinecode"><span class="id" title="var">make</span></span> also calculates dependencies between source files
-       to compile them in the right order, <span class="inlinecode"><span class="id" title="var">make</span></span> should generally be
-       preferred over running <span class="inlinecode"><span class="id" title="var">coqc</span></span> explicitly.  But as a last (but
-       not terrible) resort, you can simply compile each file manually
-       as you go.  For example, before starting work on the present
-       chapter, you would need to run the following command:
+<ul class="doclist">
+<li> As a last (but not terrible) resort, you can simply compile each
+       file manually as you go.  For example, before starting work on
+       the present chapter, you would need to run the following
+       command:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqc</span> -<span class="id" title="var">Q</span> . <span class="id" title="var">LF</span> <span class="id" title="var">Basics.v</span>
 </span>       Then, once you've finished this chapter, you'd do
@@ -1123,7 +1128,7 @@ Finally, prove the main theorem. The inductive cases could be a
 
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-01-13&nbsp;16:00&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-01-06&nbsp;19:46&nbsp;*)</span><br/>
 </div>
 </div>
 

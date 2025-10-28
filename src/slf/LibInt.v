@@ -8,7 +8,7 @@
 **************************************************************************)
 
 Set Implicit Arguments.
-Require Export Coq.ZArith.ZArith.
+From Coq Require Export ZArith.
 From SLF Require Import LibTactics LibLogic LibReflect LibRelation.
 Export LibTacticsCompatibility.
 From SLF Require Export LibNat.
@@ -925,4 +925,4 @@ Tactic Notation "rew_to_nat_nonneg" :=
 Tactic Notation "rew_to_nat_nonneg" "~" :=
   autorewrite with rew_to_nat_nonneg; try math; autos~.
 
-(* 2024-08-25 08:34 *)
+(* 2025-01-06 19:51 *)
