@@ -507,6 +507,7 @@ Ltac var_neq :=
             destruct (String.string_dec x y) as [E|E];
               [ false | apply E ] ] end.
 
+#[global]
 Hint Extern 1 (?x <> ?y) => var_neq.
 
-(* 2023-03-25 11:36 *)
+(* 2023-07-06 15:46 *)
