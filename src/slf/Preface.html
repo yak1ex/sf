@@ -44,6 +44,12 @@
 
 <div class="paragraph"> </div>
 
+    **COMPANION COURSE NOTES**: a large fraction of the contents of this
+    course is also written up in traditional LaTeX-style presentation.
+    Available from: <a href='http://www.chargueraud.org/teach/verif/slf_notes.pdf'>http://www.chargueraud.org/teach/verif/slf_notes.pdf</a>
+
+<div class="paragraph"> </div>
+
     In this volume, you will learn about the foundations of Separation
     Logic, a practical approach to the modular verification of
     imperative programs. In particular, this volume presents the
@@ -64,26 +70,7 @@
     Foundations Volume 2 (<i>PL Foundations</i>). The reading of Volume 5
     is not a prerequisite. The exposition here is intended for a broad
     range of readers, from advanced undergraduates to PhD students and
-    researchers.
-
-<div class="paragraph"> </div>
-
-    A large fraction of the contents of this course is also written up
-    in traditional LaTeX-style presentation, in Arthur Charguéraud's
-    habilitation manuscript:
-    <a href='http://www.chargueraud.org/research/2023/hdr/chargueraud_hdr.pdf'>http://www.chargueraud.org/research/2023/hdr/chargueraud_hdr.pdf</a>
-    (a subset of which was published in the ICFP'20 article:
-    <i>Separation Logic for Sequential Programs</i>).
-
-<div class="paragraph"> </div>
-
-    The manuscript includes, in particular, a 5-page historical survey
-    of contributions to mechanized presentations of Separation Logic,
-    featuring 100+ citations. For a broader survey of Separation
-    Logic, we recommend Peter O'Hearn's 2019 survey, which is
-    available from: <a href='https://dl.acm.org/doi/10.1145/3211968'>https://dl.acm.org/doi/10.1145/3211968</a>-- including
-    an interesting <i>supplemental material</i> appendix, accessible by following
-    the link that appears near the bottom of that ACM web page. 
+    researchers. 
 </div>
 
 <div class="doc">
@@ -160,7 +147,7 @@
 </div>
 
 <div class="doc">
-<a id="lab3"></a><h1 class="section">Separation Logic in a proof assistant</h1>
+<a id="lab3"></a><h1 class="section">Separation Logic in a Proof Assistant</h1>
 
 <div class="paragraph"> </div>
 
@@ -203,7 +190,7 @@
       This is called a <i>deep embedding</i> of the programming language.
 
 </li>
-<li> A definition of Separation Logic predicates as predicates from
+<li> A definition of Separation Logic predicates as predicates in
       higher-order logic. This is called a <i>shallow embedding</i> of the
       program logic.
 
@@ -230,9 +217,9 @@
     To that end, we consider in this course the simplest possible variant of
     Separation Logic, and apply it to a minimalistic imperative programming
     language. The language essentially consists of a lambda-calculus with
-    references. This language admits a simple semantics and avoids in
+    references. This language admits a simple semantics. It avoids in
     particular the need to distinguish between stack variables and heap-
-    allocated variables. Advanced chapters from the course explains how
+    allocated variables. Advanced chapters from the course explain how
     to add support for loops, records, arrays, and n-ary functions. 
 </div>
 
@@ -241,35 +228,7 @@
 
 <div class="paragraph"> </div>
 
- The material is organized in such a way that it can be easily adapted to
-    the amount of time that the reader is ready to invest in the course.
-
-<div class="paragraph"> </div>
-
-    The course contains 13 chapters, not counting the <a href="Preface.html"><span class="inlineref">Preface</span></a>,
-    <a href="Postscript.html"><span class="inlineref">Postscript</span></a>, and <a href="Bib.html"><span class="inlineref">Bib</span></a> chapters. The course is organized in 3
-    major parts, as pictured in the roadmap diagram.
-
-<div class="paragraph"> </div>
-
-<ul class="doclist">
-<li> The short curriculum includes only the 5 first chapters (ranging from
-      chapter <a href="Basic.html"><span class="inlineref">Basic</span></a> to chapter <a href="Rules.html"><span class="inlineref">Rules</span></a>).
-
-</li>
-<li> The medium curriculum includes 3 additional chapters (ranging from
-      chapter <a href="WPsem.html"><span class="inlineref">WPsem</span></a> to chapter <a href="Wand.html"><span class="inlineref">Wand</span></a>).
-
-</li>
-<li> The full curriculum includes 5 more chapters (ranging from
-      chapter <a href="Partial.html"><span class="inlineref">Partial</span></a> to chapter <a href="Rich.html"><span class="inlineref">Rich</span></a>).
-
-</li>
-</ul>
-
-<div class="paragraph"> </div>
-
-    In addition, each chapter except <a href="Basic.html"><span class="inlineref">Basic</span></a> is decomposed in three parts.
+ All chapters except the first one are organized in three parts.
 
 <div class="paragraph"> </div>
 
@@ -289,10 +248,9 @@
 </li>
 <li> The <i>Optional Material</i> section typically contains the remaining
       proofs, as well as discussions of alternative definitions. The <i>Optional
-      Material</i> sections are all independent from each other. They would
-      typically be of interest to readers who want to understand every detail,
-      readers who are seeking for a deep understanding of a particular notion,
-      and readers who are looking for answers to specific question. 
+      Material</i> sections are all independent from each other. These sections
+      are intended for (1) readers who plan to continue studying Separation
+      Logic beyond the present course, and (2) teachers using the course. 
 
 </li>
 </ul>
@@ -303,11 +261,13 @@
 
 <div class="paragraph"> </div>
 
- The first two chapters, namely chapters <a href="Basic.html"><span class="inlineref">Basic</span></a> and <a href="Repr.html"><span class="inlineref">Repr</span></a>
+ The first 2 chapters, namely chapters <a href="Basic.html"><span class="inlineref">Basic</span></a> and <a href="Repr.html"><span class="inlineref">Repr</span></a>
     give a primer on how to prove imperative programs in Separation Logic,
-    thus focusing on the end user's perspective. All the other chapters
+    i.e. they focus on the end user's perspective. The 8 following chapters
     focus on the implementor's perspective, explaining how Separation Logic
     is defined and how a practical verification tool can be constructed.
+    The last 3 chapters cover language extensions, from the perspective of
+    both the user and the implementor.
 
 <div class="paragraph"> </div>
 
@@ -332,8 +292,7 @@
 
 
 </li>
-<li> (2) <a href="Hprop.html"><span class="inlineref">Hprop</span></a>: definition of the core operators of Separation Logic,
-          of Hoare triples, and of Separation Logic triples.
+<li> (2) <a href="Hprop.html"><span class="inlineref">Hprop</span></a>: definition of the core operators of Separation Logic.
 
 <div class="paragraph"> </div>
 
@@ -347,8 +306,22 @@
 
 
 </li>
+<li> (3) <a href="Triples.html"><span class="inlineref">Triples</span></a>: definition of Separation Logic triples in terms
+          of the semantics of the programming language.
+
+<div class="paragraph"> </div>
+
+
+</li>
 <li> (3) <a href="Rules.html"><span class="inlineref">Rules</span></a>: statement and proofs of the reasoning rules of
           Separation Logic, and example proofs of programs using these rules.
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> (4) <a href="Wand.html"><span class="inlineref">Wand</span></a>: introduction of the magic wand operator and other
+          Separation Logic operators, and to the ramified frame rule.
 
 <div class="paragraph"> </div>
 
@@ -361,7 +334,7 @@
 
 
 </li>
-<li> (4) <a href="WPgen.html"><span class="inlineref">WPgen</span></a>: presentation of a function that effectively computes
+<li> (5) <a href="WPgen.html"><span class="inlineref">WPgen</span></a>: presentation of a function that effectively computes
           the weakest precondition of a term, independently of its
           specification.
 
@@ -369,15 +342,14 @@
 
 
 </li>
-<li> (5) <a href="Wand.html"><span class="inlineref">Wand</span></a>: introduction of the magic wand operator and of the
-          ramified frame rule, and extension of the weakest-precondition
-          generator for handling local function definitions.
+<li> (5) <a href="WPsound.html"><span class="inlineref">WPsound</span></a>: soundness proof for the weakest precondition
+          generator; the contents is for the most part optional.
 
 <div class="paragraph"> </div>
 
 
 </li>
-<li> (5) <a href="Affine.html"><span class="inlineref">Affine</span></a>: description of a generalization of Separation Logic
+<li> (6) <a href="Affine.html"><span class="inlineref">Affine</span></a>: description of a generalization of Separation Logic
           with affine heap predicates, which are useful, in particular, for
           handling garbage-collected programming languages.
 
@@ -385,32 +357,22 @@
 
 
 </li>
-<li> (6) <a href="Struct.html"><span class="inlineref">Struct</span></a>: specification of array and record operations, and
-          encoding of these operations using pointer arithmetic.
+<li> (6) <a href="Arrays.html"><span class="inlineref">Arrays</span></a>: specification of both ML-style arrays with headers,
+          and C-style arrays with pointer arithmetic.
 
 <div class="paragraph"> </div>
 
 
 </li>
-<li> (6) <a href="Rich.html"><span class="inlineref">Rich</span></a>: description of the treatment of additional language
-          constructs, including loops, assertions, and n-ary functions.
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> (7) <a href="Nondet.html"><span class="inlineref">Nondet</span></a>: definition of triples for non-deterministic
-          programming languages.
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> (7) <a href="Partial.html"><span class="inlineref">Partial</span></a>: definition of triples for partial correctness
-          only, i.e., for not requiring termination proofs. 
+<li> (6) <a href="Records.html"><span class="inlineref">Records</span></a>: representation predicate for records, allowing to
+          isolate arbitrary subsets of the record fields.
 
 </li>
 </ul>
+
+<div class="paragraph"> </div>
+
+ 
 </div>
 
 <div class="doc">
@@ -458,8 +420,7 @@
 
 </li>
 <li> <a href="LibSepMinimal.html"><span class="inlineref">LibSepMinimal</span></a>: a minimalistic formalization of a soundness
-      proof for Separation Logic, corresponding to the definitions and proofs
-      presented in the ICFP'20 paper mentioned earlier.
+      proof for Separation Logic.
 
 <div class="paragraph"> </div>
 
@@ -481,11 +442,10 @@
 
 <div class="paragraph"> </div>
 
-    The classical logic aspects of TLC are presented at the moment they
-    appear in the course. The TLC tactics are also briefly described upon
-    their first occurrence. Moreover, most of these tactics are presented
-    in the chapter <a href="https://softwarefoundations.cis.upenn.edu/plf-current/UseTactics.html"><span class="inlineref">UseTactics</span></a> of Software Foundations Volume 2
-    (<i>Programming Language Foundations</i>). 
+    The classical logic aspects of TLC are presented in chapter <a href="Hprop.html"><span class="inlineref">Hprop</span></a>.
+    Each TLC tactic is introduced when it is first used. Most of these tactics
+    are presented in the chapter <a href="https://softwarefoundations.cis.upenn.edu/plf-current/UseTactics.html"><span class="inlineref">UseTactics</span></a> of Software Foundations
+    Volume 2 (<i>Programming Language Foundations</i>). 
 </div>
 
 <div class="doc">
@@ -498,25 +458,16 @@
 
 <div class="paragraph"> </div>
 
- The <a href="https://softwarefoundations.cis.upenn.edu/lf-current/Preface.html"><span class="inlineref">Preface</span></a> of Software Foundations Volume 1 (<i>Logical
-    Foundations</i>) describes how to install Coq. The files you are
-    reading have been tested with Coq version 8.16 and 8.17. 
-</div>
-
-<div class="doc">
-<a id="lab9"></a><h2 class="section">Note for CoqIDE Users</h2>
+ Install instructions for Coq and IDEs may be found on the page:
+    <a href='https://www.chargueraud.org/teach/verif/install/install.html'>https://www.chargueraud.org/teach/verif/install/install.html</a>
 
 <div class="paragraph"> </div>
 
- CoqIDE typically works better with its <i>asynchronous</i> proof mode disabled.
-    To load all the course files in CoqIDE, use the following command line.
-<br/>
-<span class="inlinecode">&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqide</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span> <span class="id" title="var">off</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span>-<span class="id" title="var">command</span>-<span class="id" title="var">error</span>-<span class="id" title="var">resilience</span> <span class="id" title="var">off</span> <span class="id" title="var">Basic.v</span> &amp;
-</span>
+    The files you are reading have been tested with Coq version 8.18. 
 </div>
 
 <div class="doc">
-<a id="lab10"></a><h2 class="section">Feedback Welcome</h2>
+<a id="lab9"></a><h2 class="section">Feedback Welcome</h2>
 
 <div class="paragraph"> </div>
 
@@ -533,13 +484,11 @@
 
     If you plan on providing any non-small amount of feedback, do not
     hesitate to ask the author to be added as contributor to the
-    github repository. In particular, please do not hesitate to improve
-    the formulation of the English sentences throughout this volume,
-    as the author is not a native speaker. 
+    github repository. 
 </div>
 
 <div class="doc">
-<a id="lab11"></a><h2 class="section">Exercises</h2>
+<a id="lab10"></a><h2 class="section">Exercises</h2>
 
 <div class="paragraph"> </div>
 
@@ -549,8 +498,8 @@
 
 <div class="paragraph"> </div>
 
-    <i>Disclaimer</i>: the difficulty ratings currently in place are highly
-    speculative! You feedback is very much welcome.
+    <i>Disclaimer</i>: the difficulty ratings currently in place are fairly
+    speculative. You feedback is very much welcome.
 
 <div class="paragraph"> </div>
 
@@ -560,7 +509,7 @@
 </div>
 
 <div class="doc">
-<a id="lab12"></a><h2 class="section">Recommended Citation Format</h2>
+<a id="lab11"></a><h2 class="section">Recommended Citation Format</h2>
 
 <div class="paragraph"> </div>
 
@@ -575,13 +524,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">volume</span>       =   "6",<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">year</span>         =   "2023",<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">publisher</span>    =   "Electronic textbook",<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 1.6, \<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span>} },<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 2.0, \<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span>} },<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;}
 </span>
 </div>
 
 <div class="doc">
-<a id="lab13"></a><h1 class="section">Thanks</h1>
+<a id="lab12"></a><h1 class="section">Thanks</h1>
 
 <div class="paragraph"> </div>
 
@@ -592,7 +541,7 @@
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2023-08-23&nbsp;12:58&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2023-11-29&nbsp;09:22&nbsp;*)</span><br/>
 </div>
 </div>
 

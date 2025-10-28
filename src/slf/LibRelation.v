@@ -738,7 +738,7 @@ Proof using.
   apply~ trichotomy_left.
 Qed.
 
-(* TODO rename to equiv_inverse *)
+(* --TODO rename to equiv_inverse *)
 Lemma inverse_equiv : forall A (E:binary A),
   equiv E ->
   equiv (inverse E).
@@ -2439,4 +2439,4 @@ Qed.
 
 End Rel_in_fun.
 
-(* 2023-08-23 12:57 *)
+(* 2023-11-29 09:22 *)

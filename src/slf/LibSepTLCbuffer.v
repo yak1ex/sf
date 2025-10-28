@@ -13,10 +13,13 @@ From SLF Require Import LibTactics LibLogic LibList.
 From SLF Require Import LibReflect.
 From SLF Require LibListZ LibWf LibMultiset LibInt.
 *)
+From SLF Require Import LibTactics.
 From SLF Require Import LibInt.
 Generalizable Variables A B.
 
 Global Opaque Z.mul.
 Global Opaque Z.add.
 
-(* 2023-08-23 12:58 *)
+
+
+(* 2023-11-29 09:22 *)

@@ -7,6 +7,10 @@
     series, which presents the mathematical underpinnings of reliable
     software.
 
+    **COMPANION COURSE NOTES**: a large fraction of the contents of this
+    course is also written up in traditional LaTeX-style presentation.
+    Available from: http://www.chargueraud.org/teach/verif/slf_notes.pdf
+
     In this volume, you will learn about the foundations of Separation
     Logic, a practical approach to the modular verification of
     imperative programs. In particular, this volume presents the
@@ -25,22 +29,7 @@
     Foundations Volume 2 (_PL Foundations_). The reading of Volume 5
     is not a prerequisite. The exposition here is intended for a broad
     range of readers, from advanced undergraduates to PhD students and
-    researchers.
-
-    A large fraction of the contents of this course is also written up
-    in traditional LaTeX-style presentation, in Arthur Charguéraud's
-    habilitation manuscript:
-    http://www.chargueraud.org/research/2023/hdr/chargueraud_hdr.pdf
-    (a subset of which was published in the ICFP'20 article:
-    _Separation Logic for Sequential Programs_).
-
-    The manuscript includes, in particular, a 5-page historical survey
-    of contributions to mechanized presentations of Separation Logic,
-    featuring 100+ citations. For a broader survey of Separation
-    Logic, we recommend Peter O'Hearn's 2019 survey, which is
-    available from: https://dl.acm.org/doi/10.1145/3211968 -- including
-    an interesting _supplemental material_ appendix, accessible by following
-    the link that appears near the bottom of that ACM web page. *)
+    researchers. *)
 
 (* ################################################################# *)
 (** * Separation Logic *)
@@ -89,7 +78,7 @@
     to high-level data structures and algorithms. *)
 
 (* ################################################################# *)
-(** * Separation Logic in a proof assistant *)
+(** * Separation Logic in a Proof Assistant *)
 
 (** The benefits of exploiting Separation Logic in a proof assistant
     include at least four major points:
@@ -111,7 +100,7 @@
 
     - A formalization of the syntax and semantics of the source language.
       This is called a _deep embedding_ of the programming language.
-    - A definition of Separation Logic predicates as predicates from
+    - A definition of Separation Logic predicates as predicates in
       higher-order logic. This is called a _shallow embedding_ of the
       program logic.
     - A definition of Separation Logic triples as a predicate, the
@@ -127,29 +116,15 @@
     To that end, we consider in this course the simplest possible variant of
     Separation Logic, and apply it to a minimalistic imperative programming
     language. The language essentially consists of a lambda-calculus with
-    references. This language admits a simple semantics and avoids in
+    references. This language admits a simple semantics. It avoids in
     particular the need to distinguish between stack variables and heap-
-    allocated variables. Advanced chapters from the course explains how
+    allocated variables. Advanced chapters from the course explain how
     to add support for loops, records, arrays, and n-ary functions. *)
 
 (* ################################################################# *)
 (** * Several Possible Depths of Reading *)
 
-(** The material is organized in such a way that it can be easily adapted to
-    the amount of time that the reader is ready to invest in the course.
-
-    The course contains 13 chapters, not counting the [Preface],
-    [Postscript], and [Bib] chapters. The course is organized in 3
-    major parts, as pictured in the roadmap diagram.
-
-    - The short curriculum includes only the 5 first chapters (ranging from
-      chapter [Basic] to chapter [Rules]).
-    - The medium curriculum includes 3 additional chapters (ranging from
-      chapter [WPsem] to chapter [Wand]).
-    - The full curriculum includes 5 more chapters (ranging from
-      chapter [Partial] to chapter [Rich]).
-
-    In addition, each chapter except [Basic] is decomposed in three parts.
+(** All chapters except the first one are organized in three parts.
 
     - The _First Pass_ section presents the most important ideas only.
       The course in designed in such a way that it is possible to read only
@@ -162,20 +137,20 @@
       By default, readers would eventually read all this material.
     - The _Optional Material_ section typically contains the remaining
       proofs, as well as discussions of alternative definitions. The _Optional
-      Material_ sections are all independent from each other. They would
-      typically be of interest to readers who want to understand every detail,
-      readers who are seeking for a deep understanding of a particular notion,
-      and readers who are looking for answers to specific question. *)
-
+      Material_ sections are all independent from each other. These sections
+      are intended for (1) readers who plan to continue studying Separation
+      Logic beyond the present course, and (2) teachers using the course. *)
 
 (* ################################################################# *)
 (** * List of Chapters *)
 
-(** The first two chapters, namely chapters [Basic] and [Repr]
+(** The first 2 chapters, namely chapters [Basic] and [Repr]
     give a primer on how to prove imperative programs in Separation Logic,
-    thus focusing on the end user's perspective. All the other chapters
+    i.e. they focus on the end user's perspective. The 8 following chapters
     focus on the implementor's perspective, explaining how Separation Logic
     is defined and how a practical verification tool can be constructed.
+    The last 3 chapters cover language extensions, from the perspective of
+    both the user and the implementor.
 
     The list of chapters appears below. The numbering corresponds to _teaching
     units_: if the chapters were taught as part of a University course, one
@@ -187,42 +162,42 @@
     - (1) [Repr]: introduction to representation predicates in Separation
           Logic, in particular for describing mutable lists and trees.
 
-    - (2) [Hprop]: definition of the core operators of Separation Logic,
-          of Hoare triples, and of Separation Logic triples.
+    - (2) [Hprop]: definition of the core operators of Separation Logic.
 
     - (2) [Himpl]: definition of the entailment relation, statement and
           proofs of its fundamental properties, and description of the
           simplification tactic for entailment.
 
+    - (3) [Triples]: definition of Separation Logic triples in terms
+          of the semantics of the programming language.
+
     - (3) [Rules]: statement and proofs of the reasoning rules of
           Separation Logic, and example proofs of programs using these rules.
+
+    - (4) [Wand]: introduction of the magic wand operator and other
+          Separation Logic operators, and to the ramified frame rule.
 
     - (4) [WPsem]: definition of the semantic notion of weakest
           precondition, and statement of rules in weakest-precondition style.
 
-    - (4) [WPgen]: presentation of a function that effectively computes
+    - (5) [WPgen]: presentation of a function that effectively computes
           the weakest precondition of a term, independently of its
           specification.
 
-    - (5) [Wand]: introduction of the magic wand operator and of the
-          ramified frame rule, and extension of the weakest-precondition
-          generator for handling local function definitions.
+    - (5) [WPsound]: soundness proof for the weakest precondition
+          generator; the contents is for the most part optional.
 
-    - (5) [Affine]: description of a generalization of Separation Logic
+    - (6) [Affine]: description of a generalization of Separation Logic
           with affine heap predicates, which are useful, in particular, for
           handling garbage-collected programming languages.
 
-    - (6) [Struct]: specification of array and record operations, and
-          encoding of these operations using pointer arithmetic.
+    - (6) [Arrays]: specification of both ML-style arrays with headers,
+          and C-style arrays with pointer arithmetic.
 
-    - (6) [Rich]: description of the treatment of additional language
-          constructs, including loops, assertions, and n-ary functions.
+    - (6) [Records]: representation predicate for records, allowing to
+          isolate arbitrary subsets of the record fields.
 
-    - (7) [Nondet]: definition of triples for non-deterministic
-          programming languages.
-
-    - (7) [Partial]: definition of triples for partial correctness
-          only, i.e., for not requiring termination proofs. *)
+ *)
 
 (* ################################################################# *)
 (** * Other Distributed Files *)
@@ -248,8 +223,7 @@
       automatically simplifying entailments in Separation Logic.
 
     - [LibSepMinimal]: a minimalistic formalization of a soundness
-      proof for Separation Logic, corresponding to the definitions and proofs
-      presented in the ICFP'20 paper mentioned earlier.
+      proof for Separation Logic.
 
     - All other [Lib*] files are imports from the TLC library,
       which is described next. *)
@@ -261,11 +235,10 @@
     particularly well-suited for meta-theory. Prior knowledge of TLC is not
     required, and all exercises can be completed without using TLC tactics.
 
-    The classical logic aspects of TLC are presented at the moment they
-    appear in the course. The TLC tactics are also briefly described upon
-    their first occurrence. Moreover, most of these tactics are presented
-    in the chapter [UseTactics] of Software Foundations Volume 2
-    (_Programming Language Foundations_). *)
+    The classical logic aspects of TLC are presented in chapter [Hprop].
+    Each TLC tactic is introduced when it is first used. Most of these tactics
+    are presented in the chapter [UseTactics] of Software Foundations
+    Volume 2 (_Programming Language Foundations_). *)
 
 (* ################################################################# *)
 (** * Practicalities *)
@@ -273,18 +246,10 @@
 (* ================================================================= *)
 (** ** System Requirements *)
 
-(** The [Preface] of Software Foundations Volume 1 (_Logical
-    Foundations_) describes how to install Coq. The files you are
-    reading have been tested with Coq version 8.16 and 8.17. *)
+(** Install instructions for Coq and IDEs may be found on the page:
+    https://www.chargueraud.org/teach/verif/install/install.html
 
-(* ================================================================= *)
-(** ** Note for CoqIDE Users *)
-
-(** CoqIDE typically works better with its _asynchronous_ proof mode disabled.
-    To load all the course files in CoqIDE, use the following command line.
-
-   coqide -async-proofs off -async-proofs-command-error-resilience off Basic.v &
-*)
+    The files you are reading have been tested with Coq version 8.18. *)
 
 (* ================================================================= *)
 (** ** Feedback Welcome *)
@@ -298,9 +263,7 @@
 
     If you plan on providing any non-small amount of feedback, do not
     hesitate to ask the author to be added as contributor to the
-    github repository. In particular, please do not hesitate to improve
-    the formulation of the English sentences throughout this volume,
-    as the author is not a native speaker. *)
+    github repository. *)
 
 (* ================================================================= *)
 (** ** Exercises *)
@@ -309,8 +272,8 @@
     is described in the [Preface] of Software Foundations Volume 1
     (_Logical Foundations_).
 
-    _Disclaimer_: the difficulty ratings currently in place are highly
-    speculative! You feedback is very much welcome.
+    _Disclaimer_: the difficulty ratings currently in place are fairly
+    speculative. You feedback is very much welcome.
 
     _Disclaimer_: the auto-grading system has not been tested for this
     volume. If you are interested in using auto-grading for this
@@ -330,7 +293,7 @@
     volume       =   "6",
     year         =   "2023",
     publisher    =   "Electronic textbook",
-    note         =   {Version 1.6, \URL{http://softwarefoundations.cis.upenn.edu} },
+    note         =   {Version 2.0, \URL{http://softwarefoundations.cis.upenn.edu} },
     }
 *)
 
@@ -342,4 +305,4 @@
     Foundation under the NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2023-08-23 12:58 *)
+(* 2023-11-29 09:22 *)

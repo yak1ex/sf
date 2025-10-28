@@ -4,8 +4,8 @@
 (** * Resources cited in this volume *)
 
 (** An extended related work section on the history of Separation Logic
-    may be found in the paper [Charguéraud 2020], available from:
-    http://www.chargueraud.org/research/2020/seq_seplogic/seq_seplogic.pdf
+    may be found in the companion course notes, available from:
+    http://www.chargueraud.org/teach/verif/slf_notes.pdf
 
     The references most relevant to the contents of the course appear below. *)
 
@@ -40,9 +40,9 @@
   In Internation Conference on Function Programming (ICFP).
   https://dl.acm.org/doi/abs/10.1145/3408998
 
-[Charguéraud et al 2022]
+[Charguéraud et al 2023]
   Arthur Charguéraud, Adam Chlipala, Andres Erbsen, and Samuel Gruetter.
-  Omnisemantics: Smoother Handling of Nondeterminism (Draft).
+  Omnisemantics: Smoother Handling of Nondeterminism (TOPLAS).
   http://www.chargueraud.org/research/2022/omnisemantics/omnisemantics.pdf.
 
 [Chlipala et al 2009]
@@ -165,6 +165,4 @@
 
 *)
 
-(** $Date$ *)
-
-(* 2023-08-23 12:58 *)
+(* 2023-11-29 09:22 *)

@@ -746,6 +746,12 @@ Lemma update_eq_union_single : forall h x v,
   update h x v = union (single x v) h.
 Proof using. auto. Qed.
 
+Lemma update_empty : forall x v,
+  update empty x v = single x v.
+Proof using.
+  intros. rewrite update_eq_union_single. rewrite* union_empty_r.
+Qed.
+
 Lemma update_single : forall x v w,
   update (single x v) x w = single x w.
 Proof using.
@@ -798,6 +804,14 @@ Qed.
 
 (* ================================================================= *)
 (** ** Removal *)
+
+Lemma remove_single : forall x v,
+  remove (single x v) x = empty.
+Proof using.
+  intros. applys fmap_extens. intros y.
+  unfold remove, map_remove, single, empty. simpl.
+  case_if*. case_if*.
+Qed.
 
 Lemma remove_disjoint_union_l : forall h1 h2 x,
   indom h1 x ->
@@ -1185,4 +1199,4 @@ Qed.
 
 End FmapFresh.
 
-(* 2023-08-23 12:58 *)
+(* 2023-11-29 09:22 *)

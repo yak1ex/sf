@@ -10,8 +10,7 @@
     There are numerous aspects of Separation Logic that were not covered
     in this course, including:
 
-    - Concurrent Separation Logic, for reasoning about concurrent behaviors,
-      or even, behaviors of weak memory models.
+    - Concurrent Separation Logic, for reasoning about concurrent programs.
     - Automated reasoning using Separation Logic, typically for a restricted
       fragment of Separation Logic.
     - Separation Logic for low-level programs, at the byte level, and with
@@ -19,18 +18,6 @@
     - Separation Logic for object-oriented programs.
     - Reasoning about I/O, integer overflows, floatting-point arithmetics,
       etc. *)
-
-(* ################################################################# *)
-(** * Historical Notes *)
-
-(** The most relevant historical notes were included near the end of each
-    chapter. Additional information may be found in the ICFP'20 paper
-    _Separation Logic for Sequential Programs_, by Arthur Charguéraud.
-    http://www.chargueraud.org/research/2020/seq_seplogic/seq_seplogic.pdf *)
-
-(** In addition, the reader may be interested in checking out Peter O'Hearn's
-    account of the early days of Separation Logic:
-    http://www0.cs.ucl.ac.uk/staff/p.ohearn/SeparationLogic/Separation_Logic/Early_Days.html *)
 
 (* ################################################################# *)
 (** * Tools Leveraging Separation Logic *)
@@ -54,7 +41,7 @@
       notion directly inspired by Separation Logic.
 
     - The tool "VeriFast" targets C and Java programs.
-      https://people.cs.kuleuven.be/~bart.jacobs/verifast  and
+      https://people.cs.kuleuven.be/~bart.jacobs/verifast and
       https://github.com/verifast/verifast
 
     - The tool "Verifiable C" tool, from the VST project, targets the
@@ -74,11 +61,11 @@
       LLVM IR code.
       https://www21.in.tum.de/~lammich/pub/itp15_sepref.pdf
 
-    - The tool "CFML", which targets the verification of OCaml programs.
-      The original version of CFML leverages a version of characteristic
-      formulae slightly more complicated than the one presented in this
-      volume. The new version, CFML 2.0, directly leverages all the ideas
-      from this course. It is still under active development.
+    - The tool "CFML" targets the verification of OCaml programs. The original
+      version of CFML leverages a version of characteristic formulae slightly
+      more complicated than the one presented in this volume. The new version,
+      CFML 2.0, directly leverages all the ideas from this course, in particular
+      the weakest-precondition style [wpgen] function.
 
     - The verified compiler "CakeML" implements technology similar to that
       of CFML, and leverages it to verify components from its standard library
@@ -101,11 +88,9 @@
 
     - The Iris tutorial, by Birkedal and Bizjak, presents the core ideas of
       Iris' concurrent Separation Logic.
-      https://iris-project.org/tutorial-material.html *)
+      https://iris-project.org/tutorial-material.html
 
-(** Teaser: Arthur Charguéraud has for project to write a follow-up course on
-    practical program verification using CFML, focusing on the specification
-    and verification of classic data structures and algorithms. *)
+*)
 
 (* ################################################################# *)
 (** * Acknowledgments *)
@@ -129,12 +114,8 @@
     - Andrew Appel, Lars Birkedal, Adam Chlipala, Magnus Myreen, Gerwin Klein,
       Peter Lammich, and Zhong Shao, who kindly answered questions on related
       work aspects.
-
-   Thanks also to users who contributed feedback and helped fixing typos:
-    - Jonathan Leivent
-    - Ori Lahav
-    - Shachar Itzhaky.
+    - The many readers who helped fixing typos.
 
 *)
 
-(* 2023-08-23 12:58 *)
+(* 2023-11-29 09:22 *)
