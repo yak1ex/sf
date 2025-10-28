@@ -37,13 +37,13 @@
 (* ################################################################# *)
 (** * Overview *)
 
-(** Building reliable software is really hard -- really hard.  The
-    scale and complexity of modern systems, the number of people
-    involved, and the range of demands placed on them make it
-    challenging to build software that is even more-or-less correct,
-    much less 100%% correct.  At the same time, the increasing degree
-    to which information processing is woven into every aspect of
-    society greatly amplifies the cost of bugs and insecurities.
+(** Building reliable software is hard -- really hard.  The scale and
+    complexity of modern systems, the number of people involved, and
+    the range of demands placed on them make it challenging to build
+    software that is even more-or-less correct, much less 100%%
+    correct.  At the same time, the increasing degree to which
+    information processing is woven into every aspect of society
+    greatly amplifies the cost of bugs and insecurities.
 
     Computer scientists and software engineers have responded to these
     challenges by developing a host of techniques for improving
@@ -51,8 +51,8 @@
     software projects teams (e.g., extreme programming) to design
     philosophies for libraries (e.g., model-view-controller,
     publish-subscribe, etc.) and programming languages (e.g.,
-    object-oriented programming, aspect-oriented programming,
-    functional programming, ...) to mathematical techniques for
+    object-oriented programming, functional programming, ...)
+    to mathematical techniques for
     specifying and reasoning about properties of software and tools
     for helping validate these properties.  The _Software Foundations_
     series is focused on this last set of tools.
@@ -103,16 +103,16 @@
        - _Automated theorem provers_ provide "push-button" operation:
          you give them a proposition and they return either _true_ or
          _false_ (or, sometimes, _don't know: ran out of time_).
-         Although their capabilities are still limited to specific
-         domains, they have matured tremendously in recent years and
+         Although their reasoning capabilities are still limited,
+         they have matured tremendously in recent decades and
          are used now in a multitude of settings.  Examples of such
          tools include SAT solvers, SMT solvers, and model checkers.
 
        - _Proof assistants_ are hybrid tools that automate the more
          routine aspects of building proofs while depending on human
          guidance for more difficult aspects.  Widely used proof
-         assistants include Isabelle, Agda, Twelf, ACL2, PVS, and Coq,
-         among many others.
+         assistants include Isabelle, Agda, Twelf, ACL2, PVS, F*,
+         HOL4, Lean, and Coq, among many others.
 
     This course is based around Coq, a proof assistant that has been
     under development since 1983 and that in recent years has
@@ -143,16 +143,16 @@
       CompCert, a fully-verified optimizing compiler for C, and
       CertiKOS, a fully verified hypervisor, for proving the
       correctness of subtle algorithms involving floating point
-      numbers, and as the basis for CertiCrypt, an environment for
-      reasoning about the security of cryptographic algorithms.  It is
-      also being used to build verified implementations of the
+      numbers, and as the basis for CertiCrypt, FCF, and SSProve,
+      which are frameworks for proving cryptographic algorithms secure.
+      It is also being used to build verified implementations of the
       open-source RISC-V processor architecture.
 
     - As a _realistic environment for functional programming with
       dependent types_, it has inspired numerous innovations.  For
-      example, the Ynot system embeds "relational Hoare reasoning" (an
-      extension of the _Hoare Logic_ we will see later in this course)
-      in Coq.
+      example, Hoare Type Theory embeds reasoning about
+      "pre-conditions" and "post-conditions" (an extension of the
+      _Hoare Logic_ we will see later in this course) in Coq.
 
     - As a _proof assistant for higher-order logic_, it has been used
       to validate a number of important results in mathematics.  For
@@ -168,7 +168,7 @@
       groups.
 
    By the way, in case you're wondering about the name, here's what
-   the official Coq web site at INRIA (the French national research
+   the official Coq web site at Inria (the French national research
    lab where Coq has mostly been developed) says about it: "Some
    French computer scientists have a tradition of naming their
    software as animal species: Caml, Elan, Foc or Phox are examples of
@@ -185,7 +185,8 @@
     programming idioms that can be used in almost any programming
     language and to a family of programming languages designed to
     emphasize these idioms, including Haskell, OCaml, Standard ML,
-    F##, Scala, Scheme, Racket, Common Lisp, Clojure, Erlang, and Coq.
+    F##, Scala, Scheme, Racket, Common Lisp, Clojure, Erlang, F*,
+    and Coq.
 
     Functional programming has been developed over many decades --
     indeed, its roots go back to Church's lambda-calculus, which was
@@ -255,36 +256,43 @@
 (** ** System Requirements *)
 
 (** Coq runs on Windows, Linux, and macOS.  The files in this book
-    have been tested with Coq 8.17.
+    have been tested with Coq 8.19.2.
 
     You will need:
 
-    - A current installation of Coq, available from the Coq home page.
-      The "Coq Platform" usually offers the smoothest installation
-      experience.
+    - A current installation of Coq, available from the Coq home page
+      ({https://coq.inria.fr/download}).
+      The "Coq Platform" usually offers the easiest installation
+      experience, especially on Windows.
 
       If you use the VSCode + Docker option described below, you don't
       need to install Coq separately.
 
     - An IDE for interacting with Coq.  There are several choices:
 
-        - The VSCoq extension for Visual Studio Code offers a simple
-          interface via a familiar IDE.  This option is the
-          recommended default.
+        - _VsCoq_ is an extension for Visual Studio Code that offers a
+          simple interface via a familiar IDE.  This option is the
+          recommended default. If you installed Coq via the Coq
+          platform binary then can only use "VsCoq Legacy", which is
+          the more stable version anyway. If you use opam, you can
+          also try "VsCoq 2", which is a bit more experimental but
+          much more featureful.
 
-          VSCoq can be used as an ordinary IDE or it can be combined
+          VsCoq can be used as an ordinary IDE or it can be combined
           with Docker (see below) for a lightweight installation
           experience.
 
-        - Proof General is an Emacs-based IDE.  It tends to be
+        - _Proof General_ is an Emacs-based IDE.  It tends to be
           preferred by users who are already comfortable with Emacs.
-          It requires a separate installation (google "Proof
-          General").
+          It requires a separate installation (google "Proof General",
+          but generally all you need to do is [M-x package-list-packages],
+          then select the [proof-general] package from the list and
+          hit the [i] key for install, then hit the [x] key for execute).
 
           Adventurous users of Coq within Emacs may want to check out
           extensions such as [company-coq] and [control-lock].
 
-        - CoqIDE is a simpler stand-alone IDE.  It is distributed with
+        - _CoqIDE_ is a simpler stand-alone IDE.  It is distributed with
           Coq, so it should be available once you have Coq installed.
           It can also be compiled from scratch, but on some platforms
           this may involve installing additional packages for GUI
@@ -293,7 +301,8 @@
           Users who like CoqIDE should consider running it with the
           "asynchronous" and "error resilience" modes disabled: [[
           coqide -async-proofs off \
-          -async-proofs-command-error-resilience off Foo.v & ]] *)
+          -async-proofs-command-error-resilience off Foo.v &
+          ]] *)
 
 (* ----------------------------------------------------------------- *)
 (** *** Using Coq with VSCode and Docker *)
@@ -375,7 +384,7 @@
     readers.  Advanced exercises are for readers who want an extra
     challenge and a deeper cut at the material.
 
-    _Please do not post solutions to the exercises in a public place_. 
+    _Please do not post solutions to the exercises in a public place_.
     Software Foundations is widely used both for self-study and for
     university courses.  Having solutions easily available makes it
     much less useful for courses, which typically have graded homework
@@ -420,9 +429,9 @@
     title        =   "Logical Foundations",
     series       =   "Software Foundations",
     volume       =   "1",
-    year         =   "2023",
+    year         =   "2025",
     publisher    =   "Electronic textbook",
-    note         =   {Version 6.5, \URL{http://softwarefoundations.cis.upenn.edu}}
+    note         =   {Version 6.7, \URL{http://softwarefoundations.cis.upenn.edu}}
     }
 *)
 
@@ -478,7 +487,7 @@
         Volume 6, "Separation Logic Foundations," the author of record
         is Arthur Chargueraud. For components outside of designated
         volumes (e.g., typesetting and grading tools and other
-        software infrastructure), the Author of Record is Benjamin
+        software infrastructure), the Author of Record is Benjamin C.
         Pierce.
 
     To get started, please send an email to Benjamin Pierce,
@@ -506,4 +515,4 @@
     NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2023-12-29 17:12 *)
+(* 2025-01-13 16:00 *)

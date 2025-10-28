@@ -36,6 +36,7 @@
 
 <span class="id" title="keyword">Set</span> <span class="id" title="var">Warnings</span> "-notation-overridden,-parsing,-deprecated-hint-without-locality".<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/library//Coq.micromega.Lia.html#"><span class="id" title="library">Lia</span></a>.<br/>
+<span class="id" title="keyword">From</span> <span class="id" title="var">Coq</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#"><span class="id" title="library">Strings.String</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">LF</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="Maps.html#"><span class="id" title="library">Maps</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">LF</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="Imp.html#"><span class="id" title="library">Imp</span></a>.<br/>
 </div>
@@ -105,7 +106,7 @@ Up to now, we've used the more manual part of Coq's tactic
 </div>
 
 <div class="doc">
-<a id="lab440"></a><h1 class="section">The <span class="inlinecode"><span class="id" title="tactic">auto</span></span> Tactic</h1>
+<a id="lab452"></a><h1 class="section">The <span class="inlinecode"><span class="id" title="tactic">auto</span></span> Tactic</h1>
 
 <div class="paragraph"> </div>
 
@@ -390,7 +391,7 @@ When we are using a particular tactic many times in a proof, we
 </div>
 
 <div class="doc">
-<a id="lab441"></a><h1 class="section">Searching For Hypotheses</h1>
+<a id="lab453"></a><h1 class="section">Searching For Hypotheses</h1>
 
 <div class="paragraph"> </div>
 
@@ -501,7 +502,7 @@ Let's see about the remaining cases. Each of them involves
 
 <span class="id" title="keyword">Ltac</span> <span class="id" title="var">find_eqn</span> :=<br/>
 &nbsp;&nbsp;<span class="id" title="keyword">match</span> <span class="id" title="keyword">goal</span> <span class="id" title="keyword">with</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">H<sub>1</sub></span>: <span class="id" title="keyword">∀</span> <a id="x:61" class="idref" href="#x:61"><span class="id" title="binder">x</span></a>, ?<span class="id" title="var">P</span> <a class="idref" href="Auto.html#x:60"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> ?<span class="id" title="var">L</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> ?<span class="id" title="var">R</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">H<sub>1</sub></span>: <span class="id" title="keyword">∀</span> <a id="x:60" class="idref" href="#x:60"><span class="id" title="binder"><span id="x:61" class="id">x</span></span></a>, ?<span class="id" title="var">P</span> <a class="idref" href="Auto.html#x:60"><span class="id" title="variable">x</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> ?<span class="id" title="var">L</span> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> ?<span class="id" title="var">R</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">H<sub>2</sub></span>: ?<span class="id" title="var">P</span> ?<span class="id" title="var">X</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&#x22A2; <span class="id" title="var">_</span> ⇒ <span class="id" title="tactic">rewrite</span> (<span class="id" title="var">H<sub>1</sub></span> <span class="id" title="var">X</span> <span class="id" title="var">H<sub>2</sub></span>) <span class="id" title="keyword">in</span> ×<br/>
 &nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
@@ -541,7 +542,7 @@ The big payoff in this approach is that our proof script should be
 <div class="code">
 
 <span class="id" title="keyword">Module</span> <a id="Repeat" class="idref" href="#Repeat"><span class="id" title="module">Repeat</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Inductive</span> <a id="Repeat.com" class="idref" href="#Repeat.com"><span class="id" title="inductive">com</span></a> : <span class="id" title="keyword">Type</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="Repeat.com" class="idref" href="#Repeat.com"><span class="id" title="definition, inductive"><span id="Repeat.com_rect" class="id"><span id="Repeat.com_ind" class="id"><span id="Repeat.com_rec" class="id"><span id="Repeat.com_sind" class="id">com</span></span></span></span></span></a> : <span class="id" title="keyword">Type</span> :=<br/>
 &nbsp;&nbsp;| <a id="Repeat.CSkip" class="idref" href="#Repeat.CSkip"><span class="id" title="constructor">CSkip</span></a><br/>
 &nbsp;&nbsp;| <a id="Repeat.CAsgn" class="idref" href="#Repeat.CAsgn"><span class="id" title="constructor">CAsgn</span></a> (<a id="x:68" class="idref" href="#x:68"><span class="id" title="binder">x</span></a> : <a class="idref" href="http://coq.inria.fr/library//Coq.Strings.String.html#string"><span class="id" title="inductive">string</span></a>) (<a id="a:69" class="idref" href="#a:69"><span class="id" title="binder">a</span></a> : <a class="idref" href="Imp.html#aexp"><span class="id" title="inductive">aexp</span></a>)<br/>
 &nbsp;&nbsp;| <a id="Repeat.CSeq" class="idref" href="#Repeat.CSeq"><span class="id" title="constructor">CSeq</span></a> (<a id="c<sub>1</sub>:70" class="idref" href="#c<sub>1</sub>:70"><span class="id" title="binder">c<sub>1</sub></span></a> <a id="c<sub>2</sub>:71" class="idref" href="#c<sub>2</sub>:71"><span class="id" title="binder">c<sub>2</sub></span></a> : <a class="idref" href="Auto.html#com:66"><span class="id" title="inductive">com</span></a>)<br/>
@@ -580,7 +581,7 @@ The big payoff in this approach is that our proof script should be
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99).<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Reserved Notation</span> &quot;st '=[' c ']=&gt;' st'"<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40, <span class="id" title="var">c</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">st'</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="var">next</span> <span class="id" title="keyword">level</span>).<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Inductive</span> <a id="Repeat.ceval" class="idref" href="#Repeat.ceval"><span class="id" title="inductive">ceval</span></a> : <a class="idref" href="Auto.html#Repeat.com"><span class="id" title="inductive">com</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Imp.html#state"><span class="id" title="definition">state</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Imp.html#state"><span class="id" title="definition">state</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
+<span class="id" title="keyword">Inductive</span> <a id="Repeat.ceval" class="idref" href="#Repeat.ceval"><span class="id" title="definition, inductive"><span id="Repeat.ceval_ind" class="id"><span id="Repeat.ceval_sind" class="id">ceval</span></span></span></a> : <a class="idref" href="Auto.html#Repeat.com"><span class="id" title="inductive">com</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Imp.html#state"><span class="id" title="definition">state</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Imp.html#state"><span class="id" title="definition">state</span></a> <a class="idref" href="http://coq.inria.fr/library//Coq.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="Repeat.E_Skip" class="idref" href="#Repeat.E_Skip"><span class="id" title="constructor">E_Skip</span></a> : <span class="id" title="keyword">∀</span> <a id="st:81" class="idref" href="#st:81"><span class="id" title="binder">st</span></a>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Auto.html#st:81"><span class="id" title="variable">st</span></a> <a class="idref" href="Auto.html#029586011588c831225d1548c37559d<sub>6</sub>"><span class="id" title="notation">=[</span></a> <a class="idref" href="Auto.html#Repeat.:com::'skip'"><span class="id" title="notation">skip</span></a> <a class="idref" href="Auto.html#029586011588c831225d1548c37559d<sub>6</sub>"><span class="id" title="notation">]=&gt;</span></a> <a class="idref" href="Auto.html#st:81"><span class="id" title="variable">st</span></a><br/>
 &nbsp;&nbsp;| <a id="Repeat.E_Asgn" class="idref" href="#Repeat.E_Asgn"><span class="id" title="constructor">E_Asgn</span></a>  : <span class="id" title="keyword">∀</span> <a id="st:82" class="idref" href="#st:82"><span class="id" title="binder">st</span></a> <a id="a<sub>1</sub>:83" class="idref" href="#a<sub>1</sub>:83"><span class="id" title="binder">a<sub>1</sub></span></a> <a id="n:84" class="idref" href="#n:84"><span class="id" title="binder">n</span></a> <a id="x:85" class="idref" href="#x:85"><span class="id" title="binder">x</span></a>,<br/>
@@ -673,7 +674,7 @@ These examples just give a flavor of what "hyper-automation"
     your proofs, both to avoid tedium and to "future proof" them. 
 <div class="paragraph"> </div>
 
-<a id="lab442"></a><h1 class="section">The <span class="inlinecode"><span class="id" title="tactic">eapply</span></span> and <span class="inlinecode"><span class="id" title="tactic">eauto</span></span> tactics</h1>
+<a id="lab454"></a><h1 class="section">The <span class="inlinecode"><span class="id" title="tactic">eapply</span></span> and <span class="inlinecode"><span class="id" title="tactic">eauto</span></span> tactics</h1>
 
 <div class="paragraph"> </div>
 
@@ -804,7 +805,7 @@ The <span class="inlinecode"><span class="id" title="tactic">eauto</span></span>
     ordinary variants don't do the job. 
 <div class="paragraph"> </div>
 
-<a id="lab443"></a><h1 class="section">Constraints on Existential Variables</h1>
+<a id="lab455"></a><h1 class="section">Constraints on Existential Variables</h1>
 
 <div class="paragraph"> </div>
 
@@ -910,7 +911,7 @@ The <span class="inlinecode"><span class="id" title="tactic">eauto</span></span>
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">P</span> <span class="id" title="var">Q</span> <span class="id" title="var">HP</span> <span class="id" title="var">HQ</span>. <span class="id" title="tactic">destruct</span> <span class="id" title="var">HP</span> <span class="id" title="keyword">as</span> [<span class="id" title="var">y</span> <span class="id" title="var">HP'</span>]. <span class="id" title="tactic">eauto</span>.<br/>
 <span class="id" title="keyword">Qed</span>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2023-12-29&nbsp;17:12&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-01-13&nbsp;16:00&nbsp;*)</span><br/>
 </div>
 </div>
 

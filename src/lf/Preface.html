@@ -81,13 +81,13 @@
 
 <div class="paragraph"> </div>
 
- Building reliable software is really hard -- really hard.  The
-    scale and complexity of modern systems, the number of people
-    involved, and the range of demands placed on them make it
-    challenging to build software that is even more-or-less correct,
-    much less 100% correct.  At the same time, the increasing degree
-    to which information processing is woven into every aspect of
-    society greatly amplifies the cost of bugs and insecurities.
+ Building reliable software is hard -- really hard.  The scale and
+    complexity of modern systems, the number of people involved, and
+    the range of demands placed on them make it challenging to build
+    software that is even more-or-less correct, much less 100%
+    correct.  At the same time, the increasing degree to which
+    information processing is woven into every aspect of society
+    greatly amplifies the cost of bugs and insecurities.
 
 <div class="paragraph"> </div>
 
@@ -97,8 +97,8 @@
     software projects teams (e.g., extreme programming) to design
     philosophies for libraries (e.g., model-view-controller,
     publish-subscribe, etc.) and programming languages (e.g.,
-    object-oriented programming, aspect-oriented programming,
-    functional programming, ...) to mathematical techniques for
+    object-oriented programming, functional programming, ...)
+    to mathematical techniques for
     specifying and reasoning about properties of software and tools
     for helping validate these properties.  The <i>Software Foundations</i>
     series is focused on this last set of tools.
@@ -166,8 +166,8 @@
 <li> <i>Automated theorem provers</i> provide "push-button" operation:
          you give them a proposition and they return either <i>true</i> or
          <i>false</i> (or, sometimes, <i>don't know: ran out of time</i>).
-         Although their capabilities are still limited to specific
-         domains, they have matured tremendously in recent years and
+         Although their reasoning capabilities are still limited,
+         they have matured tremendously in recent decades and
          are used now in a multitude of settings.  Examples of such
          tools include SAT solvers, SMT solvers, and model checkers.
 
@@ -178,8 +178,8 @@
 <li> <i>Proof assistants</i> are hybrid tools that automate the more
          routine aspects of building proofs while depending on human
          guidance for more difficult aspects.  Widely used proof
-         assistants include Isabelle, Agda, Twelf, ACL2, PVS, and Coq,
-         among many others.
+         assistants include Isabelle, Agda, Twelf, ACL2, PVS, F*,
+         HOL4, Lean, and Coq, among many others.
 
 </li>
 </ul>
@@ -224,9 +224,9 @@
       CompCert, a fully-verified optimizing compiler for C, and
       CertiKOS, a fully verified hypervisor, for proving the
       correctness of subtle algorithms involving floating point
-      numbers, and as the basis for CertiCrypt, an environment for
-      reasoning about the security of cryptographic algorithms.  It is
-      also being used to build verified implementations of the
+      numbers, and as the basis for CertiCrypt, FCF, and SSProve,
+      which are frameworks for proving cryptographic algorithms secure.
+      It is also being used to build verified implementations of the
       open-source RISC-V processor architecture.
 
 <div class="paragraph"> </div>
@@ -235,9 +235,9 @@
 </li>
 <li> As a <i>realistic environment for functional programming with
       dependent types</i>, it has inspired numerous innovations.  For
-      example, the Ynot system embeds "relational Hoare reasoning" (an
-      extension of the <i>Hoare Logic</i> we will see later in this course)
-      in Coq.
+      example, Hoare Type Theory embeds reasoning about
+      "pre-conditions" and "post-conditions" (an extension of the
+      <i>Hoare Logic</i> we will see later in this course) in Coq.
 
 <div class="paragraph"> </div>
 
@@ -262,7 +262,7 @@
 <div class="paragraph"> </div>
 
    By the way, in case you're wondering about the name, here's what
-   the official Coq web site at INRIA (the French national research
+   the official Coq web site at Inria (the French national research
    lab where Coq has mostly been developed) says about it: "Some
    French computer scientists have a tradition of naming their
    software as animal species: Caml, Elan, Foc or Phox are examples of
@@ -281,7 +281,8 @@
     programming idioms that can be used in almost any programming
     language and to a family of programming languages designed to
     emphasize these idioms, including Haskell, OCaml, Standard ML,
-    F#, Scala, Scheme, Racket, Common Lisp, Clojure, Erlang, and Coq.
+    F#, Scala, Scheme, Racket, Common Lisp, Clojure, Erlang, F*,
+    and Coq.
 
 <div class="paragraph"> </div>
 
@@ -368,7 +369,7 @@
 <div class="paragraph"> </div>
 
  Coq runs on Windows, Linux, and macOS.  The files in this book
-    have been tested with Coq 8.17.
+    have been tested with Coq 8.19.2.
 
 <div class="paragraph"> </div>
 
@@ -377,9 +378,10 @@
 <div class="paragraph"> </div>
 
 <ul class="doclist">
-<li> A current installation of Coq, available from the Coq home page.
-      The "Coq Platform" usually offers the smoothest installation
-      experience.
+<li> A current installation of Coq, available from the Coq home page
+      (<a href="https://coq.inria.fr/download"><span class="inlineref" <a href='https://coq.inria.fr/download</span></a>).'>https://coq.inria.fr/download</span></a>).</a>
+      The "Coq Platform" usually offers the easiest installation
+      experience, especially on Windows.
 
 <div class="paragraph"> </div>
 
@@ -395,13 +397,17 @@
 <div class="paragraph"> </div>
 
 <ul class="doclist">
-<li> The VSCoq extension for Visual Studio Code offers a simple
-          interface via a familiar IDE.  This option is the
-          recommended default.
+<li> <i>VsCoq</i> is an extension for Visual Studio Code that offers a
+          simple interface via a familiar IDE.  This option is the
+          recommended default. If you installed Coq via the Coq
+          platform binary then can only use "VsCoq Legacy", which is
+          the more stable version anyway. If you use opam, you can
+          also try "VsCoq 2", which is a bit more experimental but
+          much more featureful.
 
 <div class="paragraph"> </div>
 
-          VSCoq can be used as an ordinary IDE or it can be combined
+          VsCoq can be used as an ordinary IDE or it can be combined
           with Docker (see below) for a lightweight installation
           experience.
 
@@ -409,10 +415,12 @@
 
 
 </li>
-<li> Proof General is an Emacs-based IDE.  It tends to be
+<li> <i>Proof General</i> is an Emacs-based IDE.  It tends to be
           preferred by users who are already comfortable with Emacs.
-          It requires a separate installation (google "Proof
-          General").
+          It requires a separate installation (google "Proof General",
+          but generally all you need to do is <span class="inlinecode"><span class="id" title="var">M</span>-<span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">package</span>-<span class="id" title="var">list</span>-<span class="id" title="var">packages</span></span>,
+          then select the <span class="inlinecode"><span class="id" title="var">proof</span>-<span class="id" title="var">general</span></span> package from the list and
+          hit the <span class="inlinecode"><span class="id" title="var">i</span></span> key for install, then hit the <span class="inlinecode"><span class="id" title="var">x</span></span> key for execute).
 
 <div class="paragraph"> </div>
 
@@ -423,7 +431,7 @@
 
 
 </li>
-<li> CoqIDE is a simpler stand-alone IDE.  It is distributed with
+<li> <i>CoqIDE</i> is a simpler stand-alone IDE.  It is distributed with
           Coq, so it should be available once you have Coq installed.
           It can also be compiled from scratch, but on some platforms
           this may involve installing additional packages for GUI
@@ -434,7 +442,8 @@
           Users who like CoqIDE should consider running it with the
           "asynchronous" and "error resilience" modes disabled: <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">coqide</span> -<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span> <span class="id" title="var">off</span> \<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span>-<span class="id" title="var">command</span>-<span class="id" title="var">error</span>-<span class="id" title="var">resilience</span> <span class="id" title="var">off</span> <span class="id" title="var">Foo.v</span> &amp; ]] *)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-<span class="id" title="var">async</span>-<span class="id" title="var">proofs</span>-<span class="id" title="var">command</span>-<span class="id" title="var">error</span>-<span class="id" title="var">resilience</span> <span class="id" title="var">off</span> <span class="id" title="var">Foo.v</span> &amp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]] *)<br/>
 <br/>
 </div>
 
@@ -640,9 +649,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">title</span>        =   "Logical Foundations",<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">series</span>       =   "Software Foundations",<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">volume</span>       =   "1",<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">year</span>         =   "2023",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">year</span>         =   "2025",<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">publisher</span>    =   "Electronic textbook",<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 6.5, \<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span><span style='letter-spacing:-.4em;'>}</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 6.7, \<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span><span style='letter-spacing:-.4em;'>}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;}
 </span>
 </div>
@@ -712,7 +721,7 @@
         Volume 6, "Separation Logic Foundations," the author of record
         is Arthur Chargueraud. For components outside of designated
         volumes (e.g., typesetting and grading tools and other
-        software infrastructure), the Author of Record is Benjamin
+        software infrastructure), the Author of Record is Benjamin C.
         Pierce.
 
 </li>
@@ -755,7 +764,7 @@
 </div>
 <div class="code">
 <br/>
-<span class="comment">(*&nbsp;2023-12-29&nbsp;17:12&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-01-13&nbsp;16:00&nbsp;*)</span><br/>
 </span></div>
 </div>
 

@@ -32,15 +32,15 @@ Import Check.
 
 Goal True.
 
-idtac "-------------------  and_exercise  --------------------".
+idtac "-------------------  plus_is_O  --------------------".
 idtac " ".
 
-idtac "#> and_exercise".
+idtac "#> plus_is_O".
 idtac "Possible points: 2".
-check_type @and_exercise ((forall n m : nat, n + m = 0 -> n = 0 /\ m = 0)).
+check_type @plus_is_O ((forall n m : nat, n + m = 0 -> n = 0 /\ m = 0)).
 idtac "Assumptions:".
 Abort.
-Print Assumptions and_exercise.
+Print Assumptions plus_is_O.
 Goal True.
 idtac " ".
 
@@ -48,7 +48,7 @@ idtac "-------------------  and_assoc  --------------------".
 idtac " ".
 
 idtac "#> and_assoc".
-idtac "Possible points: 2".
+idtac "Possible points: 1".
 check_type @and_assoc ((forall P Q R : Prop, P /\ Q /\ R -> (P /\ Q) /\ R)).
 idtac "Assumptions:".
 Abort.
@@ -60,7 +60,7 @@ idtac "-------------------  mult_is_O  --------------------".
 idtac " ".
 
 idtac "#> mult_is_O".
-idtac "Possible points: 1".
+idtac "Possible points: 2".
 check_type @mult_is_O ((forall n m : nat, n * m = 0 -> n = 0 \/ m = 0)).
 idtac "Assumptions:".
 Abort.
@@ -80,20 +80,20 @@ Print Assumptions or_commut.
 Goal True.
 idtac " ".
 
-idtac "-------------------  double_neg_inf  --------------------".
+idtac "-------------------  double_neg_informal  --------------------".
 idtac " ".
 
-idtac "#> Manually graded: double_neg_inf".
+idtac "#> Manually graded: double_neg_informal".
 idtac "Advanced".
 idtac "Possible points: 2".
-print_manual_grade manual_grade_for_double_neg_inf.
+print_manual_grade manual_grade_for_double_neg_informal.
 idtac " ".
 
 idtac "-------------------  contrapositive  --------------------".
 idtac " ".
 
 idtac "#> contrapositive".
-idtac "Possible points: 2".
+idtac "Possible points: 1".
 check_type @contrapositive ((forall P Q : Prop, (P -> Q) -> ~ Q -> ~ P)).
 idtac "Assumptions:".
 Abort.
@@ -113,13 +113,13 @@ Print Assumptions not_both_true_and_false.
 Goal True.
 idtac " ".
 
-idtac "-------------------  informal_not_PNP  --------------------".
+idtac "-------------------  not_PNP_informal  --------------------".
 idtac " ".
 
-idtac "#> Manually graded: informal_not_PNP".
+idtac "#> Manually graded: not_PNP_informal".
 idtac "Advanced".
 idtac "Possible points: 1".
-print_manual_grade manual_grade_for_informal_not_PNP.
+print_manual_grade manual_grade_for_not_PNP_informal.
 idtac " ".
 
 idtac "-------------------  de_morgan_not_or  --------------------".
@@ -179,7 +179,7 @@ idtac "-------------------  In_map_iff  --------------------".
 idtac " ".
 
 idtac "#> In_map_iff".
-idtac "Possible points: 3".
+idtac "Possible points: 2".
 check_type @In_map_iff (
 (forall (A B : Type) (f : A -> B) (l : list A) (y : B),
  @In B y (@map A B f l) <-> (exists x : A, f x = y /\ @In A x l))).
@@ -337,8 +337,8 @@ idtac " ".
 
 idtac " ".
 
-idtac "Max points - standard: 45".
-idtac "Max points - advanced: 51".
+idtac "Max points - standard: 43".
+idtac "Max points - advanced: 49".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
@@ -362,8 +362,8 @@ idtac "  - A list of pending axioms, containing unproven assumptions. In this ca
 idtac "    the exercise is considered complete, if the axioms are all allowed.".
 idtac "".
 idtac "********** Standard **********".
-idtac "---------- and_exercise ---------".
-Print Assumptions and_exercise.
+idtac "---------- plus_is_O ---------".
+Print Assumptions plus_is_O.
 idtac "---------- and_assoc ---------".
 Print Assumptions and_assoc.
 idtac "---------- mult_is_O ---------".
@@ -406,14 +406,14 @@ idtac "---------- excluded_middle_irrefutable ---------".
 Print Assumptions excluded_middle_irrefutable.
 idtac "".
 idtac "********** Advanced **********".
-idtac "---------- double_neg_inf ---------".
+idtac "---------- double_neg_informal ---------".
 idtac "MANUAL".
-idtac "---------- informal_not_PNP ---------".
+idtac "---------- not_PNP_informal ---------".
 idtac "MANUAL".
 idtac "---------- not_exists_dist ---------".
 Print Assumptions not_exists_dist.
 Abort.
 
-(* 2023-12-29 17:12 *)
+(* 2025-01-13 16:00 *)
 
-(* 2023-12-29 17:12 *)
+(* 2025-01-13 16:00 *)

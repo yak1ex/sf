@@ -11,10 +11,10 @@
 (** * A Broken Evaluator *)
 
 From Coq Require Import Lia.
-From Coq Require Import Arith.Arith.
-From Coq Require Import Arith.PeanoNat.
+From Coq Require Import Arith.
+From Coq Require Import PeanoNat.
 Import Nat.
-From Coq Require Import Arith.EqNat.
+From Coq Require Import EqNat.
 From LF Require Import Imp Maps.
 
 (** Here was our first try at an evaluation function for commands,
@@ -214,7 +214,7 @@ Example pup_to_n_1 :
   test_ceval (X !-> 5) pup_to_n
   = Some (0, 15, 0).
 (* FILL IN HERE *) Admitted.
-(* 
+(*
 Proof. reflexivity. Qed.
 *)
 (** [] *)
@@ -393,4 +393,4 @@ Proof.
   rewrite E1 in E2. inversion E2. reflexivity.
   lia. lia.  Qed.
 
-(* 2023-12-29 17:12 *)
+(* 2025-01-13 16:00 *)

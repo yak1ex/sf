@@ -498,6 +498,6 @@ idtac "---------- Exercises.Church.exp_3 ---------".
 Print Assumptions Exercises.Church.exp_3.
 Abort.
 
-(* 2023-12-29 17:12 *)
+(* 2025-01-13 16:00 *)
 
-(* 2023-12-29 17:12 *)
+(* 2025-01-13 16:00 *)

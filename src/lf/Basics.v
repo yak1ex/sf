@@ -41,119 +41,7 @@
     can be used to prove properties of Gallina programs. *)
 
 (* ################################################################# *)
-(** * Data and Functions *)
-
-(* ================================================================= *)
-(** ** Enumerated Types *)
-
-(** One notable thing about Coq is that its set of built-in
-    features is _extremely_ small.  For example, instead of providing
-    the usual palette of atomic data types (booleans, integers,
-    strings, etc.), Coq offers a powerful mechanism for defining new
-    data types from scratch, with all these familiar types as
-    instances.
-
-    Naturally, the Coq distribution comes with an extensive standard
-    library providing definitions of booleans, numbers, and many
-    common data structures like lists and hash tables.  But there is
-    nothing magic or primitive about these library definitions.  To
-    illustrate this, in this course we will explicitly recapitulate
-    (almost) all the definitions we need, rather than getting them
-    from the standard library. *)
-
-(* ================================================================= *)
-(** ** Days of the Week *)
-
-(** To see how this definition mechanism works, let's start with
-    a very simple example.  The following declaration tells Coq that
-    we are defining a set of data values -- a _type_. *)
-
-Inductive day : Type :=
-  | monday
-  | tuesday
-  | wednesday
-  | thursday
-  | friday
-  | saturday
-  | sunday.
-
-(** The new type is called [day], and its members are [monday],
-    [tuesday], etc.
-
-    Having defined [day], we can write functions that operate on
-    days. *)
-
-Definition next_weekday (d:day) : day :=
-  match d with
-  | monday    => tuesday
-  | tuesday   => wednesday
-  | wednesday => thursday
-  | thursday  => friday
-  | friday    => monday
-  | saturday  => monday
-  | sunday    => monday
-  end.
-
-(** Note that the argument and return types of this function are
-    explicitly declared here.  Like most functional programming
-    languages, Coq can often figure out these types for itself when
-    they are not given explicitly -- i.e., it can do _type inference_
-    -- but we'll generally include them to make reading easier. *)
-
-(** Having defined a function, we can check that it works on
-    some examples.  There are actually three different ways to do
-    examples in Coq.  First, we can use the command [Compute] to
-    evaluate a compound expression involving [next_weekday]. *)
-
-Compute (next_weekday friday).
-(* ==> monday : day *)
-
-Compute (next_weekday (next_weekday saturday)).
-(* ==> tuesday : day *)
-
-(** (We show Coq's responses in comments; if you have a computer
-    handy, this would be an excellent moment to fire up the Coq
-    interpreter under your favorite IDE (see the [Preface] for
-    installation instructions) and try it for yourself.  Load this
-    file, [Basics.v], from the book's Coq sources, find the above
-    example, submit it to Coq, and observe the result.) *)
-
-(** Second, we can record what we _expect_ the result to be in the
-    form of a Coq example: *)
-
-Example test_next_weekday:
-  (next_weekday (next_weekday saturday)) = tuesday.
-
-(** This declaration does two things: it makes an assertion
-    (that the second weekday after [saturday] is [tuesday]), and it
-    gives the assertion a name that can be used to refer to it later.
-    Having made the assertion, we can also ask Coq to verify it like
-    this: *)
-
-Proof. simpl. reflexivity.  Qed.
-
-(** The details are not important just now, but essentially this
-    little script can be read as "The assertion we've just made can be
-    proved by observing that both sides of the equality evaluate to
-    the same thing." *)
-
-(** Third, we can ask Coq to _extract_, from our [Definition], a
-    program in a more conventional programming language (OCaml,
-    Scheme, or Haskell) with a high-performance compiler.  This
-    facility is very useful, since it gives us a path from
-    proved-correct algorithms written in Gallina to efficient machine
-    code.
-
-    (Of course, we are trusting the correctness of the
-    OCaml/Haskell/Scheme compiler, and of Coq's extraction facility
-    itself, but this is still a big step forward from the way most
-    software is developed today!)
-
-    Indeed, this is one of the main uses for which Coq was developed.
-    We'll come back to this topic in later chapters. *)
-
-(* ================================================================= *)
-(** ** Homework Submission Guidelines *)
+(** * Homework Submission Guidelines *)
 
 (** If you are using _Software Foundations_ in a course, your
     instructor may use automatic scripts to help grade your homework
@@ -202,6 +90,118 @@ Proof. simpl. reflexivity.  Qed.
         than one chapter is assigned in the same week), you need to make a
         single submission with all the files at once using the
         "Add another file" button just above the comment box. *)
+
+(* ################################################################# *)
+(** * Data and Functions *)
+
+(* ================================================================= *)
+(** ** Enumerated Types *)
+
+(** One notable thing about Coq is that its set of built-in
+    features is _extremely_ small.  For example, instead of providing
+    the usual palette of atomic data types (booleans, integers,
+    strings, etc.), Coq offers a powerful mechanism for defining new
+    data types from scratch, with all these familiar types as
+    instances.
+
+    Naturally, the Coq distribution comes with an extensive standard
+    library providing definitions of booleans, numbers, and many
+    common data structures like lists and hash tables.  But there is
+    nothing magic or primitive about these library definitions.  To
+    illustrate this, in this course we will explicitly recapitulate
+    (almost) all the definitions we need, rather than getting them
+    from the standard library. *)
+
+(* ================================================================= *)
+(** ** Days of the Week *)
+
+(** To see how this definition mechanism works, let's start with
+    a very simple example.  The following declaration tells Coq that
+    we are defining a set of data values -- a _type_. *)
+
+Inductive day : Type :=
+  | monday
+  | tuesday
+  | wednesday
+  | thursday
+  | friday
+  | saturday
+  | sunday.
+
+(** The new type is called [day], and its members are [monday],
+    [tuesday], etc.
+
+    Having defined [day], we can write functions that operate on
+    days. *)
+
+Definition next_working_day (d:day) : day :=
+  match d with
+  | monday    => tuesday
+  | tuesday   => wednesday
+  | wednesday => thursday
+  | thursday  => friday
+  | friday    => monday
+  | saturday  => monday
+  | sunday    => monday
+  end.
+
+(** Note that the argument and return types of this function are
+    explicitly declared here.  Like most functional programming
+    languages, Coq can often figure out these types for itself when
+    they are not given explicitly -- i.e., it can do _type inference_
+    -- but we'll generally include them to make reading easier. *)
+
+(** Having defined a function, we can check that it works on
+    some examples.  There are actually three different ways to do
+    examples in Coq.  First, we can use the command [Compute] to
+    evaluate a compound expression involving [next_working_day]. *)
+
+Compute (next_working_day friday).
+(* ==> monday : day *)
+
+Compute (next_working_day (next_working_day saturday)).
+(* ==> tuesday : day *)
+
+(** (We show Coq's responses in comments; if you have a computer
+    handy, this would be an excellent moment to fire up the Coq
+    interpreter under your favorite IDE (see the [Preface] for
+    installation instructions) and try it for yourself.  Load this
+    file, [Basics.v], from the book's Coq sources, find the above
+    example, submit it to Coq, and observe the result.) *)
+
+(** Second, we can record what we _expect_ the result to be in the
+    form of a Coq example: *)
+
+Example test_next_working_day:
+  (next_working_day (next_working_day saturday)) = tuesday.
+
+(** This declaration does two things: it makes an assertion
+    (that the second working day after [saturday] is [tuesday]), and it
+    gives the assertion a name that can be used to refer to it later.
+    Having made the assertion, we can also ask Coq to verify it like
+    this: *)
+
+Proof. simpl. reflexivity.  Qed.
+
+(** The details are not important just now, but essentially this
+    little script can be read as "The assertion we've just made can be
+    proved by observing that both sides of the equality evaluate to
+    the same thing." *)
+
+(** Third, we can ask Coq to _extract_, from our [Definition], a
+    program in a more conventional programming language (OCaml,
+    Scheme, or Haskell) with a high-performance compiler.  This
+    facility is very useful, since it gives us a path from
+    proved-correct algorithms written in Gallina to efficient machine
+    code.
+
+    (Of course, we are trusting the correctness of the
+    OCaml/Haskell/Scheme compiler, and of Coq's extraction facility
+    itself, but this is still a big step forward from the way most
+    software is developed today!)
+
+    Indeed, this is one of the main uses for which Coq was developed.
+    We'll come back to this topic in later chapters. *)
 
 (** The [Require Export] statement on the next line tells Coq to use
     the [String] module from the standard library.  We'll use strings
@@ -303,6 +303,25 @@ Definition orb' (b1:bool) (b2:bool) : bool :=
     true if it evaluates to the "constructor" of the first clause of
     the [Inductive] definition (which just happens to be called [true]
     in this case) and false if it evaluates to the second. *)
+
+(** For example we can define the following datatype [bw], with
+    two constructors representing black ([b]) and white ([w]) and
+    define a function [invert] that inverts values of this type using
+    a conditional. *)
+
+Inductive bw : Type :=
+  | bw_black
+  | bw_white.
+
+Definition invert (x: bw) : bw :=
+  if x then bw_white
+  else bw_black.
+
+Compute (invert bw_black).
+(* ==> bw_white : bw *)
+
+Compute (invert bw_white).
+(* ==> bw_black : bw *)
 
 (** **** Exercise: 1 star, standard (nandb)
 
@@ -1866,7 +1885,6 @@ Theorem grade_lowered_once :
   forall (late_days : nat) (g : grade),
     (late_days <? 9 = false) ->
     (late_days <? 17 = true) ->
-    (grade_comparison (Grade F Minus) g = Lt) ->
     (apply_late_policy late_days g) = (lower_grade g).
 Proof.
   (* FILL IN HERE *) Admitted.
@@ -1949,7 +1967,7 @@ Example test_bin_incr6 :
 (** [] *)
 
 (* ################################################################# *)
-(** * Testing Your Solutions *)
+(** * Optional: Testing Your Solutions *)
 
 (** Each SF chapter comes with a test file containing scripts that
     check whether you have solved the required exercises. If you're
@@ -1958,15 +1976,16 @@ Example test_bin_incr6 :
     use these test files, if you like, to make sure you haven't missed
     anything.
 
-    (Important: This step is _optional_: if you've completed all the
+    Important: This step is _optional_: if you've completed all the
     non-optional exercises and Coq accepts your answers, this already
-    shows that you are in good shape.)
+    shows that you are in good shape.
 
     The test file for this chapter is [BasicsTest.v]. To run it, make
-    sure you have saved [Basics.v] to disk.  Then do this: [[ coqc -Q
-    . LF Basics.v coqc -Q . LF BasicsTest.v ]] (Make sure you do this
-    in a directory that also contains a file named [_CoqProject]
-    containing the single line [-Q . LF].)
+    sure you have saved [Basics.v] to disk.  Then first run
+    [coqc -Q . LF Basics.v] and then run [coqc -Q . LF BasicsTest.v];
+    or, if you have make installed, you can run [make BasicsTest.vo].
+    (Make sure you do this in a directory that also contains a file
+    named [_CoqProject] containing the single line [-Q . LF].)
 
     If you accidentally deleted an exercise or changed its name, then
     [make BasicsTest.vo] will fail with an error that tells you the
@@ -2015,4 +2034,4 @@ Example test_bin_incr6 :
     output.  But since they have to be graded by a human, the test
     script won't be able to tell you much about them.  *)
 
-(* 2023-12-29 17:12 *)
+(* 2025-01-13 16:00 *)

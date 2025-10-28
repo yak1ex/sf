@@ -22,12 +22,12 @@
     reasoning about imperative programs. *)
 
 Set Warnings "-notation-overridden,-parsing,-deprecated-hint-without-locality".
-From Coq Require Import Bool.Bool.
+From Coq Require Import Bool.
 From Coq Require Import Init.Nat.
-From Coq Require Import Arith.Arith.
-From Coq Require Import Arith.EqNat. Import Nat.
+From Coq Require Import Arith.
+From Coq Require Import EqNat. Import Nat.
 From Coq Require Import Lia.
-From Coq Require Import Lists.List. Import ListNotations.
+From Coq Require Import List. Import ListNotations.
 From Coq Require Import Strings.String.
 From LF Require Import Maps.
 Set Default Goal Selector "!".
@@ -466,6 +466,16 @@ Admitted.
 Fixpoint optimize_0plus_b (b : bexp) : bexp
   (* REPLACE THIS LINE WITH ":= _your_definition_ ." *). Admitted.
 
+Example optimize_0plus_b_test1:
+  optimize_0plus_b (BNot (BGt (APlus (ANum 0) (ANum 4)) (ANum 8))) =
+                   (BNot (BGt (ANum 4) (ANum 8))).
+Proof. (* FILL IN HERE *) Admitted.
+
+Example optimize_0plus_b_test2:
+  optimize_0plus_b (BAnd (BLe (APlus (ANum 0) (ANum 4)) (ANum 5)) BTrue) =
+                   (BAnd (BLe (ANum 4) (ANum 5)) BTrue).
+Proof. (* FILL IN HERE *) Admitted.
+
 Theorem optimize_0plus_b_sound : forall b,
   beval (optimize_0plus_b b) = beval b.
 Proof.
@@ -790,7 +800,7 @@ Definition manual_grade_for_beval_rules : option (nat*string) := None.
 (** It is straightforward to prove that the relational and functional
     definitions of evaluation agree: *)
 
-Theorem aeval_iff_aevalR : forall a n,
+Theorem aevalR_iff_aeval : forall a n,
   (a ==> n) <-> aeval a = n.
 Proof.
   split.
@@ -828,7 +838,7 @@ Qed.
 (** Again, we can make the proof quite a bit shorter using some
     tacticals. *)
 
-Theorem aeval_iff_aevalR' : forall a n,
+Theorem aevalR_iff_aeval' : forall a n,
   (a ==> n) <-> aeval a = n.
 Proof.
   (* WORKED IN CLASS *)
@@ -852,7 +862,7 @@ Inductive bevalR: bexp -> bool -> Prop :=
 where "e '==>b' b" := (bevalR e b) : type_scope
 .
 
-Lemma beval_iff_bevalR : forall b bv,
+Lemma bevalR_iff_beval : forall b bv,
   b ==>b bv <-> beval b = bv.
 Proof.
   (* FILL IN HERE *) Admitted.
@@ -2077,4 +2087,4 @@ End BreakImp.
 
     [] *)
 
-(* 2024-01-03 15:00 *)
+(* 2025-01-13 16:00 *)
