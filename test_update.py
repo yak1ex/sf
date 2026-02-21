@@ -4,7 +4,6 @@ import os
 import subprocess
 import tempfile
 import pytest
-import pytest_mock
 from contextlib import chdir
 import update
 
