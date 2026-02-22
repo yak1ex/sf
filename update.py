@@ -18,6 +18,8 @@ else:
     TOML_MODE = 'r'
     EXTRACT_ALL_KWARGS = {}
 
+# TODO: You need to add a line for the new volume in README.md manually.
+
 """
 Toml data example:
 

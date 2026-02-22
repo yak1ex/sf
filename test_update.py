@@ -8,6 +8,9 @@ from contextlib import chdir
 import update
 
 
+# TODO: Add tests for the case of new volume
+
+
 # base64 encoded tgz file containing updated lf/index.html
 # including Version 6.4 (2024-10-01 12:00, Coq 8.16
 TGZ_B64 = """H4sIAAAAAAAAA+3SPU/DMBAGYM/9FTeCRONz/BGErCywsAO7UVIlUpqU2kjw73HaDjB0TJHgfRTp
