@@ -32,7 +32,11 @@ vc=6.4
 """
 
 
-METADATA_PATTERN = r'<p>Version (?P<version>[\d.]+) \((?P<datetime>[-\d: ]+), (?P<coq_version>[^)]+)\)</p>'
+METADATA_PATTERN = (
+    r'<p>Version (?P<version>[\d.]+) \((?P<datetime>[-\d: ]+), '
+    r'(?P<coq_version>[^)]+)\)(?:<br>\n\s*'
+    r'Compatible with (?P<vst_version>.*))?</p>'
+)
 BASE_URL = "https://softwarefoundations.cis.upenn.edu"
 
 
@@ -83,12 +87,12 @@ def extract_metadata(folder_path):
     """
     index_path = os.path.join(folder_path, "index.html")
     with open(index_path, "r", encoding="utf-8") as f:
-        for line in f:
-            match = re.search(METADATA_PATTERN, line)
-            if match:
-                result = match.groupdict()
-                result['datetime'] = result['datetime'].replace('-', '/')
-                return result
+        content = f.read()
+        match = re.search(METADATA_PATTERN, content)
+        if match:
+            result = match.groupdict()
+            result['datetime'] = result['datetime'].replace('-', '/')
+            return result
         raise ValueError("Metadata not found in index.html")
 
 
@@ -132,8 +136,11 @@ def update_readme(updates_all, readme_path="README.md"):
                     for date in dates:
                         if volume in updates_all[date]:
                             meta = updates_all[date][volume]
-                            new_line += f"|[{meta['version']}]({BASE_URL}/{volume}-{meta['version']}/index.html)<br>" \
-                                        f"{meta['datetime']}<br>{meta['coq_version']}"
+                            new_line += (
+                                f"|[{meta['version']}]({BASE_URL}/{volume}-{meta['version']}/index.html)<br>"
+                                f"{meta['datetime']}<br>{meta['coq_version']}"
+                                f"{(' with ' + meta['vst_version']) if meta.get('vst_version') else ''}"
+                            )
                         else:
                             new_line += "|"
                     new_line += '|' + '|'.join(parts[2:]) + '\n'
