@@ -460,9 +460,9 @@
     title        =   "Logical Foundations",
     series       =   "Software Foundations",
     volume       =   "1",
-    year         =   "2025",
+    year         =   "2026",
     publisher    =   "Electronic textbook",
-    note         =   {Version 6.9.0, \URL{http://softwarefoundations.cis.upenn.edu}}
+    note         =   {Version 7.0, \URL{http://softwarefoundations.cis.upenn.edu}}
     }
 *)
 
@@ -546,4 +546,4 @@
     NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2025-12-26 08:35 *)
+(* 2026-01-07 13:17 *)

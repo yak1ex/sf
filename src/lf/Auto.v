@@ -744,4 +744,4 @@ Proof.
   intros P Q HP HQ. destruct HP as [y HP']. eauto.
 Qed.
 
-(* 2025-12-26 08:35 *)
+(* 2026-01-07 13:18 *)

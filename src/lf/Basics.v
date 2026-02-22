@@ -2049,4 +2049,4 @@ Example test_bin_incr7 : bin_to_nat (B0 (B0 (B0 (B1 Z)))) = 8.
     output.  But since they have to be graded by a human, the test
     script won't be able to tell you much about them.  *)
 
-(* 2025-12-26 08:35 *)
+(* 2026-01-07 13:17 *)
