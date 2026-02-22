@@ -57,7 +57,7 @@
 
 <div class="paragraph"> </div>
 
- The programs we consider are written within Coq, using a "custom grammar"
+ The programs we consider are written within Rocq, using a "custom grammar"
     that allows writing code that reads almost like OCaml code. For example,
     consider the function <span class="inlinecode"><span class="id" title="var">incr</span></span>, which increments the contents of a mutable
     cell that stores an integer. In OCaml syntax, this function could be defined
@@ -73,10 +73,10 @@
 </span>
 <div class="paragraph"> </div>
 
- In Coq, the corresponding program is described as shown below. The function
+ In Rocq, the corresponding program is described as shown below. The function
     defined, named <span class="inlinecode"><span class="id" title="var">incr</span></span>, admits the type <span class="inlinecode"><span class="id" title="var">val</span></span>. This type is defined by the
     framework. Observe that all variable names are prefixed with a quote symbol.
-    This presentation avoids conflict between program variables and Coq
+    This presentation avoids conflict between program variables and Rocq
     constants. 
 </div>
 <div class="code">
@@ -278,11 +278,11 @@ This completes the verification of the lemma <span class="inlinecode"><span clas
 
 <div class="doc">
 To minimize the amount of syntactic noise in specifications, we leverage an
-    advanced feature of Coq's coercion mechanism. Concretely, instead of writing
+    advanced feature of Rocq's coercion mechanism. Concretely, instead of writing
     the specification in the form <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode">&lt;{</span> <span class="inlinecode"><span class="id" title="var">incr</span></span> <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">}&gt;</span> <span class="inlinecode">...</span>, we write it in the
     form <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode">(<span class="id" title="var">incr</span></span> <span class="inlinecode"><span class="id" title="var">p</span>)</span> <span class="inlinecode">...</span>, that is, with just parentheses. Thanks to the
     coercion mecanism, explained in more detail in chapter <a href="Rules.html"><span class="inlineref">Rules</span></a>, when
-    Coq sees a "program value" <span class="inlinecode"><span class="id" title="var">incr</span></span> being applied to an argument <span class="inlinecode"><span class="id" title="var">p</span></span>, it
+    Rocq sees a "program value" <span class="inlinecode"><span class="id" title="var">incr</span></span> being applied to an argument <span class="inlinecode"><span class="id" title="var">p</span></span>, it
     automatically interprets this as a "program function call" of <span class="inlinecode"><span class="id" title="var">incr</span></span> to <span class="inlinecode"><span class="id" title="var">p</span></span>.
     Thus, the specification of the increment function can be written as follows.
     
@@ -384,8 +384,8 @@ The proof script is quite similar to the previous one: <span class="inlinecode">
     prove this equality, we invoke the tactic <span class="inlinecode"><span class="id" title="var">math</span></span> provided by the TLC
     library. Recall from the preface that this course leverages TLC for enhanced
     definitions and tactics. (Technically, <span class="inlinecode"><span class="id" title="var">math</span></span> is a wrapper around the
-    standard Coq tactic <span class="inlinecode"><span class="id" title="var">lia</span></span>; this wrapper is needed because TLC uses different
-    definitions for arithmetic inequalities than Coq's standard library.) 
+    standard Rocq tactic <span class="inlinecode"><span class="id" title="var">lia</span></span>; this wrapper is needed because TLC uses different
+    definitions for arithmetic inequalities than Rocq's standard library.) 
 </div>
 <div class="code">
 
@@ -454,10 +454,10 @@ Specify and verify the function <span class="inlinecode"><span class="id" title=
 <div class="paragraph"> </div>
 
  From here on, we use the command <span class="inlinecode"><span class="id" title="keyword">Proof</span></span> <span class="inlinecode"><span class="id" title="keyword">using</span></span> for introducing a proof
-    instead of writing just <span class="inlinecode"><span class="id" title="keyword">Proof</span></span>. Writing <span class="inlinecode"><span class="id" title="keyword">Proof</span></span> <span class="inlinecode"><span class="id" title="keyword">using</span>.</span> tells Coq that the
+    instead of writing just <span class="inlinecode"><span class="id" title="keyword">Proof</span></span>. Writing <span class="inlinecode"><span class="id" title="keyword">Proof</span></span> <span class="inlinecode"><span class="id" title="keyword">using</span>.</span> tells Rocq that the
     proof of the lemma does not depend on section variables others than the ones
     involved for typechecking the statement of the lemma. The <span class="inlinecode"><span class="id" title="keyword">Proof</span></span> <span class="inlinecode"><span class="id" title="keyword">using</span>.</span>
-    enables Coq to compile proofs in parallel when the <span class="inlinecode">-<span class="id" title="var">vos</span></span> flag is passed.
+    enables Rocq to compile proofs in parallel when the <span class="inlinecode">-<span class="id" title="var">vos</span></span> flag is passed.
     For more details, see the "Need for Proof using" section from:
     <a href='https://coq.inria.fr/refman/practical-tools/coq-commands.html'>https://coq.inria.fr/refman/practical-tools/coq-commands.html</a>
 </div>
@@ -889,7 +889,7 @@ The precondition of <span class="inlinecode"><span class="id" title="var">ref_gr
 
 <div class="paragraph"> </div>
 
-    Hint: Remember that the notation <span class="inlinecode"><span class='gray-font'>\</span>[<span class="id" title="var">P</span>]</span> injects a Coq proposition into the
+    Hint: Remember that the notation <span class="inlinecode"><span class='gray-font'>\</span>[<span class="id" title="var">P</span>]</span> injects a Rocq proposition into the
     language of Separation Logic predicates. 
 </div>
 <div class="code">
@@ -1171,7 +1171,7 @@ Consider the function <span class="inlinecode"><span class="id" title="var">two_
 <div class="paragraph"> </div>
 
  Our next example consists of a program that evaluates the factorial
-    function. To specify this function, we consider a Coq axiomatization of the
+    function. To specify this function, we consider a Rocq axiomatization of the
     mathematical factorial function, named <span class="inlinecode"><span class="id" title="var">facto</span></span>. We wrap the axiomatization
     inside a module, so that we can later refer to it from other files. 
 </div>
@@ -1559,7 +1559,7 @@ First, we introduce all variables and hypotheses.
 
 <div class="doc">
 Next, we generalize variables and hypotheses that are not constant during
-    the recursion, using the TLC tactic <span class="inlinecode"><span class="id" title="var">gen</span></span>, which is similar to Coq's tactics
+    the recursion, using the TLC tactic <span class="inlinecode"><span class="id" title="var">gen</span></span>, which is similar to Rocq's tactics
     <span class="inlinecode"><span class="id" title="var">revert</span></span> and <span class="inlinecode"><span class="id" title="tactic">dependent</span></span> <span class="inlinecode"><span class="id" title="tactic">generalize</span></span>. 
 </div>
 <div class="code">
@@ -1937,7 +1937,7 @@ The specification of <span class="inlinecode"><span class="id" title="var">step_
 
 <div class="paragraph"> </div>
 
-    In addition to x-tactics, the proof scripts exploit standard Coq tactics, as
+    In addition to x-tactics, the proof scripts exploit standard Rocq tactics, as
     well as tactics from the TLC library, which provides a bunch of useful,
     general purpose tactics. In this chapter, we used a few TLC tactics:
 
@@ -2085,12 +2085,12 @@ What we have done here is to go twice over the whole code, once to verify
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-20&nbsp;18:09&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-01-07&nbsp;13:36&nbsp;*)</span><br/>
 </div>
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>

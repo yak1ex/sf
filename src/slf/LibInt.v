@@ -3,7 +3,7 @@
    DO NOT EDIT. *)
 
 (**************************************************************************
-* TLC: A library for Coq                                                  *
+* TLC: A library for Rocq                                                  *
 * Integers                                                                *
 **************************************************************************)
 
@@ -583,7 +583,7 @@ Tactic Notation "rew_int" "*" "in" hyp(H) :=
 (* ################################################################# *)
 (** * Conversions of operations from [nat] to [int] and back *)
 
-(** -- LATER: make proofs below no longer depend on Coq's stdlib *)
+(** -- LATER: make proofs below no longer depend on Rocq's stdlib *)
 
 (* ---------------------------------------------------------------------- *)
 (* ================================================================= *)
@@ -925,4 +925,4 @@ Tactic Notation "rew_to_nat_nonneg" :=
 Tactic Notation "rew_to_nat_nonneg" "~" :=
   autorewrite with rew_to_nat_nonneg; try math; autos~.
 
-(* 2025-08-24 14:03 *)
+(* 2026-01-07 13:36 *)

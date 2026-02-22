@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="common/css/sf.css" rel="stylesheet" type="text/css" />
+<title>Postscript</title>
+<link href="common/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="common/jquery-ui/external/jquery/jquery.js"></script>
+<script src="common/jquery-ui/jquery-ui.js"></script>
+<script src="common/toggleproofs.js"></script>
+<link href="common/css/secf.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+<div id='logoinheader'><a href='https://softwarefoundations.cis.upenn.edu'>
+<img src='common/media/image/sf_logo_sm.png' alt='Software Foundations Logo'></a></div>
+<div class='booktitleinheader'><a href='index.html'>Volume 7: Security Foundations</a></div>
+<ul id='menu'>
+   <li class='section_name'><a href='toc.html'>Table of Contents</a></li>
+   <li class='section_name'><a href='coqindex.html'>Index</a></li>
+   <li class='section_name'><a href='deps.html'>Roadmap</a></li>
+</ul>
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Postscript</h1>
+
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+<a id="lab105"></a><h1 class="section">Looking Back</h1>
+
+<div class="paragraph"> </div>
+
+ Here is a quick summary of the topics we covered in this volume: 
+<div class="paragraph"> </div>
+
+<a id="lab106"></a><h2 class="section">Noninterference</h2>
+
+<ul class="doclist">
+<li> definitions for pure functions, state transformers,
+  and imperative programs
+
+</li>
+<li> termination-insensitive noninterference (TINI)
+
+</li>
+<li> termination-sensitive noninterference (TSNI) 
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+<a id="lab107"></a><h2 class="section">Secure multi-execution</h2>
+
+<ul class="doclist">
+<li> sound and transparent dynamic enforcement of TINI 
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+<a id="lab108"></a><h2 class="section">Information-flow control type systems</h2>
+
+<ul class="doclist">
+<li> type-checkers enforcing TINI and TSNI
+
+</li>
+<li> for imperative programs with state and outputs 
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+<a id="lab109"></a><h2 class="section">Side channels</h2>
+
+<ul class="doclist">
+<li> control flow security and type system enforcing it
+
+</li>
+<li> cryptographic constant-time security and type system enforcing it 
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+<a id="lab110"></a><h2 class="section">Speculative execution attacks</h2>
+
+<ul class="doclist">
+<li> speculative constant-time security definition
+
+</li>
+<li> speculative load hardening (SLH) transformation achieving it 
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+<a id="lab111"></a><h1 class="section">Looking Around</h1>
+
+<div class="paragraph"> </div>
+
+ The topics above have found practical applications in system security. Below
+    we highlight a few recent research projects involving machine-checked proofs: 
+<div class="paragraph"> </div>
+
+<a id="lab112"></a><h2 class="section">Proving Noninterference by Parametricity</h2>
+
+<div class="paragraph"> </div>
+
+ While in <a href="StaticIFC.html"><span class="inlineref">StaticIFC</span></a> we showed how to build specialized type systems
+    for noninterference, research has shown that in functional programming
+    languages with strong type-abstraction mechanisms, information-flow control
+    can be implemented as a library. Recent research has shown that in this
+    setting simple and elegant noninterference proofs can be built by relying on
+    the theory of parametricity, both for libraries doing static enforcement
+    <a href="Bib.html#Algehed-and Bernardy 2019"><span class="inlineref">[Algehed and Bernardy 2019]</span></a> and for ones doing dynamic enforcement
+    <a href="Bib.html#Algehed-et al 2021"><span class="inlineref">[Algehed et al 2021]</span></a>. These noninterference proofs have been
+    machine-checked in Agda. 
+<div class="paragraph"> </div>
+
+<a id="lab113"></a><h2 class="section">Formal verification of a constant-time preserving C compiler</h2>
+
+<div class="paragraph"> </div>
+
+ This work <a href="Bib.html#Barthe-et al 2020"><span class="inlineref">[Barthe et al 2020]</span></a> shows that a mildly modified version of
+    the CompCert verified C compiler preserves cryptographic constant-time
+    security. In particular the authors prove in Rocq that the compiler does
+    not introduce secret dependencies into control flow or memory access. Their
+    Rocq formalization is aimed at maximizing reuse of the CompCert correctness
+    proof, through the use of novel proof techniques for constant-time
+    preservation. 
+<div class="paragraph"> </div>
+
+<a id="lab114"></a><h2 class="section">Jasmin programming language and compiler</h2>
+
+<div class="paragraph"> </div>
+
+ Jasmin is a low-level domain-specific language for implementing
+    high-assurance and high-speed cryptography. Jasmin programs can be verified
+    for correctness, cryptographic security, and side-channel resistance by
+    translation to the EasyCrypt proof assistant <a href="Bib.html#Almeida-et al 2020"><span class="inlineref">[Almeida et al 2020]</span></a>.
+    The Jasmin compiler was formally verified in Rocq to be correct
+    <a href="Bib.html#Almeida-et al 2020"><span class="inlineref">[Almeida et al 2020]</span></a> and to preserve constant-time security
+    <a href="Bib.html#Barthe-et al 2021"><span class="inlineref">[Barthe et al 2021]</span></a>. In more recent work a core compiler inspired by
+    Jasmin was proved in Rocq to also preserve speculative constant-time
+    <a href="Bib.html#Arranz-Olmos-et al 2025"><span class="inlineref">[Arranz-Olmos et al 2025]</span></a>. 
+<div class="paragraph"> </div>
+
+<a id="lab115"></a><h2 class="section">Flexible Mechanized Speculative Load Hardening</h2>
+
+<div class="paragraph"> </div>
+
+ The <a href="SpecCT.html"><span class="inlineref">SpecCT</span></a> chapter and the two projects above are
+    aimed at achieving security for cryptographic code. Yet Spectre attacks
+    are also a serious threat for non-cryptographic code, since without any
+    defenses attackers can construct "universal read gadgets" that leak a
+    sensitive program's entire memory. SLH is, however, not strong enough for
+    protecting code that does not respect the constant-time discipline, leading
+    to the introduction of Ultimate SLH <a href="Bib.html#Zhang-et al 2023"><span class="inlineref">[Zhang et al 2023]</span></a>, which provides
+    protection for arbitrary programs, but has too large overhead for general
+    use, since it conservatively assumes that all data is secret. More recent
+    work introduces Flexible SLH <a href="Bib.html#Baumann-et al 2025"><span class="inlineref">[Baumann et al 2025]</span></a>, which achieves the
+    best of both worlds by generalizing both the selective SLH variant from
+    <a href="SpecCT.html"><span class="inlineref">SpecCT</span></a> and Ultimate SLH. Baumann et al prove in Rocq that Flexible
+    SLH and Ultimate SLH satisfy a relative security property: any
+    transformed program running with speculation must not leak more than what
+    the source program leaks sequentially. Their Rocq formalization originated
+    as an extension of the simple development from the <a href="SpecCT.html"><span class="inlineref">SpecCT</span></a> chapter. 
+<div class="paragraph"> </div>
+
+<a id="lab116"></a><h2 class="section">Strong Timing Isolation of Hardware Enclaves</h2>
+
+<div class="paragraph"> </div>
+
+ This work <a href="Bib.html#Lau-et al 2024"><span class="inlineref">[Lau et al 2024]</span></a> introduced a RISC-V processor design that is
+    formally verified in Rocq to achieve strong timing isolation for enclaves,
+    which is formalized in terms of "air-gaped machines". 
+<div class="paragraph"> </div>
+
+<a id="lab117"></a><h1 class="section">Looking Forward</h1>
+
+<div class="paragraph"> </div>
+
+ For readers interesting in research, here are the main conferences
+    publishing papers on formal foundations on security:
+<ul class="doclist">
+<li> Computer Security Foundations (CSF)
+
+</li>
+<li> Principles of Programming Languages (POPL)
+
+</li>
+<li> International Conference on Functional Programming (ICFP)
+
+</li>
+<li> Certified Programs and Proofs (CPP)
+
+</li>
+<li> Interactive Theorem Proving (ITP)
+
+</li>
+<li> Computer and Communications Security (CCS)
+<ul class="doclist">
+<li> Formal Methods and Programming Languages track
+
+</li>
+</ul>
+
+</li>
+<li> IEEE Security and Privacy (SP)
+
+</li>
+<li> Principles of Secure Compilation Workshop (PriSC) 
+
+</li>
+</ul>
+</div>
+<div class="code">
+
+<span class="comment">(*&nbsp;2026-01-07&nbsp;13:37&nbsp;*)</span><br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

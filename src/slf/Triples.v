@@ -238,7 +238,7 @@ Fixpoint subst (y:var) (w:val) (t:trm) : trm :=
 (** *** Implicit Types and Coercions *)
 
 (** To improve the readability of the evaluation rules below, we take advantage
-    of Coq's _implicit types_ and _coercions_.
+    of Rocq's _implicit types_ and _coercions_.
 
     First off, we give several Implicit Types declarations. For example, the
     first command indicates that variables whose name begins with the letter 'b'
@@ -274,7 +274,7 @@ Coercion trm_val : val >-> trm.
 Coercion trm_app : trm >-> Funclass.
 
 (** The "Funclass" coercion for [trm_app] can be iterated. The expression
-    [t1 t2 t3] is parsed by Coq as [(t1 t2) t3]. The first application [t1 t2]
+    [t1 t2 t3] is parsed by Rocq as [(t1 t2) t3]. The first application [t1 t2]
     is interpreted as [trm_app t1 t2]. This expression, which itself has type
     [trm], is applied to [t3]. Hence, [t1 t2 t3] is interpreted as
     [trm_app (trm_app t1 t2) t3]. *)
@@ -383,7 +383,7 @@ Inductive big : heap -> trm -> heap -> val -> Prop :=
 
       The term [trm_if (val_bool true) t1 t2] behaves like [t1], whereas the
       term [trm_if (val_bool false) t1 t2] behaves like [t2]. This behavior is
-      described by a single rule, leveraging Coq's "if" constructor to factor
+      described by a single rule, leveraging Rocq's "if" constructor to factor
       out the two cases. *)
 
   | big_if : forall s1 s2 b v t1 t2,
@@ -1580,4 +1580,4 @@ End BakedInFrame.
     technique has been employed successfully in numerous formalizations of
     Separation Logic. *)
 
-(* 2025-08-24 14:03 *)
+(* 2026-01-07 13:36 *)

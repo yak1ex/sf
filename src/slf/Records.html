@@ -269,7 +269,7 @@ We introduce the notation <span class="inlinecode"><span class="id" title="var">
 The following lemma may be used to convert a concrete <span class="inlinecode"><span class="id" title="var">hrecord</span></span> predicate
     into a <span class="inlinecode"><span class="id" title="var">hheader</span></span> and a conjunction of <span class="inlinecode"><span class="id" title="var">hfield</span></span> predicates. In the statement
     below, <span class="inlinecode"><span class="id" title="var">LibListExec.length</span></span> is a variant of <span class="inlinecode"><span class="id" title="var">LibList.length</span></span> that computes
-    in Coq using <span class="inlinecode"><span class="id" title="tactic">simpl</span></span> or <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span>. 
+    in Rocq using <span class="inlinecode"><span class="id" title="tactic">simpl</span></span> or <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span>. 
 </div>
 <div class="code">
 
@@ -505,7 +505,7 @@ The specification in terms of <span class="inlinecode"><span class="id" title="v
 
 <div class="paragraph"> </div>
 
-    Here, <span class="inlinecode"><span class="id" title="var">val_new_hrecord_2</span></span> is a Coq function that expects two names as
+    Here, <span class="inlinecode"><span class="id" title="var">val_new_hrecord_2</span></span> is a Rocq function that expects two names as
     arguments and produces a value. For example, the expression
     <span class="inlinecode"><span class="id" title="var">val_new_hrecord_2</span></span> <span class="inlinecode"><span class="id" title="var">head</span></span> <span class="inlinecode"><span class="id" title="var">tail</span></span> is a value that may be applied to two
     arguments in the program syntax. 
@@ -594,7 +594,7 @@ In this section, we explain how <span class="inlinecode"><span class="id" title=
 
  The get operation on a field, written <span class="inlinecode"><span class="id" title="var">p</span>`.<span class="id" title="var">k</span></span>, is encoded as
     <span class="inlinecode"><span class="id" title="var">val_get</span></span> <span class="inlinecode">(<span class="id" title="var">p</span>+1+<span class="id" title="var">k</span>)</span>. In the definition shown below, the braces around
-    <span class="inlinecode"><span class="id" title="var">nat_to_Z</span></span> <span class="inlinecode"><span class="id" title="var">k</span></span> are used to embed the Coq natural number <span class="inlinecode"><span class="id" title="var">k</span></span> into the code, in
+    <span class="inlinecode"><span class="id" title="var">nat_to_Z</span></span> <span class="inlinecode"><span class="id" title="var">k</span></span> are used to embed the Rocq natural number <span class="inlinecode"><span class="id" title="var">k</span></span> into the code, in
     the form of an integer represented in the grammar of terms using the
     implicit coercion <span class="inlinecode"><span class="id" title="var">val_int</span></span>. 
 </div>
@@ -779,7 +779,7 @@ We are then ready to derive the specification for <span class="inlinecode"><span
 <div class="paragraph"> </div>
 
     The present section focuses on the first part, namely the allocation without
-    initialization. The Coq value <span class="inlinecode"><span class="id" title="var">val_alloc_hrecord</span></span> <span class="inlinecode"><span class="id" title="var">ks</span></span> depends on a list of
+    initialization. The Rocq value <span class="inlinecode"><span class="id" title="var">val_alloc_hrecord</span></span> <span class="inlinecode"><span class="id" title="var">ks</span></span> depends on a list of
     field names. This value corresponds to a function that, when applied to a
     unit argument, allocates a record with <span class="inlinecode"><span class="id" title="var">length</span></span> <span class="inlinecode"><span class="id" title="var">ks</span></span> fields. The operation
     <span class="inlinecode">(<span class="id" title="var">val_alloc_hrecord</span></span> <span class="inlinecode"><span class="id" title="var">ks</span>)</span> <span class="inlinecode">()</span> is only specified when <span class="inlinecode"><span class="id" title="var">ks</span></span> corresponds to a
@@ -790,7 +790,7 @@ We are then ready to derive the specification for <span class="inlinecode"><span
     The implementation of this operation allocates a block of size <span class="inlinecode"><span class="id" title="var">n</span>+1</span> at a
     fresh location <span class="inlinecode"><span class="id" title="var">p</span></span>, then sets the header cell to the value <span class="inlinecode"><span class="id" title="var">n</span></span>, then returns
     the address <span class="inlinecode"><span class="id" title="var">p</span></span>. In the statement below, the expression
-    <span class="inlinecode">{<span class="id" title="var">LibListExec.length</span></span> <span class="inlinecode"><span class="id" title="var">ks</span>}</span> in braces computes in Coq the expression
+    <span class="inlinecode">{<span class="id" title="var">LibListExec.length</span></span> <span class="inlinecode"><span class="id" title="var">ks</span>}</span> in braces computes in Rocq the expression
     <span class="inlinecode"><span class="id" title="var">length</span></span> <span class="inlinecode"><span class="id" title="var">ks</span></span>, and inserts the result in the code as a constant integer --
     that is, as a value of the form <span class="inlinecode"><span class="id" title="var">val_int</span></span> <span class="inlinecode">(<span class="id" title="var">LibListExec.length</span></span> <span class="inlinecode"><span class="id" title="var">ks</span>)</span>. 
 </div>
@@ -843,7 +843,7 @@ The specification of <span class="inlinecode"><span class="id" title="var">val_a
 <div class="paragraph"> </div>
 
     Recall that <span class="inlinecode"><span class="id" title="var">LibListExec.length</span></span> is a variant of <span class="inlinecode"><span class="id" title="var">LibList.length</span></span> that
-    computes in Coq (using <span class="inlinecode"><span class="id" title="tactic">simpl</span></span> or <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span>). Likewise <span class="inlinecode"><span class="id" title="var">LibListExec.map</span></span>
+    computes in Rocq (using <span class="inlinecode"><span class="id" title="tactic">simpl</span></span> or <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span>). Likewise <span class="inlinecode"><span class="id" title="var">LibListExec.map</span></span>
     is a computable version of <span class="inlinecode"><span class="id" title="var">LibList.map</span></span>. 
 </div>
 <div class="code">
@@ -895,10 +895,10 @@ The interest of using the computable counterparts of the function <span class="i
 
  We now show the implementation of record initialization in the particular
     case of records with exactly 2 fields. Recall that <span class="inlinecode"><span class="id" title="var">val_new_hrecord_2</span></span> <span class="inlinecode"><span class="id" title="var">k<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">k<sub>2</sub></span></span>
-    denotes a Coq value of type <span class="inlinecode"><span class="id" title="var">val</span></span>, which may be applied in the grammar of
+    denotes a Rocq value of type <span class="inlinecode"><span class="id" title="var">val</span></span>, which may be applied in the grammar of
     terms to two arguments, <span class="inlinecode"><span class="id" title="var">x<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" title="var">x<sub>2</sub></span></span>. The definition below shows an
     implementation for <span class="inlinecode"><span class="id" title="var">val_new_hrecord_2</span></span>. In this definition, the expression
-    in braces <span class="inlinecode"><span class="id" title="var">val_alloc_hrecord</span></span> <span class="inlinecode">(<span class="id" title="var">k<sub>1</sub></span>::<span class="id" title="var">k<sub>2</sub></span>::<span class="id" title="var">nil</span>)</span> refers to a Coq term, embedded
+    in braces <span class="inlinecode"><span class="id" title="var">val_alloc_hrecord</span></span> <span class="inlinecode">(<span class="id" title="var">k<sub>1</sub></span>::<span class="id" title="var">k<sub>2</sub></span>::<span class="id" title="var">nil</span>)</span> refers to a Rocq term, embedded
     in the syntax of program terms. 
 </div>
 <div class="code">
@@ -1027,12 +1027,12 @@ The above definition is the one used in <span class="inlinecode"><span class="id
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-20&nbsp;18:10&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-01-07&nbsp;13:36&nbsp;*)</span><br/>
 </div>
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>

@@ -101,7 +101,7 @@
   <td class="infrule">{H} (t<sub>1</sub>;t<sub>2</sub>) {Q}</td>
   <td></td>
 </tr>
-</table></center>    The Coq statement corresponding to the above rule is: 
+</table></center>    The Rocq statement corresponding to the above rule is: 
 </div>
 <div class="code">
 
@@ -145,7 +145,7 @@
   <td></td>
 </tr>
 </table></center>   However, this presentation confuses the <span class="inlinecode"><span class="id" title="var">x</span></span> that denotes a program variable
-   in <span class="inlinecode"><span class="id" title="keyword">let</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="keyword">in</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span></span>, and the <span class="inlinecode"><span class="id" title="var">x</span></span> that denotes a universally quantified Coq
+   in <span class="inlinecode"><span class="id" title="keyword">let</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="keyword">in</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span></span>, and the <span class="inlinecode"><span class="id" title="var">x</span></span> that denotes a universally quantified Rocq
    value. The correct statement involves a substitution from the variable <span class="inlinecode"><span class="id" title="var">x</span></span> to
    a value quantified as <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode">(<span class="id" title="var">v</span>:<span class="id" title="var">val</span>)</span>.
 <center><table class="infrule">
@@ -161,7 +161,7 @@
   <td class="infrule">{H} (let x = t<sub>1</sub> in t<sub>2</sub>) {Q}</td>
   <td></td>
 </tr>
-</table></center>   The corresponding Coq statement is thus. 
+</table></center>   The corresponding Rocq statement is thus. 
 </div>
 <div class="code">
 
@@ -178,13 +178,13 @@ When we carry out proofs in practice, the application of the rule
     <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span>,</span> <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode">(<span class="id" title="tactic">subst</span></span> <span class="inlinecode">&quot;<span class="id" title="var">a</span>&quot;</span> <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">rest_of_the_program</span>)</span> <span class="inlinecode">(<span class="id" title="var">post1</span></span> <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span>)</span> <span class="inlinecode"><span class="id" title="var">post2</span></span>,
     where "a" denotes the name of the program variable that was bound by the
     let-binding in the original source code. At this point, the user would
-    typically type <span class="inlinecode"><span class="id" title="tactic">intros</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span>, to introduce the Coq variable <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span></span> under the same
+    typically type <span class="inlinecode"><span class="id" title="tactic">intros</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span>, to introduce the Rocq variable <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span></span> under the same
     name that it had in the source code. This operations produces:
     <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode">(<span class="id" title="tactic">subst</span></span> <span class="inlinecode">&quot;<span class="id" title="var">a</span>&quot;</span> <span class="inlinecode"><span class="id" title="var">a</span></span> <span class="inlinecode"><span class="id" title="var">rest_of_the_program</span>)</span> <span class="inlinecode">(<span class="id" title="var">post1</span></span> <span class="inlinecode"><span class="id" title="var">a</span>)</span> <span class="inlinecode"><span class="id" title="var">post2</span></span>. At that point,
     the user may call <span class="inlinecode"><span class="id" title="tactic">simpl</span></span> to effectively replace all occurences of the
-    program variable <span class="inlinecode">&quot;<span class="id" title="var">a</span>&quot;</span> with the Coq variable <span class="inlinecode"><span class="id" title="var">a</span></span> of type <span class="inlinecode"><span class="id" title="var">val</span></span>. Doing so
+    program variable <span class="inlinecode">&quot;<span class="id" title="var">a</span>&quot;</span> with the Rocq variable <span class="inlinecode"><span class="id" title="var">a</span></span> of type <span class="inlinecode"><span class="id" title="var">val</span></span>. Doing so
     produces: <span class="inlinecode"><span class="id" title="var">triple</span></span> <span class="inlinecode"><span class="id" title="var">rest_of_the_program_updated</span></span> <span class="inlinecode">(<span class="id" title="var">post1</span></span> <span class="inlinecode"><span class="id" title="var">a</span>)</span> <span class="inlinecode"><span class="id" title="var">post2</span></span>, where
-    <span class="inlinecode"><span class="id" title="var">rest_of_the_program_updated</span></span> refers to the Coq variable <span class="inlinecode"><span class="id" title="var">a</span></span>. This process
+    <span class="inlinecode"><span class="id" title="var">rest_of_the_program_updated</span></span> refers to the Rocq variable <span class="inlinecode"><span class="id" title="var">a</span></span>. This process
     will be illustrated in the proof of <span class="inlinecode"><span class="id" title="var">triple_incr</span></span> further on. 
 </div>
 
@@ -207,7 +207,7 @@ When we carry out proofs in practice, the application of the rule
   <td class="infrule">{H} (if b then t<sub>1</sub> in t<sub>2</sub>) {Q}</td>
   <td></td>
 </tr>
-</table></center>  The corresponding Coq statement is: 
+</table></center>  The corresponding Rocq statement is: 
 </div>
 <div class="code">
 
@@ -232,7 +232,7 @@ When we carry out proofs in practice, the application of the rule
 <div class="paragraph"> </div>
 
  The two premises of the rule for if-statements may be factorized into a
-    single one using Coq's conditional construct, as in <span class="inlinecode"><span class="id" title="var">eval_if</span></span>. 
+    single one using Rocq's conditional construct, as in <span class="inlinecode"><span class="id" title="var">eval_if</span></span>. 
 </div>
 <div class="code">
 
@@ -282,7 +282,7 @@ When we carry out proofs in practice, the application of the rule
   <td class="infrule">{H} v {Q}</td>
   <td></td>
 </tr>
-</table></center>    The Coq statement of the rule for values is thus as follows. 
+</table></center>    The Rocq statement of the rule for values is thus as follows. 
 </div>
 <div class="code">
 
@@ -437,11 +437,11 @@ This reasoning rules for functions generalizes to recursive functions. A
 <ul class="doclist">
 <li> If <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span></span> was a program variable (that is, a <span class="inlinecode"><span class="id" title="var">trm_var</span></span>) in the original
      source code, then this program variable should have been substituted by
-     a Coq value or variable of type <span class="inlinecode"><span class="id" title="var">val</span></span> by the time we reach this function
+     a Rocq value or variable of type <span class="inlinecode"><span class="id" title="var">val</span></span> by the time we reach this function
      call. Otherwise, the variable would correspond to a dangling free variable.
 
 </li>
-<li> If <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span></span> is a Coq variable of type <span class="inlinecode"><span class="id" title="var">val</span></span> but with no assumption of the form
+<li> If <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span></span> is a Rocq variable of type <span class="inlinecode"><span class="id" title="var">val</span></span> but with no assumption of the form
      <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">val_fun</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>1</sub></span></span>, it is probably the case that we already have
      established a specification lemma for the function <span class="inlinecode"><span class="id" title="var">v<sub>1</sub></span></span> earlier in the
      reasoning. It this case, the rule above generally cannot be applied.
@@ -456,7 +456,7 @@ This reasoning rules for functions generalizes to recursive functions. A
 
    Let's come back to the case where we are interested in establishing a triple
    for a concrete function, whose code is known. The reasoning rule stated above
-   translates in Coq as shown below. 
+   translates in Rocq as shown below. 
 </div>
 <div class="code">
 
@@ -910,7 +910,7 @@ In chapter <a href="Basic.html"><span class="inlineref">Basic</span></a>, we hav
 <div class="paragraph"> </div>
 
     Executing the proof script step by step leads to the display of intermediate
-    proof obligations that involve Coq existential variables, a.k.a. "evars",
+    proof obligations that involve Rocq existential variables, a.k.a. "evars",
     whose name is prefixed by a question mark, e.g., "?x". These placeholders
     are typically introduced by <span class="inlinecode"><span class="id" title="var">applys</span></span> (which calls <span class="inlinecode"><span class="id" title="tactic">eapply</span></span>), and are
     typically instantiated when solving subgoals. 
@@ -935,7 +935,7 @@ Provide the argument name and body for <span class="inlinecode"><span class="id"
 </div>
 
 <div class="doc">
-Compute the substitution from program variable <span class="inlinecode">&quot;<span class="id" title="var">p</span>&quot;</span> to Coq variable <span class="inlinecode"><span class="id" title="var">p</span></span> 
+Compute the substitution from program variable <span class="inlinecode">&quot;<span class="id" title="var">p</span>&quot;</span> to Rocq variable <span class="inlinecode"><span class="id" title="var">p</span></span> 
 </div>
 <div class="code">
 &nbsp;&nbsp;<span class="id" title="tactic">simpl</span>.<br/>
@@ -1529,17 +1529,17 @@ Recall the function <span class="inlinecode"><span class="id" title="var">repeat
 
     Numerous mechanized presentations of Separation Logic, targeting various
     languages (assembly, C, core-Java, ML, etc.) and using various tools
-    (Isabelle/HOL, Coq, PVS, HOL4, HOL). For a detailed list, see the last
+    (Isabelle/HOL, Coq/Rocq, PVS, HOL4, HOL). For a detailed list, see the last
     chapter of the companion notes, linked from the <a href="Preface.html"><span class="inlineref">Preface</span></a>. 
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-20&nbsp;18:09&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-01-07&nbsp;13:36&nbsp;*)</span><br/>
 </div>
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>

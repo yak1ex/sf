@@ -217,4 +217,4 @@ Proof.
   apply t_update_permute.
 Qed.
 
-(* 2025-08-24 13:54 *)
+(* 2026-01-06 11:59 *)

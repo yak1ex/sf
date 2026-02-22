@@ -1,7 +1,7 @@
 (** * QuickChickInterface: QuickChick Reference Manual *)
 
 From QuickChick Require Import QuickChick.
-Require Import ZArith Strings.Ascii Strings.String.
+From Stdlib Require Import ZArith Strings.Ascii Strings.String.
 
 From ExtLib.Structures Require Import Functor Applicative.
 
@@ -143,8 +143,6 @@ Module QcDefaultNotation.
     (elems_ x (cons x (cons y nil))) : qc_scope.
   Notation " 'elems' [ x ; y ; .. ; z ] " :=
     (elems_ x (cons x (cons y .. (cons z nil) ..))) : qc_scope.
-  Notation " 'elems' ( x ;; l ) " :=
-    (elems_ x (cons x l)) (at level 1, no associativity) : qc_scope.
 
   (** [oneOf] is a shorthand for [oneOf_] without a default argument. *)
   Notation " 'oneOf' [ x ] " :=
@@ -153,8 +151,6 @@ Module QcDefaultNotation.
     (oneOf_ x (cons x (cons y nil))) : qc_scope.
   Notation " 'oneOf' [ x ; y ; .. ; z ] " :=
     (oneOf_ x (cons x (cons y .. (cons z nil) ..))) : qc_scope.
-  Notation " 'oneOf' ( x ;; l ) " :=
-    (oneOf_ x (cons x l))  (at level 1, no associativity) : qc_scope.
 
   (** [freq] is a shorthand for [freq_] without a default argument. *)
   Notation " 'freq' [ x ] " :=
@@ -163,8 +159,6 @@ Module QcDefaultNotation.
     (freq_ x (cons (n, x) (cons y nil))) : qc_scope.
   Notation " 'freq' [ ( n , x ) ; y ; .. ; z ] " :=
     (freq_ x (cons (n, x) (cons y .. (cons z nil) ..))) : qc_scope.
-  Notation " 'freq' ( ( n , x ) ;; l ) " :=
-    (freq_ x (cons (n, x) l)) (at level 1, no associativity) : qc_scope.
 
 End QcDefaultNotation.
 
@@ -183,9 +177,7 @@ End QcDefaultNotation.
     values.
 
     We also expect the random function to be able to pick every element in any
-    given interval. *)
-
-Existing Class ChoosableFromInterval.
+    given interval. This is encoded in the [ChoosableFromInterval] typeclass. *)
 
 (** QuickChick has provided some instances for ordered data types that are
     choosable from intervals, including [nat] and [Z], using
@@ -669,4 +661,4 @@ Record Args :=
 
 End QuickChickSig.
 
-(* 2025-08-20 18:26 *)
+(* 2026-01-07 13:37 *)

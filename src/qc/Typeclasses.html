@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="common/css/sf.css" rel="stylesheet" type="text/css" />
-<title>Typeclasses: A Tutorial on Typeclasses in Coq</title>
+<title>Typeclasses: A Tutorial on Typeclasses in Rocq</title>
 <link href="common/jquery-ui/jquery-ui.css" rel="stylesheet">
 <script src="common/jquery-ui/external/jquery/jquery.js"></script>
 <script src="common/jquery-ui/jquery-ui.js"></script>
@@ -19,7 +19,7 @@
 <div id="header">
 <div id='logoinheader'><a href='https://softwarefoundations.cis.upenn.edu'>
 <img src='common/media/image/sf_logo_sm.png' alt='Software Foundations Logo'></a></div>
-<div class='booktitleinheader'><a href='index.html'>Volume 4: QuickChick: Property-Based Testing in Coq</a></div>
+<div class='booktitleinheader'><a href='index.html'>Volume 4: QuickChick: Property-Based Testing in Rocq</a></div>
 <ul id='menu'>
    <li class='section_name'><a href='toc.html'>Table of Contents</a></li>
    <li class='section_name'><a href='coqindex.html'>Index</a></li>
@@ -28,7 +28,7 @@
 
 <div id="main">
 
-<h1 class="libtitle">Typeclasses<span class="subtitle">A Tutorial on Typeclasses in Coq</span></h1>
+<h1 class="libtitle">Typeclasses<span class="subtitle">A Tutorial on Typeclasses in Rocq</span></h1>
 
 
 
@@ -111,21 +111,21 @@ In real-world programming, it is often necessary to convert
 <div class="paragraph"> </div>
 
     Many other modern language designs have followed Haskell's lead,
-    and Coq is no exception.  However, because Coq's type system is so
-    much richer than that of Haskell, and because typeclasses in Coq
+    and Rocq is no exception.  However, because Rocq's type system is so
+    much richer than that of Haskell, and because typeclasses in Rocq
     are used to automatically construct not only programs but also
-    proofs, Coq's presentation of typeclasses is quite a bit less
+    proofs, Rocq's presentation of typeclasses is quite a bit less
     "transparent": to use typeclasses effectively, one must have a
-    fairly detailed understanding of how they are implemented.  Coq
+    fairly detailed understanding of how they are implemented.  Rocq
     typeclasses are a power tool: they can make complex developments
     much more elegant and easy to manage when used properly, and they
     can cause a great deal of trouble when things go wrong!
 
 <div class="paragraph"> </div>
 
-    This tutorial introduces the core features of Coq's typeclasses,
+    This tutorial introduces the core features of Rocq's typeclasses,
     explains how they are implemented, surveys some useful typeclasses
-    that can be found in Coq's standard library and other contributed
+    that can be found in Rocq's standard library and other contributed
     libraries, and collects some advice about the pragmatics of using
     typeclasses. 
 </div>
@@ -169,7 +169,7 @@ The <span class="inlinecode"><span class="id" title="keyword">Show</span></span>
 </div>
 
 <div class="doc">
-Here, the <span class="inlinecode"><span class="id" title="var">export</span></span> pragma instructs Coq to export this instance
+Here, the <span class="inlinecode"><span class="id" title="var">export</span></span> pragma instructs Rocq to export this instance
     whenever this module is loaded. Other options are <span class="inlinecode"><span class="id" title="var">local</span></span> (which
     never exports the instance), and <span class="inlinecode"><span class="id" title="var">global</span></span> (which always does). 
 </div>
@@ -337,7 +337,7 @@ And here are some basic instances:
 
 <div class="doc">
 One possible confusion should be addressed here: Why should we
-    need to define a typeclass for boolean equality when Coq's
+    need to define a typeclass for boolean equality when Rocq's
     <i>propositional</i> equality (<span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">y</span></span>) is completely generic?  The
     answer is that, while it makes sense to <i>claim</i> that two values
     <span class="inlinecode"><span class="id" title="var">x</span></span> and <span class="inlinecode"><span class="id" title="var">y</span></span> are equal no matter what their type is, it is not
@@ -516,7 +516,7 @@ Functions expecting to be instantiated with an instance of <span class="inlineco
 
 <div class="doc">
 <a id="lab18"></a><h4 class="section">Exercise: 1 star, standard (missingConstraintAgain)</h4>
- What does Coq say if the <span class="inlinecode"><span class="id" title="var">Ord</span></span> class constraint is left out of the
+ What does Rocq say if the <span class="inlinecode"><span class="id" title="var">Ord</span></span> class constraint is left out of the
     definition of <span class="inlinecode"><span class="id" title="var">max</span></span>?  What about the <span class="inlinecode"><span class="id" title="var">Eq</span></span> class constraint?  <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
@@ -547,13 +547,13 @@ Functions expecting to be instantiated with an instance of <span class="inlineco
 
 <div class="paragraph"> </div>
 
- Typeclasses in Coq are a powerful tool, but the expressiveness of
-    the Coq logic makes it hard to implement sanity checks like
+ Typeclasses in Rocq are a powerful tool, but the expressiveness of
+    the Rocq logic makes it hard to implement sanity checks like
     Haskell's "overlapping instances" detector.
 
 <div class="paragraph"> </div>
 
-    As a result, using Coq's typeclasses effectively -- and figuring
+    As a result, using Rocq's typeclasses effectively -- and figuring
     out what is wrong when things don't work -- requires a clear
     understanding of the underlying mechanisms. 
 </div>
@@ -566,7 +566,7 @@ Functions expecting to be instantiated with an instance of <span class="inlineco
  The first thing to understand is exactly what the "backtick"
     notation means in declarations of classes, instances, and
     functions using typeclasses.  This is actually a quite generic
-    mechanism, called <i>implicit generalization</i>, that was added to Coq
+    mechanism, called <i>implicit generalization</i>, that was added to Rocq
     to support typeclasses but that can also be used to good effect
     elsewhere.
 
@@ -586,7 +586,7 @@ Functions expecting to be instantiated with an instance of <span class="inlineco
 </div>
 
 <div class="doc">
-By default, Coq only implicitly generalizes variables declared in
+By default, Rocq only implicitly generalizes variables declared in
     this way, to avoid puzzling behavior in case of typos.  There is
     also a <span class="inlinecode"><span class="id" title="var">Generalize</span></span> <span class="inlinecode"><span class="id" title="keyword">Variables</span></span> <span class="inlinecode"><span class="id" title="keyword">All</span></span> command, but it's probably not a
     good idea to use it! 
@@ -602,7 +602,7 @@ By default, Coq only implicitly generalizes variables declared in
 </div>
 
 <div class="doc">
-Coq will notice that the occurrence of <span class="inlinecode"><span class="id" title="var">A</span></span> inside the <span class="inlinecode">`{...}</span> is
+Rocq will notice that the occurrence of <span class="inlinecode"><span class="id" title="var">A</span></span> inside the <span class="inlinecode">`{...}</span> is
     unbound and automatically insert the binding that we wrote
     explicitly before. 
 </div>
@@ -624,7 +624,7 @@ The "implicit and maximally generalized" annotation on the last
     if they had been written with <span class="inlinecode">{...}</span>, rather than <span class="inlinecode">(...)</span>.  The
     "implicit" part means that the type argument <span class="inlinecode"><span class="id" title="var">A</span></span> and the <span class="inlinecode"><span class="id" title="keyword">Show</span></span>
     witness <span class="inlinecode"><span class="id" title="var">H</span></span> are usually expected to be left implicit: whenever we
-    write <span class="inlinecode"><span class="id" title="var">showOne1</span></span>, Coq will automatically insert two unification
+    write <span class="inlinecode"><span class="id" title="var">showOne1</span></span>, Rocq will automatically insert two unification
     variables as the first two arguments.  This automatic insertion
     can be disabled by writing <span class="inlinecode">@</span>, so a bare occurrence of <span class="inlinecode"><span class="id" title="var">showOne1</span></span>
     means the same as <span class="inlinecode">@<span class="id" title="var">showOne1</span></span> <span class="inlinecode"><span class="id" title="var">_</span></span> <span class="inlinecode"><span class="id" title="var">_</span></span>.  The "maximally inserted" part
@@ -671,7 +671,7 @@ The advantage of the latter form is that it gives a name that can
 </div>
 
 <div class="doc">
-If we ask Coq to print the arguments that are normally implicit,
+If we ask Rocq to print the arguments that are normally implicit,
     we see that all these definitions are exactly the same
     internally. 
 </div>
@@ -696,7 +696,7 @@ If we ask Coq to print the arguments that are normally implicit,
 The examples we've seen so far illustrate how implicit
     generalization works, but you may not be convinced yet that it is
     actually saving enough keystrokes to be worth the trouble of
-    adding such a fancy mechanism to Coq.  Where things become more
+    adding such a fancy mechanism to Rocq.  Where things become more
     convincing is when classes are organized into hierarchies.  For
     example, here is an alternate definition of the <span class="inlinecode"><span class="id" title="var">max</span></span> function: 
 </div>
@@ -708,7 +708,7 @@ The examples we've seen so far illustrate how implicit
 
 <div class="doc">
 If we print out <span class="inlinecode"><span class="id" title="var">max1</span></span> in full detail, we can see that the
-    implicit generalization around <span class="inlinecode">`{<span class="id" title="var">Ord</span></span> <span class="inlinecode"><span class="id" title="var">A</span>}</span> led Coq to fill in not
+    implicit generalization around <span class="inlinecode">`{<span class="id" title="var">Ord</span></span> <span class="inlinecode"><span class="id" title="var">A</span>}</span> led Rocq to fill in not
     only a binding for <span class="inlinecode"><span class="id" title="var">A</span></span> but also a binding for <span class="inlinecode"><span class="id" title="var">H</span></span>, which it can
     see must be of type <span class="inlinecode"><span class="id" title="var">Eq</span></span> <span class="inlinecode"><span class="id" title="var">A</span></span> because it appears as the second
     argument to <span class="inlinecode"><span class="id" title="var">Ord</span></span>.  (And why is <span class="inlinecode"><span class="id" title="var">Ord</span></span> applied here to two
@@ -785,7 +785,7 @@ Defining a function in this way is not very natural, however.  In
 
 <div class="doc">
 Writing <span class="inlinecode">`(...)</span>, with parentheses instead of curly braces, causes
-    Coq to perform the same implicit generalization step, but does
+    Rocq to perform the same implicit generalization step, but does
     <i>not</i> mark the inserted binders themselves as implicit. 
 </div>
 <div class="code">
@@ -800,7 +800,7 @@ Writing <span class="inlinecode">`(...)</span>, with parentheses instead of curl
 
 <div class="paragraph"> </div>
 
- Although records are not part of its core, Coq does provide some
+ Although records are not part of its core, Rocq does provide some
     simple syntactic sugar for defining and using records. 
 <div class="paragraph"> </div>
 
@@ -916,7 +916,7 @@ Record declarations can also be parameterized:
 
 <div class="doc">
 (If you run the <span class="inlinecode"><span class="id" title="keyword">Print</span></span> command yourself, you'll see that <span class="inlinecode"><span class="id" title="keyword">Show</span></span>
-    actually displays as a <span class="inlinecode"><span class="id" title="keyword">Variant</span></span>; this is Coq's terminology for a
+    actually displays as a <span class="inlinecode"><span class="id" title="keyword">Variant</span></span>; this is Rocq's terminology for a
     single-field record.) 
 <div class="paragraph"> </div>
 
@@ -993,7 +993,7 @@ How does this happen?
 
 <div class="paragraph"> </div>
 
-    By ordinary type inference, Coq knows that, to make the whole
+    By ordinary type inference, Rocq knows that, to make the whole
     expression well typed, the second argument to <span class="inlinecode">@<span class="id" title="var">show</span></span> must be a
     value of type <span class="inlinecode"><span class="id" title="keyword">Show</span></span> <span class="inlinecode"><span class="id" title="var">nat</span></span>.  It attempts to find or construct such a
     value using a variant of the <span class="inlinecode"><span class="id" title="tactic">eauto</span></span> proof search procedure that
@@ -1076,7 +1076,7 @@ In the second line, the search procedure decides to try applying
 
 <div class="paragraph"> </div>
 
- Since programs and proofs in Coq are fundamentally made from the
+ Since programs and proofs in Rocq are fundamentally made from the
     same stuff, the mechanisms of typeclasses extend smoothly to
     situations where classes contain not only data and functions but
     also proofs.
@@ -1121,7 +1121,7 @@ To build an instance of <span class="inlinecode"><span class="id" title="var">Eq
 
 <div class="doc">
 If we do not happen to have an appropriate proof already in the
-    environment, we can simply omit it. Coq will enter
+    environment, we can simply omit it. Rocq will enter
     proof mode and ask the user to use tactics to construct
     inhabitants for the fields. 
 </div>
@@ -1156,7 +1156,7 @@ Given a typeclass with propositional members, we can use these
 
 <div class="doc">
 There is much more to say about how typeclasses can be used (and
-    how they should not be used) to support large-scale proofs in Coq.
+    how they should not be used) to support large-scale proofs in Rocq.
     See the suggested readings below. 
 <div class="paragraph"> </div>
 
@@ -1166,7 +1166,7 @@ There is much more to say about how typeclasses can be used (and
 
  Naturally, it is also possible to have typeclass instances as
     members of other typeclasses: these are called <i>substructures</i>.
-    Here is an example adapted from the Coq Reference Manual. 
+    Here is an example adapted from the Rocq Reference Manual. 
 </div>
 <div class="code">
 
@@ -1399,9 +1399,9 @@ Now we don't need to remember that, for example, the test for
     refer to one of these to fully understand the examples here. 
 <div class="paragraph"> </div>
 
- In Coq, monads are also heavily used, but the fact that
-    typeclasses are a relatively recent addition to Coq, together with
-    the fact that Coq's <span class="inlinecode"><span class="id" title="keyword">Notation</span></span> extension mechanism allows users to
+ In Rocq, monads are also heavily used, but the fact that
+    typeclasses are a relatively recent addition to Rocq, together with
+    the fact that Rocq's <span class="inlinecode"><span class="id" title="keyword">Notation</span></span> extension mechanism allows users to
     define their own variants of <span class="inlinecode"><span class="id" title="tactic">do</span></span> notation for specific situations
     where a monadic style is useful, have led to a proliferation of
     definitions of monads: most older projects simply define their own
@@ -1436,7 +1436,7 @@ The main definition provided by this library is the following typeclass:
 </span> That is, a type family <span class="inlinecode"><span class="id" title="var">M</span></span> is an instance of the <span class="inlinecode"><span class="id" title="var">Monad</span></span> class if
     we can define functions <span class="inlinecode"><span class="id" title="var">ret</span></span> and <span class="inlinecode"><span class="id" title="var">bind</span></span> of the appropriate types.  (If you <span class="inlinecode"><span class="id" title="keyword">Print</span></span> the actual definition, you'll see something more
     complicated, involving <span class="inlinecode"><span class="id" title="var">Polymorphic</span></span> <span class="inlinecode"><span class="id" title="keyword">Record</span></span> <span class="inlinecode"><span class="id" title="var">bla</span></span> <span class="inlinecode"><span class="id" title="var">bla</span></span>...  The
-    <span class="inlinecode"><span class="id" title="var">Polymorphic</span></span> part refers to Coq's "universe polymorphism," which
+    <span class="inlinecode"><span class="id" title="var">Polymorphic</span></span> part refers to Rocq's "universe polymorphism," which
     does not concern us here.) 
 <div class="paragraph"> </div>
 
@@ -1559,14 +1559,14 @@ For example, suppose we have two <span class="inlinecode"><span class="id" title
 <div class="doc">
 The <span class="inlinecode">/<span class="id" title="var">examples</span></span> directory in the <span class="inlinecode"><span class="id" title="var">ext</span>-<span class="id" title="var">lib</span></span> Github
     repository (<a href="https://github.com/coq-community/coq-ext-lib/blob/master/"><span class="inlineref" <a href='https://github.com/coq-community/coq-ext-lib/blob/master/</span></a>)'>https://github.com/coq-community/coq-ext-lib/blob/master/</span></a>)</a>includes
-    some further examples of using monads in Coq. 
+    some further examples of using monads in Rocq. 
 <div class="paragraph"> </div>
 
 <a id="lab36"></a><h2 class="section">Others</h2>
 
 <div class="paragraph"> </div>
 
- Two popular typeclasses from the Coq standard library are
+ Two popular typeclasses from the Rocq standard library are
     <span class="inlinecode"><span class="id" title="var">Equivalence</span></span> (and the associated classes <span class="inlinecode"><span class="id" title="var">Reflexive</span></span>,
     <span class="inlinecode"><span class="id" title="var">Transitive</span></span>, etc.) and <span class="inlinecode"><span class="id" title="var">Proper</span></span>.  They are described in the
     second half of <i>A Gentle Introduction to Type Classes and
@@ -1632,7 +1632,7 @@ Huh?!
  Here's what happened:
 <ul class="doclist">
 <li> When we defined <span class="inlinecode"><span class="id" title="var">foo</span></span>, the type of <span class="inlinecode"><span class="id" title="var">x</span></span> was not specified, so
-        Coq filled in a unification variable (an "evar") <span class="inlinecode">?<span class="id" title="var">A</span></span>.
+        Rocq filled in a unification variable (an "evar") <span class="inlinecode">?<span class="id" title="var">A</span></span>.
 
 </li>
 <li> When typechecking the expression <span class="inlinecode"><span class="id" title="var">eqb</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span>, the typeclass
@@ -1666,8 +1666,8 @@ Huh?!
 
 <div class="paragraph"> </div>
 
- One of the ways in which Coq's typeclasses differ most from
-    Haskell's is the lack, in Coq, of an automatic check for
+ One of the ways in which Rocq's typeclasses differ most from
+    Haskell's is the lack, in Rocq, of an automatic check for
     "overlapping instances."
 
 <div class="paragraph"> </div>
@@ -1701,7 +1701,7 @@ Huh?!
 <div class="doc">
 When this happens, it is unpredictable which instance will be
     found first by the instance search process; here it just happened
-    to be the second. The reason Coq doesn't do the overlapping
+    to be the second. The reason Rocq doesn't do the overlapping
     instances check is because its type system is much more complex
     than Haskell's -- so much so that it is very challenging in
     general to decide whether two given instances overlap.
@@ -2127,7 +2127,7 @@ Definition&nbsp;e<sub>4</sub>&nbsp;:&nbsp;list&nbsp;nat&nbsp;:=&nbsp;mymap&nbsp;
     Another scenario that often bites me is when I define an instance
     for a type class, and then intend to write a function using the
     type class and forget to provide it as an argument. In Haskell
-    this would be an error, but in Coq it just resolves to whatever
+    this would be an error, but in Rocq it just resolves to whatever
     the last globally defined instance was.
 
 <div class="paragraph"> </div>
@@ -2139,7 +2139,7 @@ Definition&nbsp;e<sub>4</sub>&nbsp;:&nbsp;list&nbsp;nat&nbsp;:=&nbsp;mymap&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="id" title="var">fobj</span> <span class="id" title="var">x</span> ~&gt; <span class="id" title="var">fobj</span> <span class="id" title="var">y</span> :=<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">fmap</span> <span class="id" title="var">f</span>.
 </span>    In Haskell this gives an error stating that no Functor is
-    available. In Coq, it type checks using the highest priority
+    available. In Rocq, it type checks using the highest priority
     <span class="inlinecode"><span class="id" title="var">C</span></span> <span class="inlinecode"><span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:6%;'><span style='letter-spacing:-.2em;'>-</span><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span> <span class="inlinecode"><span class="id" title="var">D</span></span> functor instance in scope. I typically discover that
     this has happened when I try to use <span class="inlinecode"><span class="id" title="var">foo</span></span> and find the Functor to
     be too specific, or by turning on Printing All and looking at the
@@ -2196,7 +2196,7 @@ Definition&nbsp;e<sub>4</sub>&nbsp;:&nbsp;list&nbsp;nat&nbsp;:=&nbsp;mymap&nbsp;
 &nbsp;&nbsp;&nbsp;}.
 </span>    Only those classes which might be multiply-inherited need to be
     lifted like this. It forces me to use Sections to avoid
-    repetition, but allows Coq to see that base classes sharing is
+    repetition, but allows Rocq to see that base classes sharing is
     plainly evident.
 
 <div class="paragraph"> </div>
@@ -2231,7 +2231,7 @@ Definition&nbsp;e<sub>4</sub>&nbsp;:&nbsp;list&nbsp;nat&nbsp;:=&nbsp;mymap&nbsp;
     libraries, and very much enjoy the facility they provide. I have a
     category-theory library that is nearly all type classes, and I ran
     into every one of the problems described above, before learning
-    how to "work with Coq" to make things happy. 
+    how to "work with Rocq" to make things happy. 
 <div class="paragraph"> </div>
 
 <a id="lab49"></a><h2 class="section">Michael Soegtrop</h2>
@@ -2261,7 +2261,7 @@ Definition&nbsp;e<sub>4</sub>&nbsp;:&nbsp;list&nbsp;nat&nbsp;:=&nbsp;mymap&nbsp;
  Typeclasses are merely about inferring some implicit arguments
     using proof search. The underlying modularity mechanism, which is
     the ability to define "existential types" using induction, was
-    <i>always</i> there in Coq: typeclasses merely cuts down on verbosity
+    <i>always</i> there in Rocq: typeclasses merely cuts down on verbosity
     because more arguments can now be implicit because they can be
     automatically inferred.  Relying on proof search often brings
     predictability concerns. So, guidance on taming proof search would
@@ -2295,7 +2295,7 @@ Definition&nbsp;e<sub>4</sub>&nbsp;:&nbsp;list&nbsp;nat&nbsp;:=&nbsp;mymap&nbsp;
     operation) in the interface I, even if parts of D don't actually
     need that operation: I've run into situations where it is
     impossible to cook up an operation that 90 percent of L doesn't use
-    anyway.  When using the unbundled approach, one can use Coq's
+    anyway.  When using the unbundled approach, one can use Rocq's
     Section mechanism to ensure that definitions/proofs only depend on
     items of the interface they actually use, and not on a big
     bundle. 
@@ -2331,7 +2331,7 @@ Definition&nbsp;e<sub>4</sub>&nbsp;:&nbsp;list&nbsp;nat&nbsp;:=&nbsp;mymap&nbsp;
 
     Sources for this tutorial:
 <ul class="doclist">
-<li> Coq Reference Manual:
+<li> Rocq Reference Manual:
        <a href="https://coq.inria.fr/refman/"><span class="inlineref" <a href='https://coq.inria.fr/refman/</span></a>'>https://coq.inria.fr/refman/</span></a></a>
 
 </li>
@@ -2361,12 +2361,12 @@ Definition&nbsp;e<sub>4</sub>&nbsp;:&nbsp;list&nbsp;nat&nbsp;:=&nbsp;mymap&nbsp;
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-24&nbsp;13:59&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-01-07&nbsp;13:37&nbsp;*)</span><br/>
 </div>
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>

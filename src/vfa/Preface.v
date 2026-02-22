@@ -148,9 +148,9 @@
     title        =   "Verified Functional Algorithms",
     series       =   "Software Foundations",
     volume       =   "3",
-    year         =   "2025",
+    year         =   "2026",
     publisher    =   "Electronic textbook",
-    note         =   {Version 1.5.5, \URL{http://softwarefoundations.cis.upenn.edu} },
+    note         =   {Version 1.6.0, \URL{http://softwarefoundations.cis.upenn.edu} },
     }
 *)
 
@@ -162,4 +162,4 @@
     NSF Expeditions grant 1521523, _The Science of Deep
     Specification_. *)
 
-(* 2025-08-20 18:12 *)
+(* 2026-01-06 11:59 *)

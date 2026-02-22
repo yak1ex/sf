@@ -410,7 +410,7 @@ Implicit Types E : ctx.
 *)
 
 (** The first lemma is straightforward by induction. The TLC tactic [fequals] is
-    an enhanced variant of Coq's tactic [f_equal]. *)
+    an enhanced variant of Rocq's tactic [f_equal]. *)
 
 Lemma isubst_nil : forall t,
   isubst nil t = t.
@@ -588,4 +588,4 @@ Qed.
 
 End IsubstProp.
 
-(* 2025-08-20 18:10 *)
+(* 2026-01-07 13:36 *)

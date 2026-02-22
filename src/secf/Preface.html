@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="common/css/sf.css" rel="stylesheet" type="text/css" />
+<title>Preface</title>
+<link href="common/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="common/jquery-ui/external/jquery/jquery.js"></script>
+<script src="common/jquery-ui/jquery-ui.js"></script>
+<script src="common/toggleproofs.js"></script>
+<link href="common/css/secf.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+<div id='logoinheader'><a href='https://softwarefoundations.cis.upenn.edu'>
+<img src='common/media/image/sf_logo_sm.png' alt='Software Foundations Logo'></a></div>
+<div class='booktitleinheader'><a href='index.html'>Volume 7: Security Foundations</a></div>
+<ul id='menu'>
+   <li class='section_name'><a href='toc.html'>Table of Contents</a></li>
+   <li class='section_name'><a href='coqindex.html'>Index</a></li>
+   <li class='section_name'><a href='deps.html'>Roadmap</a></li>
+</ul>
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Preface</h1>
+
+
+<div class="doc">
+
+<div class="paragraph"> </div>
+
+<a id="lab1"></a><h1 class="section">Formal foundations for program security</h1>
+
+<div class="paragraph"> </div>
+
+ This volume uses Rocq to lay down formal foundations for the security of
+    programs, by (1) setting clear <i>security goals</i>, (2) investigating
+    <i>enforcement mechanisms</i>, and (3) <i>proving</i> that the mechanisms achieve
+    their goals.  In a bit more detail: 
+<div class="paragraph"> </div>
+
+ (1) We set clear <i>security goals</i> by mathematically defining what it means
+    for a program to be secure with respect to a precise attacker model.
+    The security goals we investigate are various information-flow
+    security properties, formalized as variants of noninterference.
+    Noninterference precisely expresses what it means for a program
+    to not leak secrets to attackers with various capabilities.
+    For instance, we investigate attackers that can observe (part of)
+    the final result or state of the computation, or explicit program outputs
+    happening during execution, or side-channel observations
+    (e.g., the branches and memory addresses accessed by the program,
+    as assumed by cryptographic constant-time programming discipline).
+    We also investigate attackers that can influence the program by causing
+    speculative execution to take the wrong branch in a conditional. 
+<div class="paragraph"> </div>
+
+ (2) We investigate various static and dynamic information-flow control
+    <i>enforcement mechanisms</i> aimed at achieving specific noninterference
+    properties. In particular we investigate enforcement via various security
+    type systems, secure multi-execution, and a program transformation called
+    Speculative Load Hardening (SLH). 
+<div class="paragraph"> </div>
+
+ (3) Finally, we <i>prove</i> in Rocq that these enforcement mechanisms do indeed
+    achieve their desired security goal. For instance, we prove that a standard
+    type system that prevents branch conditions and memory accesses that may
+    depend on secrets indeed achieves cryptographic constant-time security, and
+    also that together with the SLH transformation it achieves speculative
+    constant-time security. 
+<div class="paragraph"> </div>
+
+<a id="lab2"></a><h1 class="section">Expected audience</h1>
+
+<div class="paragraph"> </div>
+
+ This volume can be of interest to anyone curious about the security
+    applications of the concepts from the <i>Logical Foundations</i> volume and, more
+    generally, those interested in a formal approach to security that is
+    solidly grounded in fully mechanized Rocq proofs. This volume can also serve
+    as a start for research in this area, and the <a href="Postscript.html"><span class="inlineref">Postscript</span></a> presents a
+    few illustrative security research projects involving machine-checked proofs.
+
+<div class="paragraph"> </div>
+
+    This volume directly builds on the material in the <i>Logical Foundations</i>
+    volume and the two can be used together in a one-semester course.  We try
+    not to assume prior knowledge in security and would appreciate your feedback
+    if you find places in the volume where this can be improved. 
+<div class="paragraph"> </div>
+
+<a id="lab3"></a><h1 class="section">Further reading</h1>
+
+<div class="paragraph"> </div>
+
+ This volume is intended to be self-contained, but readers looking for a
+    deeper treatment of particular topics will find some suggestions for further
+    reading as citations in the technical chapters and in the <a href="Postscript.html"><span class="inlineref">Postscript</span></a>
+    chapter. Bibliographic information for all cited works can be found in the
+    <a href="Bib.html"><span class="inlineref">Bib</span></a> file. 
+<div class="paragraph"> </div>
+
+<a id="lab4"></a><h1 class="section">Recommended citation format</h1>
+
+<div class="paragraph"> </div>
+
+ If you want to refer to this volume in your own writing,
+    please do so as follows:
+<br/>
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;@<span class="id" title="var">book</span>            {<span class="id" title="var">Hritcu</span>:<span class="id" title="var">SF<sub>7</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">author</span>       =   {  <span class="id" title="var">C</span>ă<span class="id" title="var">t</span>ă<span class="id" title="var">lin</span> <span class="id" title="var">Hri</span>ţ<span class="id" title="var">cu</span> <span class="id" title="var">and</span><br/>
+&nbsp;&nbsp;<span class="id" title="var">Yonghyun</span> <span class="id" title="var">Kim</span>},<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">editor</span>       =   {<span class="id" title="var">Benjamin</span> <span class="id" title="var">C</span>. <span class="id" title="var">Pierce</span>},<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">title</span>        =   "Security Foundations",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">series</span>       =   "Software Foundations",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">volume</span>       =   "7",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">year</span>         =   "2026",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">publisher</span>    =   "Electronic textbook",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">note</span>         =   {<span class="id" title="var">Version</span> 1.0,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<span class="id" title="var">URL</span>{<span class="id" title="var">http</span>://<span class="id" title="var">softwarefoundations.cis.upenn.edu</span>} },<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+</span> 
+<div class="paragraph"> </div>
+
+<a id="lab5"></a><h1 class="section">Feedback or any other contribution welcome</h1>
+
+<div class="paragraph"> </div>
+
+ We plan to continue improving and expanding this volume, so any feedback on
+    it or any other contribution would be much appreciated. 
+<div class="paragraph"> </div>
+
+<a id="lab6"></a><h1 class="section">Thanks</h1>
+
+<div class="paragraph"> </div>
+
+ This volume originated from teaching materials for courses we taught at Ruhr
+    Uni Bochum and we would like to thank the students taking these courses for
+    putting up with very rough early drafts of these materials.  We also thank
+    all people who have contributed to this volume (the people we remembered are
+    listed on the cover page of this volume).  
+</div>
+<div class="code">
+
+<span class="comment">(*&nbsp;2026-01-07&nbsp;13:37&nbsp;*)</span><br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

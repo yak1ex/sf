@@ -23,7 +23,7 @@ Axiom make_mem_mgr: forall gv, emp |-- mem_mgr M gv.
 (** Normally at this point, we would prove a [semax_body] lemma for each
   function that the module exports.  But here, we use [body_lemma_of_funspec]
   for external functions; and we write this as an axiom: *)
-   
+
 Axiom body_malloc:
  forall {Espec: OracleKind} {cs: compspecs} ,
    VST.floyd.library.body_lemma_of_funspec EF_malloc (snd (malloc_spec_sz M)).
@@ -35,7 +35,7 @@ Axiom body_free:
 Axiom body_exit:
  forall {Espec: OracleKind},
   VST.floyd.library.body_lemma_of_funspec
-    (EF_external "exit" (mksignature (AST.Tint :: nil) AST.Tvoid cc_default))
+    (EF_external "exit" (mksignature (Xint :: nil) Xvoid cc_default))
     (snd (exit_spec)).
 
 (* ================================================================= *)
@@ -47,7 +47,8 @@ Axiom body_exit:
   for [malloc], [free], [exit].  Because nobody will call [placeholder()], we
  can give it a trivial funspec whose precondition is [False]. *)
 
-Definition placeholder_spec :=
+Notation placeholder_spec :=
+  (* This is Notation instead of Definition to work around VST bug #814 *)
     (_placeholder, vacuous_funspec (Internal f_placeholder)).
 
 (* ================================================================= *)
@@ -103,7 +104,7 @@ Qed.
 
 (**  Each VSU may have private global variables that constitute its
   "local state".  This [VSU_initializer] lemma calculates how to
-  reason about their initial values.   But the module stdlib.c does 
+  reason about their initial values.   But the module stdlib.c does
   not have any global variables, so this [initialize] lemma is
   rather trivial here.  See [VSU_stdlib2.v], lemma [initialize],
   for a more interesting example. *)
@@ -118,8 +119,8 @@ Qed.
 
 Definition MallocFreeVSU: @VSU NullExtension.Espec
          MF_E MF_imported_specs ltac:(QPprog prog) MF_ASI MF_globals.
-  Proof. 
-    mkVSU prog MF_internal_specs.
+  Proof.
+  mkVSU prog MF_internal_specs.
     - solve_SF_external (@body_malloc NullExtension.Espec CompSpecs).
        apply (semax_func_cons_malloc_aux gv gx ret n).
     - solve_SF_external (@body_free NullExtension.Espec CompSpecs).
@@ -130,4 +131,4 @@ Qed.
 (* ================================================================= *)
 (** ** Next Chapter: [VSU_main] *)
 
-(* 2023-03-25 11:30 *)
+(* 2026-01-07 13:38 *)

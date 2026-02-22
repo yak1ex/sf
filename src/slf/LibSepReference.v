@@ -124,7 +124,7 @@ with trm : Type :=
 Definition heap : Type := fmap loc val.
 
 (* ================================================================= *)
-(** ** Coq Tweaks *)
+(** ** Rocq Tweaks *)
 
 (** [h1 \u h2] is a notation for union of two heaps. *)
 
@@ -2957,7 +2957,7 @@ Notation "'Val' v" :=
 Notation "'Let' x ':=' F1 'in' F2" :=
   ((wpgen_let F1 (fun x => F2)))
   (in custom wp at level 69,
-   x name, (* NOTE: For compilation with Coq 8.12, replace "name" with "ident",
+   x name, (* NOTE: For compilation with Rocq 8.12, replace "name" with "ident",
                here and in the next 3 occurrences in the rest of the section. *)
    F1 custom wp at level 99,
    F2 custom wp at level 99,
@@ -4289,4 +4289,4 @@ Proof using. xwp. xif; auto_false. intros _. xval. xsimpl. Qed.
 
 End DemoPrograms.
 
-(* 2025-08-24 14:03 *)
+(* 2026-01-07 13:36 *)

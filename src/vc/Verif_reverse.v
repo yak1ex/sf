@@ -1,6 +1,6 @@
 (** * Verif_reverse: Linked lists in Verifiable C *)
 
-(** This chapter demonstrates some more features of Verifiable C. 
+(** This chapter demonstrates some more features of Verifiable C.
   There are no exercises in this chapter. *)
 
 (* ================================================================= *)
@@ -31,7 +31,7 @@ by flipping through the slides of Reverse-Slides.pdf, distributed with
 this chapter.    Let's prove this program correct!
 *)
 
-(** SEE ALSO VC.pdf Chapter 46 (_Proof of the reverse program_) *)
+(** SEE ALSO VC.pdf Chapter 50 (_Proof of the reverse program_) *)
 
 (** As usual, we import the Verifiable C system [VST.floyd.proofauto],
     then the program to be verified, in this case [reverse].  Then we
@@ -76,8 +76,8 @@ Fixpoint listrep (sigma: list val) (p: val) : mpred :=
 
   But if [sigma] is [nil], then [p] is the null pointer, and the
   memory footprint is empty ([emp]).  The fact [p=nullval] is a pure
-  proposition (Coq [Prop]); we inject this into the assertion language
-  (Coq [mpred]) using the [!!] operator.
+  proposition (Rocq [Prop]); we inject this into the assertion language
+  (Rocq [mpred]) using the [!!] operator.
 
   Because [!!P] (for a proposition [P]) does not specify any footprint
   (whether empty or otherwise), we do not use the separating conjunction
@@ -342,7 +342,7 @@ Definition reverse_spec : ident * funspec :=
   - The PREcondition says,
      - There is one function-parameter, whose C type is
          "pointer to struct list"
-     - PARAMS:  The parameter contains the Coq value [p];
+     - PARAMS:  The parameter contains the Rocq value [p];
      - SEP: in memory at address [p] there is a linked list
           representing [sigma].
   - The POSTcondition says,
@@ -374,7 +374,7 @@ Proof.
 start_function.
 
 (**  As usual, the current assertion (precondition) is derived from the PRE
-  clause of the function specification, [reverse_spec], and the current command 
+  clause of the function specification, [reverse_spec], and the current command
   [ w=0; ...more... ] is the function body of [f_reverse].
 
   The first statement (command) in the function-body is the assignment
@@ -412,7 +412,7 @@ Fail forward.
 (** To prove a while-loop, you must supply a loop invariant,
     such as
 
-     (EX s1 ... PROP(...)LOCAL(...)SEP(...). 
+     (EX s1 ... PROP(...)LOCAL(...)SEP(...).
 *)
 
 forward_while
@@ -422,8 +422,8 @@ forward_while
      LOCAL (temp _w w; temp _v v)
      SEP (listrep s1 w; listrep s2 v)).
 
-(** The forward_while tactic leaves four subgoals, 
-  which we mark with - (the Coq "bullet") *)
+(** The forward_while tactic leaves four subgoals,
+  which we mark with - (the Rocq "bullet") *)
 - (* Prove that (current) precondition implies the loop invariant *)
 hint.
 
@@ -510,7 +510,7 @@ destruct s2 as [ | h r].
 
    Intros.
 
-   (** Now, above the line, we have [v=nullval] and [isptr v]; 
+   (** Now, above the line, we have [v=nullval] and [isptr v];
        this is a contradiction. *)
 
    subst. contradiction.
@@ -560,8 +560,8 @@ destruct s2 as [ | h r].
      Exists w. entailer!.
 
 - (* after the loop *)
-  (** As usual in any Hoare logic (including Separation Logic), the 
-    postcondition of a while-loop is {Inv /\ not Test}, where Inv is the 
+  (** As usual in any Hoare logic (including Separation Logic), the
+    postcondition of a while-loop is {Inv /\ not Test}, where Inv is the
     loop invariant and Test is the loop test.  Here, all the EXistentials
     and PROPs of the loop invariant have been moved above the line as
     [s1,s2,w,v,HRE,H].
@@ -582,7 +582,7 @@ Exists w; entailer!.
 rewrite (proj1 H1) by auto.
 unfold listrep at 2; fold listrep.
 entailer!.
-rewrite <- app_nil_end, rev_involutive.
+rewrite app_nil_r, rev_involutive.
 auto.
 Qed.
 
@@ -743,4 +743,4 @@ Abort.
   Separation logic is essential for reasoning about updates to these structures.
   Verifiable C's SEP clause ensures separation between all its conjuncts. *)
 
-(* 2023-03-25 11:30 *)
+(* 2026-01-07 13:38 *)

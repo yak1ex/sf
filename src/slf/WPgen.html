@@ -80,11 +80,11 @@
     Another key difference between <span class="inlinecode"><span class="id" title="var">wp</span></span> and <span class="inlinecode"><span class="id" title="var">wpgen</span></span> is that the formulae
     produced by <span class="inlinecode"><span class="id" title="var">wpgen</span></span> no longer refer to program syntax. In particular, all
     program variables involved in a term <span class="inlinecode"><span class="id" title="var">t</span></span> in a statement of the form <span class="inlinecode"><span class="id" title="var">wp</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span>
-    are replaced with Coq variables when computing <span class="inlinecode"><span class="id" title="var">wpgen</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span>. The benefit of
+    are replaced with Rocq variables when computing <span class="inlinecode"><span class="id" title="var">wpgen</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span>. The benefit of
     eliminating program variables is that formulae produced by <span class="inlinecode"><span class="id" title="var">wpgen</span></span> can be
     manipulated without the need to simplify substitutions of the form
-    <span class="inlinecode"><span class="id" title="tactic">subst</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span></span>. Instead, the beta reduction mechanism of Coq will
-    automatically perform substitutions for Coq variables.
+    <span class="inlinecode"><span class="id" title="tactic">subst</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span></span>. Instead, the beta reduction mechanism of Rocq will
+    automatically perform substitutions for Rocq variables.
 
 <div class="paragraph"> </div>
 
@@ -107,7 +107,7 @@
 <div class="paragraph"> </div>
 
 <ul class="doclist">
-<li> how to define <span class="inlinecode"><span class="id" title="var">wpgen</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span> as a recursive function in Coq,
+<li> how to define <span class="inlinecode"><span class="id" title="var">wpgen</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span> as a recursive function in Rocq,
 
 </li>
 <li> how to integrate support for the frame rule in this definition,
@@ -192,7 +192,7 @@
 
  In a first step, we modify the definition in order to make it structurally
     recursive. Indeed, in the above the recursive call <span class="inlinecode"><span class="id" title="var">wpgen</span></span> <span class="inlinecode">(<span class="id" title="tactic">subst</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span>)</span> is
-    not made on a strict subterm of <span class="inlinecode"><span class="id" title="var">trm_let</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span></span>, so Coq will reject this
+    not made on a strict subterm of <span class="inlinecode"><span class="id" title="var">trm_let</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span></span>, so Rocq will reject this
     definition as it stands.
 
 <div class="paragraph"> </div>
@@ -277,7 +277,7 @@
     notation that enables a nice display of the output of <span class="inlinecode"><span class="id" title="var">wpgen</span></span>. For example,
     the notation <span class="inlinecode"><span class="id" title="var">Let'</span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">F<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="keyword">in</span></span> <span class="inlinecode"><span class="id" title="var">F<sub>2</sub></span></span> stands for <span class="inlinecode"><span class="id" title="var">wpgen_let</span></span> <span class="inlinecode"><span class="id" title="var">F<sub>1</sub></span></span> <span class="inlinecode">(<span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><span class="id" title="var">F<sub>2</sub></span>)</span>.
     Thanks to this notation, the result of computing <span class="inlinecode"><span class="id" title="var">wpgen</span></span> on a source term
-    <span class="inlinecode"><span class="id" title="keyword">Let</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="keyword">in</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span></span>, which is an Coq expression of type <span class="inlinecode"><span class="id" title="var">trm</span></span>, is a Coq
+    <span class="inlinecode"><span class="id" title="keyword">Let</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="keyword">in</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span></span>, which is an Rocq expression of type <span class="inlinecode"><span class="id" title="var">trm</span></span>, is a Rocq
     expression of type <span class="inlinecode"><span class="id" title="var">formula</span></span> displayed as <span class="inlinecode"><span class="id" title="var">Let'</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">F<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="keyword">in</span></span> <span class="inlinecode"><span class="id" title="var">F<sub>2</sub></span></span>.
 
 <div class="paragraph"> </div>
@@ -323,7 +323,7 @@
 <div class="paragraph"> </div>
 
     The "more details" section recapitulates each of the four steps presented in
-    the above summary, but explaining in detail all the Coq definitions
+    the above summary, but explaining in detail all the Rocq definitions
     involved. 
 </div>
 
@@ -636,7 +636,7 @@ All these rules are correct, albeit totally useless.
 <div class="paragraph"> </div>
 
  Finally, consider an if-statement. Recall the <span class="inlinecode"><span class="id" title="var">wp</span></span>-style reasoning rule
-    stated using a Coq conditional. 
+    stated using a Rocq conditional. 
 </div>
 <div class="code">
 
@@ -700,7 +700,7 @@ Typically, a source program may feature a conditional
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='gray-font'>\</span>* (<span class="id" title="keyword">if</span> <span class="id" title="var">b</span> <span class="id" title="keyword">then</span> (<span class="id" title="var">wpgen</span> <span class="id" title="var">t<sub>1</sub></span>) <span class="id" title="var">Q</span> <span class="id" title="keyword">else</span> (<span class="id" title="var">wpgen</span> <span class="id" title="var">t<sub>2</sub></span>) <span class="id" title="var">Q</span>)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.
 </span>    As pointed out earlier, this definition is not structurally recursive and is
-    thus not accepted by Coq, due to the recursive call
+    thus not accepted by Rocq, due to the recursive call
     <span class="inlinecode"><span class="id" title="var">wpgen</span></span> <span class="inlinecode">(<span class="id" title="tactic">subst</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> <span class="inlinecode"><span class="id" title="var">t<sub>2</sub></span>)</span> <span class="inlinecode"><span class="id" title="var">Q</span></span>. Our next step is to fix this issue. 
 </div>
 
@@ -938,7 +938,7 @@ Remark: it is also possible to define the substitution by iterating the
 </div>
 
 <div class="doc">
-At last, we arrive at a definition of <span class="inlinecode"><span class="id" title="var">wpgen</span></span> that type-checks in Coq and
+At last, we arrive at a definition of <span class="inlinecode"><span class="id" title="var">wpgen</span></span> that type-checks in Rocq and
     that can be used to effectively compute weakest preconditions in Separation
     Logic. 
 </div>
@@ -1778,7 +1778,7 @@ The tactics <span class="inlinecode"><span class="id" title="var">xval</span></s
 </div>
 
 <div class="doc">
-<span class="inlinecode"><span class="id" title="var">xwp</span></span> applys <span class="inlinecode"><span class="id" title="var">xwp_lemma</span></span>, then requests Coq to evaluate the <span class="inlinecode"><span class="id" title="var">wpgen</span></span>
+<span class="inlinecode"><span class="id" title="var">xwp</span></span> applys <span class="inlinecode"><span class="id" title="var">xwp_lemma</span></span>, then requests Rocq to evaluate the <span class="inlinecode"><span class="id" title="var">wpgen</span></span>
     function. (For technical reasons, in the definition shown below we need to
     explicitly request the unfolding of <span class="inlinecode"><span class="id" title="var">wpgen_var</span></span>.) 
 </div>
@@ -2048,7 +2048,7 @@ Because the body of <span class="inlinecode"><span class="id" title="var">incrtw
 
 <div class="doc">
 We therefore introduce a variant of the <span class="inlinecode"><span class="id" title="var">xlet</span></span> tactic, called <span class="inlinecode"><span class="id" title="var">xletval</span></span>,
-    that processes let-bindings by introducing an equality in the Coq context.
+    that processes let-bindings by introducing an equality in the Rocq context.
     For example, for our local function <span class="inlinecode"><span class="id" title="var">f</span></span>, a fresh hypothesis named <span class="inlinecode"><span class="id" title="var">f</span></span> of
     type <span class="inlinecode"><span class="id" title="var">val</span></span> is introduced, and an hypothesis of type asserting that <span class="inlinecode"><span class="id" title="var">f</span></span> is
     equal to <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode">{&quot;<span class="id" title="var">u</span>&quot;}</span> <span class="inlinecode">⇒</span> <span class="inlinecode">{<span class="id" title="var">incr</span></span> <span class="inlinecode"><span class="id" title="var">p</span>}</span> is provided to characterize the value <span class="inlinecode"><span class="id" title="var">f</span></span>.
@@ -2409,7 +2409,7 @@ In summary, we have presented the tactic <span class="inlinecode"><span class="i
 <div class="paragraph"> </div>
 
     In a nontrivial proof, calls to x-tactics do not appear in sequence: they
-    are interleaved with conventional Coq tactics for discharging side
+    are interleaved with conventional Rocq tactics for discharging side
     conditions. Typically, when reasoning about a function whose specification
     contains preconditions, <span class="inlinecode"><span class="id" title="var">xapp</span></span> generates one subgoal for each precondition.
     Now, suppose that we have a sequence made of 3 such function calls. The
@@ -3136,9 +3136,9 @@ Like for the function <span class="inlinecode"><span class="id" title="tactic">r
 
     In general, a characteristic formula provides not just a sound but also a
     complete description of the semantics of a program. In Charguéraud's PhD
-    thesis, completeness is established on paper, and a mechanized proof in Coq
+    thesis, completeness is established on paper, and a mechanized proof in Rocq
     is provided only for the simple IMP language. Even if a result of the form
-    <span class="inlinecode"><span class="id" title="var">wp</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span> <span class="inlinecode">==&gt;</span> <span class="inlinecode"><span class="id" title="var">wpgen</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span> were proved in Coq, such a completeness result would
+    <span class="inlinecode"><span class="id" title="var">wp</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span> <span class="inlinecode">==&gt;</span> <span class="inlinecode"><span class="id" title="var">wpgen</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> <span class="inlinecode"><span class="id" title="var">Q</span></span> were proved in Rocq, such a completeness result would
     be relatively unsatisfying. Indeed, this entailment asserts that if a
     program admits a behavior, then the program logic can be used to establish
     that this program admits that behavior. Yet, this statement does not capture
@@ -3147,12 +3147,12 @@ that is, allowing for maximal usage of the frame rule.
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-20&nbsp;18:10&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-01-07&nbsp;13:36&nbsp;*)</span><br/>
 </div>
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>

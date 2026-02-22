@@ -281,7 +281,7 @@ In other words, <span class="inlinecode"><span class="id" title="var">Q<sub>1</s
     establish this entailment, we must prove that <span class="inlinecode"><span class="id" title="var">H</span></span> entails <span class="inlinecode"><span class="id" title="var">H'</span></span> under the
     assumption that <span class="inlinecode"><span class="id" title="var">P</span></span> is true. The "extraction rule for pure facts in the left
     of an entailment" captures the property that the pure fact <span class="inlinecode"><span class='gray-font'>\</span>[<span class="id" title="var">P</span>]</span> can be
-    extracted into the Coq context. It is stated as follows. 
+    extracted into the Rocq context. It is stated as follows. 
 <div class="paragraph"> </div>
 
 <a id="lab128"></a><h4 class="section">Exercise: 2 stars, standard, especially useful (himpl_hstar_hpure_l).</h4>
@@ -329,7 +329,7 @@ In other words, <span class="inlinecode"><span class="id" title="var">Q<sub>1</s
 <div class="paragraph"> </div>
 
     The "extraction rule for existentials in the left of an entailment" captures
-    the property that existentials can be extracted into the Coq context. It is
+    the property that existentials can be extracted into the Rocq context. It is
     stated as follows. (Observe how the existential quantifier on the left of
     the entailment becomes a universal quantifier outside of the arrow.) 
 <div class="paragraph"> </div>
@@ -445,7 +445,7 @@ More generally, a heap predicate of the form <span class="inlinecode"><span clas
 <div class="paragraph"> </div>
 
  Simplifying entailments by hand is extremely tedious. Fortunately, it can be
-    automated using a specialized Coq tactic. This tactic, called <span class="inlinecode"><span class="id" title="var">xsimpl</span></span>,
+    automated using a specialized Rocq tactic. This tactic, called <span class="inlinecode"><span class="id" title="var">xsimpl</span></span>,
     applies to an entailment and implements a 3-step process:
 
 <div class="paragraph"> </div>
@@ -454,13 +454,13 @@ More generally, a heap predicate of the form <span class="inlinecode"><span clas
 <li> extract pure facts and existential quantifiers from the LHS;
 
 </li>
-<li> instantial existential quantifiers from the RHS, using either Coq
+<li> instantial existential quantifiers from the RHS, using either Rocq
       unification variables or user-provided hints (details are explained
       further on);
 
 </li>
 <li> cancel out predicates that occur on both the LHS and RHS; certain
-      Coq unification variables may be instantiated during that process.
+      Rocq unification variables may be instantiated during that process.
 
 </li>
 </ul>
@@ -488,13 +488,13 @@ More generally, a heap predicate of the form <span class="inlinecode"><span clas
 <div class="paragraph"> </div>
 
  The first feature of <span class="inlinecode"><span class="id" title="var">xsimpl</span></span> is its ability to extract the pure facts and
-    existential quantifiers from the left-hand side out into the Coq context.
+    existential quantifiers from the left-hand side out into the Rocq context.
 
 <div class="paragraph"> </div>
 
     In the example below, the pure fact <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">&gt;</span> <span class="inlinecode">0</span> appears in the LHS. After
     calling <span class="inlinecode"><span class="id" title="var">xsimpl</span></span>, this pure fact is turned into a hypothesis, which may be
-    introduced with a name into the Coq context. 
+    introduced with a name into the Rocq context. 
 </div>
 <div class="code">
 
@@ -621,7 +621,7 @@ If all the pieces of heap predicate get canceled out, the remaining proof
 <div class="doc">
 When it encounters an existential quantifier in the RHS, the <span class="inlinecode"><span class="id" title="var">xsimpl</span></span> tactic
     introduces a unification variable denoted by a question mark, that is, an
-    "evar", in Coq terminology. Here, <span class="inlinecode"><span class="id" title="var">xsimpl</span></span> turns <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">n</span>,</span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">..</span>
+    "evar", in Rocq terminology. Here, <span class="inlinecode"><span class="id" title="var">xsimpl</span></span> turns <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">n</span>,</span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">..</span>
     into <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" title="var">p</span></span> <span class="inlinecode">~~&gt;</span> <span class="inlinecode">?<span class="id" title="keyword">Goal</span></span> <span class="inlinecode">..</span>, where <span class="inlinecode">?<span class="id" title="keyword">Goal</span></span> is the evar. 
 </div>
 <div class="code">
@@ -786,7 +786,7 @@ The next example illustrates an interesting situation where <span class="inlinec
 <div class="doc">
 Invoking <span class="inlinecode"><span class="id" title="var">xsimpl</span></span> here leaves the goal <span class="inlinecode"><span class="id" title="keyword">∀</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode">?<span class="id" title="keyword">Goal</span></span> <span class="inlinecode">+</span> <span class="inlinecode">1</span>. This
     statement is technically provable, because <span class="inlinecode">?<span class="id" title="keyword">Goal</span></span> can be instantiated with
-    <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">-</span> <span class="inlinecode">1</span>. Yet, discharging such a proof obligation, which features a Coq
+    <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">-</span> <span class="inlinecode">1</span>. Yet, discharging such a proof obligation, which features a Rocq
     meta-variable <span class="inlinecode">?<span class="id" title="keyword">Goal</span></span> that depends on a bound variable <span class="inlinecode"><span class="id" title="var">x</span></span> is rather awkward
     and impractical.  The proper route to solving this kind of entailment is to first extract the
     <span class="inlinecode"><span class='gray-font'>\</span><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span> into the context, then use <span class="inlinecode"><span class="id" title="var">xsimpl</span></span> <span class="inlinecode">(<span class="id" title="var">n</span>-1)</span> to provide as hint to
@@ -858,7 +858,7 @@ The tactic <span class="inlinecode"><span class="id" title="var">xchange</span><
 
 <div class="paragraph"> </div>
 
- Quiz: For each entailment below, indicate (without a Coq proof) whether it
+ Quiz: For each entailment below, indicate (without a Rocq proof) whether it
     is true or false. Solutions appear further on. 
 </div>
 <div class="code">
@@ -1200,12 +1200,12 @@ Proving an entailment by hand is generally a tedious task. This is why most
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-20&nbsp;18:09&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-01-07&nbsp;13:36&nbsp;*)</span><br/>
 </div>
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>
