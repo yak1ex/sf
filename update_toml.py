@@ -3,7 +3,11 @@ import re
 import sys
 
 
-METADATA_PATTERN = r'<p>Version (?P<version>[\d.]+) \((?P<datetime>[-\d: ]+), (?P<coq_version>[^)]+)\)(?:<br>\n\s*Compatible with (?P<vst_version>.*))?</p>'
+METADATA_PATTERN = (
+    r'<p>Version (?P<version>[\d.]+) \((?P<datetime>[-\d: ]+), '
+    r'(?P<coq_version>[^)]+)\)(?:<br>\n\s*'
+    r'Compatible with (?P<vst_version>.*))?</p>'
+)
 BASE_URL = "https://softwarefoundations.cis.upenn.edu"
 
 
