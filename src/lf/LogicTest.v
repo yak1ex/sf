@@ -84,15 +84,6 @@ Print Assumptions or_commut.
 Goal True.
 idtac " ".
 
-idtac "-------------------  double_neg_informal  --------------------".
-idtac " ".
-
-idtac "#> Manually graded: double_neg_informal".
-idtac "Advanced".
-idtac "Possible points: 2".
-print_manual_grade manual_grade_for_double_neg_informal.
-idtac " ".
-
 idtac "-------------------  contrapositive  --------------------".
 idtac " ".
 
@@ -353,7 +344,7 @@ idtac " ".
 idtac " ".
 
 idtac "Max points - standard: 43".
-idtac "Max points - advanced: 49".
+idtac "Max points - advanced: 47".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
@@ -421,14 +412,12 @@ idtac "---------- excluded_middle_irrefutable ---------".
 Print Assumptions excluded_middle_irrefutable.
 idtac "".
 idtac "********** Advanced **********".
-idtac "---------- double_neg_informal ---------".
-idtac "MANUAL".
 idtac "---------- not_PNP_informal ---------".
 idtac "MANUAL".
 idtac "---------- not_exists_dist ---------".
 Print Assumptions not_exists_dist.
 Abort.
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:34 *)
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:35 *)

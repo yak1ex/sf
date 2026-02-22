@@ -296,15 +296,6 @@ Print Assumptions Exercises.curry_uncurry.
 Goal True.
 idtac " ".
 
-idtac "-------------------  nth_error_informal  --------------------".
-idtac " ".
-
-idtac "#> Manually graded: Exercises.informal_proof".
-idtac "Advanced".
-idtac "Possible points: 2".
-print_manual_grade Exercises.manual_grade_for_informal_proof.
-idtac " ".
-
 idtac "-------------------  church_scc  --------------------".
 idtac " ".
 
@@ -468,7 +459,7 @@ idtac " ".
 idtac " ".
 
 idtac "Max points - standard: 21".
-idtac "Max points - advanced: 36".
+idtac "Max points - advanced: 34".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
@@ -532,8 +523,6 @@ idtac "---------- Exercises.uncurry_curry ---------".
 Print Assumptions Exercises.uncurry_curry.
 idtac "---------- Exercises.curry_uncurry ---------".
 Print Assumptions Exercises.curry_uncurry.
-idtac "---------- informal_proof ---------".
-idtac "MANUAL".
 idtac "---------- Exercises.Church.scc_2 ---------".
 Print Assumptions Exercises.Church.scc_2.
 idtac "---------- Exercises.Church.scc_3 ---------".
@@ -558,6 +547,6 @@ idtac "---------- Exercises.Church.exp_3 ---------".
 Print Assumptions Exercises.Church.exp_3.
 Abort.
 
-(* 2025-08-24 14:25 *)
+(* 2025-12-26 08:34 *)
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:35 *)

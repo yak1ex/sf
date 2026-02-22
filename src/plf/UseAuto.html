@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="common/css/sf.css" rel="stylesheet" type="text/css" />
-<title>UseAuto: Theory and Practice of Automation in Coq Proofs</title>
+<title>UseAuto: Theory and Practice of Automation in Rocq Proofs</title>
 <link href="common/jquery-ui/jquery-ui.css" rel="stylesheet">
 <script src="common/jquery-ui/external/jquery/jquery.js"></script>
 <script src="common/jquery-ui/jquery-ui.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
 
-<h1 class="libtitle">UseAuto<span class="subtitle">Theory and Practice of Automation in Coq Proofs</span></h1>
+<h1 class="libtitle">UseAuto<span class="subtitle">Theory and Practice of Automation in Rocq Proofs</span></h1>
 
 
 <div class="code">
@@ -39,11 +39,11 @@
 <div class="doc">
 In a machine-checked proof, every single detail has to be
     justified.  This can result in huge proof scripts. Fortunately,
-    Coq comes with a proof-search mechanism and with several decision
+    Rocq comes with a proof-search mechanism and with several decision
     procedures that enable the system to automatically synthesize
     simple pieces of proof. Automation is very powerful when set up
     appropriately. The purpose of this chapter is to explain the
-    basics of how automation works in Coq.
+    basics of how automation works in Rocq.
 
 <div class="paragraph"> </div>
 
@@ -52,7 +52,7 @@ In a machine-checked proof, every single detail has to be
     consists in naively trying to apply lemmas and assumptions in all
     possible ways. The second part describes "decision procedures",
     which are tactics that are very good at solving proof obligations
-    that fall in some particular fragments of the logic of Coq.
+    that fall in some particular fragments of the logic of Rocq.
 
 <div class="paragraph"> </div>
 
@@ -105,7 +105,7 @@ In a machine-checked proof, every single detail has to be
 
  We are going to study four proof-search tactics: <span class="inlinecode"><span class="id" title="tactic">auto</span></span>, <span class="inlinecode"><span class="id" title="tactic">eauto</span></span>,
     <span class="inlinecode"><span class="id" title="var">iauto</span></span> and <span class="inlinecode"><span class="id" title="var">jauto</span></span>. The tactics <span class="inlinecode"><span class="id" title="tactic">auto</span></span> and <span class="inlinecode"><span class="id" title="tactic">eauto</span></span> are builtin
-    in Coq. The tactic <span class="inlinecode"><span class="id" title="var">iauto</span></span> is a shorthand for the builtin tactic
+    in Rocq. The tactic <span class="inlinecode"><span class="id" title="var">iauto</span></span> is a shorthand for the builtin tactic
     <span class="inlinecode"><span class="id" title="tactic">try</span></span> <span class="inlinecode"><span class="id" title="tactic">solve</span></span> <span class="inlinecode">[<span class="id" title="tactic">intuition</span></span> <span class="inlinecode"><span class="id" title="tactic">eauto</span>]</span>. The tactic <span class="inlinecode"><span class="id" title="var">jauto</span></span> is defined in
     the library <span class="inlinecode"><span class="id" title="var">LibTactics</span></span>, and simply performs some preprocessing
     of the goal before calling <span class="inlinecode"><span class="id" title="tactic">eauto</span></span>. The goal of this chapter is
@@ -300,7 +300,7 @@ The strategy of <span class="inlinecode"><span class="id" title="var">iauto</spa
     reason, those tactics are not good at dealing with conjunctions
     that occur as the conclusion of some universally quantified
     hypothesis. The following example illustrates a general weakness
-    of Coq proof search mechanisms. 
+    of Rocq proof search mechanisms. 
 </div>
 <div class="code">
 
@@ -472,7 +472,7 @@ We will come back later on to the behavior of proof search with
 
 <div class="paragraph"> </div>
 
- Coq's proof-search feature is not good at exploiting equalities.
+ Rocq's proof-search feature is not good at exploiting equalities.
     It can do very basic operations, like exploiting reflexivity
     and symmetry, but that's about it. Here is a simple example
     that <span class="inlinecode"><span class="id" title="tactic">auto</span></span> can solve, by first calling <span class="inlinecode"><span class="id" title="tactic">symmetry</span></span> and then
@@ -808,7 +808,7 @@ This time, the output message suggests that the proof search
 <div class="doc">
 The standard library adds a few lemmas in the hint database.
     For example, the <span class="inlinecode"><span class="id" title="var">eq_sym</span></span> lemma, which characterizes symmetry of equality,
-    is registered in module <span class="inlinecode"><span class="id" title="var">Coq.Init.Logic</span></span> via the line
+    is registered in module <span class="inlinecode"><span class="id" title="var">Rocq.Init.Logic</span></span> via the line
     <span class="inlinecode"><span class="id" title="keyword">Hint</span></span> <span class="inlinecode"><span class="id" title="keyword">Immediate</span></span> <span class="inlinecode"><span class="id" title="var">eq_sym</span></span> <span class="inlinecode"><span class="id" title="var">not_eq_sym</span>:</span> <span class="inlinecode"><span class="id" title="var">core</span>.</span>. There <span class="inlinecode"><span class="id" title="keyword">Hint</span></span> <span class="inlinecode"><span class="id" title="keyword">Immediate</span></span> is used
     instead of <span class="inlinecode"><span class="id" title="keyword">Hint</span></span> <span class="inlinecode"><span class="id" title="keyword">Resolve</span></span> to limit the search depth after symmetry is
     exploited. In practice, <span class="inlinecode"><span class="id" title="tactic">auto</span></span> is able to prove a result such as the
@@ -863,7 +863,7 @@ A convenient shorthand for adding all the constructors of an
 </div>
 
 <div class="doc">
-Nearly all standard Coq tactics and all the tactics from
+Nearly all standard Rocq tactics and all the tactics from
     "LibTactics" can be called with a star symbol. For example, one
     can invoke <span class="inlinecode"><span class="id" title="tactic">subst</span>×</span>, <span class="inlinecode"><span class="id" title="tactic">destruct</span>×</span> <span class="inlinecode"><span class="id" title="var">H</span></span>, <span class="inlinecode"><span class="id" title="var">inverts</span>×</span> <span class="inlinecode"><span class="id" title="var">H</span></span>, <span class="inlinecode"><span class="id" title="var">lets</span>×</span> <span class="inlinecode"><span class="id" title="var">I</span>:</span> <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span>,
     <span class="inlinecode"><span class="id" title="var">specializes</span>×</span> <span class="inlinecode"><span class="id" title="var">H</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span>, and so on... There are two notable exceptions.
@@ -1043,7 +1043,7 @@ To obtain a nice clean proof script, we have to remove the calls
     brittle.  The tactic <span class="inlinecode"><span class="id" title="tactic">assert</span></span> <span class="inlinecode">(<span class="id" title="var">st'</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">st'0</span>)</span> is used to assert the
     conclusion that we want to derive from the induction
     hypothesis. So, rather than stating this conclusion explicitly, we
-    are going to ask Coq to instantiate the induction hypothesis,
+    are going to ask Rocq to instantiate the induction hypothesis,
     using automation to figure out how to instantiate it. The tactic
     <span class="inlinecode"><span class="id" title="var">forwards</span></span>, described in <span class="inlinecode"><span class="id" title="var">LibTactics.v</span></span> precisely helps with
     instantiating a fact. So, let's see how it works out on our
@@ -1240,7 +1240,7 @@ Consider the proof relating a small-step reduction judgment
 <div class="code">
 
 <span class="id" title="keyword">Theorem</span> <a id="Semantics.multistep__eval" class="idref" href="#Semantics.multistep__eval"><span class="id" title="lemma">multistep__eval</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">:</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">∀</span></a> <a id="t:98" class="idref" href="#t:98"><span class="id" title="binder">t</span></a> <a id="v:99" class="idref" href="#v:99"><span class="id" title="binder">v</span></a><a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">,</span></a><br/>
-&nbsp;&nbsp;<a class="idref" href="Smallstep.html#normal_form_of"><span class="id" title="definition">normal_form_of</span></a> <a class="idref" href="UseAuto.html#t:98"><span class="id" title="variable">t</span></a> <a class="idref" href="UseAuto.html#v:99"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="n:100" class="idref" href="#n:100"><span class="id" title="binder">n</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="UseAuto.html#v:99"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Smallstep.html#C"><span class="id" title="constructor">C</span></a> <a class="idref" href="UseAuto.html#n:100"><span class="id" title="variable">n</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="UseAuto.html#t:98"><span class="id" title="variable">t</span></a> <a class="idref" href="Smallstep.html#7cf9375cc810cd6cb65186f6ede01686"><span class="id" title="notation">==&gt;</span></a> <a class="idref" href="UseAuto.html#n:100"><span class="id" title="variable">n</span></a>.<br/>
+&nbsp;&nbsp;<a class="idref" href="Smallstep.html#normal_form_of"><span class="id" title="definition">normal_form_of</span></a> <a class="idref" href="Smallstep.html#step"><span class="id" title="inductive">step</span></a> <a class="idref" href="UseAuto.html#t:98"><span class="id" title="variable">t</span></a> <a class="idref" href="UseAuto.html#v:99"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="n:100" class="idref" href="#n:100"><span class="id" title="binder">n</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="UseAuto.html#v:99"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Smallstep.html#C"><span class="id" title="constructor">C</span></a> <a class="idref" href="UseAuto.html#n:100"><span class="id" title="variable">n</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="UseAuto.html#t:98"><span class="id" title="variable">t</span></a> <a class="idref" href="Smallstep.html#7cf9375cc810cd6cb65186f6ede01686"><span class="id" title="notation">==&gt;</span></a> <a class="idref" href="UseAuto.html#n:100"><span class="id" title="variable">n</span></a>.<br/>
 <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Proof</span></a>.<br/>
 &nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">intros</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">t</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">v</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Hnorm</span></a>.<br/>
 &nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">unfold</span></a> <a class="idref" href="Smallstep.html#normal_form_of"><span class="id" title="definition">normal_form_of</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">in</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Hnorm</span></a>.<br/>
@@ -1249,7 +1249,7 @@ Consider the proof relating a small-step reduction judgment
 &nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">∃</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">n</span></a>. <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">split</span></a>. <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">reflexivity</span></a>.<br/>
 &nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">induction</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Hs</span></a><a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">;</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">subst</span></a>.<br/>
 &nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">-</span></a> <span class="comment">(*&nbsp;multi_refl&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">apply</span></a> <a class="idref" href="Smallstep.html#E_Const"><span class="id" title="constructor">E_Const</span></a>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">apply</span></a> <a class="idref" href="Smallstep.html#E_C"><span class="id" title="constructor">E_C</span></a>.<br/>
 &nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">-</span></a> <span class="comment">(*&nbsp;multi_step&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">eapply</span></a> <a class="idref" href="Smallstep.html#step__eval"><span class="id" title="axiom">step__eval</span></a>. <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">eassumption</span></a>. <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">apply</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">IHHs</span></a>. <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">reflexivity</span></a>.<br/>
 <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Qed</span></a>.<br/>
@@ -1285,7 +1285,7 @@ Exercise: using the lemma above, simplify the proof of
 <div class="code">
 
 <span class="id" title="keyword">Theorem</span> <a id="Semantics.multistep__eval'" class="idref" href="#Semantics.multistep__eval'"><span class="id" title="lemma">multistep__eval'</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">:</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">∀</span></a> <a id="t:104" class="idref" href="#t:104"><span class="id" title="binder">t</span></a> <a id="v:105" class="idref" href="#v:105"><span class="id" title="binder">v</span></a><a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">,</span></a><br/>
-&nbsp;&nbsp;<a class="idref" href="Smallstep.html#normal_form_of"><span class="id" title="definition">normal_form_of</span></a> <a class="idref" href="UseAuto.html#t:104"><span class="id" title="variable">t</span></a> <a class="idref" href="UseAuto.html#v:105"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="n:106" class="idref" href="#n:106"><span class="id" title="binder">n</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="UseAuto.html#v:105"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Smallstep.html#C"><span class="id" title="constructor">C</span></a> <a class="idref" href="UseAuto.html#n:106"><span class="id" title="variable">n</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="UseAuto.html#t:104"><span class="id" title="variable">t</span></a> <a class="idref" href="Smallstep.html#7cf9375cc810cd6cb65186f6ede01686"><span class="id" title="notation">==&gt;</span></a> <a class="idref" href="UseAuto.html#n:106"><span class="id" title="variable">n</span></a>.<br/>
+&nbsp;&nbsp;<a class="idref" href="Smallstep.html#normal_form_of"><span class="id" title="definition">normal_form_of</span></a> <a class="idref" href="Smallstep.html#step"><span class="id" title="inductive">step</span></a> <a class="idref" href="UseAuto.html#t:104"><span class="id" title="variable">t</span></a> <a class="idref" href="UseAuto.html#v:105"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="n:106" class="idref" href="#n:106"><span class="id" title="binder">n</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="UseAuto.html#v:105"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Smallstep.html#C"><span class="id" title="constructor">C</span></a> <a class="idref" href="UseAuto.html#n:106"><span class="id" title="variable">n</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="UseAuto.html#t:104"><span class="id" title="variable">t</span></a> <a class="idref" href="Smallstep.html#7cf9375cc810cd6cb65186f6ede01686"><span class="id" title="notation">==&gt;</span></a> <a class="idref" href="UseAuto.html#n:106"><span class="id" title="variable">n</span></a>.<br/>
 <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Proof</span></a>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">admit</span></a>.<br/>
 <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Admitted</span></a>.<br/>
@@ -1311,7 +1311,7 @@ If we try to combine the two proofs into a single one,
 <div class="code">
 
 <span class="id" title="keyword">Theorem</span> <a id="Semantics.multistep__eval''" class="idref" href="#Semantics.multistep__eval''"><span class="id" title="lemma">multistep__eval''</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">:</span></a> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">∀</span></a> <a id="t:107" class="idref" href="#t:107"><span class="id" title="binder">t</span></a> <a id="v:108" class="idref" href="#v:108"><span class="id" title="binder">v</span></a><a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">,</span></a><br/>
-&nbsp;&nbsp;<a class="idref" href="Smallstep.html#normal_form_of"><span class="id" title="definition">normal_form_of</span></a> <a class="idref" href="UseAuto.html#t:107"><span class="id" title="variable">t</span></a> <a class="idref" href="UseAuto.html#v:108"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="n:109" class="idref" href="#n:109"><span class="id" title="binder">n</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="UseAuto.html#v:108"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Smallstep.html#C"><span class="id" title="constructor">C</span></a> <a class="idref" href="UseAuto.html#n:109"><span class="id" title="variable">n</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="UseAuto.html#t:107"><span class="id" title="variable">t</span></a> <a class="idref" href="Smallstep.html#7cf9375cc810cd6cb65186f6ede01686"><span class="id" title="notation">==&gt;</span></a> <a class="idref" href="UseAuto.html#n:109"><span class="id" title="variable">n</span></a>.<br/>
+&nbsp;&nbsp;<a class="idref" href="Smallstep.html#normal_form_of"><span class="id" title="definition">normal_form_of</span></a> <a class="idref" href="Smallstep.html#step"><span class="id" title="inductive">step</span></a> <a class="idref" href="UseAuto.html#t:107"><span class="id" title="variable">t</span></a> <a class="idref" href="UseAuto.html#v:108"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">∃</span></a> <a id="n:109" class="idref" href="#n:109"><span class="id" title="binder">n</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="UseAuto.html#v:108"><span class="id" title="variable">v</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Smallstep.html#C"><span class="id" title="constructor">C</span></a> <a class="idref" href="UseAuto.html#n:109"><span class="id" title="variable">n</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#ba2b0e492d2b4675a0acf3ea92aabadd"><span class="id" title="notation">∧</span></a> <a class="idref" href="UseAuto.html#t:107"><span class="id" title="variable">t</span></a> <a class="idref" href="Smallstep.html#7cf9375cc810cd6cb65186f6ede01686"><span class="id" title="notation">==&gt;</span></a> <a class="idref" href="UseAuto.html#n:109"><span class="id" title="variable">n</span></a>.<br/>
 <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Proof</span></a>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">admit</span></a>.<br/>
 <a class="idref" href="References.html#STLCRef.:stlc_ty:stlc_scope:x"><span class="id" title="notation">Admitted</span></a>.<br/><hr class='doublespaceincode'/>
@@ -1772,7 +1772,7 @@ Proving that <span class="inlinecode"><span class="id" title="var">myFact</span>
 <div class="doc">
 To automate the unfolding of definitions that appear as proof
     obligation, one can use the command <span class="inlinecode"><span class="id" title="keyword">Hint</span></span> <span class="inlinecode"><span class="id" title="keyword">Unfold</span></span> <span class="inlinecode"><span class="id" title="var">myFact</span></span> to tell
-    Coq that it should always try to unfold <span class="inlinecode"><span class="id" title="var">myFact</span></span> when <span class="inlinecode"><span class="id" title="var">myFact</span></span>
+    Rocq that it should always try to unfold <span class="inlinecode"><span class="id" title="var">myFact</span></span> when <span class="inlinecode"><span class="id" title="var">myFact</span></span>
     appears in the goal. 
 </div>
 <div class="code">
@@ -2086,7 +2086,7 @@ In the previous example, the proof search has spent a lot of time
 <div class="paragraph"> </div>
 
     For the case of transitivity of subtyping, we are going to tell
-    Coq to try and apply the transitivity lemma on a goal of the form
+    Rocq to try and apply the transitivity lemma on a goal of the form
     <span class="inlinecode"><span class="id" title="var">subtype</span></span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">U</span></span> only when the proof context already contains an
     assumption either of the form <span class="inlinecode"><span class="id" title="var">subtype</span></span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span> or of the form
     <span class="inlinecode"><span class="id" title="var">subtype</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span> <span class="inlinecode"><span class="id" title="var">U</span></span>. In other words, we only apply the transitivity
@@ -2492,7 +2492,7 @@ One of the strengths of <span class="inlinecode"><span class="id" title="tactic"
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-24&nbsp;13:47&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:38&nbsp;*)</span><br/>
 </div>
 </div>
 

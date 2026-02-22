@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="common/css/sf.css" rel="stylesheet" type="text/css" />
-<title>ProofObjects</title>
+<title>ProofObjects: The Curry-Howard Correspondence</title>
 <link href="common/jquery-ui/jquery-ui.css" rel="stylesheet">
 <script src="common/jquery-ui/external/jquery/jquery.js"></script>
 <script src="common/jquery-ui/jquery-ui.js"></script>
@@ -29,13 +29,9 @@
 
 <div id="main">
 
-<h1 class="libtitle">ProofObjects</h1>
+<h1 class="libtitle">ProofObjects<span class="subtitle">The Curry-Howard Correspondence</span></h1>
 
 
-<div class="doc">
-<a id="lab306"></a><h1 class="section">Proofobjects: The Curry-Howard Correspondence</h1>
-
-</div>
 <div class="code">
 
 <span class="id" title="keyword">Set</span> <span class="id" title="var">Warnings</span> "-notation-overridden,-notation-incompatible-prefix".<br/>
@@ -47,34 +43,34 @@
     (Robert Harper)</div> 
 <div class="paragraph"> </div>
 
- We have seen that Coq has mechanisms both for <i>programming</i>,
+ We have seen that Rocq has mechanisms both for <i>programming</i>,
     using inductive data types like <span class="inlinecode"><span class="id" title="var">nat</span></span> or <span class="inlinecode"><span class="id" title="var">list</span></span> and functions over
     these types, and for <i>proving</i> properties of these programs, using
     inductive propositions (like <span class="inlinecode"><span class="id" title="var">ev</span></span>), implication, universal
     quantification, and the like.  So far, we have mostly treated
     these mechanisms as if they were quite separate, and for many
     purposes this is a good way to think.  But we have also seen hints
-    that Coq's programming and proving facilities are closely related.
+    that Rocq's programming and proving facilities are closely related.
     For example, the keyword <span class="inlinecode"><span class="id" title="keyword">Inductive</span></span> is used to declare both data
     types and propositions, and <span class="inlinecode">→</span> is used both to describe the type
     of functions on data and logical implication.  This is not just a
-    syntactic accident!  In fact, programs and proofs in Coq are
-    almost the same thing.  In this chapter we will study how this
-    works.
+    syntactic accident!  In fact, programs and proofs in Rocq are
+    almost the same thing.  In this chapter we will study this connection
+    in more detail.
 
 <div class="paragraph"> </div>
 
-    We have already seen the fundamental idea: provability in Coq is
-    represented by concrete <i>evidence</i>.  When we construct the proof
-    of a basic proposition, we are actually building a tree of
-    evidence, which can be thought of as a data structure.
+    We have already seen the fundamental idea: provability in Rocq is
+    always witnessed by <i>evidence</i>.  When we construct the proof of a
+    basic proposition, we are actually building a tree of evidence,
+    which can be thought of as a concrete data structure.
 
 <div class="paragraph"> </div>
 
     If the proposition is an implication like <span class="inlinecode"><span class="id" title="var">A</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">B</span></span>, then its proof
-    will be an evidence <i>transformer</i>: a recipe for converting
-    evidence for A into evidence for B.  So at a fundamental level,
-    proofs are simply programs that manipulate evidence. 
+    is an evidence <i>transformer</i>: a recipe for converting evidence for
+    A into evidence for B.  So at a fundamental level, proofs are
+    simply programs that manipulate evidence. 
 <div class="paragraph"> </div>
 
  Question: If evidence is data, what are propositions themselves?
@@ -94,11 +90,10 @@
 </div>
 
 <div class="doc">
-Suppose we introduce an alternative pronunciation of "<span class="inlinecode">:</span>".
-    Instead of "has type," we can say "is a proof of."  For example,
-    the second line in the definition of <span class="inlinecode"><span class="id" title="var">ev</span></span> declares that <span class="inlinecode"><span class="id" title="var">ev_0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">ev</span></span>
-    <span class="inlinecode">0</span>.  Instead of "<span class="inlinecode"><span class="id" title="var">ev_0</span></span> has type <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">0</span>," we can say that "<span class="inlinecode"><span class="id" title="var">ev_0</span></span>
-    is a proof of <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">0</span>." 
+We can pronounce the ":" here as either "has type" or "is a proof
+    of."  For example, the second line in the definition of <span class="inlinecode"><span class="id" title="var">ev</span></span>
+    declares that <span class="inlinecode"><span class="id" title="var">ev_0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">0</span>.  Instead of "<span class="inlinecode"><span class="id" title="var">ev_0</span></span> has type <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">0</span>,"
+    we can say that "<span class="inlinecode"><span class="id" title="var">ev_0</span></span> is a proof of <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">0</span>." 
 <div class="paragraph"> </div>
 
  This pun between types and propositions -- between <span class="inlinecode">:</span> as "has type"
@@ -109,8 +104,7 @@ Suppose we introduce an alternative pronunciation of "<span class="inlinecode">:
                  propositions  ~  types
                  proofs        ~  programs
 </pre>
-    See <a href="Bib.html#Wadler-2015"><span class="inlineref">[Wadler 2015]</span></a> for a brief history and up-to-date
-    exposition. 
+    See <a href="Bib.html#Wadler-2015"><span class="inlineref">[Wadler 2015]</span></a> for a brief history and modern exposition. 
 <div class="paragraph"> </div>
 
  Many useful insights follow from this connection.  To begin with,
@@ -121,8 +115,8 @@ Suppose we introduce an alternative pronunciation of "<span class="inlinecode">:
 
 <span class="id" title="keyword">Check</span> <a class="idref" href="ProofObjects.html#ev_SS"><span class="id" title="constructor">ev_SS</span></a><br/>
 &nbsp;&nbsp;: <span class="id" title="keyword">∀</span> <a id="n:5" class="idref" href="#n:5"><span class="id" title="binder">n</span></a>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="ProofObjects.html#ev"><span class="id" title="inductive">ev</span></a> <a class="idref" href="ProofObjects.html#n:5"><span class="id" title="variable">n</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="ProofObjects.html#ev"><span class="id" title="inductive">ev</span></a> (<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a> (<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="ProofObjects.html#n:5"><span class="id" title="variable">n</span></a>)).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="ProofObjects.html#ev"><span class="id" title="inductive">ev</span></a> <a class="idref" href="ProofObjects.html#n:5"><span class="id" title="variable">n</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="ProofObjects.html#ev"><span class="id" title="inductive">ev</span></a> (<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a> (<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a> <a class="idref" href="ProofObjects.html#n:5"><span class="id" title="variable">n</span></a>)).<br/>
 </div>
 
 <div class="doc">
@@ -131,7 +125,7 @@ This can be read "<span class="inlinecode"><span class="id" title="var">ev_SS</s
     <span class="inlinecode"><span class="id" title="var">n</span></span> -- and yields evidence for the proposition <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span>))</span>." 
 <div class="paragraph"> </div>
 
- Now let's look again at a previous proof involving <span class="inlinecode"><span class="id" title="var">ev</span></span>. 
+ Now let's look again at an earlier proof involving <span class="inlinecode"><span class="id" title="var">ev</span></span>. 
 </div>
 <div class="code">
 
@@ -141,9 +135,9 @@ This can be read "<span class="inlinecode"><span class="id" title="var">ev_SS</s
 </div>
 
 <div class="doc">
-As with ordinary data values and functions, we can use the <span class="inlinecode"><span class="id" title="keyword">Print</span></span>
-    command to see the <i>proof object</i> that results from this proof
-    script. 
+Just as with ordinary data values and functions, we can use the
+    <span class="inlinecode"><span class="id" title="keyword">Print</span></span> command to see the <i>proof object</i> that results from this
+    proof script. 
 </div>
 <div class="code">
 
@@ -154,7 +148,7 @@ As with ordinary data values and functions, we can use the <span class="inlineco
 
 <div class="doc">
 Indeed, we can also write down this proof object directly,
-    without the need for a separate proof script: 
+    with no need for a proof script at all: 
 </div>
 <div class="code">
 
@@ -163,13 +157,13 @@ Indeed, we can also write down this proof object directly,
 </div>
 
 <div class="doc">
-The expression <span class="inlinecode"><span class="id" title="var">ev_SS</span></span> <span class="inlinecode">2</span> <span class="inlinecode">(<span class="id" title="var">ev_SS</span></span> <span class="inlinecode">0</span> <span class="inlinecode"><span class="id" title="var">ev_0</span>)</span> can be thought of as
-    instantiating the parameterized constructor <span class="inlinecode"><span class="id" title="var">ev_SS</span></span> with the
-    specific arguments <span class="inlinecode">2</span> and <span class="inlinecode">0</span> plus the corresponding proof
-    objects for its premises <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">2</span> and <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">0</span>.  Alternatively, we can
-    think of <span class="inlinecode"><span class="id" title="var">ev_SS</span></span> as a primitive "evidence constructor" that, when
-    applied to a particular number, wants to be further applied to
-    evidence that this number is even; its type,
+The expression <span class="inlinecode"><span class="id" title="var">ev_SS</span></span> <span class="inlinecode">2</span> <span class="inlinecode">(<span class="id" title="var">ev_SS</span></span> <span class="inlinecode">0</span> <span class="inlinecode"><span class="id" title="var">ev_0</span>)</span> instantiates the
+    parameterized constructor <span class="inlinecode"><span class="id" title="var">ev_SS</span></span> with the specific arguments <span class="inlinecode">2</span>
+    and <span class="inlinecode">0</span> plus the corresponding proof objects for its premises <span class="inlinecode"><span class="id" title="var">ev</span></span>
+    <span class="inlinecode">2</span> and <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">0</span>.  Alternatively, we can think of <span class="inlinecode"><span class="id" title="var">ev_SS</span></span> as a
+    primitive "evidence constructor" that, when applied to a
+    particular number, wants to be further applied to evidence that
+    this number is even; its type,
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <span class="id" title="var">n</span>, <span class="id" title="var">ev</span> <span class="id" title="var">n</span> → <span class="id" title="var">ev</span> (<span class="id" title="var">S</span> (<span class="id" title="var">S</span> <span class="id" title="var">n</span>)),
 </span>    expresses this functionality, in the same way that the polymorphic
@@ -192,12 +186,12 @@ The expression <span class="inlinecode"><span class="id" title="var">ev_SS</span
 </div>
 
 <div class="doc">
-<a id="lab307"></a><h1 class="section">Proof Scripts</h1>
+<a id="lab311"></a><h1 class="section">Proof Scripts</h1>
 
 <div class="paragraph"> </div>
 
  The <i>proof objects</i> we've been discussing lie at the core of how
-    Coq operates.  When Coq is following a proof script, what is
+    Rocq operates.  When Rocq is following a proof script, what is
     happening internally is that it is gradually constructing a proof
     object -- a term whose type is the proposition being proved.  The
     tactics between <span class="inlinecode"><span class="id" title="keyword">Proof</span></span> and <span class="inlinecode"><span class="id" title="keyword">Qed</span></span> tell it how to build up a term
@@ -220,7 +214,7 @@ The expression <span class="inlinecode"><span class="id" title="var">ev_SS</span
 </div>
 
 <div class="doc">
-At any given moment, Coq has constructed a term with a
+At any given moment, Rocq has constructed a term with a
     "hole" (indicated by <span class="inlinecode">?<span class="id" title="keyword">Goal</span></span> here, and so on), and it knows what
     type of evidence is needed to fill this hole.
 
@@ -232,7 +226,7 @@ At any given moment, Coq has constructed a term with a
     given in the <span class="inlinecode"><span class="id" title="keyword">Theorem</span></span> command. 
 <div class="paragraph"> </div>
 
- Tactic proofs are convenient, but they are not essential in Coq:
+ Tactic proofs are convenient, but they are not essential in Rocq:
     in principle, we can always just construct the required evidence
     by hand. Then we can use <span class="inlinecode"><span class="id" title="keyword">Definition</span></span> (rather than <span class="inlinecode"><span class="id" title="keyword">Theorem</span></span>) to
     introduce a global name for this evidence. 
@@ -260,7 +254,7 @@ All these different ways of building the proof lead to exactly the
 </div>
 
 <div class="doc">
-<a id="lab308"></a><h4 class="section">Exercise: 2 stars, standard (eight_is_even)</h4>
+<a id="lab312"></a><h4 class="section">Exercise: 2 stars, standard (eight_is_even)</h4>
  Give a tactic proof and a proof object showing that <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">8</span>. 
 </div>
 <div class="code">
@@ -275,18 +269,18 @@ All these different ways of building the proof lead to exactly the
 
 
 <div class="doc">
-<a id="lab309"></a><h1 class="section">Quantifiers, Implications, Functions</h1>
+<a id="lab313"></a><h1 class="section">Quantifiers, Implications, Functions</h1>
 
 <div class="paragraph"> </div>
 
- In Coq's computational universe (where data structures and
+ In Rocq's computational universe (where data structures and
     programs live), there are two sorts of values that have arrows in
     their types: <i>constructors</i> introduced by <span class="inlinecode"><span class="id" title="keyword">Inductive</span></span>ly defined
     data types, and <i>functions</i>.
 
 <div class="paragraph"> </div>
 
-    Similarly, in Coq's logical universe (where we carry out proofs),
+    Similarly, in Rocq's logical universe (where we carry out proofs),
     there are two ways of giving evidence for an implication:
     constructors introduced by <span class="inlinecode"><span class="id" title="keyword">Inductive</span></span>ly defined propositions,
     and... functions! 
@@ -326,7 +320,7 @@ What is the proof object corresponding to <span class="inlinecode"><span class="
 
 <div class="doc">
 Recall that <span class="inlinecode"><span class="id" title="keyword">fun</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">⇒</span> <span class="inlinecode"><span class="id" title="var">blah</span></span> means "the function that, given <span class="inlinecode"><span class="id" title="var">n</span></span>,
-    yields <span class="inlinecode"><span class="id" title="var">blah</span></span>," and that Coq treats <span class="inlinecode">4</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">n</span></span> and <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span>)))</span>
+    yields <span class="inlinecode"><span class="id" title="var">blah</span></span>," and that Rocq treats <span class="inlinecode">4</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">n</span></span> and <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span>)))</span>
     as synonyms. Another equivalent way to write this definition is: 
 </div>
 <div class="code">
@@ -400,14 +394,14 @@ In general, "<span class="inlinecode"><span class="id" title="var">P</span></spa
 </div>
 
 <div class="doc">
-<a id="lab310"></a><h1 class="section">Programming with Tactics</h1>
+<a id="lab314"></a><h1 class="section">Programming with Tactics</h1>
 
 <div class="paragraph"> </div>
 
  If we can build proofs by giving explicit terms rather than
-    executing tactic scripts, you may be wondering whether we can
-    build <i>programs</i> using tactics rather than by writing down
-    explicit terms.
+    executing tactic scripts, you may wonder whether we can build
+    <i>programs</i> using tactics rather than by writing down explicit
+    terms.
 
 <div class="paragraph"> </div>
 
@@ -415,24 +409,26 @@ In general, "<span class="inlinecode"><span class="id" title="var">P</span></spa
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Definition</span> <a id="add1" class="idref" href="#add1"><span class="id" title="definition">add1</span></a> : <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>.<br/>
-<span class="id" title="tactic">intro</span> <span class="id" title="var">n</span>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="add2" class="idref" href="#add2"><span class="id" title="definition">add2</span></a> : <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>.<br/>
+<span class="id" title="tactic">intros</span> <span class="id" title="var">n</span>.<br/>
+<span class="id" title="keyword">Show</span> <span class="id" title="keyword">Proof</span>.<br/>
+<span class="id" title="tactic">apply</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a>.<br/>
 <span class="id" title="keyword">Show</span> <span class="id" title="keyword">Proof</span>.<br/>
 <span class="id" title="tactic">apply</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#S"><span class="id" title="constructor">S</span></a>.<br/>
 <span class="id" title="keyword">Show</span> <span class="id" title="keyword">Proof</span>.<br/>
 <span class="id" title="tactic">apply</span> <span class="id" title="var">n</span>. <span class="id" title="keyword">Defined</span>.<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Print</span> <span class="id" title="var">add1</span>.<br/>
+<span class="id" title="keyword">Print</span> <span class="id" title="var">add2</span>.<br/>
 <span class="comment">(*&nbsp;==&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;add1&nbsp;=&nbsp;fun&nbsp;n&nbsp;:&nbsp;nat&nbsp;=&gt;&nbsp;S&nbsp;n<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;nat&nbsp;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>&nbsp;nat<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;add2&nbsp;=&nbsp;fun&nbsp;n&nbsp;:&nbsp;nat&nbsp;=&gt;&nbsp;S&nbsp;(S&nbsp;n)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;nat&nbsp;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>&nbsp;nat<br/>
 *)</span><br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Compute</span> <a class="idref" href="ProofObjects.html#add1"><span class="id" title="definition">add1</span></a> 2.<br/>
-<span class="comment">(*&nbsp;==&gt;&nbsp;3&nbsp;:&nbsp;nat&nbsp;*)</span><br/>
+<span class="id" title="keyword">Compute</span> <a class="idref" href="ProofObjects.html#add2"><span class="id" title="definition">add2</span></a> 2.<br/>
+<span class="comment">(*&nbsp;==&gt;&nbsp;4&nbsp;:&nbsp;nat&nbsp;*)</span><br/>
 </div>
 
 <div class="doc">
 Notice that we terminated the <span class="inlinecode"><span class="id" title="keyword">Definition</span></span> with a <span class="inlinecode">.</span> rather than
-    with <span class="inlinecode">:=</span> followed by a term.  This tells Coq to enter <i>proof
+    with <span class="inlinecode">:=</span> followed by a term.  This tells Rocq to enter <i>proof
     scripting mode</i> to build an object of type <span class="inlinecode"><span class="id" title="var">nat</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">nat</span></span>.  Also, we
     terminate the proof with <span class="inlinecode"><span class="id" title="keyword">Defined</span></span> rather than <span class="inlinecode"><span class="id" title="keyword">Qed</span></span>; this makes
     the definition <i>transparent</i> so that it can be used in computation
@@ -444,18 +440,18 @@ Notice that we terminated the <span class="inlinecode"><span class="id" title="k
     This feature is mainly useful for writing functions with dependent
     types, which we won't explore much further in this book.  But it
     does illustrate the uniformity and orthogonality of the basic
-    ideas in Coq. 
+    ideas in Rocq. 
 </div>
 
 <div class="doc">
-<a id="lab311"></a><h1 class="section">Logical Connectives as Inductive Types</h1>
+<a id="lab315"></a><h1 class="section">Logical Connectives as Inductive Types</h1>
 
 <div class="paragraph"> </div>
 
  Inductive definitions are powerful enough to express most of the
     logical connectives we have seen so far.  Indeed, only universal
     quantification (with implication as a special case) is built into
-    Coq; all the others are defined inductively.
+    Rocq; all the others are defined inductively.
 
 <div class="paragraph"> </div>
 
@@ -467,7 +463,7 @@ Notice that we terminated the <span class="inlinecode"><span class="id" title="k
 </div>
 
 <div class="doc">
-<a id="lab312"></a><h2 class="section">Conjunction</h2>
+<a id="lab316"></a><h2 class="section">Conjunction</h2>
 
 <div class="paragraph"> </div>
 
@@ -554,7 +550,7 @@ This shows why the inductive definition of <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a id="lab313"></a><h4 class="section">Exercise: 2 stars, standard (conj_fact)</h4>
+<a id="lab317"></a><h4 class="section">Exercise: 2 stars, standard (conj_fact)</h4>
  Construct a proof object for the following proposition. 
 </div>
 <div class="code">
@@ -567,12 +563,12 @@ This shows why the inductive definition of <span class="inlinecode"><span class=
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab314"></a><h2 class="section">Disjunction</h2>
+<a id="lab318"></a><h2 class="section">Disjunction</h2>
 
 <div class="paragraph"> </div>
 
  The inductive definition of disjunction uses two constructors, one
-    for each side of the disjunct: 
+    for each side of the disjunction: 
 </div>
 <div class="code">
 
@@ -620,7 +616,7 @@ This declaration explains the behavior of the <span class="inlinecode"><span cla
 </div>
 
 <div class="doc">
-<a id="lab315"></a><h4 class="section">Exercise: 2 stars, standard (or_commut')</h4>
+<a id="lab319"></a><h4 class="section">Exercise: 2 stars, standard (or_commut')</h4>
  Construct a proof object for the following proposition. 
 </div>
 <div class="code">
@@ -633,7 +629,7 @@ This declaration explains the behavior of the <span class="inlinecode"><span cla
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab316"></a><h2 class="section">Existential Quantification</h2>
+<a id="lab320"></a><h2 class="section">Existential Quantification</h2>
 
 <div class="paragraph"> </div>
 
@@ -684,7 +680,7 @@ Here's how to define an explicit proof object involving <span class="inlinecode"
 </div>
 
 <div class="doc">
-<a id="lab317"></a><h4 class="section">Exercise: 2 stars, standard (ex_ev_Sn)</h4>
+<a id="lab321"></a><h4 class="section">Exercise: 2 stars, standard (ex_ev_Sn)</h4>
  Construct a proof object for the following proposition. 
 </div>
 <div class="code">
@@ -712,7 +708,7 @@ Here's how to define an explicit proof object involving <span class="inlinecode"
 </div>
 
 <div class="doc">
-<a id="lab318"></a><h4 class="section">Exercise: 2 stars, standard (ex_match)</h4>
+<a id="lab322"></a><h4 class="section">Exercise: 2 stars, standard (ex_match)</h4>
  Construct a proof object for the following proposition: 
 </div>
 <div class="code">
@@ -726,7 +722,7 @@ Here's how to define an explicit proof object involving <span class="inlinecode"
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab319"></a><h2 class="section"><span class="inlinecode"><span class="id" title="var">True</span></span> and <span class="inlinecode"><span class="id" title="var">False</span></span></h2>
+<a id="lab323"></a><h2 class="section"><span class="inlinecode"><span class="id" title="var">True</span></span> and <span class="inlinecode"><span class="id" title="var">False</span></span></h2>
 
 <div class="paragraph"> </div>
 
@@ -743,7 +739,7 @@ It has one constructor (so every proof of <span class="inlinecode"><span class="
     being given a proof of <span class="inlinecode"><span class="id" title="var">True</span></span> is not informative.) 
 <div class="paragraph"> </div>
 
-<a id="lab320"></a><h4 class="section">Exercise: 1 star, standard (p_implies_true)</h4>
+<a id="lab324"></a><h4 class="section">Exercise: 1 star, standard (p_implies_true)</h4>
  Construct a proof object for the following proposition. 
 </div>
 <div class="code">
@@ -797,7 +793,7 @@ Since there are no branches to evaluate, the <span class="inlinecode"><span clas
     to pass to the function. 
 <div class="paragraph"> </div>
 
-<a id="lab321"></a><h4 class="section">Exercise: 1 star, standard (ex_falso_quodlibet')</h4>
+<a id="lab325"></a><h4 class="section">Exercise: 1 star, standard (ex_falso_quodlibet')</h4>
  Construct a proof object for the following proposition. 
 </div>
 <div class="code">
@@ -813,11 +809,11 @@ Since there are no branches to evaluate, the <span class="inlinecode"><span clas
 </div>
 
 <div class="doc">
-<a id="lab322"></a><h1 class="section">Equality</h1>
+<a id="lab326"></a><h1 class="section">Equality</h1>
 
 <div class="paragraph"> </div>
 
- Even Coq's equality relation is not built in.  We can define
+ Even Rocq's equality relation is not built in.  We can define
     it ourselves: 
 </div>
 <div class="code">
@@ -851,7 +847,7 @@ The way to think about this definition (which is just a slight
 
 <div class="paragraph"> </div>
 
-    The reason is that Coq treats as "the same" any two terms that are
+    The reason is that Rocq treats as "the same" any two terms that are
     <i>convertible</i> according to a simple set of computation rules.
 
 <div class="paragraph"> </div>
@@ -912,8 +908,8 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 
  A tactic-based proof runs into some difficulties if we try to use
     our usual repertoire of tactics, such as <span class="inlinecode"><span class="id" title="tactic">rewrite</span></span> and
-    <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span>. Those work with *setoid* relations that Coq knows
-    about, such as <span class="inlinecode">=</span>, but not our <span class="inlinecode">==</span>. We could prove to Coq that
+    <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span>. Those work with *setoid* relations that Rocq knows
+    about, such as <span class="inlinecode">=</span>, but not our <span class="inlinecode">==</span>. We could prove to Rocq that
     <span class="inlinecode">==</span> is a setoid, but a simpler way is to use <span class="inlinecode"><span class="id" title="tactic">destruct</span></span> and
     <span class="inlinecode"><span class="id" title="tactic">apply</span></span> instead. 
 </div>
@@ -930,7 +926,7 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 </div>
 
 <div class="doc">
-<a id="lab323"></a><h4 class="section">Exercise: 2 stars, standard (eq_cons)</h4>
+<a id="lab327"></a><h4 class="section">Exercise: 2 stars, standard (eq_cons)</h4>
  Construct the proof object for the following theorem. Use pattern
     matching on the equality hypotheses. 
 </div>
@@ -945,7 +941,7 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab324"></a><h4 class="section">Exercise: 2 stars, standard (equality__leibniz_equality)</h4>
+<a id="lab328"></a><h4 class="section">Exercise: 2 stars, standard (equality__leibniz_equality)</h4>
  The inductive definition of equality implies <i>Leibniz equality</i>:
     what we mean when we say "<span class="inlinecode"><span class="id" title="var">x</span></span> and <span class="inlinecode"><span class="id" title="var">y</span></span> are equal" is that every
     property on <span class="inlinecode"><span class="id" title="var">P</span></span> that is true of <span class="inlinecode"><span class="id" title="var">x</span></span> is also true of <span class="inlinecode"><span class="id" title="var">y</span></span>. Prove
@@ -963,7 +959,7 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab325"></a><h4 class="section">Exercise: 2 stars, standard (equality__leibniz_equality_term)</h4>
+<a id="lab329"></a><h4 class="section">Exercise: 2 stars, standard (equality__leibniz_equality_term)</h4>
  Construct the proof object for the previous exercise.  All it
     requires is anonymous functions and pattern-matching; the large
     proof term constructed by tactics in the previous exercise is
@@ -979,7 +975,7 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab326"></a><h4 class="section">Exercise: 3 stars, standard, optional (leibniz_equality__equality)</h4>
+<a id="lab330"></a><h4 class="section">Exercise: 3 stars, standard, optional (leibniz_equality__equality)</h4>
  Show that, in fact, the inductive definition of equality is
     <i>equivalent</i> to Leibniz equality.  Hint: the proof is quite short;
     about all you need to do is to invent a clever property <span class="inlinecode"><span class="id" title="var">P</span></span> to
@@ -1000,7 +996,7 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 </div>
 
 <div class="doc">
-<a id="lab327"></a><h2 class="section">Inversion, Again</h2>
+<a id="lab331"></a><h2 class="section">Inversion, Again</h2>
 
 <div class="paragraph"> </div>
 
@@ -1092,7 +1088,7 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 </div>
 
 <div class="doc">
-<a id="lab328"></a><h1 class="section">Coq's Trusted Computing Base</h1>
+<a id="lab332"></a><h1 class="section">Rocq's Trusted Computing Base</h1>
 
 <div class="paragraph"> </div>
 
@@ -1103,12 +1099,12 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 <div class="paragraph"> </div>
 
     While it is impossible to allay such concerns completely, the fact
-    that Coq is based on the Curry-Howard correspondence gives it a
+    that Rocq is based on the Curry-Howard correspondence gives it a
     strong foundation. Because propositions are just types and proofs
     are just terms, checking that an alleged proof of a proposition is
     valid just amounts to <i>type-checking</i> the term.  Type checkers are
     relatively small and straightforward programs, so the "trusted
-    computing base" for Coq -- the part of the code that we have to
+    computing base" for Rocq -- the part of the code that we have to
     believe is operating correctly -- is small too.
 
 <div class="paragraph"> </div>
@@ -1124,7 +1120,7 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 
 <div class="paragraph"> </div>
 
-    First, since Coq types can themselves be expressions, the checker
+    First, since Rocq types can themselves be expressions, the checker
     must normalize these (by using the computation rules) before
     comparing them.
 
@@ -1146,7 +1142,7 @@ By pattern-matching against <span class="inlinecode"><span class="id" title="var
 
 <div class="doc">
 All the types here match correctly, but the <span class="inlinecode"><span class="id" title="keyword">match</span></span> only
-    considers one of the possible constructors for <span class="inlinecode"><span class="id" title="var">or</span></span>.  Coq's
+    considers one of the possible constructors for <span class="inlinecode"><span class="id" title="var">or</span></span>.  Rocq's
     exhaustiveness check will reject this definition.
 
 <div class="paragraph"> </div>
@@ -1167,23 +1163,23 @@ All the types here match correctly, but the <span class="inlinecode"><span class
 <div class="doc">
 Recursive function <span class="inlinecode"><span class="id" title="var">infinite_loop</span></span> purports to return a
     value of any type <span class="inlinecode"><span class="id" title="var">X</span></span> that you would like.  (The <span class="inlinecode"><span class="id" title="keyword">struct</span></span>
-    annotation on the function tells Coq that it recurses on argument
-    <span class="inlinecode"><span class="id" title="var">n</span></span>, not <span class="inlinecode"><span class="id" title="var">X</span></span>.)  Were Coq to allow <span class="inlinecode"><span class="id" title="var">infinite_loop</span></span>, then <span class="inlinecode"><span class="id" title="var">falso</span></span>
-    would be definable, thus giving evidence for <span class="inlinecode"><span class="id" title="var">False</span></span>.  So Coq rejects
+    annotation on the function tells Rocq that it recurses on argument
+    <span class="inlinecode"><span class="id" title="var">n</span></span>, not <span class="inlinecode"><span class="id" title="var">X</span></span>.)  Were Rocq to allow <span class="inlinecode"><span class="id" title="var">infinite_loop</span></span>, then <span class="inlinecode"><span class="id" title="var">falso</span></span>
+    would be definable, thus giving evidence for <span class="inlinecode"><span class="id" title="var">False</span></span>.  So Rocq rejects
     <span class="inlinecode"><span class="id" title="var">infinite_loop</span></span>. 
 <div class="paragraph"> </div>
 
- Note that the soundness of Coq depends only on the
+ Note that the soundness of Rocq depends only on the
     correctness of this typechecking engine, not on the tactic
-    machinery.  If there is a bug in a tactic implementation (and this
-    certainly does happen!), that tactic might construct an invalid
-    proof term.  But when you type <span class="inlinecode"><span class="id" title="keyword">Qed</span></span>, Coq checks the term for
+    machinery.  If there is a bug in a tactic implementation (which
+    does happen occasionally), that tactic might construct an invalid
+    proof term.  But when you type <span class="inlinecode"><span class="id" title="keyword">Qed</span></span>, Rocq checks the term for
     validity from scratch.  Only theorems whose proofs pass the
     type-checker can be used in further proof developments.  
 </div>
 
 <div class="doc">
-<a id="lab329"></a><h1 class="section">More Exercises</h1>
+<a id="lab333"></a><h1 class="section">More Exercises</h1>
 
 <div class="paragraph"> </div>
 
@@ -1192,7 +1188,7 @@ Recursive function <span class="inlinecode"><span class="id" title="var">infinit
     directly. 
 <div class="paragraph"> </div>
 
-<a id="lab330"></a><h4 class="section">Exercise: 2 stars, standard (and_assoc)</h4>
+<a id="lab334"></a><h4 class="section">Exercise: 2 stars, standard (and_assoc)</h4>
 
 </div>
 <div class="code">
@@ -1205,7 +1201,7 @@ Recursive function <span class="inlinecode"><span class="id" title="var">infinit
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab331"></a><h4 class="section">Exercise: 3 stars, standard (or_distributes_over_and)</h4>
+<a id="lab335"></a><h4 class="section">Exercise: 3 stars, standard (or_distributes_over_and)</h4>
 
 </div>
 <div class="code">
@@ -1218,7 +1214,7 @@ Recursive function <span class="inlinecode"><span class="id" title="var">infinit
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab332"></a><h4 class="section">Exercise: 3 stars, standard (negations)</h4>
+<a id="lab336"></a><h4 class="section">Exercise: 3 stars, standard (negations)</h4>
 
 </div>
 <div class="code">
@@ -1237,7 +1233,7 @@ Recursive function <span class="inlinecode"><span class="id" title="var">infinit
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab333"></a><h4 class="section">Exercise: 2 stars, standard (currying)</h4>
+<a id="lab337"></a><h4 class="section">Exercise: 2 stars, standard (currying)</h4>
 
 </div>
 <div class="code">
@@ -1252,12 +1248,12 @@ Recursive function <span class="inlinecode"><span class="id" title="var">infinit
 
 
 <div class="doc">
-<a id="lab334"></a><h1 class="section">Proof Irrelevance (Advanced)</h1>
+<a id="lab338"></a><h1 class="section">Proof Irrelevance (Advanced)</h1>
 
 <div class="paragraph"> </div>
 
  In <a href="Logic.html"><span class="inlineref">Logic</span></a> we saw that functional extensionality could be
-    added to Coq. A similar notion about propositions can also
+    added to Rocq. A similar notion about propositions can also
     be defined (and added as an axiom, if desired): 
 </div>
 <div class="code">
@@ -1275,7 +1271,7 @@ Propositional extensionality asserts that if two propositions are
     syntactic differences between functions. 
 <div class="paragraph"> </div>
 
-<a id="lab335"></a><h4 class="section">Exercise: 1 star, advanced (pe_implies_or_eq)</h4>
+<a id="lab339"></a><h4 class="section">Exercise: 1 star, advanced (pe_implies_or_eq)</h4>
  Prove the following consequence of propositional extensionality. 
 </div>
 <div class="code">
@@ -1291,7 +1287,7 @@ Propositional extensionality asserts that if two propositions are
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab336"></a><h4 class="section">Exercise: 1 star, advanced (pe_implies_true_eq)</h4>
+<a id="lab340"></a><h4 class="section">Exercise: 1 star, advanced (pe_implies_true_eq)</h4>
  Prove that if a proposition <span class="inlinecode"><span class="id" title="var">P</span></span> is provable, then it is equal to
     <span class="inlinecode"><span class="id" title="var">True</span></span> -- as a consequence of propositional extensionality. 
 </div>
@@ -1307,8 +1303,8 @@ Propositional extensionality asserts that if two propositions are
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab337"></a><h4 class="section">Exercise: 3 stars, advanced (pe_implies_pi)</h4>
- Acknowledgment: this theorem and its proof technique are inspired
+<a id="lab341"></a><h4 class="section">Exercise: 3 stars, advanced (pe_implies_pi)</h4>
+ (Acknowledgment: this theorem and its proof technique are inspired
     by Gert Smolka's manuscript Modeling and Proving in Computational
     Type Theory Using the Coq Proof Assistant, 2021. 
 <div class="paragraph"> </div>
@@ -1339,7 +1335,7 @@ Prove that fact. Use <span class="inlinecode"><span class="id" title="var">pe_im
 
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-24&nbsp;14:26&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:35&nbsp;*)</span><br/>
 </div>
 </div>
 

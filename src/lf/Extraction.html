@@ -36,12 +36,12 @@
 
 <div class="paragraph"> </div>
 
-<a id="lab451"></a><h1 class="section">Basic Extraction</h1>
+<a id="lab455"></a><h1 class="section">Basic Extraction</h1>
 
 <div class="paragraph"> </div>
 
  In its simplest form, extracting an efficient program from one
-    written in Coq is completely straightforward.
+    written in Rocq is completely straightforward.
 
 <div class="paragraph"> </div>
 
@@ -57,7 +57,7 @@
 </div>
 
 <div class="doc">
-Now we load up the Coq environment with some definitions, either
+Now we load up the Rocq environment with some definitions, either
     directly or by importing them from other modules. 
 </div>
 <div class="code">
@@ -70,7 +70,7 @@ Now we load up the Coq environment with some definitions, either
 </div>
 
 <div class="doc">
-Finally, we tell Coq the name of a definition to extract and the
+Finally, we tell Rocq the name of a definition to extract and the
     name of a file to put the extracted code into. 
 </div>
 <div class="code">
@@ -79,21 +79,21 @@ Finally, we tell Coq the name of a definition to extract and the
 </div>
 
 <div class="doc">
-When Coq processes this command, it generates a file <span class="inlinecode"><span class="id" title="var">imp1.ml</span></span>
+When Rocq processes this command, it generates a file <span class="inlinecode"><span class="id" title="var">imp1.ml</span></span>
     containing an extracted version of <span class="inlinecode"><span class="id" title="var">ceval_step</span></span>, together with
     everything that it recursively depends on.  Compile the present
     <span class="inlinecode">.<span class="id" title="var">v</span></span> file and have a look at <span class="inlinecode"><span class="id" title="var">imp1.ml</span></span> now. 
 </div>
 
 <div class="doc">
-<a id="lab452"></a><h1 class="section">Controlling Extraction of Specific Types</h1>
+<a id="lab456"></a><h1 class="section">Controlling Extraction of Specific Types</h1>
 
 <div class="paragraph"> </div>
 
- We can tell Coq to extract certain <span class="inlinecode"><span class="id" title="keyword">Inductive</span></span> definitions to
+ We can tell Rocq to extract certain <span class="inlinecode"><span class="id" title="keyword">Inductive</span></span> definitions to
     specific OCaml types.  For each one, we must say
 <ul class="doclist">
-<li> how the Coq type itself should be represented in OCaml, and
+<li> how the Rocq type itself should be represented in OCaml, and
 
 </li>
 <li> how each constructor should be translated. 
@@ -150,7 +150,7 @@ Have a look at the file <span class="inlinecode"><span class="id" title="var">im
 </div>
 
 <div class="doc">
-<a id="lab453"></a><h1 class="section">A Complete Example</h1>
+<a id="lab457"></a><h1 class="section">A Complete Example</h1>
 
 <div class="paragraph"> </div>
 
@@ -166,8 +166,8 @@ Have a look at the file <span class="inlinecode"><span class="id" title="var">im
 <div class="paragraph"> </div>
 
     Also, to make it easier to type in examples, let's extract a
-    parser from the <span class="inlinecode"><span class="id" title="var">ImpParser</span></span> Coq module.  To do this, we first need
-    to set up the right correspondence between Coq strings and lists
+    parser from the <span class="inlinecode"><span class="id" title="var">ImpParser</span></span> Rocq module.  To do this, we first need
+    to set up the right correspondence between Rocq strings and lists
     of OCaml characters. 
 </div>
 <div class="code">
@@ -212,7 +212,7 @@ Now let's run our generated Imp evaluator.  First, have a look at
 </div>
 
 <div class="doc">
-<a id="lab454"></a><h1 class="section">Discussion</h1>
+<a id="lab458"></a><h1 class="section">Discussion</h1>
 
 <div class="paragraph"> </div>
 
@@ -224,7 +224,7 @@ Now let's run our generated Imp evaluator.  First, have a look at
 </div>
 
 <div class="doc">
-<a id="lab455"></a><h1 class="section">Going Further</h1>
+<a id="lab459"></a><h1 class="section">Going Further</h1>
 
 <div class="paragraph"> </div>
 
@@ -234,7 +234,7 @@ Now let's run our generated Imp evaluator.  First, have a look at
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-24&nbsp;14:26&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:35&nbsp;*)</span><br/>
 </div>
 </div>
 

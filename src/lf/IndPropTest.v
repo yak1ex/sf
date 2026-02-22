@@ -358,29 +358,118 @@ Print Assumptions re_not_empty_correct.
 Goal True.
 idtac " ".
 
-idtac "-------------------  weak_pumping  --------------------".
+idtac "-------------------  weak_pumping_char  --------------------".
 idtac " ".
 
-idtac "#> Pumping.weak_pumping".
-idtac "Advanced".
-idtac "Possible points: 10".
-check_type @Pumping.weak_pumping (
-(forall (T : Type) (re : reg_exp T) (s : list T) (_ : @exp_match T s re)
-   (_ : le (@Pumping.pumping_constant T re) (@length T s)),
+idtac "#> Pumping.weak_pumping_char".
+idtac "Possible points: 2".
+check_type @Pumping.weak_pumping_char (
+(forall (T : Type) (x : T)
+   (_ : le (@Pumping.pumping_constant T (@Char T x))
+          (@length T (@cons T x (@nil T)))),
  @ex (list T)
    (fun s1 : list T =>
     @ex (list T)
       (fun s2 : list T =>
        @ex (list T)
          (fun s3 : list T =>
-          and (@eq (list T) s (@app T s1 (@app T s2 s3)))
+          and (@eq (list T) (@cons T x (@nil T)) (@app T s1 (@app T s2 s3)))
             (and (not (@eq (list T) s2 (@nil T)))
                (forall m : nat,
                 @exp_match T (@app T s1 (@app T (@Pumping.napp T m s2) s3))
-                  re))))))).
+                  (@Char T x)))))))).
 idtac "Assumptions:".
 Abort.
-Print Assumptions Pumping.weak_pumping.
+Print Assumptions Pumping.weak_pumping_char.
+Goal True.
+idtac " ".
+
+idtac "-------------------  weak_pumping_app  --------------------".
+idtac " ".
+
+idtac "#> Pumping.weak_pumping_app".
+idtac "Possible points: 3".
+check_type @Pumping.weak_pumping_app (
+(forall (T : Type) (s1 s2 : list T) (re1 re2 : reg_exp T)
+   (_ : @exp_match T s1 re1) (_ : @exp_match T s2 re2)
+   (_ : forall _ : le (@Pumping.pumping_constant T re1) (@length T s1),
+        @ex (list T)
+          (fun s3 : list T =>
+           @ex (list T)
+             (fun s4 : list T =>
+              @ex (list T)
+                (fun s5 : list T =>
+                 and (@eq (list T) s1 (@app T s3 (@app T s4 s5)))
+                   (and (not (@eq (list T) s4 (@nil T)))
+                      (forall m : nat,
+                       @exp_match T
+                         (@app T s3 (@app T (@Pumping.napp T m s4) s5)) re1))))))
+   (_ : forall _ : le (@Pumping.pumping_constant T re2) (@length T s2),
+        @ex (list T)
+          (fun s3 : list T =>
+           @ex (list T)
+             (fun s4 : list T =>
+              @ex (list T)
+                (fun s5 : list T =>
+                 and (@eq (list T) s2 (@app T s3 (@app T s4 s5)))
+                   (and (not (@eq (list T) s4 (@nil T)))
+                      (forall m : nat,
+                       @exp_match T
+                         (@app T s3 (@app T (@Pumping.napp T m s4) s5)) re2))))))
+   (_ : le (@Pumping.pumping_constant T (@App T re1 re2))
+          (@length T (@app T s1 s2))),
+ @ex (list T)
+   (fun s0 : list T =>
+    @ex (list T)
+      (fun s3 : list T =>
+       @ex (list T)
+         (fun s4 : list T =>
+          and (@eq (list T) (@app T s1 s2) (@app T s0 (@app T s3 s4)))
+            (and (not (@eq (list T) s3 (@nil T)))
+               (forall m : nat,
+                @exp_match T (@app T s0 (@app T (@Pumping.napp T m s3) s4))
+                  (@App T re1 re2)))))))).
+idtac "Assumptions:".
+Abort.
+Print Assumptions Pumping.weak_pumping_app.
+Goal True.
+idtac " ".
+
+idtac "-------------------  weak_pumping_union_l  --------------------".
+idtac " ".
+
+idtac "#> Pumping.weak_pumping_union_l".
+idtac "Possible points: 3".
+check_type @Pumping.weak_pumping_union_l (
+(forall (T : Type) (s1 : list T) (re1 re2 : reg_exp T)
+   (_ : @exp_match T s1 re1)
+   (_ : forall _ : le (@Pumping.pumping_constant T re1) (@length T s1),
+        @ex (list T)
+          (fun s2 : list T =>
+           @ex (list T)
+             (fun s3 : list T =>
+              @ex (list T)
+                (fun s4 : list T =>
+                 and (@eq (list T) s1 (@app T s2 (@app T s3 s4)))
+                   (and (not (@eq (list T) s3 (@nil T)))
+                      (forall m : nat,
+                       @exp_match T
+                         (@app T s2 (@app T (@Pumping.napp T m s3) s4)) re1))))))
+   (_ : le (@Pumping.pumping_constant T (@Union T re1 re2)) (@length T s1)),
+ @ex (list T)
+   (fun s0 : list T =>
+    @ex (list T)
+      (fun s2 : list T =>
+       @ex (list T)
+         (fun s3 : list T =>
+          and (@eq (list T) s1 (@app T s0 (@app T s2 s3)))
+            (and (not (@eq (list T) s2 (@nil T)))
+               (forall m : nat,
+                @exp_match T (@app T s0 (@app T (@Pumping.napp T m s2) s3))
+                  (@Union T re1 re2)))))))).
+idtac "Assumptions:".
+Abort.
+Print Assumptions Pumping.weak_pumping_union_l.
 Goal True.
 idtac " ".
 
@@ -439,8 +528,8 @@ idtac " ".
 
 idtac " ".
 
-idtac "Max points - standard: 36".
-idtac "Max points - advanced: 61".
+idtac "Max points - standard: 44".
+idtac "Max points - advanced: 59".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
@@ -512,6 +601,12 @@ idtac "---------- re_not_empty ---------".
 Print Assumptions re_not_empty.
 idtac "---------- re_not_empty_correct ---------".
 Print Assumptions re_not_empty_correct.
+idtac "---------- Pumping.weak_pumping_char ---------".
+Print Assumptions Pumping.weak_pumping_char.
+idtac "---------- Pumping.weak_pumping_app ---------".
+Print Assumptions Pumping.weak_pumping_app.
+idtac "---------- Pumping.weak_pumping_union_l ---------".
+Print Assumptions Pumping.weak_pumping_union_l.
 idtac "---------- reflect_iff ---------".
 Print Assumptions reflect_iff.
 idtac "---------- eqbP_practice ---------".
@@ -528,12 +623,10 @@ idtac "---------- subseq_app ---------".
 Print Assumptions subseq_app.
 idtac "---------- subseq_trans ---------".
 Print Assumptions subseq_trans.
-idtac "---------- Pumping.weak_pumping ---------".
-Print Assumptions Pumping.weak_pumping.
 idtac "---------- merge_filter ---------".
 Print Assumptions merge_filter.
 Abort.
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:34 *)
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:35 *)

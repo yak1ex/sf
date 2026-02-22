@@ -77,6 +77,21 @@ Print Assumptions discriminate_ex3.
 Goal True.
 idtac " ".
 
+idtac "-------------------  nth_error_always_none  --------------------".
+idtac " ".
+
+idtac "#> nth_error_always_none".
+idtac "Possible points: 3".
+check_type @nth_error_always_none (
+(forall (l : list nat)
+   (_ : forall i : nat, @eq (option nat) (@nth_error nat l i) (@None nat)),
+ @eq (list nat) l (@nil nat))).
+idtac "Assumptions:".
+Abort.
+Print Assumptions nth_error_always_none.
+Goal True.
+idtac " ".
+
 idtac "-------------------  eqb_true  --------------------".
 idtac " ".
 
@@ -87,15 +102,6 @@ idtac "Assumptions:".
 Abort.
 Print Assumptions eqb_true.
 Goal True.
-idtac " ".
-
-idtac "-------------------  eqb_true_informal  --------------------".
-idtac " ".
-
-idtac "#> Manually graded: informal_proof".
-idtac "Advanced".
-idtac "Possible points: 2".
-print_manual_grade manual_grade_for_informal_proof.
 idtac " ".
 
 idtac "-------------------  plus_n_n_injective  --------------------".
@@ -209,8 +215,8 @@ idtac " ".
 
 idtac " ".
 
-idtac "Max points - standard: 22".
-idtac "Max points - advanced: 36".
+idtac "Max points - standard: 25".
+idtac "Max points - advanced: 37".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
@@ -240,6 +246,8 @@ idtac "---------- injection_ex3 ---------".
 Print Assumptions injection_ex3.
 idtac "---------- discriminate_ex3 ---------".
 Print Assumptions discriminate_ex3.
+idtac "---------- nth_error_always_none ---------".
+Print Assumptions nth_error_always_none.
 idtac "---------- eqb_true ---------".
 Print Assumptions eqb_true.
 idtac "---------- plus_n_n_injective ---------".
@@ -254,8 +262,6 @@ idtac "---------- eqb_sym ---------".
 Print Assumptions eqb_sym.
 idtac "".
 idtac "********** Advanced **********".
-idtac "---------- informal_proof ---------".
-idtac "MANUAL".
 idtac "---------- split_combine ---------".
 idtac "MANUAL".
 idtac "---------- filter_exercise ---------".
@@ -264,6 +270,6 @@ idtac "---------- existsb_existsb' ---------".
 Print Assumptions existsb_existsb'.
 Abort.
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:34 *)
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:35 *)

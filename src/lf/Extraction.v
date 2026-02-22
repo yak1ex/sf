@@ -4,7 +4,7 @@
 (** * Basic Extraction *)
 
 (** In its simplest form, extracting an efficient program from one
-    written in Coq is completely straightforward.
+    written in Rocq is completely straightforward.
 
     First we say what language we want to extract into.  Options are
     OCaml (the most mature), Haskell (mostly works), and Scheme (a bit
@@ -14,7 +14,7 @@ From Stdlib Require Extraction.
 Set Extraction Output Directory ".".
 Extraction Language OCaml.
 
-(** Now we load up the Coq environment with some definitions, either
+(** Now we load up the Rocq environment with some definitions, either
     directly or by importing them from other modules. *)
 
 Set Warnings "-notation-overridden,-notation-incompatible-prefix".
@@ -23,12 +23,12 @@ From Stdlib Require Import Init.Nat.
 From Stdlib Require Import EqNat.
 From LF Require Import ImpCEvalFun.
 
-(** Finally, we tell Coq the name of a definition to extract and the
+(** Finally, we tell Rocq the name of a definition to extract and the
     name of a file to put the extracted code into. *)
 
 Extraction "imp1.ml" ceval_step.
 
-(** When Coq processes this command, it generates a file [imp1.ml]
+(** When Rocq processes this command, it generates a file [imp1.ml]
     containing an extracted version of [ceval_step], together with
     everything that it recursively depends on.  Compile the present
     [.v] file and have a look at [imp1.ml] now. *)
@@ -36,9 +36,9 @@ Extraction "imp1.ml" ceval_step.
 (* ################################################################# *)
 (** * Controlling Extraction of Specific Types *)
 
-(** We can tell Coq to extract certain [Inductive] definitions to
+(** We can tell Rocq to extract certain [Inductive] definitions to
     specific OCaml types.  For each one, we must say
-      - how the Coq type itself should be represented in OCaml, and
+      - how the Rocq type itself should be represented in OCaml, and
       - how each constructor should be translated. *)
 
 Extract Inductive bool => "bool" [ "true" "false" ].
@@ -84,8 +84,8 @@ Extraction "imp2.ml" ceval_step.
     memory locations in the final state.
 
     Also, to make it easier to type in examples, let's extract a
-    parser from the [ImpParser] Coq module.  To do this, we first need
-    to set up the right correspondence between Coq strings and lists
+    parser from the [ImpParser] Rocq module.  To do this, we first need
+    to set up the right correspondence between Rocq strings and lists
     of OCaml characters. *)
 
 From Stdlib Require Import ExtrOcamlBasic.
@@ -131,4 +131,4 @@ Extraction "imp.ml" empty_st ceval_step parse.
     chapter in _Verified Functional Algorithms_ (_Software
     Foundations_ volume 3). *)
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:35 *)

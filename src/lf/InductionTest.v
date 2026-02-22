@@ -97,15 +97,6 @@ Print Assumptions eqb_refl.
 Goal True.
 idtac " ".
 
-idtac "-------------------  add_comm_informal  --------------------".
-idtac " ".
-
-idtac "#> Manually graded: add_comm_informal".
-idtac "Advanced".
-idtac "Possible points: 2".
-print_manual_grade manual_grade_for_add_comm_informal.
-idtac " ".
-
 idtac "-------------------  mul_comm  --------------------".
 idtac " ".
 
@@ -205,7 +196,7 @@ idtac " ".
 idtac " ".
 
 idtac "Max points - standard: 15".
-idtac "Max points - advanced: 25".
+idtac "Max points - advanced: 23".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
@@ -251,8 +242,6 @@ idtac "---------- nat_bin_nat ---------".
 Print Assumptions nat_bin_nat.
 idtac "".
 idtac "********** Advanced **********".
-idtac "---------- add_comm_informal ---------".
-idtac "MANUAL".
 idtac "---------- double_incr ---------".
 Print Assumptions double_incr.
 idtac "---------- double_bin_zero ---------".
@@ -263,6 +252,6 @@ idtac "---------- bin_nat_bin ---------".
 Print Assumptions bin_nat_bin.
 Abort.
 
-(* 2025-08-24 14:25 *)
+(* 2025-12-26 08:34 *)
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:35 *)

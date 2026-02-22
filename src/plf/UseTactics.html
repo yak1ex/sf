@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="common/css/sf.css" rel="stylesheet" type="text/css" />
-<title>UseTactics: Tactic Library for Coq: A Gentle Introduction</title>
+<title>UseTactics: Tactic Library for Rocq: A Gentle Introduction</title>
 <link href="common/jquery-ui/jquery-ui.css" rel="stylesheet">
 <script src="common/jquery-ui/external/jquery/jquery.js"></script>
 <script src="common/jquery-ui/jquery-ui.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
 
-<h1 class="libtitle">UseTactics: Tactic Library for Coq<span class="subtitle">A Gentle Introduction</span></h1>
+<h1 class="libtitle">UseTactics: Tactic Library for Rocq<span class="subtitle">A Gentle Introduction</span></h1>
 
 
 <div class="code">
@@ -38,12 +38,12 @@
 </div>
 
 <div class="doc">
-Coq comes with a set of builtin tactics, such as <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span>,
+Rocq comes with a set of builtin tactics, such as <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span>,
     <span class="inlinecode"><span class="id" title="tactic">intros</span></span>, <span class="inlinecode"><span class="id" title="tactic">inversion</span></span> and so on. While it is possible to conduct
     proofs using only those tactics, you can significantly increase
     your productivity by working with a set of more powerful tactics.
     This chapter describes a number of such useful tactics, which, for
-    various reasons, are not yet available by default in Coq.  These
+    various reasons, are not yet available by default in Rocq.  These
     tactics are defined in the <span class="inlinecode"><span class="id" title="var">LibTactics.v</span></span> file. 
 </div>
 <div class="code">
@@ -75,7 +75,7 @@ Remark: SSReflect is another package providing powerful tactics.
 </li>
 <li> "SSReflect" entirely rethinks the presentation of tactics,
           whereas "LibTactics" mostly stick to the traditional
-          presentation of Coq tactics, simply providing a number of
+          presentation of Rocq tactics, simply providing a number of
           additional tactics.  For this reason, "LibTactics" is
           probably easier to get started with than "SSReflect". 
 </li>
@@ -214,7 +214,7 @@ Remark: the tactic <span class="inlinecode"><span class="id" title="var">introv<
 </div>
 
 <div class="doc">
-The <span class="inlinecode"><span class="id" title="tactic">inversion</span></span> tactic of Coq is not very satisfying for
+The <span class="inlinecode"><span class="id" title="tactic">inversion</span></span> tactic of Rocq is not very satisfying for
     three reasons. First, it produces a bunch of equalities
     which one typically wants to substitute away, using <span class="inlinecode"><span class="id" title="tactic">subst</span></span>.
     Second, it introduces meaningless names for hypotheses.
@@ -388,7 +388,7 @@ Note: in the rare cases where one needs to perform an inversion
 
 <div class="paragraph"> </div>
 
- Because Coq encodes conjunctions and disjunctions using binary
+ Because Rocq encodes conjunctions and disjunctions using binary
     constructors <span class="inlinecode">∧</span> and <span class="inlinecode">∨</span>, working with a conjunction or a
     disjunction of <span class="inlinecode"><span class="id" title="var">N</span></span> facts can sometimes be quite cumbursome.
     For this reason, "LibTactics" provides tactics offering direct
@@ -467,7 +467,7 @@ Note that <span class="inlinecode"><span class="id" title="var">splits</span></s
 
 <div class="paragraph"> </div>
 
- One of the major weaknesses of Coq compared with other interactive
+ One of the major weaknesses of Rocq compared with other interactive
     proof assistants is its relatively poor support for reasoning
     with equalities. The tactics described next aims at simplifying
     pieces of proof scripts manipulating equalities. 
@@ -930,7 +930,7 @@ The tactic <span class="inlinecode"><span class="id" title="var">sort</span></sp
     write. 
 <div class="paragraph"> </div>
 
- In this section, we'll use a useful feature of Coq for decomposing
+ In this section, we'll use a useful feature of Rocq for decomposing
     conjunctions and existentials. In short, a tactic like <span class="inlinecode"><span class="id" title="tactic">intros</span></span> or
     <span class="inlinecode"><span class="id" title="tactic">destruct</span></span> can be provided with a pattern <span class="inlinecode">(<span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode">&amp;</span> <span class="inlinecode"><span class="id" title="var">H<sub>2</sub></span></span> <span class="inlinecode">&amp;</span> <span class="inlinecode"><span class="id" title="var">H<sub>3</sub></span></span> <span class="inlinecode">&amp;</span> <span class="inlinecode"><span class="id" title="var">H<sub>4</sub></span></span> <span class="inlinecode">&amp;</span> <span class="inlinecode"><span class="id" title="var">H<sub>5</sub></span>)</span>,
     which is a shorthand for <span class="inlinecode"></span> <span class="inlinecode">[<span class="id" title="var">H<sub>1</sub></span></span> <span class="inlinecode">[<span class="id" title="var">H<sub>2</sub></span></span> <span class="inlinecode">[<span class="id" title="var">H<sub>3</sub></span></span> <span class="inlinecode">[<span class="id" title="var">H<sub>4</sub></span></span> <span class="inlinecode"><span class="id" title="var">H<sub>5</sub></span>]</span> <span class="inlinecode">]</span> <span class="inlinecode">]</span> <span class="inlinecode">]</span> <span class="inlinecode"></span>. For example,
@@ -1222,7 +1222,7 @@ Note: one can write <span class="inlinecode"><span class="id" title="var">lets</
 
 <div class="paragraph"> </div>
 
-    Making use of these tactics can boost one's productivity in Coq proofs.
+    Making use of these tactics can boost one's productivity in Rocq proofs.
 
 <div class="paragraph"> </div>
 
@@ -1236,7 +1236,7 @@ Note: one can write <span class="inlinecode"><span class="id" title="var">lets</
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-24&nbsp;13:47&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:38&nbsp;*)</span><br/>
 </div>
 </div>
 

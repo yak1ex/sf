@@ -45,7 +45,7 @@
 
  In an <span class="inlinecode"><span class="id" title="keyword">Inductive</span></span> type definition, each constructor can take
     any number of arguments -- none (as with <span class="inlinecode"><span class="id" title="var">true</span></span> and <span class="inlinecode"><span class="id" title="var">O</span></span>), one (as
-    with <span class="inlinecode"><span class="id" title="var">S</span></span>), or more than one (as with <span class="inlinecode"><span class="id" title="var">nybble</span></span>, and the following): 
+    with <span class="inlinecode"><span class="id" title="var">S</span></span>), or more than one (as with <span class="inlinecode"><span class="id" title="var">nybble</span></span> and the following): 
 </div>
 <div class="code">
 
@@ -84,7 +84,7 @@ Functions for extracting the first and second components of a pair
 <div class="doc">
 Since pairs will be used heavily in what follows, it will be
     convenient to write them with the standard mathematical notation
-    <span class="inlinecode">(<span class="id" title="var">x</span>,<span class="id" title="var">y</span>)</span> instead of <span class="inlinecode"><span class="id" title="var">pair</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span>.  We can tell Coq to allow this with
+    <span class="inlinecode">(<span class="id" title="var">x</span>,<span class="id" title="var">y</span>)</span> instead of <span class="inlinecode"><span class="id" title="var">pair</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode"><span class="id" title="var">y</span></span>.  We can tell Rocq to allow this with
     a <span class="inlinecode"><span class="id" title="keyword">Notation</span></span> declaration. 
 </div>
 <div class="code">
@@ -127,7 +127,7 @@ Note that pattern-matching on a pair (with parentheses: <span class="inlinecode"
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" title="var">S</span> <span class="id" title="var">_</span> , <span class="id" title="var">O</span>    ⇒ <span class="id" title="var">n</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" title="var">S</span> <span class="id" title="var">n'</span>, <span class="id" title="var">S</span> <span class="id" title="var">m'</span> ⇒ <span class="id" title="var">minus</span> <span class="id" title="var">n'</span> <span class="id" title="var">m'</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>.
-</span>    The distinction is minor, but it is worth knowing that they
+</span>    The distinction is minor, but it is worth understanding that they
     are not the same. For instance, the following definitions are
     ill-formed:
 <br/>
@@ -259,7 +259,7 @@ As with pairs, it is convenient to write lists in familiar
 <div class="doc">
 It is not necessary to understand the details of these
     declarations, but here is roughly what's going on in case you are
-    interested.  The "<span class="inlinecode"><span class="id" title="tactic">right</span></span> <span class="inlinecode"><span class="id" title="keyword">associativity</span></span>" annotation tells Coq how to
+    interested.  The "<span class="inlinecode"><span class="id" title="tactic">right</span></span> <span class="inlinecode"><span class="id" title="keyword">associativity</span></span>" annotation tells Rocq how to
     parenthesize expressions involving multiple uses of <span class="inlinecode">::</span> so that,
     for example, the next three declarations mean exactly the same
     thing: 
@@ -272,7 +272,7 @@ It is not necessary to understand the details of these
 </div>
 
 <div class="doc">
-The "<span class="inlinecode"><span class="id" title="tactic">at</span></span> <span class="inlinecode"><span class="id" title="keyword">level</span></span> <span class="inlinecode">60</span>" part tells Coq how to parenthesize
+The "<span class="inlinecode"><span class="id" title="tactic">at</span></span> <span class="inlinecode"><span class="id" title="keyword">level</span></span> <span class="inlinecode">60</span>" part tells Rocq how to parenthesize
     expressions that involve both <span class="inlinecode">::</span> and some other infix operator.
     For example, since we defined <span class="inlinecode">+</span> as infix notation for the <span class="inlinecode"><span class="id" title="var">plus</span></span>
     function at level 50,
@@ -287,15 +287,15 @@ The "<span class="inlinecode"><span class="id" title="tactic">at</span></span> <
     (Expressions like "<span class="inlinecode">1</span> <span class="inlinecode">+</span> <span class="inlinecode">2</span> <span class="inlinecode">::</span> <span class="inlinecode">[3]</span>" can be a little confusing when
     you read them in a <span class="inlinecode">.<span class="id" title="var">v</span></span> file.  The inner brackets, around 3,
     indicate a list, but the outer brackets, which are invisible in
-    the HTML rendering, are there to instruct the "coqdoc" tool that
-    the bracketed part should be displayed as Coq code rather than
+    the HTML rendering, are there to instruct the "rocq doc" tool that
+    the bracketed part should be displayed as Rocq code rather than
     running text.)
 
 <div class="paragraph"> </div>
 
     The second and third <span class="inlinecode"><span class="id" title="keyword">Notation</span></span> declarations above introduce the
     standard square-bracket notation for lists; the right-hand side of
-    the third one illustrates Coq's syntax for declaring n-ary
+    the third one illustrates Rocq's syntax for declaring n-ary
     notations and translating them to nested sequences of binary
     constructors.
 
@@ -303,8 +303,7 @@ The "<span class="inlinecode"><span class="id" title="tactic">at</span></span> <
 
     Again, don't worry if some of these parsing details are puzzling:
     all the notations you'll need in this course will be defined for
-    you.
-
+    you. 
 <div class="paragraph"> </div>
 
 <a id="lab86"></a><h3 class="section">Repeat</h3>
@@ -312,7 +311,7 @@ The "<span class="inlinecode"><span class="id" title="tactic">at</span></span> <
 <div class="paragraph"> </div>
 
  Next let's look at several functions for constructing and
-    manipulating lists.  First, the <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> function, which takes a
+    manipulating lists.  First is the <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> function, which takes a
     number <span class="inlinecode"><span class="id" title="var">n</span></span> and a <span class="inlinecode"><span class="id" title="var">count</span></span> and returns a list of length <span class="inlinecode"><span class="id" title="var">count</span></span> in
     which every element is <span class="inlinecode"><span class="id" title="var">n</span></span>. 
 </div>
@@ -378,7 +377,7 @@ Since <span class="inlinecode"><span class="id" title="var">app</span></span> wi
 
 <div class="paragraph"> </div>
 
- Here are two smaller examples of programming with lists.
+ Here are two more handy functions for working with lists.
     The <span class="inlinecode"><span class="id" title="var">hd</span></span> function returns the first element (the "head") of the
     list, while <span class="inlinecode"><span class="id" title="var">tl</span></span> returns everything but the first element (the
     "tail").  Since the empty list has no first element, we pass
@@ -463,7 +462,7 @@ For the next problem, <span class="inlinecode"><span class="id" title="var">coun
 <div class="paragraph"> </div>
 
     Hint: there are natural ways of writing <span class="inlinecode"><span class="id" title="var">alternate</span></span> that fail to
-    satisfy Coq's requirement that all <span class="inlinecode"><span class="id" title="keyword">Fixpoint</span></span> definitions be
+    satisfy Rocq's requirement that all <span class="inlinecode"><span class="id" title="keyword">Fixpoint</span></span> definitions be
     <i>structurally recursive</i>, as mentioned in <a href="Basics.html"><span class="inlineref">Basics</span></a>. If you
     encounter this difficulty, consider pattern matching against both
     lists at the same time with the "multiple pattern" syntax we've
@@ -610,9 +609,9 @@ Multiset <span class="inlinecode"><span class="id" title="var">sum</span></span>
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab96"></a><h4 class="section">Exercise: 2 stars, standard, especially useful (add_inc_count)</h4>
+<a id="lab96"></a><h4 class="section">Exercise: 2 stars, standard, optional (add_inc_count)</h4>
  Adding a value to a bag should increase the value's count by one.
-    State this as a theorem and prove it in Coq. 
+    State this as a theorem and prove it in Rocq. 
 </div>
 <div class="code">
 <span class="comment">(*<br/>
@@ -634,8 +633,7 @@ Qed.<br/>
 
  As with numbers, simple facts about list-processing
     functions can sometimes be proved entirely by simplification.  For
-    example, the simplification performed by <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span> is enough
-    for this theorem... 
+    example, just <span class="inlinecode"><span class="id" title="tactic">reflexivity</span></span> is enough for this theorem... 
 </div>
 <div class="code">
 
@@ -645,14 +643,13 @@ Qed.<br/>
 </div>
 
 <div class="doc">
-...because the <span class="inlinecode">[]</span> is substituted into the
-    "scrutinee" (the expression whose value is being "scrutinized" by
-    the match) in the definition of <span class="inlinecode"><span class="id" title="var">app</span></span>, allowing the match itself
-    to be simplified. 
+...because the <span class="inlinecode">[]</span> is substituted into the "scrutinee" (the
+    expression whose value is being "scrutinized" by the match) in the
+    definition of <span class="inlinecode"><span class="id" title="var">app</span></span>, allowing the match itself to be simplified. 
 <div class="paragraph"> </div>
 
  Also, as with numbers, it is sometimes helpful to perform case
-    analysis on the possible shapes (empty or non-empty) of an unknown
+    analysis on the possible shapes -- empty or non-empty -- of an unknown
     list. 
 </div>
 <div class="code">
@@ -681,7 +678,7 @@ Here, the <span class="inlinecode"><span class="id" title="var">nil</span></span
 
  (Micro-Sermon: As we get deeper into this material, simply
     <i>reading</i> proof scripts will not help you very much.  Rather, it
-    is important to step through the details of each one using Coq and
+    is important to step through the details of each one using Rocq and
     think about what each step achieves.  Otherwise it is more or less
     guaranteed that the exercises will make no sense when you get to
     them.  'Nuff said.) 
@@ -759,14 +756,14 @@ Notice that, as we saw with induction on natural numbers,
 
 <div class="paragraph"> </div>
 
-    Once again, this Coq proof is not especially illuminating as a
+    Once again, this Rocq proof is not especially illuminating as a
     static document -- it is easy to see what's going on if you are
-    reading the proof in an interactive Coq session and you can see
+    reading the proof in an interactive Rocq session and you can see
     the current goal and context at each point, but this state is not
-    visible in the written-down parts of the Coq proof.  So a
-    natural-language proof -- one written for human readers -- should
-    include more explicit signposts; in particular, it will help the
-    reader stay oriented if we remind them exactly what the induction
+    visible in the written-down parts of the Rocq proof.  So a
+    natural-language proof -- one written for human readers -- would
+    include more explicit signposts; in particular, it helps the
+    reader stay oriented to remind them exactly what the induction
     hypothesis is in the second case. 
 <div class="paragraph"> </div>
 
@@ -811,7 +808,7 @@ Notice that, as we saw with induction on natural numbers,
 
 <div class="paragraph"> </div>
 
- In some situations, it can be necessary to generalize a
+ In some situations, it is necessary to generalize a
     statement in order to prove it by induction.  Intuitively, the
     reason is that a more general statement also yields a more general
     (stronger) inductive hypothesis.  If you find yourself stuck in a
@@ -828,7 +825,7 @@ Notice that, as we saw with induction on natural numbers,
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">n</span>. <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;c&nbsp;=&nbsp;S&nbsp;c'&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">n</span>. <span class="id" title="tactic">simpl</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;&nbsp;Now&nbsp;we&nbsp;seem&nbsp;to&nbsp;be&nbsp;stuck.&nbsp;&nbsp;The&nbsp;IH&nbsp;cannot&nbsp;be&nbsp;used&nbsp;to&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;&nbsp;Now&nbsp;we&nbsp;seem&nbsp;to&nbsp;be&nbsp;stuck.&nbsp;&nbsp;The&nbsp;IH&nbsp;cannot&nbsp;be&nbsp;used&nbsp;to<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewrite&nbsp;<span class="inlinecode"><span class="id" title="tactic">repeat</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">(<span class="id" title="var">c'</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">c'</span>)</span>:&nbsp;it&nbsp;only&nbsp;works<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;<span class="inlinecode"><span class="id" title="tactic">repeat</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">(<span class="id" title="var">c'</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">c'</span>)</span>.&nbsp;If&nbsp;the&nbsp;IH&nbsp;were&nbsp;more&nbsp;liberal&nbsp;here<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(e.g.,&nbsp;if&nbsp;it&nbsp;worked&nbsp;for&nbsp;an&nbsp;arbitrary&nbsp;second&nbsp;summand),<br/>
@@ -922,8 +919,8 @@ A first attempt to make progress would be to prove exactly
 </div>
 
 <div class="doc">
-It turns out that the above lemma is much more narrow than it 
-    needs to be. We can strengthen the lemma to work not only on reversed 
+It turns out that the above lemma is more specific than it
+    needs to be. We can strengthen the lemma to work not only on reversed
     lists but on general lists. 
 </div>
 <div class="code">
@@ -960,8 +957,8 @@ Now we can complete the original proof.
 </div>
 
 <div class="doc">
-Note that the app_length_S lemma we proved above is pretty 
-    narrow, requiring that the second list contains only a single element. 
+Note that the <span class="inlinecode"><span class="id" title="var">app_length_S</span></span> lemma we proved above is pretty
+    narrow, requiring that the second list contains only a single element.
     We can prove a more general version for any two lists. 
 </div>
 <div class="code">
@@ -1091,12 +1088,12 @@ For comparison, here are informal proofs of these two theorems:
 
 <div class="paragraph"> </div>
 
-    Coq's <span class="inlinecode"><span class="id" title="keyword">Search</span></span> command is quite helpful with this.
+    Rocq's <span class="inlinecode"><span class="id" title="keyword">Search</span></span> command is quite helpful with this.
 
 <div class="paragraph"> </div>
 
     Let's say you've forgotten the name of a theorem about <span class="inlinecode"><span class="id" title="var">rev</span></span>.  The
-    command <span class="inlinecode"><span class="id" title="keyword">Search</span></span> <span class="inlinecode"><span class="id" title="var">rev</span></span> will cause Coq to display a list of all
+    command <span class="inlinecode"><span class="id" title="keyword">Search</span></span> <span class="inlinecode"><span class="id" title="var">rev</span></span> will cause Rocq to display a list of all
     theorems involving <span class="inlinecode"><span class="id" title="var">rev</span></span>. 
 </div>
 <div class="code">
@@ -1140,7 +1137,13 @@ You can also make the search more precise by using variables in
 <div class="paragraph"> </div>
 
  Keep <span class="inlinecode"><span class="id" title="keyword">Search</span></span> in mind as you do the following exercises and
-    throughout the rest of the book; it can save you a lot of time! 
+    throughout the rest of the book; it can save you a lot of time!
+
+<div class="paragraph"> </div>
+
+    Your IDE likely has its own functionality to help with searching.
+    For example, in VSRocq, you can open a tab for performing searches
+    with <span class="inlinecode"><span class="id" title="var">Command</span>-<span class="id" title="var">Control</span>-<span class="id" title="var">K</span></span>. 
 </div>
 
 <div class="doc">
@@ -1285,10 +1288,14 @@ Before doing the next exercise, make sure you've filled in the
 <a id="lab108"></a><h4 class="section">Exercise: 3 stars, standard, optional (bag_count_sum)</h4>
  Write down an interesting theorem <span class="inlinecode"><span class="id" title="var">bag_count_sum</span></span> about bags
     involving the functions <span class="inlinecode"><span class="id" title="var">count</span></span> and <span class="inlinecode"><span class="id" title="var">sum</span></span>, and prove it using
-    Coq.  (You may find that the difficulty of the proof depends on
-    how you defined <span class="inlinecode"><span class="id" title="var">count</span></span>!  Hint: If you defined <span class="inlinecode"><span class="id" title="var">count</span></span> using
-    <span class="inlinecode">=?</span> you may find it useful to know that <span class="inlinecode"><span class="id" title="tactic">destruct</span></span> works on
-    arbitrary expressions, not just simple identifiers.)
+    Rocq.  (You may find that the difficulty of the proof depends on
+    how you defined <span class="inlinecode"><span class="id" title="var">count</span></span>!
+
+<div class="paragraph"> </div>
+
+    Hint: If you defined <span class="inlinecode"><span class="id" title="var">count</span></span> using <span class="inlinecode">=?</span> you may find it useful
+    to know that <span class="inlinecode"><span class="id" title="tactic">destruct</span></span> works on arbitrary expressions, not just
+    simple identifiers.)
 
 </div>
 <div class="code">
@@ -1363,10 +1370,10 @@ Before doing the next exercise, make sure you've filled in the
 
 <div class="doc">
 This solution is not so good: If <span class="inlinecode"><span class="id" title="var">nth_bad</span></span> returns <span class="inlinecode">42</span>, we
-    can't tell whether that value actually appears on the input
-    without further processing. A better alternative is to change the
+    don't know whether that value actually appears in the input
+    or whether we gave bad arguments. A better alternative is to change the
     return type of <span class="inlinecode"><span class="id" title="var">nth_bad</span></span> to include an error value as a possible
-    outcome. We call this type <span class="inlinecode"><span class="id" title="var">natoption</span></span>. 
+    outcome. We call this new type <span class="inlinecode"><span class="id" title="var">natoption</span></span>. 
 </div>
 <div class="code">
 
@@ -1374,7 +1381,7 @@ This solution is not so good: If <span class="inlinecode"><span class="id" title
 &nbsp;&nbsp;| <a id="NatList.Some" class="idref" href="#NatList.Some"><span class="id" title="constructor">Some</span></a> (<a id="n:117" class="idref" href="#n:117"><span class="id" title="binder">n</span></a> : <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a>)<br/>
 &nbsp;&nbsp;| <a id="NatList.None" class="idref" href="#NatList.None"><span class="id" title="constructor">None</span></a>.<br/><hr class='doublespaceincode'/>
 <span class="comment">(*&nbsp;Note&nbsp;that&nbsp;we've&nbsp;capitalized&nbsp;the&nbsp;constructor&nbsp;names&nbsp;<span class="inlinecode"><span class="id" title="var">None</span></span>&nbsp;and<br/>
-&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" title="var">Some</span></span>,&nbsp;following&nbsp;their&nbsp;definition&nbsp;in&nbsp;Coq's&nbsp;standard&nbsp;library.&nbsp;&nbsp;In<br/>
+&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" title="var">Some</span></span>,&nbsp;following&nbsp;their&nbsp;definition&nbsp;in&nbsp;Rocq's&nbsp;standard&nbsp;library.&nbsp;&nbsp;In<br/>
 &nbsp;&nbsp;&nbsp;general,&nbsp;constructor&nbsp;(and&nbsp;variable)&nbsp;names&nbsp;can&nbsp;begin&nbsp;with&nbsp;either<br/>
 &nbsp;&nbsp;&nbsp;capital&nbsp;or&nbsp;lowercase&nbsp;letters.&nbsp;*)</span><br/>
 </div>
@@ -1384,8 +1391,12 @@ We can then change the above definition of <span class="inlinecode"><span class=
     return <span class="inlinecode"><span class="id" title="var">None</span></span> when the list is too short and <span class="inlinecode"><span class="id" title="var">Some</span></span> <span class="inlinecode"><span class="id" title="var">a</span></span> when the
     list has enough members and <span class="inlinecode"><span class="id" title="var">a</span></span> appears at position <span class="inlinecode"><span class="id" title="var">n</span></span>. We call
     this new function <span class="inlinecode"><span class="id" title="var">nth_error</span></span> to indicate that it may result in an
-    error. As we see here, constructors of inductive definitions can
-    be capitalized. 
+    error.
+
+<div class="paragraph"> </div>
+
+    (As we see here, constructors of inductive definitions are allowed
+    to be be capitalized.) 
 </div>
 <div class="code">
 
@@ -1476,7 +1487,7 @@ We can then change the above definition of <span class="inlinecode"><span class=
 <div class="paragraph"> </div>
 
  As a final illustration of how data structures can be defined in
-    Coq, here is a simple <i>partial map</i> data type, analogous to the
+    Rocq, here is a simple <i>partial map</i> data type, analogous to the
     map or dictionary data structures found in most programming
     languages. 
 <div class="paragraph"> </div>
@@ -1600,7 +1611,7 @@ Last, the <span class="inlinecode"><span class="id" title="var">find</span></spa
 
 <div class="code">
 <span class="id" title="keyword">End</span> <a class="idref" href="Lists.html#PartialMap"><span class="id" title="module">PartialMap</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2025-08-24&nbsp;13:39&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:35&nbsp;*)</span><br/>
 </div>
 </div>
 

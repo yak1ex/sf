@@ -247,14 +247,6 @@ Print Assumptions NatList.test_member2.
 Goal True.
 idtac " ".
 
-idtac "-------------------  add_inc_count  --------------------".
-idtac " ".
-
-idtac "#> Manually graded: NatList.add_inc_count".
-idtac "Possible points: 2".
-print_manual_grade NatList.manual_grade_for_add_inc_count.
-idtac " ".
-
 idtac "-------------------  list_exercises  --------------------".
 idtac " ".
 
@@ -460,8 +452,8 @@ idtac " ".
 
 idtac " ".
 
-idtac "Max points - standard: 19".
-idtac "Max points - advanced: 30".
+idtac "Max points - standard: 17".
+idtac "Max points - advanced: 28".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
@@ -507,8 +499,6 @@ idtac "---------- NatList.test_member1 ---------".
 Print Assumptions NatList.test_member1.
 idtac "---------- NatList.test_member2 ---------".
 Print Assumptions NatList.test_member2.
-idtac "---------- add_inc_count ---------".
-idtac "MANUAL".
 idtac "---------- NatList.app_nil_r ---------".
 Print Assumptions NatList.app_nil_r.
 idtac "---------- NatList.rev_app_distr ---------".
@@ -549,6 +539,6 @@ idtac "---------- NatList.rev_injective ---------".
 Print Assumptions NatList.rev_injective.
 Abort.
 
-(* 2025-08-24 14:25 *)
+(* 2025-12-26 08:34 *)
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:35 *)

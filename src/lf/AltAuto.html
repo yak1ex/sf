@@ -37,9 +37,9 @@
 <div class="paragraph"> </div>
 
  So far, we've been doing all our proofs using just a small
-    handful of Coq's tactics and completely ignoring its powerful
+    handful of Rocq's tactics and completely ignoring its powerful
     facilities for constructing parts of proofs automatically. Getting
-    used to them will take some work -- Coq's automation is a power
+    used to them will take some work -- Rocq's automation is a power
     tool -- but it will allow us to scale up our efforts to more
     complex definitions and more interesting properties without
     becoming overwhelmed by boring, repetitive, low-level details.
@@ -180,7 +180,7 @@ The amount of repetition in that proof is annoying.  And if
 </div>
 
 <div class="doc">
-<a id="lab460"></a><h1 class="section">Tacticals</h1>
+<a id="lab464"></a><h1 class="section">Tacticals</h1>
 
 <div class="paragraph"> </div>
 
@@ -189,7 +189,7 @@ The amount of repetition in that proof is annoying.  And if
 </div>
 
 <div class="doc">
-<a id="lab461"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">try</span></span> Tactical</h2>
+<a id="lab465"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">try</span></span> Tactical</h2>
 
 <div class="paragraph"> </div>
 
@@ -218,7 +218,7 @@ There is no real reason to use <span class="inlinecode"><span class="id" title="
 </div>
 
 <div class="doc">
-<a id="lab462"></a><h2 class="section">The Sequence Tactical <span class="inlinecode">;</span> (Simple Form)</h2>
+<a id="lab466"></a><h2 class="section">The Sequence Tactical <span class="inlinecode">;</span> (Simple Form)</h2>
 
 <div class="paragraph"> </div>
 
@@ -272,7 +272,7 @@ Or even more tersely, <span class="inlinecode"><span class="id" title="tactic">d
 </div>
 
 <div class="doc">
-<a id="lab463"></a><h4 class="section">Exercise: 3 stars, standard (try_sequence)</h4>
+<a id="lab467"></a><h4 class="section">Exercise: 3 stars, standard (try_sequence)</h4>
 
 <div class="paragraph"> </div>
 
@@ -344,7 +344,7 @@ Or even more tersely, <span class="inlinecode"><span class="id" title="tactic">d
 </div>
 
 <div class="doc">
-<a id="lab464"></a><h2 class="section">The Sequence Tactical <span class="inlinecode">;</span> (Local Form)</h2>
+<a id="lab468"></a><h2 class="section">The Sequence Tactical <span class="inlinecode">;</span> (Local Form)</h2>
 
 <div class="paragraph"> </div>
 
@@ -405,7 +405,7 @@ The identity tactic <span class="inlinecode"><span class="id" title="tactic">idt
 </div>
 
 <div class="doc">
-<a id="lab465"></a><h4 class="section">Exercise: 1 star, standard (notry_sequence)</h4>
+<a id="lab469"></a><h4 class="section">Exercise: 1 star, standard (notry_sequence)</h4>
 
 <div class="paragraph"> </div>
 
@@ -454,7 +454,7 @@ The identity tactic <span class="inlinecode"><span class="id" title="tactic">idt
 </div>
 
 <div class="doc">
-<a id="lab466"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> Tactical</h2>
+<a id="lab470"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> Tactical</h2>
 
 <div class="paragraph"> </div>
 
@@ -488,16 +488,16 @@ The tactic <span class="inlinecode"><span class="id" title="tactic">repeat</span
 The tactic <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> <span class="inlinecode"><span class="id" title="var">T</span></span> also does not have any upper bound on the
     number of times it applies <span class="inlinecode"><span class="id" title="var">T</span></span>.  If <span class="inlinecode"><span class="id" title="var">T</span></span> is a tactic that always
     succeeds, then repeat <span class="inlinecode"><span class="id" title="var">T</span></span> will loop forever (e.g., <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> <span class="inlinecode"><span class="id" title="tactic">simpl</span></span>
-    loops, since <span class="inlinecode"><span class="id" title="tactic">simpl</span></span> always succeeds). Evaluation in Coq's term
+    loops, since <span class="inlinecode"><span class="id" title="tactic">simpl</span></span> always succeeds). Evaluation in Rocq's term
     language, Gallina, is guaranteed to terminate, but tactic
-    evaluation is not. This does not affect Coq's logical consistency,
+    evaluation is not. This does not affect Rocq's logical consistency,
     however, since the job of <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> and other tactics is to guide
-    Coq in constructing proofs. If the construction process diverges,
+    Rocq in constructing proofs. If the construction process diverges,
     it simply means that we have failed to construct a proof, not that
     we have constructed an incorrect proof. 
 <div class="paragraph"> </div>
 
-<a id="lab467"></a><h4 class="section">Exercise: 1 star, standard (ev100)</h4>
+<a id="lab471"></a><h4 class="section">Exercise: 1 star, standard (ev100)</h4>
  Prove that 100 is even. Your proof script should be quite short. 
 </div>
 <div class="code">
@@ -509,8 +509,8 @@ The tactic <span class="inlinecode"><span class="id" title="tactic">repeat</span
 
 
 <div class="doc">
-<a id="lab468"></a><h2 class="section">An Optimization Exercise</h2>
-<a id="lab469"></a><h4 class="section">Exercise: 4 stars, standard (re_opt)</h4>
+<a id="lab472"></a><h2 class="section">An Optimization Exercise</h2>
+<a id="lab473"></a><h4 class="section">Exercise: 4 stars, standard (re_opt)</h4>
 
 <div class="paragraph"> </div>
 
@@ -752,7 +752,7 @@ The tactic <span class="inlinecode"><span class="id" title="tactic">repeat</span
 
 
 <div class="doc">
-<a id="lab470"></a><h1 class="section">Tactics that Make Mentioning Names Unnecessary</h1>
+<a id="lab474"></a><h1 class="section">Tactics that Make Mentioning Names Unnecessary</h1>
 
 <div class="paragraph"> </div>
 
@@ -773,13 +773,13 @@ We took the trouble to invent a name for <span class="inlinecode"><span class="i
     to remember that name. If we later change the name in one place,
     we have to change it everywhere. Likewise, if we were to add new
     arguments to the theorem, we would have to adjust the <span class="inlinecode"><span class="id" title="tactic">intros</span></span>
-    list. That makes it challenging to maintain large proofs. So, Coq
+    list. That makes it challenging to maintain large proofs. So, Rocq
     provides several tactics that make it possible to write proof
     scripts that do not hardcode names. 
 </div>
 
 <div class="doc">
-<a id="lab471"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">assumption</span></span> tactic</h2>
+<a id="lab475"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">assumption</span></span> tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -805,14 +805,14 @@ Some might argue to the contrary that hypothesis names
 
 <div class="paragraph"> </div>
 
-    Anyway, unlike informal (good) mathematical proofs, Coq proof
+    Anyway, unlike informal (good) mathematical proofs, Rocq proof
     scripts are generally not that illuminating to readers. Worries
     about rich, self-documenting names for hypotheses might be
     misplaced. 
 </div>
 
 <div class="doc">
-<a id="lab472"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="var">contradiction</span></span> tactic</h2>
+<a id="lab476"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="var">contradiction</span></span> tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -840,7 +840,7 @@ Some might argue to the contrary that hypothesis names
 </div>
 
 <div class="doc">
-<a id="lab473"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">subst</span></span> tactic</h2>
+<a id="lab477"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">subst</span></span> tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -888,7 +888,7 @@ Actually there are two forms of this tactic.
 </div>
 
 <div class="doc">
-<a id="lab474"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">constructor</span></span> tactic</h2>
+<a id="lab478"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">constructor</span></span> tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -918,11 +918,11 @@ Warning: if more than one constructor can apply,
 </div>
 
 <div class="doc">
-<a id="lab475"></a><h1 class="section">Automatic Solvers</h1>
+<a id="lab479"></a><h1 class="section">Automatic Solvers</h1>
 
 <div class="paragraph"> </div>
 
- Coq has several special-purpose tactics that can solve
+ Rocq has several special-purpose tactics that can solve
     certain kinds of goals in a completely automated way. These
     tactics are based on sophisticated algorithms developed for
     verification in specific mathematical or logical domains.
@@ -938,7 +938,7 @@ Warning: if more than one constructor can apply,
 </div>
 
 <div class="doc">
-<a id="lab476"></a><h2 class="section">Linear Integer Arithmetic: The <span class="inlinecode"><span class="id" title="var">lia</span></span> Tactic</h2>
+<a id="lab480"></a><h2 class="section">Linear Integer Arithmetic: The <span class="inlinecode"><span class="id" title="var">lia</span></span> Tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -1041,7 +1041,7 @@ There are other tactics that can solve arithmetic goals.  The
 </div>
 
 <div class="doc">
-<a id="lab477"></a><h2 class="section">Equalities: The <span class="inlinecode"><span class="id" title="tactic">congruence</span></span> Tactic</h2>
+<a id="lab481"></a><h2 class="section">Equalities: The <span class="inlinecode"><span class="id" title="tactic">congruence</span></span> Tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -1135,7 +1135,7 @@ The <span class="inlinecode"><span class="id" title="tactic">congruence</span></
 </div>
 
 <div class="doc">
-<a id="lab478"></a><h2 class="section">Propositions: The <span class="inlinecode"><span class="id" title="tactic">intuition</span></span> Tactic</h2>
+<a id="lab482"></a><h2 class="section">Propositions: The <span class="inlinecode"><span class="id" title="tactic">intuition</span></span> Tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -1144,7 +1144,7 @@ The <span class="inlinecode"><span class="id" title="tactic">congruence</span></
     quantifiers -- or at least, if quantifiers do not have to be
     instantiated to carry out the proof. The <span class="inlinecode"><span class="id" title="tactic">intuition</span></span> tactic
     implements a decision procedure for propositional tautologies in
-    Coq's constructive (that is, intuitionistic) logic. Even if a goal
+    Rocq's constructive (that is, intuitionistic) logic. Even if a goal
     is not a propositional tautology, <span class="inlinecode"><span class="id" title="tactic">intuition</span></span> will still attempt
     to reduce it to simpler subgoals. 
 </div>
@@ -1189,11 +1189,11 @@ In the previous example, neither <span class="inlinecode"><span class="id" title
 </div>
 
 <div class="doc">
-<a id="lab479"></a><h2 class="section">Exercises with Automatic Solvers</h2>
+<a id="lab483"></a><h2 class="section">Exercises with Automatic Solvers</h2>
 
 <div class="paragraph"> </div>
 
-<a id="lab480"></a><h4 class="section">Exercise: 2 stars, standard (automatic_solvers)</h4>
+<a id="lab484"></a><h4 class="section">Exercise: 2 stars, standard (automatic_solvers)</h4>
  The exercises below are gleaned from previous chapters, where they
     were proved with (relatively) long proof scripts. Each should now
     be provable with just a single invocation of an automatic
@@ -1219,7 +1219,7 @@ In the previous example, neither <span class="inlinecode"><span class="id" title
 
 
 <div class="doc">
-<a id="lab481"></a><h1 class="section">Search Tactics</h1>
+<a id="lab485"></a><h1 class="section">Search Tactics</h1>
 
 <div class="paragraph"> </div>
 
@@ -1231,13 +1231,13 @@ In the previous example, neither <span class="inlinecode"><span class="id" title
 
 <div class="paragraph"> </div>
 
-    Another kind of automation that Coq provides does just that: the
+    Another kind of automation that Rocq provides does just that: the
     <span class="inlinecode"><span class="id" title="tactic">auto</span></span> tactic and its variants search for proofs that can be
     assembled out of hypotheses and lemmas. 
 </div>
 
 <div class="doc">
-<a id="lab482"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">auto</span></span> Tactic</h2>
+<a id="lab486"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">auto</span></span> Tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -1382,7 +1382,7 @@ Of course, in any given development there will probably be
     constructor of an inductively defined proposition (i.e., anything
     whose type is an implication). We tell <span class="inlinecode"><span class="id" title="tactic">auto</span></span> to use that database
     by writing <span class="inlinecode"><span class="id" title="tactic">auto</span></span> <span class="inlinecode"><span class="id" title="keyword">with</span></span> <span class="inlinecode"><span class="id" title="var">db</span></span>. Technically creation of the database
-    is optional; Coq will create it automatically the first time
+    is optional; Rocq will create it automatically the first time
     we use <span class="inlinecode"><span class="id" title="keyword">Hint</span></span>. 
 </div>
 <div class="code">
@@ -1402,7 +1402,7 @@ Of course, in any given development there will probably be
 As a shorthand, we can write
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">Hint</span> <span class="id" title="keyword">Constructors</span> <span class="id" title="var">c</span> : <span class="id" title="var">db</span>.
-</span>    to tell Coq to do a <span class="inlinecode"><span class="id" title="keyword">Hint</span></span> <span class="inlinecode"><span class="id" title="keyword">Resolve</span></span> for <i>all</i> of the constructors
+</span>    to tell Rocq to do a <span class="inlinecode"><span class="id" title="keyword">Hint</span></span> <span class="inlinecode"><span class="id" title="keyword">Resolve</span></span> for <i>all</i> of the constructors
     from the inductive definition of <span class="inlinecode"><span class="id" title="var">c</span></span>.
 
 <div class="paragraph"> </div>
@@ -1430,7 +1430,7 @@ As a shorthand, we can write
 
 <div class="doc">
 The "global" database that <span class="inlinecode"><span class="id" title="tactic">auto</span></span> always uses is named <span class="inlinecode"><span class="id" title="var">core</span></span>.
-    You can add your own hints to it, but the Coq manual discourages
+    You can add your own hints to it, but the Rocq manual discourages
     that, preferring instead to have specialized databases for
     specific developments. Many of the important libraries have their
     own hint databases that you can tag in: <span class="inlinecode"><span class="id" title="var">arith</span></span>, <span class="inlinecode"><span class="id" title="var">bool</span></span>, <span class="inlinecode"><span class="id" title="var">datatypes</span></span>
@@ -1447,7 +1447,7 @@ The "global" database that <span class="inlinecode"><span class="id" title="tact
 </div>
 
 <div class="doc">
-<a id="lab483"></a><h4 class="section">Exercise: 3 stars, standard (re_opt_match_auto)</h4>
+<a id="lab487"></a><h4 class="section">Exercise: 3 stars, standard (re_opt_match_auto)</h4>
 
 <div class="paragraph"> </div>
 
@@ -1479,7 +1479,7 @@ The "global" database that <span class="inlinecode"><span class="id" title="tact
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab484"></a><h4 class="section">Exercise: 3 stars, advanced, optional (pumping_redux)</h4>
+<a id="lab488"></a><h4 class="section">Exercise: 3 stars, advanced, optional (pumping_redux)</h4>
  Use <span class="inlinecode"><span class="id" title="tactic">auto</span></span>, <span class="inlinecode"><span class="id" title="var">lia</span></span>, and any other useful tactics from this chapter
     to shorten your proof (or the "official" solution proof) of the
     weak Pumping Lemma exercise from <a href="IndProp.html"><span class="inlineref">IndProp</span></a>. 
@@ -1504,7 +1504,7 @@ The "global" database that <span class="inlinecode"><span class="id" title="tact
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab485"></a><h4 class="section">Exercise: 3 stars, advanced, optional (pumping_redux_strong)</h4>
+<a id="lab489"></a><h4 class="section">Exercise: 3 stars, advanced, optional (pumping_redux_strong)</h4>
  Use <span class="inlinecode"><span class="id" title="tactic">auto</span></span>, <span class="inlinecode"><span class="id" title="var">lia</span></span>, and any other useful tactics from this chapter
     to shorten your proof (or the "official" solution proof) of the
     stronger Pumping Lemma exercise from <a href="IndProp.html"><span class="inlineref">IndProp</span></a>. 
@@ -1528,7 +1528,7 @@ The "global" database that <span class="inlinecode"><span class="id" title="tact
 
 
 <div class="doc">
-<a id="lab486"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">eauto</span></span> variant</h2>
+<a id="lab490"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="tactic">eauto</span></span> variant</h2>
 
 <div class="paragraph"> </div>
 
@@ -1554,14 +1554,14 @@ The "global" database that <span class="inlinecode"><span class="id" title="tact
 
 <div class="doc">
 In the first step of the proof, we had to explicitly provide a
-    longish expression to help Coq instantiate a "hidden" argument to
+    longish expression to help Rocq instantiate a "hidden" argument to
     the <span class="inlinecode"><span class="id" title="var">le_trans</span></span> constructor. This was needed because the definition
     of <span class="inlinecode"><span class="id" title="var">le_trans</span></span>...
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">le_trans</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">m</span> <span class="id" title="var">n</span> <span class="id" title="var">o</span> : <span class="id" title="var">nat</span>, <span class="id" title="var">m</span> ≤ <span class="id" title="var">n</span> → <span class="id" title="var">n</span> ≤ <span class="id" title="var">o</span> → <span class="id" title="var">m</span> ≤ <span class="id" title="var">o</span>
 </span>    is quantified over a variable, <span class="inlinecode"><span class="id" title="var">n</span></span>, that does not appear in its
     conclusion, so unifying its conclusion with the goal state doesn't
-    help Coq find a suitable value for this variable.  If we leave
+    help Rocq find a suitable value for this variable.  If we leave
     out the <span class="inlinecode"><span class="id" title="keyword">with</span></span>, this step fails ("Error: Unable to find an
     instance for the variable <span class="inlinecode"><span class="id" title="var">n</span></span>").
 
@@ -1628,25 +1628,25 @@ The <span class="inlinecode"><span class="id" title="tactic">eauto</span></span>
     Pro tip: One might think that, since <span class="inlinecode"><span class="id" title="tactic">eapply</span></span> and <span class="inlinecode"><span class="id" title="tactic">eauto</span></span> are more
     powerful than <span class="inlinecode"><span class="id" title="tactic">apply</span></span> and <span class="inlinecode"><span class="id" title="tactic">auto</span></span>, it would be a good idea to use
     them all the time.  Unfortunately, they are also significantly
-    slower -- especially <span class="inlinecode"><span class="id" title="tactic">eauto</span></span>.  Coq experts tend to use <span class="inlinecode"><span class="id" title="tactic">apply</span></span> and
+    slower -- especially <span class="inlinecode"><span class="id" title="tactic">eauto</span></span>.  Rocq experts tend to use <span class="inlinecode"><span class="id" title="tactic">apply</span></span> and
     <span class="inlinecode"><span class="id" title="tactic">auto</span></span> most of the time, only switching to the <span class="inlinecode"><span class="id" title="var">e</span></span> variants when
     the ordinary variants don't do the job. 
 </div>
 
 <div class="doc">
-<a id="lab487"></a><h1 class="section">Ltac: The Tactic Language</h1>
+<a id="lab491"></a><h1 class="section">Ltac: The Tactic Language</h1>
 
 <div class="paragraph"> </div>
 
  Most of the tactics we have been using are implemented in
-    OCaml, where they are able to use an API to access Coq's internal
+    OCaml, where they are able to use an API to access Rocq's internal
     structures at a low level. But this is seldom worth the trouble
-    for ordinary Coq users.
+    for ordinary Rocq users.
 
 <div class="paragraph"> </div>
 
-    Coq has a high-level language called Ltac for programming new
-    tactics in Coq itself, without having to escape to OCaml.
+    Rocq has a high-level language called Ltac for programming new
+    tactics in Rocq itself, without having to escape to OCaml.
     Actually we've been using Ltac all along -- anytime we are in
     proof mode, we've been writing Ltac programs. At their most basic,
     those programs are just invocations of built-in tactics.  The
@@ -1659,7 +1659,7 @@ The <span class="inlinecode"><span class="id" title="tactic">eauto</span></span>
     proof script we have to write ourselves. 
 <div class="paragraph"> </div>
 
-<a id="lab488"></a><h2 class="section">Ltac Functions</h2>
+<a id="lab492"></a><h2 class="section">Ltac Functions</h2>
 
 <div class="paragraph"> </div>
 
@@ -1757,7 +1757,7 @@ We can factor out the common structure:
 </div>
 
 <div class="doc">
-<a id="lab489"></a><h4 class="section">Exercise: 1 star, standard (andb3_exchange)</h4>
+<a id="lab493"></a><h4 class="section">Exercise: 1 star, standard (andb3_exchange)</h4>
  Re-prove the following theorem from <a href="Basics.html"><span class="inlineref">Basics</span></a>, using only
     <span class="inlinecode"><span class="id" title="tactic">intros</span></span> and <span class="inlinecode"><span class="id" title="var">destructpf</span></span>. You should have a one-shot proof. 
 </div>
@@ -1772,7 +1772,7 @@ We can factor out the common structure:
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab490"></a><h4 class="section">Exercise: 2 stars, standard (andb_true_elim2)</h4>
+<a id="lab494"></a><h4 class="section">Exercise: 2 stars, standard (andb_true_elim2)</h4>
  The following theorem from <a href="Basics.html"><span class="inlineref">Basics</span></a> can't be proved with
     <span class="inlinecode"><span class="id" title="var">destructpf</span></span>. 
 </div>
@@ -1828,7 +1828,7 @@ Double-check that <span class="inlinecode"><span class="id" title="tactic">intro
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab491"></a><h2 class="section">Ltac Pattern Matching</h2>
+<a id="lab495"></a><h2 class="section">Ltac Pattern Matching</h2>
 
 <div class="paragraph"> </div>
 
@@ -1869,7 +1869,7 @@ At the point we <span class="inlinecode"><span class="id" title="tactic">rewrite
 </div>
 
 <div class="doc">
-The syntax is similar to a <span class="inlinecode"><span class="id" title="keyword">match</span></span> in Gallina (Coq's term
+The syntax is similar to a <span class="inlinecode"><span class="id" title="keyword">match</span></span> in Gallina (Rocq's term
     language), but has some new features:
 
 <div class="paragraph"> </div>
@@ -2208,12 +2208,12 @@ That works great! Here are two other proofs that follow the same
 </div>
 
 <div class="doc">
-<a id="lab492"></a><h2 class="section">Using <span class="inlinecode"><span class="id" title="keyword">match</span></span> <span class="inlinecode"><span class="id" title="keyword">goal</span></span> to Prove Tautologies</h2>
+<a id="lab496"></a><h2 class="section">Using <span class="inlinecode"><span class="id" title="keyword">match</span></span> <span class="inlinecode"><span class="id" title="keyword">goal</span></span> to Prove Tautologies</h2>
 
 <div class="paragraph"> </div>
 
  The Ltac source code of <span class="inlinecode"><span class="id" title="tactic">intuition</span></span> can be found in the GitHub
-    repo for Coq in <span class="inlinecode"><span class="id" title="var">theories</span>/<span class="id" title="var">Init</span>/<span class="id" title="var">Tauto.v</span></span>. At heart, it is a big
+    repo for Rocq in <span class="inlinecode"><span class="id" title="var">theories</span>/<span class="id" title="var">Init</span>/<span class="id" title="var">Tauto.v</span></span>. At heart, it is a big
     loop that runs <span class="inlinecode"><span class="id" title="keyword">match</span></span> <span class="inlinecode"><span class="id" title="keyword">goal</span></span> to find propositions it can <span class="inlinecode"><span class="id" title="tactic">apply</span></span>
     and <span class="inlinecode"><span class="id" title="tactic">destruct</span></span>.
 
@@ -2326,7 +2326,7 @@ Some other usual theorems about <span class="inlinecode"><span class="id" title=
 </div>
 
 <div class="doc">
-<a id="lab493"></a><h4 class="section">Exercise: 4 stars, advanced (nor_intuition)</h4>
+<a id="lab497"></a><h4 class="section">Exercise: 4 stars, advanced (nor_intuition)</h4>
 
 <div class="paragraph"> </div>
 
@@ -2370,7 +2370,7 @@ Each of the three theorems below, and many others involving these
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab494"></a><h1 class="section">Review</h1>
+<a id="lab498"></a><h1 class="section">Review</h1>
 
 <div class="paragraph"> </div>
 
@@ -2410,7 +2410,7 @@ Each of the three theorems below, and many others involving these
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-24&nbsp;14:26&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:35&nbsp;*)</span><br/>
 </div>
 </div>
 

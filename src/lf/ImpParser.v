@@ -1,11 +1,11 @@
-(** * ImpParser: Lexing and Parsing in Coq *)
+(** * ImpParser: Lexing and Parsing in Rocq *)
 
 (** The development of the Imp language in [Imp.v] completely ignores
     issues of concrete syntax -- how an ascii string that a programmer
     might write gets translated into abstract syntax trees defined by
     the datatypes [aexp], [bexp], and [com].  In this chapter, we
     illustrate how the rest of the story can be filled in by building
-    a simple lexical analyzer and parser using Coq's functional
+    a simple lexical analyzer and parser using Rocq's functional
     programming facilities. *)
 
 (** It is not important to understand all the details here (and
@@ -25,6 +25,7 @@ From Stdlib Require Import Init.Nat.
 From Stdlib Require Import EqNat.
 From Stdlib Require Import List. Import ListNotations.
 From LF Require Import Maps Imp.
+Local Open Scope com_scope.
 
 (* ################################################################# *)
 (** * Internals *)
@@ -462,4 +463,4 @@ Example eg2 : parse "
       "x" := "z" }>.
 Proof. cbv. reflexivity. Qed.
 
-(* 2025-08-24 14:26 *)
+(* 2025-12-26 08:35 *)

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="common/css/sf.css" rel="stylesheet" type="text/css" />
-<title>ImpParser: Lexing and Parsing in Coq</title>
+<title>ImpParser: Lexing and Parsing in Rocq</title>
 <link href="common/jquery-ui/jquery-ui.css" rel="stylesheet">
 <script src="common/jquery-ui/external/jquery/jquery.js"></script>
 <script src="common/jquery-ui/jquery-ui.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
 
-<h1 class="libtitle">ImpParser<span class="subtitle">Lexing and Parsing in Coq</span></h1>
+<h1 class="libtitle">ImpParser<span class="subtitle">Lexing and Parsing in Rocq</span></h1>
 
 
 <div class="doc">
@@ -41,7 +41,7 @@
     might write gets translated into abstract syntax trees defined by
     the datatypes <span class="inlinecode"><span class="id" title="var">aexp</span></span>, <span class="inlinecode"><span class="id" title="var">bexp</span></span>, and <span class="inlinecode"><span class="id" title="var">com</span></span>.  In this chapter, we
     illustrate how the rest of the story can be filled in by building
-    a simple lexical analyzer and parser using Coq's functional
+    a simple lexical analyzer and parser using Rocq's functional
     programming facilities. 
 <div class="paragraph"> </div>
 
@@ -64,15 +64,16 @@
 <span class="id" title="keyword">From</span> <span class="id" title="var">Stdlib</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Arith.EqNat.html#"><span class="id" title="library">EqNat</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">Stdlib</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#"><span class="id" title="library">List</span></a>. <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#ListNotations"><span class="id" title="module">ListNotations</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">LF</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="Maps.html#"><span class="id" title="library">Maps</span></a> <a class="idref" href="Imp.html#"><span class="id" title="library">Imp</span></a>.<br/>
+<span class="id" title="keyword">Local Open</span> <span class="id" title="keyword">Scope</span> <span class="id" title="var">com_scope</span>.<br/>
 </div>
 
 <div class="doc">
-<a id="lab436"></a><h1 class="section">Internals</h1>
+<a id="lab440"></a><h1 class="section">Internals</h1>
 
 </div>
 
 <div class="doc">
-<a id="lab437"></a><h2 class="section">Lexical Analysis</h2>
+<a id="lab441"></a><h2 class="section">Lexical Analysis</h2>
 
 </div>
 <div class="code">
@@ -150,11 +151,11 @@
 </div>
 
 <div class="doc">
-<a id="lab438"></a><h2 class="section">Parsing</h2>
+<a id="lab442"></a><h2 class="section">Parsing</h2>
 
 <div class="paragraph"> </div>
 
-<a id="lab439"></a><h3 class="section">Options With Errors</h3>
+<a id="lab443"></a><h3 class="section">Options With Errors</h3>
 
 <div class="paragraph"> </div>
 
@@ -193,7 +194,7 @@ Some syntactic sugar to make writing nested match-expressions on
 </div>
 
 <div class="doc">
-<a id="lab440"></a><h3 class="section">Generic Combinators for Building Parsers</h3>
+<a id="lab444"></a><h3 class="section">Generic Combinators for Building Parsers</h3>
 
 </div>
 <div class="code">
@@ -248,7 +249,7 @@ A parser that expects a particular token:
 </div>
 
 <div class="doc">
-<a id="lab441"></a><h3 class="section">A Recursive-Descent Parser for Imp</h3>
+<a id="lab445"></a><h3 class="section">A Recursive-Descent Parser for Imp</h3>
 
 <div class="paragraph"> </div>
 
@@ -487,7 +488,7 @@ Parsing commands:
 </div>
 
 <div class="doc">
-<a id="lab442"></a><h1 class="section">Examples</h1>
+<a id="lab446"></a><h1 class="section">Examples</h1>
 
 </div>
 <div class="code">
@@ -501,7 +502,7 @@ Parsing commands:
   end  "<br/>
 <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a><br/>
 &nbsp;&nbsp;<a class="idref" href="ImpParser.html#SomeE"><span class="id" title="constructor">SomeE</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">if</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a>"x" <a class="idref" href="Imp.html#9e5b22caf5d7cf490e97976162618c2a"><span class="id" title="notation">=</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a>"y" <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> 1 <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> 2 <a class="idref" href="Imp.html#:com::x_'-'_x"><span class="id" title="notation">-</span></a> "y" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> 6 <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> 3<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">))</span></a> <a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">then</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">if</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a>"x" <a class="idref" href="Imp.html#9e5b22caf5d7cf490e97976162618c2a"><span class="id" title="notation">=</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a>"y" <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> 1 <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> 2 <a class="idref" href="Imp.html#:com::x_'-'_x"><span class="id" title="notation">-</span></a> "y" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> 6 <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> 3<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">))</span></a> <a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">then</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x" <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> "x" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> 1<a class="idref" href="Imp.html#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">;</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"y" <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> 0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">else</span></a><br/>
@@ -524,9 +525,9 @@ Parsing commands:
 <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a><br/>
 &nbsp;&nbsp;<a class="idref" href="ImpParser.html#SomeE"><span class="id" title="constructor">SomeE</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'skip'"><span class="id" title="notation">skip</span></a><a class="idref" href="Imp.html#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">;</span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"z" <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> "x" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> "y" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a>"x" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> "x"<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a><a class="idref" href="Imp.html#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">;</span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">while</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a>"x" <a class="idref" href="Imp.html#9e5b22caf5d7cf490e97976162618c2a"><span class="id" title="notation">=</span></a> "x"<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">do</span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">if</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a>"z" <a class="idref" href="Imp.html#d43f15edd52d29ae8e0f90730a25ed5c"><span class="id" title="notation">≤</span></a> "z" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> "z"<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#:com::x_'&amp;&amp;'_x"><span class="id" title="notation">&amp;&amp;</span></a> <a class="idref" href="Imp.html#dfe50505b2b595242030c436d0d7d15f"><span class="id" title="notation">¬</span></a><a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a>"x" <a class="idref" href="Imp.html#9e5b22caf5d7cf490e97976162618c2a"><span class="id" title="notation">=</span></a> 2<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">then</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"z" <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> "x" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> "y" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a>"x" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> "x"<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a><a class="idref" href="Imp.html#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">;</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">while</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a>"x" <a class="idref" href="Imp.html#9e5b22caf5d7cf490e97976162618c2a"><span class="id" title="notation">=</span></a> "x"<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">do</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">if</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a>"z" <a class="idref" href="Imp.html#d43f15edd52d29ae8e0f90730a25ed5c"><span class="id" title="notation">≤</span></a> "z" <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> "z"<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#:com::x_'&amp;&amp;'_x"><span class="id" title="notation">&amp;&amp;</span></a> <a class="idref" href="Imp.html#dfe50505b2b595242030c436d0d7d15f"><span class="id" title="notation">¬</span></a><a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a>"x" <a class="idref" href="Imp.html#9e5b22caf5d7cf490e97976162618c2a"><span class="id" title="notation">=</span></a> 2<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">then</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x" <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> "z"<a class="idref" href="Imp.html#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">;</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"y" <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> "z"<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">else</span></a><br/>
@@ -536,7 +537,7 @@ Parsing commands:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">end</span></a><a class="idref" href="Imp.html#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">;</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x" <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> "z" <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a>.<br/>
 <span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">cbv</span>. <span class="id" title="tactic">reflexivity</span>. <span class="id" title="keyword">Qed</span>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2025-08-24&nbsp;14:26&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:35&nbsp;*)</span><br/>
 </div>
 </div>
 

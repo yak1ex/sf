@@ -674,7 +674,7 @@ The key issue in the normalization proof (as in many proofs by
 
 <div class="paragraph"> </div>
 
-    When we come to formalize the definition of <span class="inlinecode"><span class="id" title="var">R</span></span> in Coq, we hit a
+    When we come to formalize the definition of <span class="inlinecode"><span class="id" title="var">R</span></span> in Rocq, we hit a
     problem.  The most obvious formulation would be as a parameterized
     Inductive proposition like this:
 <br/>
@@ -686,7 +686,7 @@ The key issue in the normalization proof (as in many proofs by
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">halts</span> <span class="id" title="var">t</span> →<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">∀</span> <span class="id" title="var">s</span>, <span class="id" title="var">R</span> <span class="id" title="var">T<sub>1</sub></span> <span class="id" title="var">s</span> → <span class="id" title="var">R</span> <span class="id" title="var">T<sub>2</sub></span> (<span class="id" title="var">app</span> <span class="id" title="var">t</span> <span class="id" title="var">s</span>)) →<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">R</span> (<span class="id" title="var">Arrow</span> <span class="id" title="var">T<sub>1</sub></span> <span class="id" title="var">T<sub>2</sub></span>) <span class="id" title="var">t</span>.
-</span>    Unfortunately, Coq rejects this definition because it violates the
+</span>    Unfortunately, Rocq rejects this definition because it violates the
     <i>strict positivity requirement</i> for inductive definitions, which says
     that the type being defined must not occur to the left of an arrow in
     the type of a constructor argument. Here, it is the third argument to
@@ -696,9 +696,9 @@ The key issue in the normalization proof (as in many proofs by
     applying this rule; otherwise we could never have genuinely inductive
     properties at all!)  The reason for the rule is that types defined
     with non-positive recursion can be used to build non-terminating
-    functions, which as we know would be a disaster for Coq's logical
+    functions, which as we know would be a disaster for Rocq's logical
     soundness. Even though the relation we want in this case might be
-    perfectly innocent, Coq still rejects it because it fails the
+    perfectly innocent, Rocq still rejects it because it fails the
     positivity test.
 
 <div class="paragraph"> </div>
@@ -921,7 +921,7 @@ In the reverse direction, we must add the fact that <span class="inlinecode"><sp
     substitutions on term <span class="inlinecode"><span class="id" title="var">t</span></span> and <i>multiple</i> extensions of the typing
     context.  In particular, we must be precise about the order in which
     the substitutions occur and how they act on each other.  Often these
-    details are simply elided in informal paper proofs, but of course Coq
+    details are simply elided in informal paper proofs, but of course Rocq
     won't let us do that. Since here we are substituting closed terms, we
     don't need to worry about how one substitution might affect the term
     put in place by another.  But we still do need to worry about the
@@ -1467,7 +1467,7 @@ And at long last, the main lemma.
 </div>
 
 <br/>
-<span class="comment">(*&nbsp;2025-08-24&nbsp;13:47&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:38&nbsp;*)</span><br/>
 </div>
 </div>
 

@@ -248,6 +248,6 @@ idtac "---------- STLCProp.substitution_preserves_typing_from_typing_ind -------
 Print Assumptions STLCProp.substitution_preserves_typing_from_typing_ind.
 Abort.
 
-(* 2025-08-24 14:29 *)
+(* 2025-12-26 08:37 *)
 
-(* 2025-08-24 14:29 *)
+(* 2025-12-26 08:38 *)

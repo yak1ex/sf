@@ -275,7 +275,8 @@ In this chapter, we develop the fundamental theory of the Simply
 
 <ul class="doclist">
 <li> The <i>preservation theorem</i> is proved by induction on a typing
-        derivation, pretty much as we did in the <a href="Types.html"><span class="inlineref">Types</span></a> chapter.
+        derivation and case analysis on the step relation,
+        pretty much as we did in the <a href="Types.html"><span class="inlineref">Types</span></a> chapter.
         The one case that is significantly different is the one for
         the <span class="inlinecode"><span class="id" title="var">ST_AppAbs</span></span> rule, whose definition uses the substitution
         operation.  To see that this step preserves typing, we need to
@@ -306,7 +307,7 @@ In this chapter, we develop the fundamental theory of the Simply
 
 <div class="paragraph"> </div>
 
-   To make Coq happy, of course, we need to formalize the story in the
+   To make Rocq happy, though, we need to formalize the story in the
    opposite order, starting with weakening... 
 </div>
 
@@ -370,8 +371,7 @@ The following simple corollary is what we actually need below.
     that we've shown that <span class="inlinecode"><span class="id" title="var">v</span></span> has type <span class="inlinecode"><span class="id" title="var">U</span></span>.  Then, since <span class="inlinecode"><span class="id" title="var">v</span></span> satisfies
     the assumption we made about <span class="inlinecode"><span class="id" title="var">x</span></span> when typing <span class="inlinecode"><span class="id" title="var">t</span></span>, we can
     substitute <span class="inlinecode"><span class="id" title="var">v</span></span> for each of the occurrences of <span class="inlinecode"><span class="id" title="var">x</span></span> in <span class="inlinecode"><span class="id" title="var">t</span></span> and
-    obtain a new term that still has type <span class="inlinecode"><span class="id" title="var">T</span></span>.  <i>Lemma</i>: If <span class="inlinecode"><span class="id" title="var">x</span><span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>&#x22A2;</span><span style='font-size:90%;'>&gt;</span></span></span></span><span class="id" title="var">U</span>;</span> <span class="inlinecode"><span class="id" title="var">Gamma</span></span> <span class="inlinecode"><span class="nowrap">&vert;--</span></span> <span class="inlinecode"><span class="id" title="var">t</span></span> &#x2208; <span class="inlinecode"><span class="id" title="var">T</span></span> and <span class="inlinecode"><span class="nowrap">&vert;--</span></span> <span class="inlinecode"><span class="id" title="var">v</span></span> &#x2208; <span class="inlinecode"><span class="id" title="var">U</span></span>,
-    then <span class="inlinecode"><span class="id" title="var">Gamma</span></span> <span class="inlinecode"><span class="nowrap">&vert;--</span></span> <span class="inlinecode">[<span class="id" title="var">x</span>:=<span class="id" title="var">v</span>]<span class="id" title="var">t</span></span> &#x2208; <span class="inlinecode"><span class="id" title="var">T</span></span>. 
+    obtain a new term that still has type <span class="inlinecode"><span class="id" title="var">T</span></span>. 
 </div>
 <div class="code">
 
@@ -1039,7 +1039,7 @@ Conversely, an <i>open</i> term is one that may contain free
 <a id="lab252"></a><h4 class="section">Exercise: 1 star, standard, optional (progress_preservation_statement)</h4>
  (Officially optional, but strongly recommended!) Without peeking
     at their statements above, write down the progress and
-    preservation theorems for the simply typed lambda-calculus (as Coq
+    preservation theorems for the simply typed lambda-calculus (as Rocq
     theorems).  You can write <span class="inlinecode"><span class="id" title="var">Admitted</span></span> for the proofs. 
 </div>
 <div class="code">
@@ -1504,14 +1504,14 @@ In this extended exercise, your job is to finish formalizing the
 
 <div class="paragraph"> </div>
 
-    Hint: If you get an error "STLC.tm" found instead of term "tm" then Coq
+    Hint: If you get an error "STLC.tm" found instead of term "tm" then Rocq
     is picking up the old notation for ie: subst instead of the new
     notation for STLCArith, so you need to overwrite the old with the
     notation before you can use it.
 
 <div class="paragraph"> </div>
 
-    Make sure Coq accepts the whole file before submitting. 
+    Make sure Rocq accepts the whole file before submitting. 
 <div class="paragraph"> </div>
 
 <a id="lab261"></a><h4 class="section">Exercise: 5 stars, standard (STLCArith.subst)</h4>
@@ -1625,7 +1625,7 @@ In this extended exercise, your job is to finish formalizing the
 <div class="code">
 
 <span class="id" title="keyword">End</span> <a class="idref" href="StlcProp.html#STLCArith"><span class="id" title="module">STLCArith</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2025-08-24&nbsp;13:47&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:38&nbsp;*)</span><br/>
 </div>
 </div>
 

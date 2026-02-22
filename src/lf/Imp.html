@@ -36,7 +36,7 @@
 
 <div class="paragraph"> </div>
 
- In this chapter, we take a more serious look at how to use Coq as
+ In this chapter, we take a more serious look at how to use Rocq as
     a tool to study other things.  Our case study is a <i>simple
     imperative programming language</i> called Imp, embodying a tiny core
     fragment of conventional mainstream languages such as C and Java.
@@ -62,7 +62,7 @@
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Set</span> <span class="id" title="var">Warnings</span> "-notation-overridden,-notation-incompatible-prefix".<br/>
+<span class="id" title="keyword">Set</span> <span class="id" title="var">Warnings</span> "-notation-overridden".<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">Stdlib</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Bool.Bool.html#"><span class="id" title="library">Bool</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">Stdlib</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Init.Nat.html#"><span class="id" title="library">Init.Nat</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">Stdlib</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Arith.Arith.html#"><span class="id" title="library">Arith</span></a>.<br/>
@@ -71,11 +71,10 @@
 <span class="id" title="keyword">From</span> <span class="id" title="var">Stdlib</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#"><span class="id" title="library">List</span></a>. <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#ListNotations"><span class="id" title="module">ListNotations</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">Stdlib</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Strings.String.html#"><span class="id" title="library">Strings.String</span></a>.<br/>
 <span class="id" title="keyword">From</span> <span class="id" title="var">LF</span> <span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="Maps.html#"><span class="id" title="library">Maps</span></a>.<br/>
-<span class="id" title="keyword">Set</span> <span class="id" title="var">Default</span> <span class="id" title="keyword">Goal</span> <span class="id" title="var">Selector</span> "!".<br/>
 </div>
 
 <div class="doc">
-<a id="lab379"></a><h1 class="section">Arithmetic and Boolean Expressions</h1>
+<a id="lab383"></a><h1 class="section">Arithmetic and Boolean Expressions</h1>
 
 <div class="paragraph"> </div>
 
@@ -86,7 +85,7 @@
 </div>
 
 <div class="doc">
-<a id="lab380"></a><h2 class="section">Syntax</h2>
+<a id="lab384"></a><h2 class="section">Syntax</h2>
 
 </div>
 <div class="code">
@@ -149,7 +148,7 @@ In this chapter, we'll mostly elide the translation from the
 </span>
 <div class="paragraph"> </div>
 
- Compared to the Coq version above...
+ Compared to the Rocq version above...
 
 <div class="paragraph"> </div>
 
@@ -166,7 +165,7 @@ In this chapter, we'll mostly elide the translation from the
 
 <div class="paragraph"> </div>
 
-         The Coq version consistently omits all this information and
+         The Rocq version consistently omits all this information and
          concentrates on the abstract syntax only.
 
 <div class="paragraph"> </div>
@@ -198,7 +197,7 @@ In this chapter, we'll mostly elide the translation from the
 </div>
 
 <div class="doc">
-<a id="lab381"></a><h2 class="section">Evaluation</h2>
+<a id="lab385"></a><h2 class="section">Evaluation</h2>
 
 <div class="paragraph"> </div>
 
@@ -240,7 +239,7 @@ Similarly, evaluating a boolean expression yields a boolean.
 </div>
 
 <div class="doc">
-<a id="lab382"></a><h2 class="section">Optimization</h2>
+<a id="lab386"></a><h2 class="section">Optimization</h2>
 
 <div class="paragraph"> </div>
 
@@ -315,7 +314,7 @@ But if we want to be certain the optimization is correct --
 </div>
 
 <div class="doc">
-<a id="lab383"></a><h1 class="section">Coq Automation</h1>
+<a id="lab387"></a><h1 class="section">Rocq Automation</h1>
 
 <div class="paragraph"> </div>
 
@@ -327,27 +326,27 @@ But if we want to be certain the optimization is correct --
 <div class="paragraph"> </div>
 
     So far, we've been doing all our proofs using just a small handful
-    of Coq's tactics and completely ignoring its powerful facilities
+    of Rocq's tactics and completely ignoring its powerful facilities
     for constructing parts of proofs automatically.  This section
     introduces some of these facilities, and we will see more over the
     next several chapters.  Getting used to them will take some
-    energy -- Coq's automation is a power tool -- but it will allow us
+    energy -- Rocq's automation is a power tool -- but it will allow us
     to scale up our efforts to more complex definitions and more
     interesting properties without becoming overwhelmed by boring,
     repetitive, low-level details. 
 </div>
 
 <div class="doc">
-<a id="lab384"></a><h2 class="section">Tacticals</h2>
+<a id="lab388"></a><h2 class="section">Tacticals</h2>
 
 <div class="paragraph"> </div>
 
- <i>Tacticals</i> is Coq's term for tactics that take other tactics as
+ <i>Tacticals</i> is Rocq's term for tactics that take other tactics as
     arguments -- "higher-order tactics," if you will.  
 </div>
 
 <div class="doc">
-<a id="lab385"></a><h3 class="section">The <span class="inlinecode"><span class="id" title="tactic">try</span></span> Tactical</h3>
+<a id="lab389"></a><h3 class="section">The <span class="inlinecode"><span class="id" title="tactic">try</span></span> Tactical</h3>
 
 <div class="paragraph"> </div>
 
@@ -376,7 +375,7 @@ There is not much reason to use <span class="inlinecode"><span class="id" title=
 </div>
 
 <div class="doc">
-<a id="lab386"></a><h3 class="section">The <span class="inlinecode">;</span> Tactical (Simple Form)</h3>
+<a id="lab390"></a><h3 class="section">The <span class="inlinecode">;</span> Tactical (Simple Form)</h3>
 
 <div class="paragraph"> </div>
 
@@ -447,7 +446,7 @@ Using <span class="inlinecode"><span class="id" title="tactic">try</span></span>
 </div>
 
 <div class="doc">
-Coq experts often use this "<span class="inlinecode">...;</span> <span class="inlinecode"><span class="id" title="tactic">try</span>...</span> <span class="inlinecode"></span>" idiom after a tactic
+Rocq experts often use this "<span class="inlinecode">...;</span> <span class="inlinecode"><span class="id" title="tactic">try</span>...</span> <span class="inlinecode"></span>" idiom after a tactic
     like <span class="inlinecode"><span class="id" title="tactic">induction</span></span> to take care of many similar cases all at once.
     Indeed, this practice has an analog in informal proofs.  For
     example, here is an informal proof of the optimization theorem
@@ -527,7 +526,7 @@ Coq experts often use this "<span class="inlinecode">...;</span> <span class="in
 </div>
 
 <div class="doc">
-<a id="lab387"></a><h3 class="section">The <span class="inlinecode">;</span> Tactical (General Form)</h3>
+<a id="lab391"></a><h3 class="section">The <span class="inlinecode">;</span> Tactical (General Form)</h3>
 
 <div class="paragraph"> </div>
 
@@ -550,7 +549,7 @@ Coq experts often use this "<span class="inlinecode">...;</span> <span class="in
 </div>
 
 <div class="doc">
-<a id="lab388"></a><h3 class="section">The <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> Tactical</h3>
+<a id="lab392"></a><h3 class="section">The <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> Tactical</h3>
 
 <div class="paragraph"> </div>
 
@@ -599,14 +598,14 @@ The tactic <span class="inlinecode"><span class="id" title="tactic">repeat</span
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">m</span> <span class="id" title="var">n</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;Uncomment&nbsp;the&nbsp;next&nbsp;line&nbsp;to&nbsp;see&nbsp;the&nbsp;infinite&nbsp;loop&nbsp;occur.&nbsp;&nbsp;You&nbsp;will<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;need&nbsp;to&nbsp;interrupt&nbsp;Coq&nbsp;to&nbsp;make&nbsp;it&nbsp;listen&nbsp;to&nbsp;you&nbsp;again.&nbsp;&nbsp;(In<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;need&nbsp;to&nbsp;interrupt&nbsp;Rocq&nbsp;to&nbsp;make&nbsp;it&nbsp;listen&nbsp;to&nbsp;you&nbsp;again.&nbsp;&nbsp;(In<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Proof&nbsp;General,&nbsp;<span class="inlinecode"><span class="id" title="var">C</span>-<span class="id" title="var">c</span></span> <span class="inlinecode"><span class="id" title="var">C</span>-<span class="id" title="var">c</span></span>&nbsp;does&nbsp;this.)&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;repeat&nbsp;rewrite&nbsp;Nat.add_comm.&nbsp;*)</span><br/>
 <span class="id" title="var">Admitted</span>.<br/>
 </div>
 
 <div class="doc">
-Wait -- did we just write an infinite loop in Coq?!?!
+Wait -- did we just write an infinite loop in Rocq?!?!
 
 <div class="paragraph"> </div>
 
@@ -614,16 +613,16 @@ Wait -- did we just write an infinite loop in Coq?!?!
 
 <div class="paragraph"> </div>
 
-    While evaluation in Coq's term language, Gallina, is guaranteed to
-    terminate, <i>tactic</i> evaluation is not.  This does not affect Coq's
+    While evaluation in Rocq's term language, Gallina, is guaranteed to
+    terminate, <i>tactic</i> evaluation is not.  This does not affect Rocq's
     logical consistency, however, since the job of <span class="inlinecode"><span class="id" title="tactic">repeat</span></span> and other
-    tactics is to guide Coq in constructing proofs; if the
+    tactics is to guide Rocq in constructing proofs; if the
     construction process diverges (i.e., it does not terminate), this
     simply means that we have failed to construct a proof at all, not
     that we have constructed a bad proof. 
 <div class="paragraph"> </div>
 
-<a id="lab389"></a><h4 class="section">Exercise: 3 stars, standard (optimize_0plus_b_sound)</h4>
+<a id="lab393"></a><h4 class="section">Exercise: 3 stars, standard (optimize_0plus_b_sound)</h4>
  Since the <span class="inlinecode"><span class="id" title="var">optimize_0plus</span></span> transformation doesn't change the value
     of <span class="inlinecode"><span class="id" title="var">aexp</span></span>s, we should be able to apply it to all the <span class="inlinecode"><span class="id" title="var">aexp</span></span>s that
     appear in a <span class="inlinecode"><span class="id" title="var">bexp</span></span> without changing the <span class="inlinecode"><span class="id" title="var">bexp</span></span>'s value.  Write a
@@ -653,7 +652,7 @@ Wait -- did we just write an infinite loop in Coq?!?!
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab390"></a><h4 class="section">Exercise: 4 stars, standard, optional (optimize)</h4>
+<a id="lab394"></a><h4 class="section">Exercise: 4 stars, standard, optional (optimize)</h4>
  <i>Design exercise</i>: The optimization implemented by our
     <span class="inlinecode"><span class="id" title="var">optimize_0plus</span></span> function is only one of many possible
     optimizations on arithmetic and boolean expressions.  Write a more
@@ -670,11 +669,11 @@ Wait -- did we just write an infinite loop in Coq?!?!
 
 
 <div class="doc">
-<a id="lab391"></a><h2 class="section">Defining New Tactics</h2>
+<a id="lab395"></a><h2 class="section">Defining New Tactics</h2>
 
 <div class="paragraph"> </div>
 
- Coq also provides facilities for "programming" in tactic
+ Rocq also provides facilities for "programming" in tactic
     scripts.
 
 <div class="paragraph"> </div>
@@ -699,11 +698,11 @@ Wait -- did we just write an infinite loop in Coq?!?!
 
 <div class="paragraph"> </div>
 
-    Just for future reference: Coq provides two other ways of defining
+    Just for future reference: Rocq provides two other ways of defining
     new tactics.  There is a <span class="inlinecode"><span class="id" title="keyword">Tactic</span></span> <span class="inlinecode"><span class="id" title="keyword">Notation</span></span> command that allows
     defining new tactics with custom control over their concrete
     syntax. And there is also a low-level API that can be used to
-    build tactics that directly manipulate Coq's internal structures.
+    build tactics that directly manipulate Rocq's internal structures.
     We will not need either of these for present purposes.
 
 <div class="paragraph"> </div>
@@ -733,7 +732,7 @@ This defines a new tactic called <span class="inlinecode"><span class="id" title
 </div>
 
 <div class="doc">
-<a id="lab392"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="var">lia</span></span> Tactic</h2>
+<a id="lab396"></a><h2 class="section">The <span class="inlinecode"><span class="id" title="var">lia</span></span> Tactic</h2>
 
 <div class="paragraph"> </div>
 
@@ -798,7 +797,7 @@ This defines a new tactic called <span class="inlinecode"><span class="id" title
 </div>
 
 <div class="doc">
-<a id="lab393"></a><h2 class="section">A Few More Handy Tactics</h2>
+<a id="lab397"></a><h2 class="section">A Few More Handy Tactics</h2>
 
 <div class="paragraph"> </div>
 
@@ -867,7 +866,7 @@ This defines a new tactic called <span class="inlinecode"><span class="id" title
 </div>
 
 <div class="doc">
-<a id="lab394"></a><h1 class="section">Evaluation as a Relation</h1>
+<a id="lab398"></a><h1 class="section">Evaluation as a Relation</h1>
 
 <div class="paragraph"> </div>
 
@@ -923,7 +922,7 @@ A small notational aside. We could also write the definition of
 </div>
 
 <div class="doc">
-This style gives us more control over the names that Coq chooses
+This style gives us more control over the names that Rocq chooses
     during proofs involving <span class="inlinecode"><span class="id" title="var">aevalR</span></span>, at the cost of making the
     definition a little more verbose. 
 </div>
@@ -948,7 +947,7 @@ It will be convenient to have an infix notation for
 
 <div class="doc">
 As we saw in our case study of regular expressions in
-    chapter <a href="IndProp.html"><span class="inlineref">IndProp</span></a>, Coq provides a way to use this notation in
+    chapter <a href="IndProp.html"><span class="inlineref">IndProp</span></a>, Rocq provides a way to use this notation in
     the definition of <span class="inlinecode"><span class="id" title="var">aevalR</span></span> itself. 
 </div>
 <div class="code">
@@ -973,7 +972,7 @@ As we saw in our case study of regular expressions in
 </div>
 
 <div class="doc">
-<a id="lab395"></a><h2 class="section">Inference Rule Notation</h2>
+<a id="lab399"></a><h2 class="section">Inference Rule Notation</h2>
 
 <div class="paragraph"> </div>
 
@@ -1106,8 +1105,8 @@ As we saw in our case study of regular expressions in
 </table></center>
 <div class="paragraph"> </div>
 
-<a id="lab396"></a><h4 class="section">Exercise: 1 star, standard, optional (beval_rules)</h4>
- Here, again, is the Coq definition of the <span class="inlinecode"><span class="id" title="var">beval</span></span> function:
+<a id="lab400"></a><h4 class="section">Exercise: 1 star, standard, optional (beval_rules)</h4>
+ Here, again, is the Rocq definition of the <span class="inlinecode"><span class="id" title="var">beval</span></span> function:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;<span class="id" title="keyword">Fixpoint</span> <span class="id" title="var">beval</span> (<span class="id" title="var">e</span> : <span class="id" title="var">bexp</span>) : <span class="id" title="var">bool</span> :=<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">match</span> <span class="id" title="var">e</span> <span class="id" title="keyword">with</span><br/>
@@ -1132,7 +1131,7 @@ As we saw in our case study of regular expressions in
 
 
 <div class="doc">
-<a id="lab397"></a><h2 class="section">Equivalence of the Definitions</h2>
+<a id="lab401"></a><h2 class="section">Equivalence of the Definitions</h2>
 
 <div class="paragraph"> </div>
 
@@ -1201,7 +1200,7 @@ Again, we can make the proof quite a bit shorter using some
 </div>
 
 <div class="doc">
-<a id="lab398"></a><h4 class="section">Exercise: 3 stars, standard (bevalR)</h4>
+<a id="lab402"></a><h4 class="section">Exercise: 3 stars, standard (bevalR)</h4>
  Write a relation <span class="inlinecode"><span class="id" title="var">bevalR</span></span> in the same style as
     <span class="inlinecode"><span class="id" title="var">aevalR</span></span>, and prove that it is equivalent to <span class="inlinecode"><span class="id" title="var">beval</span></span>. 
 </div>
@@ -1224,7 +1223,7 @@ Again, we can make the proof quite a bit shorter using some
 </div>
 
 <div class="doc">
-<a id="lab399"></a><h2 class="section">Computational vs. Relational Definitions</h2>
+<a id="lab403"></a><h2 class="section">Computational vs. Relational Definitions</h2>
 
 <div class="paragraph"> </div>
 
@@ -1355,7 +1354,7 @@ At this point you maybe wondering: Which of these styles
 
 <div class="paragraph"> </div>
 
-    Another is that Coq automatically generates nice inversion and
+    Another is that Rocq automatically generates nice inversion and
     induction principles from <span class="inlinecode"><span class="id" title="keyword">Inductive</span></span> definitions.
 
 <div class="paragraph"> </div>
@@ -1368,7 +1367,7 @@ At this point you maybe wondering: Which of these styles
        explicitly if we need them.
 
 </li>
-<li> With functions we can also take advantage of Coq's computation
+<li> With functions we can also take advantage of Rocq's computation
        mechanism to simplify expressions during proofs.
 
 </li>
@@ -1383,14 +1382,14 @@ At this point you maybe wondering: Which of these styles
 
     Ultimately, the choice often comes down to either the specifics of
     a particular situation or simply a question of taste.  Indeed, in
-    large Coq developments it is common to see a definition given in
+    large Rocq developments it is common to see a definition given in
     <i>both</i> functional and relational styles, plus a lemma stating that
     the two coincide, allowing further proofs to switch from one point
     of view to the other at will. 
 </div>
 
 <div class="doc">
-<a id="lab400"></a><h1 class="section">Expressions With Variables</h1>
+<a id="lab404"></a><h1 class="section">Expressions With Variables</h1>
 
 <div class="paragraph"> </div>
 
@@ -1405,7 +1404,7 @@ At this point you maybe wondering: Which of these styles
 </div>
 
 <div class="doc">
-<a id="lab401"></a><h2 class="section">States</h2>
+<a id="lab405"></a><h2 class="section">States</h2>
 
 <div class="paragraph"> </div>
 
@@ -1431,7 +1430,7 @@ At this point you maybe wondering: Which of these styles
 </div>
 
 <div class="doc">
-<a id="lab402"></a><h2 class="section">Syntax</h2>
+<a id="lab406"></a><h2 class="section">Syntax</h2>
 
 <div class="paragraph"> </div>
 
@@ -1484,7 +1483,7 @@ Defining a few variable names as notational shorthands will make
 </div>
 
 <div class="doc">
-<a id="lab403"></a><h2 class="section">Notations</h2>
+<a id="lab407"></a><h2 class="section">Notations</h2>
 
 <div class="paragraph"> </div>
 
@@ -1506,9 +1505,9 @@ Defining a few variable names as notational shorthands will make
          the string will implicitly be wrapped with <span class="inlinecode"><span class="id" title="var">AId</span></span>.
 
 </li>
-<li> <span class="inlinecode"><span class="id" title="var">Declare</span></span> <span class="inlinecode"><span class="id" title="var">Custom</span></span> <span class="inlinecode"><span class="id" title="var">Entry</span></span> <span class="inlinecode"><span class="id" title="var">com</span></span> tells Coq to create a new "custom
+<li> <span class="inlinecode"><span class="id" title="var">Declare</span></span> <span class="inlinecode"><span class="id" title="var">Custom</span></span> <span class="inlinecode"><span class="id" title="var">Entry</span></span> <span class="inlinecode"><span class="id" title="var">com</span></span> tells Rocq to create a new "custom
          grammar" for parsing Imp expressions and programs. The first
-         notation declaration after this tells Coq that anything
+         notation declaration after this tells Rocq that anything
          between <span class="inlinecode">&lt;{</span> and <span class="inlinecode">}&gt;</span> should be parsed using the Imp
          grammar. Again, it is not necessary to understand the
          details, but it is important to recognize that we are
@@ -1524,16 +1523,15 @@ Defining a few variable names as notational shorthands will make
 <span class="id" title="keyword">Coercion</span> <a class="idref" href="Imp.html#AId"><span class="id" title="constructor">AId</span></a> <a class="idref" href="Imp.html#AId"><span class="id" title="constructor">:</span></a> <a class="idref" href="Imp.html#AId"><span class="id" title="constructor">string</span></a> <a class="idref" href="Imp.html#AId"><span class="id" title="constructor">&gt;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> <a class="idref" href="Imp.html#AId"><span class="id" title="constructor">aexp</span></a>.<br/>
 <span class="id" title="keyword">Coercion</span> <a class="idref" href="Imp.html#ANum"><span class="id" title="constructor">ANum</span></a> <a class="idref" href="Imp.html#ANum"><span class="id" title="constructor">:</span></a> <a class="idref" href="Imp.html#ANum"><span class="id" title="constructor">nat</span></a> <a class="idref" href="Imp.html#ANum"><span class="id" title="constructor">&gt;<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> <a class="idref" href="Imp.html#ANum"><span class="id" title="constructor">aexp</span></a>.<br/><hr class='doublespaceincode'/>
 <span class="id" title="var">Declare</span> <span class="id" title="var">Custom</span> <span class="id" title="var">Entry</span> <span class="id" title="var">com</span>.<br/>
-<span class="id" title="keyword">Declare Scope</span> <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="var">Declare</span> <span class="id" title="var">Custom</span> <span class="id" title="var">Entry</span> <span class="id" title="var">com_aux</span>.<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Notation</span> <a id="23430cd9e427d30c054d4f029e39cb7f" class="idref" href="#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&quot;</span></a>&lt;{ e }&gt;" := <span class="id" title="var">e</span> (<span class="id" title="var">e</span> <span class="id" title="var">custom</span> <span class="id" title="var">com_aux</span>) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id=":com_aux:com_scope:x" class="idref" href="#:com_aux:com_scope:x"><span class="id" title="notation">&quot;</span></a>e" := <span class="id" title="var">e</span> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com_aux</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">e</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span>) : <span class="id" title="var">com_scope</span>.<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Notation</span> <a id="5a96623d056c293ebbcdf03005796e<sub>09</sub>" class="idref" href="#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">&quot;</span></a>( x )" := <span class="id" title="var">x</span> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span>, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id=":com:com_scope:x" class="idref" href="#:com:com_scope:x"><span class="id" title="notation">&quot;</span></a>x" := <span class="id" title="var">x</span> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">x</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0) : <span class="id" title="var">com_scope</span>.<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Notation</span> <a id=":com:com_scope:x_x_'..'_x" class="idref" href="#:com:com_scope:x_x_'..'_x"><span class="id" title="notation">&quot;</span></a>f x .. y" := (.. (<span class="id" title="var">f</span> <span class="id" title="var">x</span>) .. <span class="id" title="var">y</span>)<br/>
+<span class="id" title="keyword">Declare Scope</span> <span class="id" title="var">com_scope</span>.<br/><hr class='doublespaceincode'/>
+<span class="id" title="keyword">Notation</span> <a id="23430cd9e427d30c054d4f029e39cb7f" class="idref" href="#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&quot;</span></a>&lt;{ e }&gt;" := <span class="id" title="var">e</span><br/>
+&nbsp;&nbsp;(<span class="id" title="var">e</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span>, <span class="id" title="var">format</span> "'[hv' &lt;{ '/  ' '[v' e ']' '/' }&gt; ']'") : <span class="id" title="var">com_scope</span>.<br/><hr class='doublespaceincode'/>
+<span class="id" title="keyword">Notation</span> <a id="580550f3f61a5037a1d7c9e0a8b2f874" class="idref" href="#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">&quot;</span></a>( x )" := <span class="id" title="var">x</span> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span>, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99).<br/>
+<span class="id" title="keyword">Notation</span> <a id=":com::x" class="idref" href="#:com::x"><span class="id" title="notation">&quot;</span></a>x" := <span class="id" title="var">x</span> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">x</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0).<br/><hr class='doublespaceincode'/>
+<span class="id" title="keyword">Notation</span> <a id=":com::x_x_'..'_x" class="idref" href="#:com::x_x_'..'_x"><span class="id" title="notation">&quot;</span></a>f x .. y" := (.. (<span class="id" title="var">f</span> <span class="id" title="var">x</span>) .. <span class="id" title="var">y</span>)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">only</span> <span class="id" title="var">parsing</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">f</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">x</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 1,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">y</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 1) : <span class="id" title="var">com_scope</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">y</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 1).<br/>
 <span class="id" title="keyword">Notation</span> <a id="ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>" class="idref" href="#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">&quot;</span></a>x + y"   := (<a class="idref" href="Imp.html#APlus"><span class="id" title="constructor">APlus</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>) (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 50, <span class="id" title="tactic">left</span> <span class="id" title="keyword">associativity</span>).<br/>
 <span class="id" title="keyword">Notation</span> <a id=":com::x_'-'_x" class="idref" href="#:com::x_'-'_x"><span class="id" title="notation">&quot;</span></a>x - y"   := (<a class="idref" href="Imp.html#AMinus"><span class="id" title="constructor">AMinus</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>) (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 50, <span class="id" title="tactic">left</span> <span class="id" title="keyword">associativity</span>).<br/>
 <span class="id" title="keyword">Notation</span> <a id="a73c7b35e67094dc8ae672f3a93da066" class="idref" href="#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">&quot;</span></a>x * y"   := (<a class="idref" href="Imp.html#AMult"><span class="id" title="constructor">AMult</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>) (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40, <span class="id" title="tactic">left</span> <span class="id" title="keyword">associativity</span>).<br/>
@@ -1556,12 +1554,12 @@ We can now write <span class="inlinecode">3</span> <span class="inlinecode">+</s
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Definition</span> <a id="example_aexp" class="idref" href="#example_aexp"><span class="id" title="definition">example_aexp</span></a> : <a class="idref" href="Imp.html#aexp"><span class="id" title="inductive">aexp</span></a> := <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> 3 <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> 2<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a>.<br/>
-<span class="id" title="keyword">Definition</span> <a id="example_bexp" class="idref" href="#example_bexp"><span class="id" title="definition">example_bexp</span></a> : <a class="idref" href="Imp.html#bexp"><span class="id" title="inductive">bexp</span></a> := <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Imp.html#:com::'true'"><span class="id" title="notation">true</span></a> <a class="idref" href="Imp.html#:com::x_'&amp;&amp;'_x"><span class="id" title="notation">&amp;&amp;</span></a> <a class="idref" href="Imp.html#dfe50505b2b595242030c436d0d7d15f"><span class="id" title="notation">¬</span></a><a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#d43f15edd52d29ae8e0f90730a25ed5c"><span class="id" title="notation">≤</span></a> 4<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="example_aexp" class="idref" href="#example_aexp"><span class="id" title="definition">example_aexp</span></a> : <a class="idref" href="Imp.html#aexp"><span class="id" title="inductive">aexp</span></a> := <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> 3 <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> 2<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a>.<br/>
+<span class="id" title="keyword">Definition</span> <a id="example_bexp" class="idref" href="#example_bexp"><span class="id" title="definition">example_bexp</span></a> : <a class="idref" href="Imp.html#bexp"><span class="id" title="inductive">bexp</span></a> := <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Imp.html#:com::'true'"><span class="id" title="notation">true</span></a> <a class="idref" href="Imp.html#:com::x_'&amp;&amp;'_x"><span class="id" title="notation">&amp;&amp;</span></a> <a class="idref" href="Imp.html#dfe50505b2b595242030c436d0d7d15f"><span class="id" title="notation">¬</span></a><a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#d43f15edd52d29ae8e0f90730a25ed5c"><span class="id" title="notation">≤</span></a> 4<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a>.<br/>
 </div>
 
 <div class="doc">
-<a id="lab404"></a><h2 class="section">Evaluation</h2>
+<a id="lab408"></a><h2 class="section">Evaluation</h2>
 
 <div class="paragraph"> </div>
 
@@ -1596,11 +1594,11 @@ We can now write <span class="inlinecode">3</span> <span class="inlinecode">+</s
 
 <div class="doc">
 We can use our notation for total maps in the specific case of
-    states -- i.e., we write the empty state as <span class="inlinecode">(<span class="id" title="var">_</span></span> <span class="inlinecode">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span> <span class="inlinecode">0)</span>. 
+    states -- i.e., we write the empty state as <span class="inlinecode">(<span class="id" title="var">__</span></span> <span class="inlinecode">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span> <span class="inlinecode">0)</span>. 
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Definition</span> <a id="empty_st" class="idref" href="#empty_st"><span class="id" title="definition">empty_st</span></a> := (<a class="idref" href="Maps.html#b26b31fedd72ecba0f79904d3f161f8b"><span class="id" title="notation">_</span></a> <a class="idref" href="Maps.html#b26b31fedd72ecba0f79904d3f161f8b"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 0).<br/>
+<span class="id" title="keyword">Definition</span> <a id="empty_st" class="idref" href="#empty_st"><span class="id" title="definition">empty_st</span></a> := (<a class="idref" href="Maps.html#8a0f3b16882e25c0a6dffabd026e6b<sub>26</sub>"><span class="id" title="notation">__</span></a> <a class="idref" href="Maps.html#8a0f3b16882e25c0a6dffabd026e6b<sub>26</sub>"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 0).<br/>
 </div>
 
 <div class="doc">
@@ -1608,16 +1606,16 @@ Also, we can add a notation for a "singleton state" with just one
     variable bound to a value. 
 </div>
 <div class="code">
-<span class="id" title="keyword">Notation</span> <a id="c78e6ed7f05f8146dc2bcb368255bece" class="idref" href="#c78e6ed7f05f8146dc2bcb368255bece"><span class="id" title="notation">&quot;</span></a>x '!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>' v" := (<span class="id" title="var">x</span> <a class="idref" href="Maps.html#630986d105c0f1782d085b9a306379a<sub>7</sub>"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> <span class="id" title="var">v</span> <a class="idref" href="Maps.html#630986d105c0f1782d085b9a306379a<sub>7</sub>"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#empty_st"><span class="id" title="definition">empty_st</span></a>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 100, <span class="id" title="var">v</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 200).<br/><hr class='doublespaceincode'/>
+<span class="id" title="keyword">Notation</span> <a id="c78e6ed7f05f8146dc2bcb368255bece" class="idref" href="#c78e6ed7f05f8146dc2bcb368255bece"><span class="id" title="notation">&quot;</span></a>x '!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>' v" := (<span class="id" title="var">x</span> <a class="idref" href="Maps.html#630986d105c0f1782d085b9a306379a<sub>7</sub>"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> <span class="id" title="var">v</span> <a class="idref" href="Maps.html#630986d105c0f1782d085b9a306379a<sub>7</sub>"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#empty_st"><span class="id" title="definition">empty_st</span></a>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 100, <span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>).<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Example</span> <a id="aexp1" class="idref" href="#aexp1"><span class="id" title="definition">aexp1</span></a> :<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#aeval"><span class="id" title="definition">aeval</span></a> (<a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#c78e6ed7f05f8146dc2bcb368255bece"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 5) <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> 3 <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> 2<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#aeval"><span class="id" title="definition">aeval</span></a> (<a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#c78e6ed7f05f8146dc2bcb368255bece"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 5) <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> 3 <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> 2<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a><br/>
 &nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> 13.<br/>
 <div class="togglescript" id="proofcontrol5" onclick="toggleDisplay('proof5');toggleDisplay('proofcontrol5')"><span class="show"></span></div>
 <div class="proofscript" id="proof5" onclick="toggleDisplay('proof5');toggleDisplay('proofcontrol5')">
 <span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">reflexivity</span>. <span class="id" title="keyword">Qed</span>.<br/>
 </div>
 <span class="id" title="keyword">Example</span> <a id="aexp2" class="idref" href="#aexp2"><span class="id" title="definition">aexp2</span></a> :<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#aeval"><span class="id" title="definition">aeval</span></a> (<a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Maps.html#630986d105c0f1782d085b9a306379a<sub>7</sub>"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 5 <a class="idref" href="Maps.html#630986d105c0f1782d085b9a306379a<sub>7</sub>"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#Y"><span class="id" title="definition">Y</span></a> <a class="idref" href="Imp.html#c78e6ed7f05f8146dc2bcb368255bece"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 4) <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Imp.html#Z"><span class="id" title="definition">Z</span></a> <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> <a class="idref" href="Imp.html#Y"><span class="id" title="definition">Y</span></a><a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#aeval"><span class="id" title="definition">aeval</span></a> (<a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Maps.html#630986d105c0f1782d085b9a306379a<sub>7</sub>"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 5 <a class="idref" href="Maps.html#630986d105c0f1782d085b9a306379a<sub>7</sub>"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#Y"><span class="id" title="definition">Y</span></a> <a class="idref" href="Imp.html#c78e6ed7f05f8146dc2bcb368255bece"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 4) <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Imp.html#Z"><span class="id" title="definition">Z</span></a> <a class="idref" href="Imp.html#ad27fd091d9c8494ce7e5135135d19a<sub>8</sub>"><span class="id" title="notation">+</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> <a class="idref" href="Imp.html#Y"><span class="id" title="definition">Y</span></a><a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a><br/>
 &nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> 20.<br/>
 <div class="togglescript" id="proofcontrol6" onclick="toggleDisplay('proof6');toggleDisplay('proofcontrol6')"><span class="show"></span></div>
 <div class="proofscript" id="proof6" onclick="toggleDisplay('proof6');toggleDisplay('proofcontrol6')">
@@ -1626,7 +1624,7 @@ Also, we can add a notation for a "singleton state" with just one
 
 <br/>
 <span class="id" title="keyword">Example</span> <a id="bexp1" class="idref" href="#bexp1"><span class="id" title="definition">bexp1</span></a> :<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#beval"><span class="id" title="definition">beval</span></a> (<a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#c78e6ed7f05f8146dc2bcb368255bece"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 5) <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Imp.html#:com::'true'"><span class="id" title="notation">true</span></a> <a class="idref" href="Imp.html#:com::x_'&amp;&amp;'_x"><span class="id" title="notation">&amp;&amp;</span></a> <a class="idref" href="Imp.html#dfe50505b2b595242030c436d0d7d15f"><span class="id" title="notation">¬</span></a><a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#d43f15edd52d29ae8e0f90730a25ed5c"><span class="id" title="notation">≤</span></a> 4<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#beval"><span class="id" title="definition">beval</span></a> (<a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#c78e6ed7f05f8146dc2bcb368255bece"><span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span></a> 5) <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Imp.html#:com::'true'"><span class="id" title="notation">true</span></a> <a class="idref" href="Imp.html#:com::x_'&amp;&amp;'_x"><span class="id" title="notation">&amp;&amp;</span></a> <a class="idref" href="Imp.html#dfe50505b2b595242030c436d0d7d15f"><span class="id" title="notation">¬</span></a><a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#d43f15edd52d29ae8e0f90730a25ed5c"><span class="id" title="notation">≤</span></a> 4<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a><br/>
 &nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Imp.html#:::'true'"><span class="id" title="notation">true</span></a>.<br/>
 <div class="togglescript" id="proofcontrol7" onclick="toggleDisplay('proof7');toggleDisplay('proofcontrol7')"><span class="show"></span></div>
 <div class="proofscript" id="proof7" onclick="toggleDisplay('proof7');toggleDisplay('proofcontrol7')">
@@ -1635,7 +1633,7 @@ Also, we can add a notation for a "singleton state" with just one
 </div>
 
 <div class="doc">
-<a id="lab405"></a><h1 class="section">Commands</h1>
+<a id="lab409"></a><h1 class="section">Commands</h1>
 
 <div class="paragraph"> </div>
 
@@ -1644,7 +1642,7 @@ Also, we can add a notation for a "singleton state" with just one
 </div>
 
 <div class="doc">
-<a id="lab406"></a><h2 class="section">Syntax</h2>
+<a id="lab410"></a><h2 class="section">Syntax</h2>
 
 <div class="paragraph"> </div>
 
@@ -1679,29 +1677,30 @@ As we did for expressions, we can use a few <span class="inlinecode"><span class
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Notation</span> <a id=":com:com_scope:'skip'" class="idref" href="#:com:com_scope:'skip'"><span class="id" title="notation">&quot;</span></a>'skip'"  :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#CSkip"><span class="id" title="constructor">CSkip</span></a> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id="91e9aa710642047a93142bdf557f1a1b" class="idref" href="#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">&quot;</span></a>x := y"  :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="Imp.html#CAsgn"><span class="id" title="constructor">CAsgn</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">x</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 85, <span class="id" title="keyword">no</span> <span class="id" title="keyword">associativity</span>) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id="313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>" class="idref" href="#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">&quot;</span></a>x ; y" :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="Imp.html#CSeq"><span class="id" title="constructor">CSeq</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 90,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id=":com:com_scope:'if'_x_'then'_x_'else'_x_'end'" class="idref" href="#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">&quot;</span></a>'if' x 'then' y 'else' z 'end'" :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="Imp.html#CIf"><span class="id" title="constructor">CIf</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">z</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id=":com:com_scope:'while'_x_'do'_x_'end'" class="idref" href="#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">&quot;</span></a>'while' x 'do' y 'end'" :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="Imp.html#CWhile"><span class="id" title="constructor">CWhile</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99) : <span class="id" title="var">com_scope</span>.<br/>
+<span class="comment">(*&nbsp;SOON:&nbsp;(NOTATION&nbsp;NDS'25)<br/>
+&nbsp;&nbsp;&nbsp;I&nbsp;considered&nbsp;changing&nbsp;maps&nbsp;to&nbsp;also&nbsp;span&nbsp;multiple&nbsp;lines,&nbsp;but&nbsp;I<br/>
+&nbsp;&nbsp;&nbsp;have&nbsp;not&nbsp;attempted&nbsp;this&nbsp;yet,&nbsp;as&nbsp;this&nbsp;would&nbsp;have&nbsp;required&nbsp;changes<br/>
+&nbsp;&nbsp;&nbsp;in&nbsp;earlier&nbsp;chapters.&nbsp;*)</span><br/>
+<span class="id" title="keyword">Notation</span> <a id=":com:com_scope:'skip'" class="idref" href="#:com:com_scope:'skip'"><span class="id" title="notation">&quot;</span></a>'skip'"  := <a class="idref" href="Imp.html#CSkip"><span class="id" title="constructor">CSkip</span></a><br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0) : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id="91e9aa710642047a93142bdf557f1a1b" class="idref" href="#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">&quot;</span></a>x := y"  := (<a class="idref" href="Imp.html#CAsgn"><span class="id" title="constructor">CAsgn</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">x</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 85, <span class="id" title="keyword">no</span> <span class="id" title="keyword">associativity</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">format</span> "x  :=  y") : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id="313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>" class="idref" href="#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">&quot;</span></a>x ; y" := (<a class="idref" href="Imp.html#CSeq"><span class="id" title="constructor">CSeq</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 90,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">format</span> "'[v' x ; '/' y ']'") : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id=":com:com_scope:'if'_x_'then'_x_'else'_x_'end'" class="idref" href="#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">&quot;</span></a>'if' x 'then' y 'else' z 'end'" := (<a class="idref" href="Imp.html#CIf"><span class="id" title="constructor">CIf</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">z</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">format</span> "'[v' 'if'  x  'then' '/  ' y '/' 'else' '/  ' z '/' 'end' ']'") : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id=":com:com_scope:'while'_x_'do'_x_'end'" class="idref" href="#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">&quot;</span></a>'while' x 'do' y 'end'" := (<a class="idref" href="Imp.html#CWhile"><span class="id" title="constructor">CWhile</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">format</span> "'[v' 'while'  x  'do' '/  ' y '/' 'end' ']'") : <span class="id" title="var">com_scope</span>.<br/>
 </div>
 
 <div class="doc">
 For example, here is the factorial function again, written as a
-    formal Coq definition.  When this command terminates, the variable
+    formal Rocq definition.  When this command terminates, the variable
     <span class="inlinecode"><span class="id" title="var">Y</span></span> will contain the factorial of the initial value of <span class="inlinecode"><span class="id" title="var">X</span></span>. 
 </div>
 <div class="code">
@@ -1716,11 +1715,11 @@ For example, here is the factorial function again, written as a
 </div>
 
 <div class="doc">
-<a id="lab407"></a><h2 class="section">Desugaring Notations</h2>
+<a id="lab411"></a><h2 class="section">Desugaring Notations</h2>
 
 <div class="paragraph"> </div>
 
- Coq offers a rich set of features to manage the increasing
+ Rocq offers a rich set of features to manage the increasing
     complexity of the objects we work with, such as coercions and
     notations. However, their heavy usage can make it hard to
     understand what the expressions we enter actually mean. In such
@@ -1779,11 +1778,11 @@ For example, here is the factorial function again, written as a
 </div>
 
 <div class="doc">
-<a id="lab408"></a><h2 class="section"><span class="inlinecode"><span class="id" title="keyword">Locate</span></span> Again</h2>
+<a id="lab412"></a><h2 class="section"><span class="inlinecode"><span class="id" title="keyword">Locate</span></span> Again</h2>
 
 <div class="paragraph"> </div>
 
-<a id="lab409"></a><h3 class="section">Finding identifiers</h3>
+<a id="lab413"></a><h3 class="section">Finding identifiers</h3>
 
 <div class="paragraph"> </div>
 
@@ -1805,7 +1804,7 @@ For example, here is the factorial function again, written as a
 </div>
 
 <div class="doc">
-<a id="lab410"></a><h3 class="section">Finding notations</h3>
+<a id="lab414"></a><h3 class="section">Finding notations</h3>
 
 <div class="paragraph"> </div>
 
@@ -1823,25 +1822,25 @@ For example, here is the factorial function again, written as a
 <span class="id" title="keyword">Locate</span> ";".<br/>
 <span class="comment">(*&nbsp;===&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Notation<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x&nbsp;'<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>&#x22A2;</span><span style='font-size:90%;'>&gt;</span></span></span></span>'&nbsp;v&nbsp;';'&nbsp;m"&nbsp;:=&nbsp;update&nbsp;m&nbsp;x&nbsp;v&nbsp;(default&nbsp;interpretation)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x&nbsp;;&nbsp;y"&nbsp;:=&nbsp;CSeq&nbsp;x&nbsp;y&nbsp;:&nbsp;com_scope&nbsp;(default&nbsp;interpretation)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x&nbsp;'!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>'&nbsp;v&nbsp;';'&nbsp;m"&nbsp;:=&nbsp;t_update&nbsp;m&nbsp;x&nbsp;v&nbsp;(default&nbsp;interpretation)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x&nbsp;'<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>&#x22A2;</span><span style='font-size:90%;'>&gt;</span></span></span></span>'&nbsp;v&nbsp;';'&nbsp;m"&nbsp;:=&nbsp;(update&nbsp;m&nbsp;x&nbsp;v)&nbsp;(default&nbsp;interpretation)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x&nbsp;;&nbsp;y"&nbsp;:=&nbsp;(CSeq&nbsp;x&nbsp;y)&nbsp;(default&nbsp;interpretation)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"x&nbsp;'!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>'&nbsp;v&nbsp;';'&nbsp;m"&nbsp;:=&nbsp;(t_update&nbsp;m&nbsp;x&nbsp;v)&nbsp;(default&nbsp;interpretation)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span class="inlinecode"></span> <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">;</span> <span class="inlinecode"><span class="id" title="var">y</span></span> <span class="inlinecode">;</span> <span class="inlinecode">..</span> <span class="inlinecode">;</span> <span class="inlinecode"><span class="id" title="var">z</span></span> <span class="inlinecode"></span>"&nbsp;:=&nbsp;cons&nbsp;x&nbsp;(cons&nbsp;y&nbsp;..&nbsp;(cons&nbsp;z&nbsp;nil)&nbsp;..)&nbsp;:&nbsp;list_scope<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(default&nbsp;interpretation)&nbsp;*)</span><br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Locate</span> "while".<br/>
 <span class="comment">(*&nbsp;===&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Notation<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"'while'&nbsp;x&nbsp;'do'&nbsp;y&nbsp;'end'"&nbsp;:=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CWhile&nbsp;x&nbsp;y&nbsp;:&nbsp;com_scope&nbsp;(default&nbsp;interpretation)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(CWhile&nbsp;x&nbsp;y)&nbsp;(default&nbsp;interpretation)<br/>
 *)</span><br/>
 </div>
 
 <div class="doc">
-<a id="lab411"></a><h2 class="section">More Examples</h2>
+<a id="lab415"></a><h2 class="section">More Examples</h2>
 
 <div class="paragraph"> </div>
 
-<a id="lab412"></a><h3 class="section">Assignment:</h3>
+<a id="lab416"></a><h3 class="section">Assignment:</h3>
 
 </div>
 <div class="code">
@@ -1853,7 +1852,7 @@ For example, here is the factorial function again, written as a
 </div>
 
 <div class="doc">
-<a id="lab413"></a><h3 class="section">Loops</h3>
+<a id="lab417"></a><h3 class="section">Loops</h3>
 
 </div>
 <div class="code">
@@ -1872,7 +1871,7 @@ For example, here is the factorial function again, written as a
 </div>
 
 <div class="doc">
-<a id="lab414"></a><h3 class="section">An infinite loop:</h3>
+<a id="lab418"></a><h3 class="section">An infinite loop:</h3>
 
 </div>
 <div class="code">
@@ -1884,7 +1883,7 @@ For example, here is the factorial function again, written as a
 </div>
 
 <div class="doc">
-<a id="lab415"></a><h1 class="section">Evaluating Commands</h1>
+<a id="lab419"></a><h1 class="section">Evaluating Commands</h1>
 
 <div class="paragraph"> </div>
 
@@ -1894,7 +1893,7 @@ For example, here is the factorial function again, written as a
 </div>
 
 <div class="doc">
-<a id="lab416"></a><h2 class="section">Evaluation as a Function (Failed Attempt)</h2>
+<a id="lab420"></a><h2 class="section">Evaluation as a Function (Failed Attempt)</h2>
 
 <div class="paragraph"> </div>
 
@@ -1934,36 +1933,36 @@ In a more conventional functional programming language like OCaml or
                   else st
           end.
 </pre>
-    Coq doesn't accept such a definition ("Error: Cannot guess
+    Rocq doesn't accept such a definition ("Error: Cannot guess
     decreasing argument of fix") because the function we want to
     define is not guaranteed to terminate. Indeed, it <i>doesn't</i> always
     terminate: for example, the full version of the <span class="inlinecode"><span class="id" title="var">ceval_fun</span></span>
     function applied to the <span class="inlinecode"><span class="id" title="var">loop</span></span> program above would never
-    terminate. Since Coq aims to be not just a functional programming
+    terminate. Since Rocq aims to be not just a functional programming
     language but also a consistent logic, any potentially
     non-terminating function needs to be rejected.
 
 <div class="paragraph"> </div>
 
-    Here is an example showing what would go wrong if Coq allowed
+    Here is an example showing what would go wrong if Rocq allowed
     non-terminating recursive functions:
 <pre>
          Fixpoint loop_false (n : nat) : False := loop_false n.
 </pre>
     That is, propositions like <span class="inlinecode"><span class="id" title="var">False</span></span> would become provable
     (<span class="inlinecode"><span class="id" title="var">loop_false</span></span> <span class="inlinecode">0</span> would be a proof of <span class="inlinecode"><span class="id" title="var">False</span></span>), which would be
-    a disaster for Coq's logical consistency.
+    a disaster for Rocq's logical consistency.
 
 <div class="paragraph"> </div>
 
     Thus, because it doesn't terminate on all inputs, <span class="inlinecode"><span class="id" title="var">ceval_fun</span></span>
-    cannot be written in Coq -- at least not without additional tricks
+    cannot be written in Rocq -- at least not without additional tricks
     and workarounds (see chapter <a href="ImpCEvalFun.html"><span class="inlineref">ImpCEvalFun</span></a> if you're curious
     about those). 
 </div>
 
 <div class="doc">
-<a id="lab417"></a><h2 class="section">Evaluation as a Relation</h2>
+<a id="lab421"></a><h2 class="section">Evaluation as a Relation</h2>
 
 <div class="paragraph"> </div>
 
@@ -1986,7 +1985,7 @@ In a more conventional functional programming language like OCaml or
     pronounced "<span class="inlinecode"><span class="id" title="var">c</span></span> takes state <span class="inlinecode"><span class="id" title="var">st</span></span> to <span class="inlinecode"><span class="id" title="var">st'</span></span>". 
 <div class="paragraph"> </div>
 
-<a id="lab418"></a><h3 class="section">Operational Semantics</h3>
+<a id="lab422"></a><h3 class="section">Operational Semantics</h3>
 
 <div class="paragraph"> </div>
 
@@ -2138,21 +2137,21 @@ In a more conventional functional programming language like OCaml or
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#st':244"><span class="id" title="variable">st'</span></a> <a class="idref" href="Imp.html#6037d1f4787d63984beccd5510872ee<sub>9</sub>"><span class="id" title="notation">=[</span></a> <a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">while</span></a> <a class="idref" href="Imp.html#b:246"><span class="id" title="variable">b</span></a> <a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">do</span></a> <a class="idref" href="Imp.html#c:247"><span class="id" title="variable">c</span></a> <a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">end</span></a> <a class="idref" href="Imp.html#6037d1f4787d63984beccd5510872ee<sub>9</sub>"><span class="id" title="notation">]=&gt;</span></a> <a class="idref" href="Imp.html#st'':245"><span class="id" title="variable">st''</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#st:243"><span class="id" title="variable">st</span></a>  <a class="idref" href="Imp.html#6037d1f4787d63984beccd5510872ee<sub>9</sub>"><span class="id" title="notation">=[</span></a> <a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">while</span></a> <a class="idref" href="Imp.html#b:246"><span class="id" title="variable">b</span></a> <a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">do</span></a> <a class="idref" href="Imp.html#c:247"><span class="id" title="variable">c</span></a> <a class="idref" href="Imp.html#:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">end</span></a> <a class="idref" href="Imp.html#6037d1f4787d63984beccd5510872ee<sub>9</sub>"><span class="id" title="notation">]=&gt;</span></a> <a class="idref" href="Imp.html#st'':245"><span class="id" title="variable">st''</span></a><br/>
 <br/>
-&nbsp;&nbsp;<span class="id" title="keyword">where</span> <a id="6037d1f4787d63984beccd5510872ee<sub>9</sub>" class="idref" href="#6037d1f4787d63984beccd5510872ee<sub>9</sub>"><span class="id" title="notation">&quot;</span></a>st =[ c ]=&gt; st'" := (<a class="idref" href="Imp.html#ceval:219"><span class="id" title="inductive">ceval</span></a> <span class="id" title="var">c</span> <span class="id" title="var">st</span> <span class="id" title="var">st'</span>).<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">where</span> <a id="6037d1f4787d63984beccd5510872ee<sub>9</sub>" class="idref" href="#6037d1f4787d63984beccd5510872ee<sub>9</sub>"><span class="id" title="notation">&quot;</span></a>st<sub>0</sub> =[ c ]=&gt; st<sub>1</sub>" := (<a class="idref" href="Imp.html#ceval:219"><span class="id" title="inductive">ceval</span></a> <span class="id" title="var">c</span> <span class="id" title="var">st<sub>0</sub></span> <span class="id" title="var">st<sub>1</sub></span>).<br/>
 </div>
 
 <div class="doc">
 The cost of defining evaluation as a relation instead of a
     function is that we now need to construct a <i>proof</i> that some
     program evaluates to some result state, rather than just letting
-    Coq's computation mechanism do it for us. 
+    Rocq's computation mechanism do it for us. 
 </div>
 <div class="code">
 
 <span class="id" title="keyword">Example</span> <a id="ceval_example1" class="idref" href="#ceval_example1"><span class="id" title="definition">ceval_example1</span></a>:<br/>
 &nbsp;&nbsp;<a class="idref" href="Imp.html#empty_st"><span class="id" title="definition">empty_st</span></a> <a class="idref" href="Imp.html#6037d1f4787d63984beccd5510872ee<sub>9</sub>"><span class="id" title="notation">=[</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> 2<a class="idref" href="Imp.html#313afe74ec81f2da17d8e7bca3b042e<sub>7</sub>"><span class="id" title="notation">;</span></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">if</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#d43f15edd52d29ae8e0f90730a25ed5c"><span class="id" title="notation">≤</span></a> 1<a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">if</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a><a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#d43f15edd52d29ae8e0f90730a25ed5c"><span class="id" title="notation">≤</span></a> 1<a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">then</span></a> <a class="idref" href="Imp.html#Y"><span class="id" title="definition">Y</span></a> <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> 3<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">else</span></a> <a class="idref" href="Imp.html#Z"><span class="id" title="definition">Z</span></a> <a class="idref" href="Imp.html#91e9aa710642047a93142bdf557f1a1b"><span class="id" title="notation">:=</span></a> 4<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">end</span></a><br/>
@@ -2170,7 +2169,7 @@ The cost of defining evaluation as a relation instead of a
 </div>
 
 <div class="doc">
-<a id="lab419"></a><h4 class="section">Exercise: 2 stars, standard (ceval_example2)</h4>
+<a id="lab423"></a><h4 class="section">Exercise: 2 stars, standard (ceval_example2)</h4>
 
 </div>
 <div class="code">
@@ -2192,7 +2191,7 @@ The cost of defining evaluation as a relation instead of a
 </div>
 
 <div class="doc">
-<a id="lab420"></a><h4 class="section">Exercise: 3 stars, standard, optional (pup_to_n)</h4>
+<a id="lab424"></a><h4 class="section">Exercise: 3 stars, standard, optional (pup_to_n)</h4>
  Write an Imp program that sums the numbers from <span class="inlinecode">1</span> to <span class="inlinecode"><span class="id" title="var">X</span></span>
     (inclusive: <span class="inlinecode">1</span> <span class="inlinecode">+</span> <span class="inlinecode">2</span> <span class="inlinecode">+</span> <span class="inlinecode">...</span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" title="var">X</span></span>) in the variable <span class="inlinecode"><span class="id" title="var">Y</span></span>.  Your program
     should update the state as shown in theorem <span class="inlinecode"><span class="id" title="var">pup_to_2_ceval</span></span>,
@@ -2214,7 +2213,7 @@ The cost of defining evaluation as a relation instead of a
 
 
 <div class="doc">
-<a id="lab421"></a><h2 class="section">Determinism of Evaluation</h2>
+<a id="lab425"></a><h2 class="section">Determinism of Evaluation</h2>
 
 <div class="paragraph"> </div>
 
@@ -2269,7 +2268,7 @@ The cost of defining evaluation as a relation instead of a
 </div>
 
 <div class="doc">
-<a id="lab422"></a><h1 class="section">Reasoning About Imp Programs</h1>
+<a id="lab426"></a><h1 class="section">Reasoning About Imp Programs</h1>
 
 <div class="paragraph"> </div>
 
@@ -2290,7 +2289,7 @@ The cost of defining evaluation as a relation instead of a
 </div>
 
 <div class="doc">
-Inverting <span class="inlinecode"><span class="id" title="var">Heval</span></span> essentially forces Coq to expand one step of
+Inverting <span class="inlinecode"><span class="id" title="var">Heval</span></span> essentially forces Rocq to expand one step of
       the <span class="inlinecode"><span class="id" title="var">ceval</span></span> computation -- in this case revealing that <span class="inlinecode"><span class="id" title="var">st'</span></span>
       must be <span class="inlinecode"><span class="id" title="var">st</span></span> extended with the new value of <span class="inlinecode"><span class="id" title="var">X</span></span>, since <span class="inlinecode"><span class="id" title="var">plus2</span></span>
       is an assignment. 
@@ -2302,7 +2301,7 @@ Inverting <span class="inlinecode"><span class="id" title="var">Heval</span></sp
 </div>
 
 <div class="doc">
-<a id="lab423"></a><h4 class="section">Exercise: 3 stars, standard, optional (XtimesYinZ_spec)</h4>
+<a id="lab427"></a><h4 class="section">Exercise: 3 stars, standard, optional (XtimesYinZ_spec)</h4>
  State and prove a specification of <span class="inlinecode"><span class="id" title="var">XtimesYinZ</span></span>. 
 </div>
 <div class="code">
@@ -2316,7 +2315,7 @@ Inverting <span class="inlinecode"><span class="id" title="var">Heval</span></sp
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab424"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (loop_never_stops)</h4>
+<a id="lab428"></a><h4 class="section">Exercise: 3 stars, standard, especially useful (loop_never_stops)</h4>
 
 </div>
 <div class="code">
@@ -2343,7 +2342,7 @@ Proceed by induction on the assumed derivation showing that
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab425"></a><h4 class="section">Exercise: 3 stars, standard (no_whiles_eqv)</h4>
+<a id="lab429"></a><h4 class="section">Exercise: 3 stars, standard (no_whiles_eqv)</h4>
  Consider the following function: 
 </div>
 <div class="code">
@@ -2384,7 +2383,7 @@ This predicate yields <span class="inlinecode"><span class="id" title="var">true
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab426"></a><h4 class="section">Exercise: 4 stars, standard (no_whiles_terminating)</h4>
+<a id="lab430"></a><h4 class="section">Exercise: 4 stars, standard (no_whiles_terminating)</h4>
  Imp programs that don't involve while loops always terminate.
     State and prove a theorem <span class="inlinecode"><span class="id" title="var">no_whiles_terminating</span></span> that says this.  Use either <span class="inlinecode"><span class="id" title="var">no_whiles</span></span> or <span class="inlinecode"><span class="id" title="var">no_whilesR</span></span>, as you prefer. 
 </div>
@@ -2398,11 +2397,11 @@ This predicate yields <span class="inlinecode"><span class="id" title="var">true
 
 
 <div class="doc">
-<a id="lab427"></a><h1 class="section">Additional Exercises</h1>
+<a id="lab431"></a><h1 class="section">Additional Exercises</h1>
 
 <div class="paragraph"> </div>
 
-<a id="lab428"></a><h4 class="section">Exercise: 3 stars, standard (stack_compiler)</h4>
+<a id="lab432"></a><h4 class="section">Exercise: 3 stars, standard (stack_compiler)</h4>
  Old HP Calculators, programming languages like Forth and Postscript,
     and abstract machines like the Java Virtual Machine all evaluate
     arithmetic expressions using a <i>stack</i>. For instance, the expression
@@ -2518,7 +2517,7 @@ After you've defined <span class="inlinecode"><span class="id" title="var">s_com
 <div class="code">
 
 <span class="id" title="keyword">Example</span> <a id="s_compile1" class="idref" href="#s_compile1"><span class="id" title="definition">s_compile1</span></a> :<br/>
-&nbsp;&nbsp;<a class="idref" href="Imp.html#s_compile"><span class="id" title="axiom">s_compile</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#:com::x_'-'_x"><span class="id" title="notation">-</span></a> <a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">(</span></a>2 <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> <a class="idref" href="Imp.html#Y"><span class="id" title="definition">Y</span></a><a class="idref" href="Imp.html#5a96623d056c293ebbcdf03005796e<sub>09</sub>"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a><br/>
+&nbsp;&nbsp;<a class="idref" href="Imp.html#s_compile"><span class="id" title="axiom">s_compile</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">&lt;{</span></a> <a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a> <a class="idref" href="Imp.html#:com::x_'-'_x"><span class="id" title="notation">-</span></a> <a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">(</span></a>2 <a class="idref" href="Imp.html#a73c7b35e67094dc8ae672f3a93da066"><span class="id" title="notation">×</span></a> <a class="idref" href="Imp.html#Y"><span class="id" title="definition">Y</span></a><a class="idref" href="Imp.html#580550f3f61a5037a1d7c9e0a8b2f874"><span class="id" title="notation">)</span></a> <a class="idref" href="Imp.html#23430cd9e427d30c054d4f029e39cb7f"><span class="id" title="notation">}&gt;</span></a><br/>
 &nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#e76c6291366b599375c28eba0aae94bb"><span class="id" title="notation">[</span></a><a class="idref" href="Imp.html#SLoad"><span class="id" title="constructor">SLoad</span></a> <a class="idref" href="Imp.html#X"><span class="id" title="definition">X</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#e76c6291366b599375c28eba0aae94bb"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#SPush"><span class="id" title="constructor">SPush</span></a> 2<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#e76c6291366b599375c28eba0aae94bb"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#SLoad"><span class="id" title="constructor">SLoad</span></a> <a class="idref" href="Imp.html#Y"><span class="id" title="definition">Y</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#e76c6291366b599375c28eba0aae94bb"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#SMult"><span class="id" title="constructor">SMult</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#e76c6291366b599375c28eba0aae94bb"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#SMinus"><span class="id" title="constructor">SMinus</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#e76c6291366b599375c28eba0aae94bb"><span class="id" title="notation">]</span></a>.<br/>
 <span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" title="var">Admitted</span>.<br/>
 <font size=-2>&#9744;</font>
@@ -2527,7 +2526,7 @@ After you've defined <span class="inlinecode"><span class="id" title="var">s_com
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab429"></a><h4 class="section">Exercise: 3 stars, standard (execute_app)</h4>
+<a id="lab433"></a><h4 class="section">Exercise: 3 stars, standard (execute_app)</h4>
 
 <div class="paragraph"> </div>
 
@@ -2548,7 +2547,7 @@ After you've defined <span class="inlinecode"><span class="id" title="var">s_com
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab430"></a><h4 class="section">Exercise: 3 stars, standard (stack_compiler_correct)</h4>
+<a id="lab434"></a><h4 class="section">Exercise: 3 stars, standard (stack_compiler_correct)</h4>
 
 <div class="paragraph"> </div>
 
@@ -2580,7 +2579,7 @@ The main theorem should be a very easy corollary of that lemma.
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab431"></a><h4 class="section">Exercise: 3 stars, standard, optional (short_circuit)</h4>
+<a id="lab435"></a><h4 class="section">Exercise: 3 stars, standard, optional (short_circuit)</h4>
  Most modern programming languages use a "short-circuit" evaluation
     rule for boolean <span class="inlinecode"><span class="id" title="var">and</span></span>: to evaluate <span class="inlinecode"><span class="id" title="var">BAnd</span></span> <span class="inlinecode"><span class="id" title="var">b<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">b<sub>2</sub></span></span>, first evaluate
     <span class="inlinecode"><span class="id" title="var">b<sub>1</sub></span></span>.  If it evaluates to <span class="inlinecode"><span class="id" title="var">false</span></span>, then the entire <span class="inlinecode"><span class="id" title="var">BAnd</span></span>
@@ -2610,7 +2609,7 @@ The main theorem should be a very easy corollary of that lemma.
 </div>
 
 <div class="doc">
-<a id="lab432"></a><h4 class="section">Exercise: 4 stars, advanced (break_imp)</h4>
+<a id="lab436"></a><h4 class="section">Exercise: 4 stars, standard, optional (break_imp)</h4>
  Imperative languages like C and Java often include a <span class="inlinecode"><span class="id" title="var">break</span></span> or
     similar statement for interrupting the execution of loops. In this
     exercise we consider how to add <span class="inlinecode"><span class="id" title="var">break</span></span> to Imp.  First, we need to
@@ -2625,23 +2624,22 @@ The main theorem should be a very easy corollary of that lemma.
 &nbsp;&nbsp;| <a id="BreakImp.CSeq" class="idref" href="#BreakImp.CSeq"><span class="id" title="constructor">CSeq</span></a> (<a id="c<sub>1</sub>:286" class="idref" href="#c<sub>1</sub>:286"><span class="id" title="binder">c<sub>1</sub></span></a> <a id="c<sub>2</sub>:287" class="idref" href="#c<sub>2</sub>:287"><span class="id" title="binder">c<sub>2</sub></span></a> : <a class="idref" href="Imp.html#com:282"><span class="id" title="inductive">com</span></a>)<br/>
 &nbsp;&nbsp;| <a id="BreakImp.CIf" class="idref" href="#BreakImp.CIf"><span class="id" title="constructor">CIf</span></a> (<a id="b:288" class="idref" href="#b:288"><span class="id" title="binder">b</span></a> : <a class="idref" href="Imp.html#bexp"><span class="id" title="inductive">bexp</span></a>) (<a id="c<sub>1</sub>:289" class="idref" href="#c<sub>1</sub>:289"><span class="id" title="binder">c<sub>1</sub></span></a> <a id="c<sub>2</sub>:290" class="idref" href="#c<sub>2</sub>:290"><span class="id" title="binder">c<sub>2</sub></span></a> : <a class="idref" href="Imp.html#com:282"><span class="id" title="inductive">com</span></a>)<br/>
 &nbsp;&nbsp;| <a id="BreakImp.CWhile" class="idref" href="#BreakImp.CWhile"><span class="id" title="constructor">CWhile</span></a> (<a id="b:291" class="idref" href="#b:291"><span class="id" title="binder">b</span></a> : <a class="idref" href="Imp.html#bexp"><span class="id" title="inductive">bexp</span></a>) (<a id="c:292" class="idref" href="#c:292"><span class="id" title="binder">c</span></a> : <a class="idref" href="Imp.html#com:282"><span class="id" title="inductive">com</span></a>).<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Notation</span> <a id="BreakImp.:com::'break'" class="idref" href="#BreakImp.:com::'break'"><span class="id" title="notation">&quot;</span></a>'break'" := <a class="idref" href="Imp.html#BreakImp.CBreak"><span class="id" title="constructor">CBreak</span></a> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0).<br/>
-<span class="id" title="keyword">Notation</span> <a id="BreakImp.:com:com_scope:'skip'" class="idref" href="#BreakImp.:com:com_scope:'skip'"><span class="id" title="notation">&quot;</span></a>'skip'"  :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#BreakImp.CSkip"><span class="id" title="constructor">CSkip</span></a> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id="6bf84ee0220c3a3f4df8e9da0b95f172" class="idref" href="#6bf84ee0220c3a3f4df8e9da0b95f172"><span class="id" title="notation">&quot;</span></a>x := y"  :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="Imp.html#BreakImp.CAsgn"><span class="id" title="constructor">CAsgn</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">x</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 85, <span class="id" title="keyword">no</span> <span class="id" title="keyword">associativity</span>) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id="9693f1fd6e0ff7b00e2ee85219ea9702" class="idref" href="#9693f1fd6e0ff7b00e2ee85219ea9702"><span class="id" title="notation">&quot;</span></a>x ; y" :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="Imp.html#BreakImp.CSeq"><span class="id" title="constructor">CSeq</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 90, <span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id="BreakImp.:com:com_scope:'if'_x_'then'_x_'else'_x_'end'" class="idref" href="#BreakImp.:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">&quot;</span></a>'if' x 'then' y 'else' z 'end'" :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="Imp.html#BreakImp.CIf"><span class="id" title="constructor">CIf</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">z</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99) : <span class="id" title="var">com_scope</span>.<br/>
-<span class="id" title="keyword">Notation</span> <a id="BreakImp.:com:com_scope:'while'_x_'do'_x_'end'" class="idref" href="#BreakImp.:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">&quot;</span></a>'while' x 'do' y 'end'" :=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<a class="idref" href="Imp.html#BreakImp.CWhile"><span class="id" title="constructor">CWhile</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99) : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id="BreakImp.:com:com_scope:'break'" class="idref" href="#BreakImp.:com:com_scope:'break'"><span class="id" title="notation">&quot;</span></a>'break'" := <a class="idref" href="Imp.html#BreakImp.CBreak"><span class="id" title="constructor">CBreak</span></a> (<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0) : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id="BreakImp.:com:com_scope:'skip'" class="idref" href="#BreakImp.:com:com_scope:'skip'"><span class="id" title="notation">&quot;</span></a>'skip'"  := <a class="idref" href="Imp.html#BreakImp.CSkip"><span class="id" title="constructor">CSkip</span></a><br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0) : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id="6bf84ee0220c3a3f4df8e9da0b95f172" class="idref" href="#6bf84ee0220c3a3f4df8e9da0b95f172"><span class="id" title="notation">&quot;</span></a>x := y"  := (<a class="idref" href="Imp.html#BreakImp.CAsgn"><span class="id" title="constructor">CAsgn</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">x</span> <span class="id" title="keyword">constr</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 0, <span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 85, <span class="id" title="keyword">no</span> <span class="id" title="keyword">associativity</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">format</span> "x  :=  y") : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id="9693f1fd6e0ff7b00e2ee85219ea9702" class="idref" href="#9693f1fd6e0ff7b00e2ee85219ea9702"><span class="id" title="notation">&quot;</span></a>x ; y" := (<a class="idref" href="Imp.html#BreakImp.CSeq"><span class="id" title="constructor">CSeq</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 90,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">right</span> <span class="id" title="keyword">associativity</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">format</span> "'[v' x ; '/' y ']'") : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id="BreakImp.:com:com_scope:'if'_x_'then'_x_'else'_x_'end'" class="idref" href="#BreakImp.:com:com_scope:'if'_x_'then'_x_'else'_x_'end'"><span class="id" title="notation">&quot;</span></a>'if' x 'then' y 'else' z 'end'" := (<a class="idref" href="Imp.html#BreakImp.CIf"><span class="id" title="constructor">CIf</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">z</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">format</span> "'[v' 'if'  x  'then' '/  ' y '/' 'else' '/  ' z '/' 'end' ']'") : <span class="id" title="var">com_scope</span>.<br/>
+<span class="id" title="keyword">Notation</span> <a id="BreakImp.:com:com_scope:'while'_x_'do'_x_'end'" class="idref" href="#BreakImp.:com:com_scope:'while'_x_'do'_x_'end'"><span class="id" title="notation">&quot;</span></a>'while' x 'do' y 'end'" := (<a class="idref" href="Imp.html#BreakImp.CWhile"><span class="id" title="constructor">CWhile</span></a> <span class="id" title="var">x</span> <span class="id" title="var">y</span>)<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 89, <span class="id" title="var">x</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99, <span class="id" title="var">y</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">format</span> "'[v' 'while'  x  'do' '/  ' y '/' 'end' ']'") : <span class="id" title="var">com_scope</span>.<br/>
 </div>
 
 <div class="doc">
@@ -2777,7 +2775,7 @@ Now prove the following properties of your definition of <span class="inlinecode
 <div class="code">
 
 <span class="id" title="keyword">Theorem</span> <a id="BreakImp.break_ignore" class="idref" href="#BreakImp.break_ignore"><span class="id" title="lemma">break_ignore</span></a> : <span class="id" title="keyword">∀</span> <a id="c:298" class="idref" href="#c:298"><span class="id" title="binder">c</span></a> <a id="st:299" class="idref" href="#st:299"><span class="id" title="binder">st</span></a> <a id="st':300" class="idref" href="#st':300"><span class="id" title="binder">st'</span></a> <a id="s:301" class="idref" href="#s:301"><span class="id" title="binder">s</span></a>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#st:299"><span class="id" title="variable">st</span></a> <a class="idref" href="Imp.html#2b326eb0d5dcd2404a8e7abc4d2a6400"><span class="id" title="notation">=[</span></a> <a class="idref" href="Imp.html#BreakImp.:com::'break'"><span class="id" title="notation">break</span></a><a class="idref" href="Imp.html#9693f1fd6e0ff7b00e2ee85219ea9702"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#c:298"><span class="id" title="variable">c</span></a> <a class="idref" href="Imp.html#2b326eb0d5dcd2404a8e7abc4d2a6400"><span class="id" title="notation">]=&gt;</span></a> <a class="idref" href="Imp.html#st':300"><span class="id" title="variable">st'</span></a> <a class="idref" href="Imp.html#2b326eb0d5dcd2404a8e7abc4d2a6400"><span class="id" title="notation">/</span></a> <a class="idref" href="Imp.html#s:301"><span class="id" title="variable">s</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#st:299"><span class="id" title="variable">st</span></a> <a class="idref" href="Imp.html#2b326eb0d5dcd2404a8e7abc4d2a6400"><span class="id" title="notation">=[</span></a> <a class="idref" href="Imp.html#BreakImp.:com:com_scope:'break'"><span class="id" title="notation">break</span></a><a class="idref" href="Imp.html#9693f1fd6e0ff7b00e2ee85219ea9702"><span class="id" title="notation">;</span></a> <a class="idref" href="Imp.html#c:298"><span class="id" title="variable">c</span></a> <a class="idref" href="Imp.html#2b326eb0d5dcd2404a8e7abc4d2a6400"><span class="id" title="notation">]=&gt;</span></a> <a class="idref" href="Imp.html#st':300"><span class="id" title="variable">st'</span></a> <a class="idref" href="Imp.html#2b326eb0d5dcd2404a8e7abc4d2a6400"><span class="id" title="notation">/</span></a> <a class="idref" href="Imp.html#s:301"><span class="id" title="variable">s</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="Imp.html#st:299"><span class="id" title="variable">st</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="Imp.html#st':300"><span class="id" title="variable">st'</span></a>.<br/>
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" title="var">Admitted</span>.<br/><hr class='doublespaceincode'/>
@@ -2809,7 +2807,7 @@ Now prove the following properties of your definition of <span class="inlinecode
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab433"></a><h4 class="section">Exercise: 3 stars, advanced, optional (while_break_true)</h4>
+<a id="lab437"></a><h4 class="section">Exercise: 3 stars, advanced, optional (while_break_true)</h4>
 
 </div>
 <div class="code">
@@ -2825,7 +2823,7 @@ Now prove the following properties of your definition of <span class="inlinecode
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab434"></a><h4 class="section">Exercise: 4 stars, advanced, optional (ceval_deterministic)</h4>
+<a id="lab438"></a><h4 class="section">Exercise: 4 stars, advanced, optional (ceval_deterministic)</h4>
 
 </div>
 <div class="code">
@@ -2843,11 +2841,11 @@ Now prove the following properties of your definition of <span class="inlinecode
 </div>
 
 <div class="doc">
-<a id="lab435"></a><h4 class="section">Exercise: 4 stars, standard, optional (add_for_loop)</h4>
+<a id="lab439"></a><h4 class="section">Exercise: 4 stars, standard, optional (add_for_loop)</h4>
  Add C-style <span class="inlinecode"><span class="id" title="keyword">for</span></span> loops to the language of commands, update the
     <span class="inlinecode"><span class="id" title="var">ceval</span></span> definition to define the semantics of <span class="inlinecode"><span class="id" title="keyword">for</span></span> loops, and add
     cases for <span class="inlinecode"><span class="id" title="keyword">for</span></span> loops as needed so that all the proofs in this
-    file are accepted by Coq.
+    file are accepted by Rocq.
 
 <div class="paragraph"> </div>
 
@@ -2867,7 +2865,7 @@ Now prove the following properties of your definition of <span class="inlinecode
 
 <div class="code">
 
-<span class="comment">(*&nbsp;2025-08-24&nbsp;14:26&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2025-12-26&nbsp;08:35&nbsp;*)</span><br/>
 </div>
 </div>
 
