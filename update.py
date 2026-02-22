@@ -73,7 +73,8 @@ def replace_folder(tar_path, folder_path):
         tar_path (str): A path to tar file, which must contain the leaf folder of folder_path
         folder_path (str): A path to the folder to be replaced
     """
-    shutil.rmtree(folder_path)
+    if os.path.exists(folder_path):
+        shutil.rmtree(folder_path)
     os.makedirs(folder_path, exist_ok=True)
     with tarfile.open(tar_path, "r:*") as tar:
         tar.extractall(path=os.path.join(folder_path, ".."), **EXTRACT_ALL_KWARGS)
@@ -163,7 +164,7 @@ def create_commit_message(updates):
 
     for volume in updates.keys():
         meta = updates[volume]
-        message += f"* {volume.upper()+':':4} v{meta['prev_version']:5} -> v{meta['version']}\n"
+        message += f"* {volume.upper()+':':4} {'v' if meta['prev_version'] else ''}{meta['prev_version']:5} -> v{meta['version']}\n"
 
     return message
 
@@ -180,7 +181,10 @@ def process_toml(toml_path, prefix='src', tgz_dir='.'):
         for volume in data[date].keys():
             tar_file = f"{volume}-{data[date][volume]}.tgz"
             target_path = os.path.join(prefix, volume)
-            prev_meta = extract_metadata(target_path)
+            if os.path.exists(target_path):
+                prev_meta = extract_metadata(target_path)
+            else:
+                prev_meta = {'version': ''}
             replace_folder(os.path.join(tgz_dir, tar_file), target_path)
             update = updates.setdefault(datestr, {})
             update[volume] = extract_metadata(target_path)
